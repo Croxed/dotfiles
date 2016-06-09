@@ -1,6 +1,9 @@
 *.swp
 .vim/.netrwhist
 .i3/config.vanilla
+.vim/autoload
+.vim/plugged
+.vim/undo
 */__pycache__
 *.pyc
 
