@@ -48,10 +48,6 @@ fi
 
 ask "Install packages?" Y && bash ./dependencies-${distro}
 
-ask "Install python2 modules?" Y && {
-  sudo pip2 install pyyaml
-}
-
 ask "Install symlink for .gitconfig?" Y && ln -sfn ${dir}/.gitconfig ${HOME}/.gitconfig
 ask "Install symlink for .zsh?" Y && ln -sfn ${dir}/.zshrc ${HOME}/.zshrc
 ask "Install symlink for .ncmpcpp?" Y && ln -sfn ${dir}/.ncmpcpp ${HOME}/.ncmpcpp
