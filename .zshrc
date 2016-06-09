@@ -91,7 +91,6 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:17
 zplug "zsh-users/zsh-autosuggestions", nice:18
 zplug "rimraf/k"
 zplug "plugins/gitfast", from:oh-my-zsh, nice:15
-#zplug "themes/bira", from:oh-my-zsh, nice:16
 zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
 
 os="$(grep -i "PRETTY_NAME=" /etc/os-release | grep -oP 'PRETTY_NAME="\K[^"]+' 2> /dev/null)"
@@ -143,7 +142,7 @@ export DEFAULT_USER="Oscar"
 export DISABLE_CORRECTION=true
 #export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
 export DISABLE_UPDATE_PROMPT=true
-export EDITOR='nvim'
+export EDITOR='vim'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 
