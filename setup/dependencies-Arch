@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Installing prerequisites for apacman..."
+sudo pacman -S base-devel fakeroot jshon expac
+
+echo "Installing apacman..."
+mkdir /tmp/tmp-apacman
+cd /tmp/tmp-apacman
+wget https://aur.archlinux.org/packages/ap/apacman/PKGBUILD
+makepkg
+sudo pacman --noconfirm -U *.tar.xz
+cd -
+
+echo "Installing base packages..."
+apacman --noconfirm --noedit -S \
+  termite-git \
+  zsh  
+
+echo "Installing Python dependencies..."
+apacman --noconfirm --noedit -S \
+  python-basiciw \
+  python-netifaces \
+  python-yaml \
+  python-pillow \
+  python-urllib3 \
+  python2-suds
+
+echo "Installing window manager dependencies..."
+apacman --noconfirm --noedit -S \
+  xcb-util-keysyms \
+  xcb-util-wm \
+  xcb-util-cursor \
+  yajl \
+  startup-notification \
+  libev
+
+echo "Installing tools..."
+apacman --noconfirm --noedit -S \
+  i3-gaps \
+  i3lock \
+  i3blocks-gaps-git \
+  gsimplecal \
+  thunar \
+  feh \
+  acpi \
+  compton \
+  xdotool \
+  pulseaudio-ctl \
+  pavucontrol \
+  network-manager-applet \
+  networkmanager-openvpn \
+  imagemagick \
+  dunst \
+  python \
+  python-pip \
+  python2-pip \
+  compton-git \
+  ttf-font-awesome \
+  ohsnap \
+  ttf-hack \
+  powerline-fonts-git \
+  thunar \
+  weechat \
+  thunar-archive-plugin \
+  file-roller \
+  tumbler \
+  eog \
+  numix-themes \
+  numix-icon-theme-git \
+  tk \
+  spotify \
+  evince \
+  rofi \
+  libmtp \
+  gvfs-mtp \
+  xtitle-git \
+  openssh \
+  arandr \
+  xclip \
+  xedgewarp-git \
+  unclutter-xfixes-git \
+  thefuck \
+  youtube-dl \
+  slop \
+  maim \
+  neofetch-git \
+  w3m \
+  htop \
+  bluez \
+  bluez-utils \
+  pulseaudio-bluetooth \
+  blueman \
+  redshift \
+  google-chrome \
+  firefox \
+  lm_sensors \
+  atool \
+  bzip2 \
+  cpio \
+  gzip \
+  lha \
+  lzop \
+  p7zip \
+  tar \
+  unace \
+  unrar \
+  unzip \
+  xz \
+  zip
+
+echo "Installing some python stuff..."
+apacman --noconfirm --noedit -S \
+  python-pillow \
+  python-urllib3
+
+echo "Installing some perl stuff..."
+apacman --noconfirm --noedit -S \
+  perl-anyevent-i3 \
+  perl-json-xs \
