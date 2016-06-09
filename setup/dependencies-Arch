@@ -107,7 +107,8 @@ apacman --noconfirm --noedit -S \
   unrar \
   unzip \
   xz \
-  zip
+  zip \
+  ls++-git
 
 echo "Installing some python stuff..."
 apacman --noconfirm --noedit -S \
