@@ -61,7 +61,7 @@ ask "Install symlink for .compton.conf?" Y && ln -sfn ${dir}/.compton.conf ${HOM
 ask "Install symlink for .gtkrc-2.0?" Y && ln -sfn ${dir}/.gtkrc-2.0 ${HOME}/.gtkrc-2.0
 
 ask "Install symlink for .i3/?" Y && ln -sfn ${dir}/.i3 ${HOME}/.i3
-ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim
+ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ask "Install symlink for .zshrc.d/?" Y && ln -sfn ${dir}/.zshrc.d ${HOME}/.zshrc.d
 ask "Install symlink for .config/?" Y && mkdir -p ${HOME}/.config && ln -sfn ${dir}/.config/* ${HOME}/.config
 ask "Install symlink for .weechat/?" Y && ln -sfn ${dir}/.weechat ${HOME}/.weechat

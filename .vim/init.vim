@@ -1,1 +1,0 @@
-/home/oscar/.vim/vimrc
