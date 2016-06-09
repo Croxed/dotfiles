@@ -108,7 +108,8 @@ apacman --noconfirm --noedit -S \
   unzip \
   xz \
   zip \
-  ls++-git
+  ls++-git \
+  i3lock-fancy
 
 echo "Installing some python stuff..."
 apacman --noconfirm --noedit -S \
