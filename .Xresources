@@ -21,7 +21,6 @@ rofi.color-window: #282828, #ebdbb2
 rofi.bw: 1
 rofi.hide-scrollbar: true
 rofi.terminal: termite
-!rofi.location: 2
 rofi.padding: 5
 rofi.fuzzy: false
 
