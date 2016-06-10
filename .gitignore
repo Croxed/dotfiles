@@ -17,6 +17,7 @@
 !.config/i3lock
 !.config/termite
 !.config/wallpapers
+!.config/neofetch
 
 !.config/htop
 !.config/htop/htoprc
