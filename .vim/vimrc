@@ -137,13 +137,14 @@ call plug#end()            " required
 syntax on
 
 " Colorscheme management
-let g:gruvbox_contrast_dark='neutral'
-colorscheme gruvbox 
+"let g:gruvbox_contrast_dark='neutral'
+let base16colorspace=256
+colorscheme base16-ocean
 set background=dark
 
 "Vim-airline
 "===========
-let g:airline_theme='gruvbox'
+let g:airline_theme='base16_ocean'
 let g:airline_powerline_fonts = 0
 "branch parts
 let g:airline#extensions#branch#enabled = 1
