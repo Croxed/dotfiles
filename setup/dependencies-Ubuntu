@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Installing base packages..."
+sudo apt install -y \
+  zsh  
+
+#sh -c "$(curl -fsSL https://github.com/Corwind/termite-install/raw/master/termite-install.sh)"
+
+echo "Installing Python dependencies..."
+sudo apt install -y \
+  python \
+  python3
+
+echo "Installing window manager dependencies..."
+sudo apt install -y \
+  libxcb1-dev \
+  libxcb-keysyms1-dev \
+  libpango1.0-dev \
+  libxcb-util0-dev \
+  libxcb-icccm4-dev \
+  libyajl-dev \
+  libx11-xcb-dev \
+  libstartup-notification0-dev \
+  libxcb-randr0-dev \
+  libev-dev \
+  libxcb-cursor-dev \
+  libxcb-xinerama0-dev \
+  libxcb-xkb-dev \
+  libxkbcommon-dev \
+  libxkbcommon-x11-dev \
+  help2manv
+
+echo "Installing i3-gaps.."
+cd ~
+
+# clone the repository
+[[ -d ~/.i3-gaps ]] || {
+ 	git clone https://www.github.com/Airblader/i3 .i3-gaps
+}
+
+cd .i3-gaps
+
+# do this if you want the stable branch, skip it if you want the dev branch (gaps-next)
+git checkout gaps && git pull
+
+# compile & install
+make
+sudo make install
+
+cd ~
+
+[[ -d ~/.i3blocks-gaps ]] || {
+	git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps
+}
+cd .i3blocks-gaps
+make clean all
+sudo make install
+
+cd ~ 
+
+#[[ -d ~/.xedgewarp ]] {
+#	git clone https://github.com/Airblader/xedgewarp .xedgewarp
+#}
+#cd .xedgewarp
+#make
+#sudo make install
+
+cd ~ 
+
+[[ -d ~/.light ]] || {
+  git clone https://github.com/haikarainen/light .light
+}
+
+cd .light
+make
+sudo make install
+
+cd ~
+
+echo "Installing tools..."
+sudo apt install -y \
+  i3lock \
+  i3status \
+  gsimplecal \
+  thunar \
+  feh \
+  acpi \
+  compton \
+  xdotool \
+  pulseaudio \
+  pavucontrol \
+  imagemagick \
+  dunst \
+  fonts-font-awesome \
+  fonts-hack-ttf \
+  fonts-powerline \
+  weechat \
+  thunar-archive-plugin \
+  file-roller \
+  tumbler \
+  eog \
+  numix-gtk-theme \
+  tk \
+  evince \
+  rofi \
+  libmtp9 \
+  xtitle \
+  ssh \
+  arandr \
+  xclip \
+  thefuck \
+  youtube-dl \
+  w3m \
+  htop \
+  bluez \
+  bluez-tools \
+  pulseaudio-module-bluetooth \
+  blueman \
+  redshift \
+  redshift-gtk \
+  firefox \
+  lm-sensors \
+  atool \
+  bzip2 \
+  cpio \
+  gzip \
+  lzop \
+  p7zip \
+  tar \
+  unrar \
+  unzip \
+  zip \
+
+
+echo "Installing ls++.."
+cpan Term::ExtendedColor
+[[ -d ~/.ls-- ]] || {
+	git clone git://github.com/trapd00r/ls--.git .ls--
+}
+cd .ls--
+perl Makefile.PL
+make && sudo make install
+
+cp ls++.conf $HOME/.ls++.conf
