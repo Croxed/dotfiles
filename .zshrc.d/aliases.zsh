@@ -70,6 +70,8 @@ alias sysupdate='sudo softwareupdate -iva'
 # Edit this file (as I tend to do it quite often) #
 alias editAlias='vim $HOME/.zshrc.d/aliases.zsh'
 
+alias colortest='$HOME/.config/base16-shell/colortest'
+
 # Reload shell #
 alias zr='exec zsh'
 alias stfu="osascript -e 'set volume output muted true'"
