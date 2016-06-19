@@ -41,8 +41,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-abolish'
     Plug 'tpope/vim-dispatch'
     Plug 'Lokaltog/vim-easymotion'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+""    Plug 'vim-airline/vim-airline'
+""    Plug 'vim-airline/vim-airline-themes'
+    Plug 'itchyny/lightline.vim'
+    Plug 'morhetz/gruvbox'
     Plug 'scrooloose/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'ctrlpvim/ctrlp.vim'
@@ -113,8 +115,12 @@ call plug#begin('~/.vim/plugged')
 
 " Mine
 Plug 'tpope/vim-sensible'
+Plug 'edkolev/tmuxline.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
+
+" Local
+Plug '~/.fzf'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -136,26 +142,38 @@ call plug#end()            " required
 " Enable syntax highlighting
 syntax on
 
-" Colorscheme management
-"let g:gruvbox_contrast_dark='neutral'
-let base16colorspace=256
-colorscheme base16-ocean
 set background=dark
 
+" Colorscheme management
+"let g:gruvbox_contrast_dark='neutral'
+"let base16colorspace=256
+
+let g:gruvbox_invert_selection=0
+
+silent! colorscheme gruvbox
+
+
+let g:tmuxline_powerline_separators = 1
+
+let g:lightline = {
+      \'colorscheme': 'gruvbox',
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
+      \}
 "Vim-airline
 "===========
-let g:airline_theme='base16_ocean'
-let g:airline_powerline_fonts = 0
+"let g:airline_theme='base16_monokai'
+"let g:airline_powerline_fonts = 0
 "branch parts
-let g:airline#extensions#branch#enabled = 1
+"let g:airline#extensions#branch#enabled = 1
 "seperators
 "let g:airline_left_sep = '▶'
 "let g:airline_right_sep = '◀'
 "modes
-let g:airline_section_b="%{fugitive#head()}"
-let g:airline_section_y=""
+"let g:airline_section_b="%{fugitive#head()}"
+"let g:airline_section_y=""
 "let g:airline_section_gutter=""
-let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#whitespace#enabled = 0
 " let g:airline#extensions#tabline#enabled = 1
 
 "" if !exists('g:airline_symbols')
