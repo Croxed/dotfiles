@@ -35,9 +35,9 @@ echo "Installing i3-gaps.."
 cd ~
 
 # clone the repository
-[[ -d ~/.i3-gaps ]] || {
- 	git clone https://www.github.com/Airblader/i3 .i3-gaps
-}
+dir='mktemp -d' && cd $dir
+
+git clone https://www.github.com/Airblader/i3 .i3-gaps
 
 cd .i3-gaps
 
@@ -46,23 +46,16 @@ git checkout gaps && git pull
 
 # compile & install
 make
-sudo make install
+sudo make install 
 
-cd ~
-
-[[ -d ~/.i3blocks-gaps ]] || {
-	git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps
-}
+dir='mktemp -d' && cd $dir
+git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps
 cd .i3blocks-gaps
 make clean all
 sudo make install
 
-cd ~ 
-
-[[ -d ~/.light ]] || {
-  git clone https://github.com/haikarainen/light .light
-}
-
+dir='mktemp -d' && cd $dir
+git clone https://github.com/haikarainen/light .light
 cd .light
 make
 sudo make install
@@ -75,6 +68,7 @@ sudo apt install -y \
   i3status \
   gsimplecal \
   thunar \
+  curl \
   feh \
   acpi \
   compton \
@@ -124,10 +118,11 @@ sudo apt install -y \
   zip \
 
 
-echo "Installing exa"
+echo "Installing rust"
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
-[[ -d ~/.exa ]] || {
-	git clone https://github.com/ogham/exa .exa
-}
+
+echo "Installing exa"
+dir='mktemp -d' && cd $dir
+git clone https://github.com/ogham/exa .exa
 cd .exa
 sudo make install
