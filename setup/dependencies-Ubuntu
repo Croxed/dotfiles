@@ -59,15 +59,6 @@ sudo make install
 
 cd ~ 
 
-#[[ -d ~/.xedgewarp ]] {
-#	git clone https://github.com/Airblader/xedgewarp .xedgewarp
-#}
-#cd .xedgewarp
-#make
-#sudo make install
-
-cd ~ 
-
 [[ -d ~/.light ]] || {
   git clone https://github.com/haikarainen/light .light
 }
@@ -133,13 +124,10 @@ sudo apt install -y \
   zip \
 
 
-echo "Installing ls++.."
-cpan Term::ExtendedColor
-[[ -d ~/.ls-- ]] || {
-	git clone git://github.com/trapd00r/ls--.git .ls--
+echo "Installing exa"
+curl -sSf https://static.rust-lang.org/rustup.sh | sh
+[[ -d ~/.exa ]] || {
+	git clone https://github.com/ogham/exa .exa
 }
-cd .ls--
-perl Makefile.PL
-make && sudo make install
-
-cp ls++.conf $HOME/.ls++.conf
+cd .exa
+sudo make install
