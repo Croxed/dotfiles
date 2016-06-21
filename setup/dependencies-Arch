@@ -5,11 +5,10 @@ echo "Installing prerequisites for apacman..."
 sudo pacman -S base-devel fakeroot jshon expac
 
 echo "Installing apacman..."
-mkdir /tmp/tmp-apacman
-cd /tmp/tmp-apacman
-wget https://aur.archlinux.org/packages/ap/apacman/PKGBUILD
-makepkg
-sudo pacman --noconfirm -U *.tar.xz
+dir=`mktemp -d` && cd $dir
+git clone https://aur.archlinux.org/apacman
+cd apacman
+makepkg -si
 cd -
 
 echo "Installing base packages..."
@@ -108,7 +107,7 @@ apacman --noconfirm --noedit -S \
   unzip \
   xz \
   zip \
-  ls++-git \
+  exa-git \
   i3lock-fancy
 
 echo "Installing some python stuff..."
