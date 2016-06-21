@@ -5,7 +5,7 @@
 
 # Simple shit #
 #alias ls='ls -FhlG'
-alias ls='ls++'
+alias ls='exa'
 alias ..="cd .."
 alias c="clear && printf '\e[3J'"
 
@@ -14,7 +14,7 @@ if [ $UID -ne 0 ]; then
 fi
  
 ## Use a long listing format ##
-alias ll='ls -la'
+alias ll='ls -la --git'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
