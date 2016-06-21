@@ -69,6 +69,7 @@ sudo apt install -y \
   gsimplecal \
   thunar \
   curl \
+  cmake
   feh \
   acpi \
   compton \
