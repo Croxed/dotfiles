@@ -50,13 +50,13 @@ case "$OSTYPE" in
     *)        platform="unknown: $OSTYPE" ;;
 esac
 
-if [[ "$platform" == 'LINUX' ]]; then
+if [ "$platform" == 'LINUX' ]; then
   distro=`lsb_release -si`
   if [ ! -f "dependencies-${distro}" ]; then
     echo "Could not find file with dependencies for distro ${distro}. Aborting."
     exit 2
   fi
-elif [[ "$platform" == 'OSX' ]]; then
+elif [ "$platform" == 'OSX' ]; then
   distro="macos"
   if [ ! -f "dependencies-macos" ]; then
     echo "Could not find file with dependencies for macOS. Aborting."
