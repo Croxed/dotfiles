@@ -29,7 +29,7 @@ sudo apt install -y \
   libxcb-xkb-dev \
   libxkbcommon-dev \
   libxkbcommon-x11-dev \
-  help2manv
+  help2man
 
 echo "Installing i3-gaps.."
 cd ~
