@@ -71,7 +71,7 @@ fi
 ask "Install packages?" Y && bash ./dependencies-${distro}
 
 if [[ "$distro" == 'macos' ]]; then
-  ask "Install sensible defaults for macOS?" Y && bash ./macos
+  ask "Install sensible defaults for macOS?" Y && bash ./.macos
 fi
 
 if [[ "$platform" == 'LINUX' ]]; then
