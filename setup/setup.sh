@@ -70,10 +70,6 @@ fi
 
 ask "Install packages?" Y && bash ./dependencies-${distro}
 
-if [[ "$distro" == 'macos' ]]; then
-  ask "Install sensible defaults for macOS?" Y && bash ./.macos
-fi
-
 if [[ "$platform" == 'LINUX' ]]; then
   ask "Install symlink for .i3/?" Y && ln -sfn ${dir}/.i3 ${HOME}/.i3
   ask "Install symlink for scripts/? i3 uses these." Y && ln -sfn ${dir}/scripts ${HOME}/scripts
@@ -95,3 +91,7 @@ ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim && curl -
 ask "Install symlink for .zshrc.d/?" Y && ln -sfn ${dir}/.zshrc.d ${HOME}/.zshrc.d
 ask "Install symlink for .config/?" Y && mkdir -p ${HOME}/.config && ln -sfn ${dir}/.config/* ${HOME}/.config
 ask "Install symlink for .weechat/?" Y && ln -sfn ${dir}/.weechat ${HOME}/.weechat
+
+if [[ "$distro" == 'macos' ]]; then
+  ask "Install sensible defaults for macOS?" Y && bash ./.macos
+fi
