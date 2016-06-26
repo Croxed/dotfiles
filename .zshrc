@@ -101,23 +101,31 @@ zplug "rimraf/k"
 zplug "plugins/gitfast", from:oh-my-zsh, nice:15
 zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
 
-os="$(grep -i "PRETTY_NAME=" /etc/os-release | grep -oP 'PRETTY_NAME="\K[^"]+' 2> /dev/null)"
+platform="unknown"
 
-if [[ "$(uname)" == "Darwin"* ]]; then
+case "$OSTYPE" in
+    solaris*) platform="SOLARIS" ;;
+    darwin*)  platform="OSX" ;; 
+    linux*)   platform="LINUX" ;;
+    bsd*)     platform="BSD" ;;
+    *)        platform="unknown: $OSTYPE" ;;
+esac
+
+
+if [[ "$platform" == "OSX" ]]; then
     echo -e "Loading plugins for OS X"
     zplug "unixorn/tumult.plugin.zsh"
     zplug "plugins/osx", from:oh-my-zsh
     zplug "plugins/brew", from:oh-my-zsh
     zplug "mwilliammyers/plugin-osx"
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-    if [[ "$os" == "Arch Linux" ]]; then
+elif [[ "$platform" == "LINUX" ]]; then
+    if [[ "$(lsb_release -si)" == "Arch" ]]; then
         echo "Loading plugins for Arch Linux..."
         zplug "plugins/archlinux", from:oh-my-zsh  
-    elif [[ "$os" == "Ubuntu" ]]; then 
+      elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then 
         echo "Loading pluins for Ubuntu..."
         zplug "plugins/ubuntu", from:oh-my-zsh
     fi
-
 else
     echo "Cannot identify your OS..."
 fi
@@ -129,7 +137,7 @@ if ! zplug check --verbose; then
   fi
 fi
 
-zplug load --verbose
+zplug load
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
