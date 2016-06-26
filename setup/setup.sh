@@ -88,7 +88,7 @@ ask "Install symlink for .gitconfig?" Y && ln -sfn ${dir}/.gitconfig ${HOME}/.gi
 ask "Install symlink for .zsh?" Y && ln -sfn ${dir}/.zshrc ${HOME}/.zshrc
 ask "Install symlink for .ncmpcpp?" Y && ln -sfn ${dir}/.ncmpcpp ${HOME}/.ncmpcpp
 ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ask "Install symlink for .zshrc.d/?" Y && ln -sfn ${dir}/.zshrc.d ${HOME}/.zshrc.d
+ask "Install symlink for .zshrc.d/?" Y && mkdir -p ${HOME}/.zshrc.d && ln -sfn ${dir}/.zshrc.d/* ${HOME}/.zshrc.d
 ask "Install symlink for .config/?" Y && mkdir -p ${HOME}/.config && ln -sfn ${dir}/.config/* ${HOME}/.config
 ask "Install symlink for .weechat/?" Y && ln -sfn ${dir}/.weechat ${HOME}/.weechat
 
