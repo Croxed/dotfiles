@@ -20,6 +20,7 @@ alias ll='ls -la --git'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias termclock='tty-clock -C 2 -crsDBb'
 
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
@@ -54,6 +55,7 @@ alias poweroff='sudo /sbin/shutdown -h now'
 alias myip='curl icanhazip.com'
 
 # Other IP / Method
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ifconfig en0 inet | grep 'inet ' | awk ' { print $2 } '"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
@@ -70,10 +72,12 @@ alias sysupdate='sudo softwareupdate -iva'
 # Edit this file (as I tend to do it quite often) #
 alias editAlias='vim $HOME/.zshrc.d/aliases.zsh'
 
-alias colortest='$HOME/.config/base16-shell/colortest'
-
 # Reload shell #
-alias zr='exec zsh'
+if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" ]]; then
+  alias zr='exec zsh'
+elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" ]]; then
+  alias br='exec bash'
+fi
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
