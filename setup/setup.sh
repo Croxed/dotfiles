@@ -77,11 +77,13 @@ if [[ "$platform" == 'LINUX' ]]; then
   ask "Install symlink for .xinitrc?" Y && ln -sfn ${dir}/.xinitrc ${HOME}/.xinitrc
   ask "Install symlink for .compton.conf?" Y && ln -sfn ${dir}/.compton.conf ${HOME}/.compton.conf
   ask "Install symlink for .gtkrc-2.0?" Y && ln -sfn ${dir}/.gtkrc-2.0 ${HOME}/.gtkrc-2.0
+  ask "Make zsh default shell?" Y && chsh -s /bin/zsh
 fi
 
 if [[ "$distro" == "macos" ]]; then
   ask "Install symlink for .kwm/?" Y && ln -sfn ${dir}/.kwm ${HOME}/.kwm
   ask "Install plugins for QuickLook?" Y && bash ./qlInstall
+  ask "Make zsh from homebrew default shell?" Y && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh
 fi
 
 ask "Install symlink for .gitconfig?" Y && ln -sfn ${dir}/.gitconfig ${HOME}/.gitconfig
@@ -91,6 +93,7 @@ ask "Install symlink for .vim/?" Y && ln -sfn ${dir}/.vim ${HOME}/.vim && curl -
 ask "Install symlink for .zshrc.d/?" Y && mkdir -p ${HOME}/.zshrc.d && ln -sfn ${dir}/.zshrc.d/* ${HOME}/.zshrc.d
 ask "Install symlink for .config/?" Y && mkdir -p ${HOME}/.config && ln -sfn ${dir}/.config/* ${HOME}/.config
 ask "Install symlink for .weechat/?" Y && ln -sfn ${dir}/.weechat ${HOME}/.weechat
+ask "Install zplug?" Y && curl -sL get.zplug.sh | zsh
 
 if [[ "$distro" == 'macos' ]]; then
   ask "Install sensible defaults for macOS?" Y && bash ./.macos
