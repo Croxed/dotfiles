@@ -73,9 +73,9 @@ alias sysupdate='sudo softwareupdate -iva'
 alias editAlias='vim $HOME/.zshrc.d/aliases.zsh'
 
 # Reload shell #
-if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" ]]; then
+if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" || "$SHELL" == "/usr/bin/zsh" ]]; then
   alias zr='exec zsh'
-elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" ]]; then
+elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" || "$SHELL" == "/usr/bin/bash/" ]]; then
   alias br='exec bash'
 fi
 alias stfu="osascript -e 'set volume output muted true'"
