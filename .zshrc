@@ -4,7 +4,7 @@
 #      /\_ ,`\  /',__\\ \  _ `\/\`'__\/'___\ 
 #    __\/_/  /_/\__, `\\ \ \ \ \ \ \//\ \__/ 
 #   /\_\ /\____\/\____/ \ \_\ \_\ \_\\ \____\
-#   \/_/ \/____/\/___/   \/_/\/_/\/_/ \/____/
+  #   \/_/ \/____/\/___/   \/_/\/_/\/_/ \/____/
 
 # Copyright 2006-2015 Joseph Block <jpb@apesseekingknowledge.net>
 #
@@ -77,8 +77,8 @@ fi
 
 # Check if zplug is installed
 [[ -d ~/.zplug ]] || {
-   git clone https://github.com/zplug/zplug ~/.zplug
-   source ~/.zplug/zplug && zplug update --self
+git clone https://github.com/zplug/zplug ~/.zplug
+source ~/.zplug/zplug && zplug update --self
 }
 
 # Load zplug
@@ -104,36 +104,36 @@ zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
 platform="unknown"
 
 case "$OSTYPE" in
-    solaris*) platform="SOLARIS" ;;
-    darwin*)  platform="OSX" ;; 
-    linux*)   platform="LINUX" ;;
-    bsd*)     platform="BSD" ;;
-    *)        platform="unknown: $OSTYPE" ;;
+  solaris*) platform="SOLARIS" ;;
+  darwin*)  platform="OSX" ;; 
+  linux*)   platform="LINUX" ;;
+  bsd*)     platform="BSD" ;;
+  *)        platform="unknown: $OSTYPE" ;;
 esac
 
 
 if [[ "$platform" == "OSX" ]]; then
-    echo -e "Loading plugins for OS X"
-    zplug "unixorn/tumult.plugin.zsh"
-    zplug "plugins/osx", from:oh-my-zsh
-    zplug "plugins/brew", from:oh-my-zsh
-    zplug "mwilliammyers/plugin-osx"
+  echo -e "Loading plugins for OS X"
+  zplug "unixorn/tumult.plugin.zsh"
+  zplug "plugins/osx", from:oh-my-zsh
+  zplug "plugins/brew", from:oh-my-zsh
+  zplug "mwilliammyers/plugin-osx"
 elif [[ "$platform" == "LINUX" ]]; then
-    if [[ "$(lsb_release -si)" == "Arch" ]]; then
-        echo "Loading plugins for Arch Linux..."
-        zplug "plugins/archlinux", from:oh-my-zsh  
-      elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then 
-        echo "Loading pluins for Ubuntu..."
-        zplug "plugins/ubuntu", from:oh-my-zsh
-    fi
+  if [[ "$(lsb_release -si)" == "Arch" ]]; then
+    echo "Loading plugins for Arch Linux..."
+    zplug "plugins/archlinux", from:oh-my-zsh  
+  elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then 
+    echo "Loading pluins for Ubuntu..."
+    zplug "plugins/ubuntu", from:oh-my-zsh
+  fi
 else
-    echo "Cannot identify your OS..."
+  echo "Cannot identify your OS..."
 fi
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
   if read -q; then
-     echo; zplug install
+    echo; zplug install
   fi
 fi
 
@@ -202,11 +202,11 @@ TIMEFMT="%U user %S system %P cpu %*Es total"
 
 # Expand aliases inline - see http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-     zle _expand_alias
-     zle expand-word
-   fi
-   zle self-insert
+  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+    zle _expand_alias
+    zle expand-word
+  fi
+  zle self-insert
 }
 
 zle -N globalias
@@ -263,7 +263,7 @@ dedupe_path
 
 # Base16 Shell
 [[ -d ~/.config/base16-shell ]] || {
-  git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL

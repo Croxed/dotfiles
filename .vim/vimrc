@@ -27,7 +27,7 @@
 "              newbie, basing your first .vimrc on this file is a good choice.
 "              If you're a more advanced user, building your own .vimrc based
 "              on this file is still a good idea.
- "------------------------------------------------------------
+"------------------------------------------------------------
 set nocompatible              " be iMproved, required
 
 " set the runtime path to include Vundle and initialize
@@ -40,7 +40,7 @@ call plug#begin('~/.vim/plugged')
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-    Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -49,92 +49,92 @@ call plug#begin('~/.vim/plugged')
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-    Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
-    Plug 'ascenator/L9', {'name': 'newL9'}
+Plug 'ascenator/L9', {'name': 'newL9'}
 
 
 " Editor
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-endwise'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-unimpaired'
-    Plug 'tpope/vim-abolish'
-    Plug 'tpope/vim-dispatch'
-    Plug 'Lokaltog/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
+Plug 'Lokaltog/vim-easymotion'
 ""    Plug 'vim-airline/vim-airline'
 ""    Plug 'vim-airline/vim-airline-themes'
-    Plug 'itchyny/lightline.vim'
-    Plug 'morhetz/gruvbox'
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'Raimondi/delimitMate'
-    Plug 'honza/vim-snippets'
-    Plug 'sjl/gundo.vim'
-    Plug 'sjl/vitality.vim'
-    Plug 'gcmt/taboo.vim'
-    Plug 'jlanzarotta/bufexplorer'
-    Plug 'YankRing.vim'
-    Plug 'rizzatti/dash.vim'
-    Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
-    Plug 'terryma/vim-multiple-cursors'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'Chiel92/vim-autoformat'
-    Plug 'jonathanfilip/vim-lucius'
-    Plug 'jpo/vim-railscasts-theme'
-    Plug 'morhetz/gruvbox'
-    Plug 'powerline/powerline'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'honza/vim-snippets'
+Plug 'sjl/gundo.vim'
+Plug 'sjl/vitality.vim'
+Plug 'gcmt/taboo.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'YankRing.vim'
+Plug 'rizzatti/dash.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ryanoasis/vim-devicons'
+Plug 'Chiel92/vim-autoformat'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'morhetz/gruvbox'
+Plug 'powerline/powerline'
 
 " From another .vimrc
 
-    Plug 'beloglazov/vim-online-thesaurus'
-    Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-s2)'     }
-    Plug 'godlygeek/csapprox',        { 'for': 'fugitiveblame'            }
-    Plug 'junegunn/fzf',              { 'on': 'FZF', 'dir': '~/local/fzf', 'do': './install --bin' }
-    Plug 'junegunn/gv.vim',           { 'on': 'GV'                        }
-    Plug 'junegunn/vader.vim',
-    Plug 'junegunn/vim-easy-align',   { 'on': '<plug>(LiveEasyAlign)'     }
-    Plug 'justinmk/vim-dirvish'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-projectionist'
-    Plug 'tpope/vim-rsi'
-    Plug 'tpope/vim-scriptease'
-    Plug 'tpope/vim-surround'
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-s2)'     }
+Plug 'godlygeek/csapprox',        { 'for': 'fugitiveblame'            }
+Plug 'junegunn/fzf',              { 'on': 'FZF', 'dir': '~/local/fzf', 'do': './install --bin' }
+Plug 'junegunn/gv.vim',           { 'on': 'GV'                        }
+Plug 'junegunn/vader.vim',
+Plug 'junegunn/vim-easy-align',   { 'on': '<plug>(LiveEasyAlign)'     }
+Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-surround'
 
-    Plug 'elixir-lang/vim-elixir',  { 'for': 'elixir'     }
-    Plug 'tpope/vim-rails'
-    Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua'        }
-    Plug 'xolox/vim-misc',          { 'for': 'lua'        }
+Plug 'elixir-lang/vim-elixir',  { 'for': 'elixir'     }
+Plug 'tpope/vim-rails'
+Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua'        }
+Plug 'xolox/vim-misc',          { 'for': 'lua'        }
 
-    Plug '/data/github/vim-easy-going'
-    Plug '/data/github/vim-grepper'
-    Plug '/data/github/vim-janah'
-    Plug '/data/github/vim-randomtag', { 'on': 'Random'   }
-    Plug '/data/github/vim-rfc',       { 'on': 'RFC'      }
-    Plug '/data/github/vim-sayonara',  { 'on': 'Sayonara' }
-    Plug '/data/github/vim-signify'
-    Plug '/data/github/vim-startify'
-    Plug '/data/github/vim-syntaxful'
+Plug '/data/github/vim-easy-going'
+Plug '/data/github/vim-grepper'
+Plug '/data/github/vim-janah'
+Plug '/data/github/vim-randomtag', { 'on': 'Random'   }
+Plug '/data/github/vim-rfc',       { 'on': 'RFC'      }
+Plug '/data/github/vim-sayonara',  { 'on': 'Sayonara' }
+Plug '/data/github/vim-signify'
+Plug '/data/github/vim-startify'
+Plug '/data/github/vim-syntaxful'
 
 " Search
-    Plug 'rking/ag.vim'
-    Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 
 " Git
-    Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " Indent
-    Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Vim themes
-    Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 
- "------------------------------------------------------------
+"------------------------------------------------------------
 
 " Mine
 Plug 'tpope/vim-sensible'
@@ -152,11 +152,11 @@ call plug#end()            " required
 "
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
- 
+
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as sanely reset options when re-sourcing .vimrc
 "set nocompatible
- 
+
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
@@ -203,25 +203,25 @@ let g:lightline = {
 ""    let g:airline_symbols = {}
 ""  endif
 
-  " unicode symbols
- "" let g:airline_left_sep = '»'
- "" let g:airline_left_sep = '▶'
- "" let g:airline_right_sep = '«'
- "" let g:airline_right_sep = '◀'
- "" let g:airline_symbols.linenr = '␊'
- "" let g:airline_symbols.linenr = '␤'
- "" let g:airline_symbols.linenr = '¶'
- "" let g:airline_symbols.branch = '⎇'
- "" let g:airline_symbols.paste = 'ρ'
- "" let g:airline_symbols.paste = 'Þ'
- "" let g:airline_symbols.paste = '∥'
- "" let g:airline_symbols.whitespace = 'Ξ'
+" unicode symbols
+"" let g:airline_left_sep = '»'
+"" let g:airline_left_sep = '▶'
+"" let g:airline_right_sep = '«'
+"" let g:airline_right_sep = '◀'
+"" let g:airline_symbols.linenr = '␊'
+"" let g:airline_symbols.linenr = '␤'
+"" let g:airline_symbols.linenr = '¶'
+"" let g:airline_symbols.branch = '⎇'
+"" let g:airline_symbols.paste = 'ρ'
+"" let g:airline_symbols.paste = 'Þ'
+"" let g:airline_symbols.paste = '∥'
+"" let g:airline_symbols.whitespace = 'Ξ'
 
 "------------------------------------------------------------
 " Must have options {{{1
 "
 " These are highly recommended options.
- 
+
 " Vim with default settings does not allow easy switching between multiple files
 " in the same editor window. Users can use multiple split windows or multiple
 " tab pages to edit multiple files, but it is still best to enable an option to
@@ -236,29 +236,29 @@ let g:lightline = {
 " try to quit without saving, and swap files will keep you safe if your computer
 " crashes.
 set hidden
- 
+
 " Note that not everyone likes working this way (with the hidden option).
 " Alternatives include using tabs or split windows instead of re-using the same
 " window as mentioned above, and/or either of the following options:
 " set confirm
 " set autowriteall
- 
+
 " Better command-line completion
 set wildmenu
- 
+
 " Show partial commands in the last line of the screen
 set showcmd
- 
+
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
 " mapping of <C-L> below)
 set hlsearch
- 
+
 " Modelines have historically been a source of security vulnerabilities. As
 " such, it may be a good idea to disable them and use the securemodelines
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
 " set nomodeline
- 
- 
+
+
 "------------------------------------------------------------
 " Usability options {{{1
 "
@@ -266,65 +266,65 @@ set hlsearch
 " change Vim's behaviour in ways which deviate from the true Vi way, but
 " which are considered to add usability. Which, if any, of these options to
 " use is very much a personal preference, but they are harmless.
- 
+
 " Use case insensitive search, except when using capital letters
 set ignorecase
 set smartcase
- 
+
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
- 
+
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on. Useful for READMEs, etc.
 set autoindent
- 
+
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
 set nostartofline
- 
+
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
 set ruler
- 
+
 " Always display the status line, even if only one window is displayed
 set laststatus=2
- 
+
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
- 
+
 " Use visual bell instead of beeping when doing something wrong
 set visualbell
- 
+
 " Enable use of the mouse for all modes
 set mouse=a
- 
+
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
 set cmdheight=2
- 
+
 " Display line numbers on the left
 set number
- 
+
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
- 
+
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
- 
- 
+
+
 "------------------------------------------------------------
 " Indentation options {{{1
 "
 " Indentation settings according to personal preference.
- 
+
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
 set shiftwidth=4
 set softtabstop=4
 set expandtab
- 
+
 " Indentation settings for using hard tabs for indent. Display tabs as
 " four characters wide.
 "set shiftwidth=4
@@ -385,18 +385,18 @@ set linespace=0
 if !empty(&viminfo)
   set viminfo^=!
 endif
- 
+
 "------------------------------------------------------------
 " Mappings {{{1
 "
 " Useful mappings
- 
+
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
- 
+
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
- 
+
 "------------------------------------------------------------
