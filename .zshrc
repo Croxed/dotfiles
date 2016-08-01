@@ -1,23 +1,13 @@
-#                     __                     
-#                    /\ \                    
-#       ____     ____\ \ \___   _ __   ___   
-#      /\_ ,`\  /',__\\ \  _ `\/\`'__\/'___\ 
-#    __\/_/  /_/\__, `\\ \ \ \ \ \ \//\ \__/ 
-#   /\_\ /\____\/\____/ \ \_\ \_\ \_\\ \____\
-  #   \/_/ \/____/\/___/   \/_/\/_/\/_/ \/____/
-
-# Copyright 2006-2015 Joseph Block <jpb@apesseekingknowledge.net>
 #
-# BSD licensed, see LICENSE.txt
-
-# Set this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+#                    ██                    
+#                   ░██                    
+#     ██████  ██████░██      ██████  █████ 
+#    ░░░░██  ██░░░░ ░██████ ░░██░░█ ██░░░██
+#       ██  ░░█████ ░██░░░██ ░██ ░ ░██  ░░ 
+#  ██  ██    ░░░░░██░██  ░██ ░██   ░██   ██
+# ░██ ██████ ██████ ░██  ░██░███   ░░█████ 
+# ░░ ░░░░░░ ░░░░░░  ░░   ░░ ░░░     ░░░░░  
+#                     __                     
 
 # Correct spelling for commands
 setopt correct
@@ -99,7 +89,10 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:17
 zplug "zsh-users/zsh-autosuggestions", nice:18
 zplug "rimraf/k"
 zplug "plugins/gitfast", from:oh-my-zsh, nice:15
-zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
+#zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
+zplug "mafredri/zsh-async"
+zplug "sindresorhus/pure", use:"pure.zsh", nice:16
+
 
 platform="unknown"
 
@@ -266,7 +259,7 @@ dedupe_path
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 neofetch
