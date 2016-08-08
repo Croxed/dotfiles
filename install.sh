@@ -161,26 +161,21 @@ detectOS () {
       distro=`lsb_release -si`
         if [ ! -f "$DOTFILES_ROOT/setup/dependencies-${distro}" ]; then
             echo "Could not find file with dependencies for distro ${distro}. Aborting."
-            return 1
-        else
-            return 0
+            exit 0
         fi
     elif [ "$platform" == 'OSX' ]; then
         distro="macos"
-         if [ ! -f "$DOTFILES_ROOT/setup/dependencies-macos" ]; then
-           echo "Could not find file with dependencies for macOS. Aborting."
-           return 1
-        else
-           return 0
-         fi
+        if [ ! -f "$DOTFILES_ROOT/setup/dependencies-macos" ]; then
+            echo "Could not find file with dependencies for macOS. Aborting."
+            exit 0
     else
       echo "OS not supported, yet."
-      return 1
+      exit 0
     fi
 }
 
 install_packages () {
-    detectOS && bash "$DOTFILES_ROOT/setup/dependencies-$distro"
+    bash "$DOTFILES_ROOT/setup/dependencies-$distro"
 }
 
 install_dotfiles () {
@@ -206,21 +201,21 @@ install_bin () {
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
-    ask "Install vim-plug?" Y && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    ask "Install vim-plug?" Y && info "Installing vim-plug" && curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && success "Installed vim-plug"
     if [ "$PLATFORM" == "LINUX" ]; then
-        ask "Make ZSH the default shell?" Y && ask "Make zsh default shell?" Y && chsh -s "$(which zsh)"
+        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && chsh -s "$(which zsh)" && success "Made ZSH default shell"
     elif [[ "$distro" == "macOS" ]]; then
-        ask "Make ZSH the default shell?" Y && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh
+        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh && success "Made ZSH default shell"
     fi
 }
-
+detectOS
 ask "Install packages?" Y && install_packages
 echo ''
 ask "Install dotfiles?" Y && install_dotfiles
 echo ''
-ask "Install bin?" && install_bin
+ask "Install bin?" Y && install_bin
 
 echo ''
 if [[ "$distro" == 'macos' ]]; then
-  ask "Install sensible defaults for macOS?" Y && bash ./.macos
+  ask "Install sensible defaults for macOS?" Y && bash "$DOTFILES_ROOT/setup/.macos"
 fi
