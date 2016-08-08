@@ -8,6 +8,7 @@
 alias ls='exa'
 alias ..="cd .."
 alias c="clear && printf '\e[3J'"
+#alias c="clear"
 
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
@@ -38,6 +39,9 @@ alias wget='wget -c'
 alias df='df -H'
 alias du='du -ch'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
+
+# Start tmux
+alias ltmux="tmux attach -t base || tmux new -s base"
 
 # To exit terminal
 alias e='exit'
