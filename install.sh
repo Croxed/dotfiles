@@ -35,6 +35,38 @@ fail () {
     exit
 }
 
+ask() {
+  # http://djm.me/ask
+  while true; do
+
+    if [ "${2:-}" = "Y" ]; then
+      prompt="Y/n"
+      default=Y
+    elif [ "${2:-}" = "N" ]; then
+      prompt="y/N"
+      default=N
+    else
+      prompt="y/n"
+      default=
+    fi
+
+    # Ask the question
+    read -p "$1 [$prompt] " REPLY
+
+    # Default?
+    if [ -z "$REPLY" ]; then
+       REPLY=$default
+    fi
+
+    # Check if the reply is valid
+    case "$REPLY" in
+      Y*|y*) return 0 ;;
+      N*|n*) return 1 ;;
+    esac
+
+  done
+}
+
 link_file () {
     local src=$1 dst=$2
 
@@ -114,6 +146,43 @@ what do you want to do?\n\
     fi
 }
 
+detectOS () {
+    platform="unknown"
+
+    case "$OSTYPE" in
+        solaris*) platform="SOLARIS" ;;
+        darwin*)  platform="OSX" ;;
+        linux*)   platform="LINUX" ;;
+        bsd*)     platform="BSD" ;;
+        *)        platform="unknown: $OSTYPE" ;;
+    esac
+
+    if [ "$platform" == 'LINUX' ]; then
+      distro=`lsb_release -si`
+        if [ ! -f "$DOTFILES_ROOT/setup/dependencies-${distro}" ]; then
+            echo "Could not find file with dependencies for distro ${distro}. Aborting."
+            return 1
+        else
+            return 0
+        fi
+    elif [ "$platform" == 'OSX' ]; then
+        distro="macos"
+         if [ ! -f "$DOTFILES_ROOT/setup/dependencies-macos" ]; then
+           echo "Could not find file with dependencies for macOS. Aborting."
+           return 1
+        else
+           return 0
+         fi
+    else
+      echo "OS not supported, yet."
+      return 1
+    fi
+}
+
+install_packages () {
+    detectOS && bash "$DOTFILES_ROOT/setup/dependencies-$distro"
+}
+
 install_dotfiles () {
     info 'installing dotfiles'
 
@@ -136,26 +205,22 @@ install_bin () {
     src="$DOTFILES_ROOT/bin"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
+
+    ask "Install vim-plug?" Y && curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if [ "$PLATFORM" == "LINUX" ]; then
+        ask "Make ZSH the default shell?" Y && ask "Make zsh default shell?" Y && chsh -s "$(which zsh)"
+    elif [[ "$distro" == "macOS" ]]; then
+        ask "Make ZSH the default shell?" Y && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh
+    fi
 }
 
-install_zsh () {
-    info 'installing zsh'
-    local overwrite_all=false backup_all=false skip_all=false
-
-    src="$DOTFILES_ROOT/oh-my-zsh"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-
-    src="$DOTFILES_ROOT/oh-my-zsh-custom"
-    dst="$HOME/$(basename "$src")"
-    link_file "$src" "$dst"
-}
-
-install_dotfiles
+ask "Install packages?" Y && install_packages
 echo ''
-install_bin
+ask "Install dotfiles?" Y && install_dotfiles
 echo ''
-install_zsh
+ask "Install bin?" && install_bin
 
 echo ''
-echo '  All installed!'
+if [[ "$distro" == 'macos' ]]; then
+  ask "Install sensible defaults for macOS?" Y && bash ./.macos
+fi
