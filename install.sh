@@ -168,6 +168,7 @@ detectOS () {
         if [ ! -f "$DOTFILES_ROOT/setup/dependencies-macos" ]; then
             echo "Could not find file with dependencies for macOS. Aborting."
             exit 0
+        fi
     else
       echo "OS not supported, yet."
       exit 0
