@@ -54,7 +54,6 @@ brew upgrade --all > /dev/null
 # Tapping into some repos
 info "Tapping into repos"
 brew tap homebrew/versions \
-    bramstein/webfonttools \
     caskroom/versions > /dev/null && success "Done!"
 
 # Install ALL packages
