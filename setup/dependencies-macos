@@ -53,8 +53,8 @@ brew upgrade --all > /dev/null
 
 # Tapping into some repos
 info "Tapping into repos"
-brew tap homebrew/versions \
-    caskroom/versions > /dev/null && success "Done!"
+brew tap homebrew/versions > /dev/null && \
+brew tap caskroom/versions > /dev/null && success "Done!"
 
 # Install ALL packages
 info "Installing packages"
