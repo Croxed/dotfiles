@@ -99,8 +99,6 @@ brew install coreutils \
 # Installing usefull applications
 info "Installing apps"
 brew cask install iterm2-beta --appdir=/Applications \
-    google-chrome-canary --appdir=/Applications \
-    mpv --appdir=/Applications \
     keka --appdir=/Applications \
     dropbox --appdir=/Applications \
     transmission --appdir=/Applications \
