@@ -79,7 +79,6 @@ brew install coreutils \
     tcpreplay \
     tcptrace \
     ucspi-tcp \
-    xpdf \
     xz \
     ack \
     dark-mode \
