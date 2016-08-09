@@ -207,6 +207,7 @@ install_other () {
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
 
+    mkdir -p "$HOME/.config"
     for src in $(find "$DOTFILES_ROOT/.config" -mindepth 1 -maxdepth 1)
     do
         dst="$HOME/.config/$(basename "$src")"
@@ -222,15 +223,24 @@ install_other () {
 }
 
 os_specific () {
-    for src in $(find "$DOTFILES_ROOT/linux" -mindepth 1 -maxdepth 1)
-    do
-        if [[ ".config" =~ "$(basename "$src")" ]]
-        then
-            continue
-        fi
-        dst="$HOME/$(basename "$src")"
-        link_file "$src" "$dst"
-    done
+    if [ -d "$DOTFILES_ROOT/$platform" ]; then
+        for src in $(find "$DOTFILES_ROOT/$platform" -mindepth 1 -maxdepth 1)
+        do
+            if [[ "${IGNORE[@]}" =~ "$(basename $src)" ]]
+            then
+                continue
+            fi
+            dst="$HOME/$(basename "$src")"
+            link_file "$src" "$dst"
+        done
+
+        mkdir -p "$HOME/.config"
+        for src in $(find "$DOTFILES_ROOT/$platform/.config" -mindepth 1 -maxdepth 1)
+        do
+            dst="$HOME/.config/$(basename "$src")"
+            link_file "$src" "$dst"
+        done
+    fi
 }
 
 install_bin () {
