@@ -250,7 +250,9 @@ ask "Install bin?" Y && install_bin
 echo ''
 ask "Install other scripts and configs?" Y && install_other
 echo ''
-if "platform" == "linux"; then ask "Install configs for Linux?" Y && os_specific
+if [ "platform" == "linux" ]; then
+    ask "Install configs for Linux?" Y && os_specific
+fi
 
 echo ''
 if [[ "$distro" == 'macos' ]]; then
