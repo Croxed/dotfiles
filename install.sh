@@ -11,6 +11,9 @@ IGNORE=(
     ".DS_Store"
     "install.sh"
     "bin"
+    "setup"
+    "scripts"
+    "linux"
 )
 
 DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -33,6 +36,10 @@ fail () {
     printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
     echo ''
     exit
+}
+
+noFile () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
 }
 
 ask() {
@@ -150,33 +157,31 @@ detectOS () {
     platform="unknown"
 
     case "$OSTYPE" in
-        solaris*) platform="SOLARIS" ;;
-        darwin*)  platform="OSX" ;;
-        linux*)   platform="LINUX" ;;
-        bsd*)     platform="BSD" ;;
-        *)        platform="unknown: $OSTYPE" ;;
+        solaris*) platform="solaris" ;;
+        darwin*)  platform="osx" ;;
+        linux*)   platform="linux" ;;
+        bsd*)     platform="bsd" ;;
+        *)        platform="unknown" ;;
     esac
 
-    if [ "$platform" == 'LINUX' ]; then
+    if [ "$platform" == 'linux' ]; then
       distro=`lsb_release -si`
-        if [ ! -f "$DOTFILES_ROOT/setup/dependencies-${distro}" ]; then
-            echo "Could not find file with dependencies for distro ${distro}. Aborting."
-            exit 0
-        fi
-    elif [ "$platform" == 'OSX' ]; then
+    elif [ "$platform" == 'osx' ]; then
         distro="macos"
-        if [ ! -f "$DOTFILES_ROOT/setup/dependencies-macos" ]; then
-            echo "Could not find file with dependencies for macOS. Aborting."
-            exit 0
-        fi
+    fi
+}
+
+find_dependencies () {
+    if [ ! -f "$DOTFILES_ROOT/setup/dependencies-${distro}" ]; then
+        noFile "Could not find file with dependencies for distro ${distro}."
+        return 1
     else
-      echo "OS not supported, yet."
-      exit 0
+        return 0
     fi
 }
 
 install_packages () {
-    bash "$DOTFILES_ROOT/setup/dependencies-$distro"
+    if find_dependencies; then bash "$DOTFILES_ROOT/setup/dependencies-${distro}"; fi
 }
 
 install_dotfiles () {
@@ -195,28 +200,59 @@ install_dotfiles () {
     done
 }
 
+install_other () {
+    info 'installing other configs'
+    local overwrite_all=false backup_all=false skip_all=false
+    src="$DOTFILES_ROOT/scripts"
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+
+    for src in $(find "$DOTFILES_ROOT/.config" -mindepth 1 -maxdepth 1)
+    do
+        dst="$HOME/.config/$(basename "$src")"
+        link_file "$src" "$dst"
+    done
+
+    ask "Install vim-plug?" Y && info "Installing vim-plug" && curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && success "Installed vim-plug"
+    if [ "$PLATFORM" == "LINUX" ]; then
+        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && chsh -s "$(which zsh)"; success "Made ZSH default shell"
+    elif [[ "$distro" == "macos" ]]; then
+        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh; success "Made ZSH default shell"
+    fi
+}
+
+os_specific () {
+    for src in $(find "$DOTFILES_ROOT/linux" -mindepth 1 -maxdepth 1)
+    do
+        if [[ ".config" =~ "$(basename "$src")" ]]
+        then
+            continue
+        fi
+        dst="$HOME/$(basename "$src")"
+        link_file "$src" "$dst"
+    done
+}
+
 install_bin () {
     info 'installing bin'
     local overwrite_all=false backup_all=false skip_all=false
     src="$DOTFILES_ROOT/bin"
     dst="$HOME/$(basename "$src")"
     link_file "$src" "$dst"
-
-    ask "Install vim-plug?" Y && info "Installing vim-plug" && curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && success "Installed vim-plug"
-    if [ "$PLATFORM" == "LINUX" ]; then
-        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && chsh -s "$(which zsh)" && success "Made ZSH default shell"
-    elif [[ "$distro" == "macos" ]]; then
-        ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh && success "Made ZSH default shell"
-    fi
 }
+
 detectOS
 ask "Install packages?" Y && install_packages
 echo ''
 ask "Install dotfiles?" Y && install_dotfiles
 echo ''
 ask "Install bin?" Y && install_bin
+echo ''
+ask "Install other scripts and configs?" Y && install_other
+echo ''
+if "platform" == "linux"; then ask "Install configs for Linux?" Y && os_specific
 
 echo ''
 if [[ "$distro" == 'macos' ]]; then
-  ask "Install sensible defaults for macOS?" Y && bash "$DOTFILES_ROOT/setup/.macos"
+  ask "Install sensible defaults for macOS?" Y && bash "$DOTFILES_ROOT/setup/macos"
 fi
