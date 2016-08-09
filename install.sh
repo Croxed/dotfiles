@@ -176,6 +176,7 @@ find_dependencies () {
         noFile "Could not find file with dependencies for distro ${distro}."
         return 1
     else
+        success "Found dependency for $distro"
         return 0
     fi
 }
