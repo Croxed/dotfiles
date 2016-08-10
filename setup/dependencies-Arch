@@ -18,7 +18,7 @@ fail () {
 }
 
 info "Installing prerequisites for apacman..."
-sudo pacman -S base-devel fakeroot jshon expac git &> /dev/null && success "Done"
+sudo pacman -S base-devel fakeroot jshon expac git && success "Done"
 
 info "Installing apacman..."
 cd "$(mktemp -d)"
