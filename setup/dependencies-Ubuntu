@@ -125,6 +125,7 @@ sudo apt install -y \
   thefuck \
   youtube-dl \
   w3m \
+  tmux \
   htop \
   bluez \
   bluez-tools \

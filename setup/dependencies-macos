@@ -87,6 +87,7 @@ brew install coreutils \
     lynx \
     p7zip \
     pigz \
+    tmux \
     pv \
     rename \
     speedtest_cli \

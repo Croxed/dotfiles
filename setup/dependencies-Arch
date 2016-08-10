@@ -126,6 +126,8 @@ apacman --noconfirm --noedit -S \
   unzip \
   xz \
   zip \
+  vim \
+  tmux \
   exa-git \
   i3lock-fancy-git &> /dev/null && \
   success "Tools installed"
