@@ -217,7 +217,7 @@ install_other () {
     done
 
     ask "Install vim-plug?" Y && info "Installing vim-plug" && curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && success "Installed vim-plug"
-    if [ "$PLATFORM" == "LINUX" ]; then
+    if [ "$platform" == "linux" ]; then
         ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && chsh -s "$(which zsh)"; success "Made ZSH default shell"
     elif [[ "$distro" == "macos" ]]; then
         ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh; success "Made ZSH default shell"
