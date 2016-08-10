@@ -19,7 +19,7 @@ xset s noblank
 
 xset r rate 200 20
 
-setxkbmap de
+setxkbmap -layout se &
 setxkbmap -option ctrl:nocaps
 xmodmap -e 'clear lock'
 xmodmap -e 'keycode 66 = Hyper_L'
