@@ -1,44 +1,50 @@
 #!/usr/bin/env bash
+
 set -e
 
-echo "Installing prerequisites for apacman..."
-sudo pacman -S base-devel fakeroot jshon expac
+info "Installing prerequisites for apacman..."
+sudo pacman -S base-devel fakeroot jshon expac git &> /dev/null && success "Done"
 
-echo "Installing apacman..."
-dir=`mktemp -d` && cd $dir
-git clone https://aur.archlinux.org/apacman
+info "Installing apacman..."
+cd "$(mktemp -d)"
+git clone https://aur.archlinux.org/apacman &> /dev/null
 cd apacman
-makepkg -si
+makepkg -si && success "Done"
 cd -
 
-echo "Installing base packages..."
+info "Installing terminal packages..."
 apacman --noconfirm --noedit -S \
   termite-git \
-  zsh  
+  zsh &> /dev/null && \
+  success "Installed terminal packages"
 
-echo "Installing Python dependencies..."
+info "Installing Python dependencies..."
 apacman --noconfirm --noedit -S \
   python-basiciw \
   python-netifaces \
   python-yaml \
   python-pillow \
   python-urllib3 \
-  python2-suds
+  python2-suds &> /dev/null && \
+  success "Installed python dependencies"
 
-echo "Installing window manager dependencies..."
+info "Installing window manager..."
 apacman --noconfirm --noedit -S \
   xcb-util-keysyms \
   xcb-util-wm \
   xcb-util-cursor \
   yajl \
   startup-notification \
-  libev
-
-echo "Installing tools..."
-apacman --noconfirm --noedit -S \
+  libev \
   i3-gaps \
   i3lock \
-  i3blocks-gaps-git \
+  xedgewarp-git \
+  unclutter-xfixes-git \
+  i3blocks-gaps-git &> /dev/null && \
+  success "WM installed"
+
+info "Installing tools..."
+apacman --noconfirm --noedit -S \
   gsimplecal \
   thunar \
   feh \
@@ -77,8 +83,6 @@ apacman --noconfirm --noedit -S \
   openssh \
   arandr \
   xclip \
-  xedgewarp-git \
-  unclutter-xfixes-git \
   thefuck \
   youtube-dl \
   slop \
@@ -108,14 +112,19 @@ apacman --noconfirm --noedit -S \
   xz \
   zip \
   exa-git \
-  i3lock-fancy
+  i3lock-fancy-git &> /dev/null && \
+  success "Tools installed"
 
-echo "Installing some python stuff..."
+info "Installing some python stuff..."
 apacman --noconfirm --noedit -S \
   python-pillow \
-  python-urllib3
+  python-urllib3 &> /dev/null && \
+  success "Done"
 
-echo "Installing some perl stuff..."
+info "Installing some perl stuff..."
 apacman --noconfirm --noedit -S \
   perl-anyevent-i3 \
-  perl-json-xs \
+  perl-json-xs &> /dev/null && \
+  success "Done"
+
+success "Done installing packages"

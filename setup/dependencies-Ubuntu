@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Installing base packages..."
+info "Installing terminal packages..."
 sudo apt install -y \
-  zsh  
+  zsh &> /dev/null && \
+  success "Installed termial packages"
 
 #sh -c "$(curl -fsSL https://github.com/Corwind/termite-install/raw/master/termite-install.sh)"
 
-echo "Installing Python dependencies..."
+info "Installing Python dependencies..."
 sudo apt install -y \
   python \
-  python3
+  python3 &> /dev/null && \
+  success "Done"
 
-echo "Installing window manager dependencies..."
+info "Installing window manager dependencies..."
 sudo apt install -y \
   libxcb1-dev \
   libxcb-keysyms1-dev \
@@ -29,40 +31,44 @@ sudo apt install -y \
   libxcb-xkb-dev \
   libxkbcommon-dev \
   libxkbcommon-x11-dev \
-  help2man
+  help2man &> /dev/null && \
+  success "WM dependencies installed"
 
-echo "Installing i3-gaps.."
+info "Installing i3-gaps.."
 cd ~
 
 # clone the repository
-dir='mktemp -d' && cd $dir
+cd "$(mktemp -d)"
 
-git clone https://www.github.com/Airblader/i3 .i3-gaps
+git clone https://www.github.com/Airblader/i3 .i3-gaps &> /dev/null
 
 cd .i3-gaps
 
 # do this if you want the stable branch, skip it if you want the dev branch (gaps-next)
-git checkout gaps && git pull
+git checkout gaps && git pull &> /dev/null
 
 # compile & install
-make
-sudo make install 
+make &> /dev/null
+sudo make install &> /dev/null
 
-dir='mktemp -d' && cd $dir
-git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps
+cd "$(mktemp -d)"
+git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps &> /dev/null
 cd .i3blocks-gaps
-make clean all
-sudo make install
+make clean all &> /dev/null
+sudo make install &> /dev/null
+success "Installed i3-gaps"
 
-dir='mktemp -d' && cd $dir
-git clone https://github.com/haikarainen/light .light
+info "Installing light"
+cd "$(mktemp -d)"
+git clone https://github.com/haikarainen/light .light &> /dev/null
 cd .light
-make
-sudo make install
+make &> /dev/null
+sudo make install &> /dev/null
 
+success "Light installed!"
 cd ~
 
-echo "Installing tools..."
+info "Installing tools..."
 sudo apt install -y \
   i3lock \
   i3status \
@@ -119,15 +125,17 @@ sudo apt install -y \
   tar \
   unrar \
   unzip \
-  zip \
+  zip &> /dev/null && \
+  success "Tools installed"
 
 
-echo "Installing rust"
+info "Installing rust"
 if ! type -p rustc > /dev/null ; then
-  curl -sSf https://static.rust-lang.org/rustup.sh | sh
+  curl -sSf https://static.rust-lang.org/rustup.sh | sh &> /dev/null && success "Rust inslled"
 fi
-echo "Installing exa"
-dir='mktemp -d' && cd $dir
-git clone https://github.com/ogham/exa .exa
+info "Installing exa"
+cd "$(mktemp -d)"
+git clone https://github.com/ogham/exa .exa &> /dev/null
 cd .exa
-sudo make install
+sudo make install &> /dev/null && \
+success "Done!"
