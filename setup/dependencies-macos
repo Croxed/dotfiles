@@ -24,6 +24,10 @@ noFile () {
     printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
 }
 
+function brew-alloptions () {
+    brew install $1 $(brew options $1 | grep -E '^--with-' - | tr '\n' ' ')
+}
+
 # Ask for the administrator password upfront.
 sudo -v
 
@@ -93,7 +97,9 @@ brew install coreutils \
     speedtest_cli \
     ssh-copy-id \
     tree \
-    homebrew/binary/kwm > /dev/null && success "Installed packages!"
+    homebrew/binary/kwm > /dev/null && \
+    brew-alloptions mpv && \
+    success "Installed packages!"
 
 # Installing usefull applications
 info "Installing apps"
