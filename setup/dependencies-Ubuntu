@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+source "./outputs.sh"
+
 info "Installing terminal packages..."
 sudo apt install -y \
   zsh &> /dev/null && \
