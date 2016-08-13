@@ -288,7 +288,6 @@ getpackages
 getshell
 getwm
 getterm
-title="${USER:-$(whoami)}@${HOSTNAME:-$(hostname)}"
 name="$(whoami)"
 HOST="$(hostname)"
 KERNEL="$(uname -srm)"
