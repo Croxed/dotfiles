@@ -318,9 +318,11 @@ f2=$'\e[0;37m'
 
 ## OUTPUT
 
+clear
+
 cat <<EOF
 
-    ${f1}hello ${c04}${name}${f1}, i'm ${c06}${HOST}
+    ${f1}hello ${c06}${name}${f1}, i'm ${c06}${HOST}
 
 
     ${c06}▉▉  |
