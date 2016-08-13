@@ -63,7 +63,7 @@ git clone https://www.github.com/Airblader/i3 .i3-gaps &> /dev/null
 cd .i3-gaps
 
 # do this if you want the stable branch, skip it if you want the dev branch (gaps-next)
-git checkout gaps && git pull &> /dev/null
+git checkout gaps &> /dev/null && git pull &> /dev/null
 
 # compile & install
 make &> /dev/null
