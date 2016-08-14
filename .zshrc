@@ -1,13 +1,13 @@
 #
-#                    ██                    
-#                   ░██                    
-#     ██████  ██████░██      ██████  █████ 
+#                    ██
+#                   ░██
+#     ██████  ██████░██      ██████  █████
 #    ░░░░██  ██░░░░ ░██████ ░░██░░█ ██░░░██
-#       ██  ░░█████ ░██░░░██ ░██ ░ ░██  ░░ 
+#       ██  ░░█████ ░██░░░██ ░██ ░ ░██  ░░
 #  ██  ██    ░░░░░██░██  ░██ ░██   ░██   ██
-# ░██ ██████ ██████ ░██  ░██░███   ░░█████ 
-# ░░ ░░░░░░ ░░░░░░  ░░   ░░ ░░░     ░░░░░  
-#                     __                     
+# ░██ ██████ ██████ ░██  ░██░███   ░░█████
+# ░░ ░░░░░░ ░░░░░░  ░░   ░░ ░░░     ░░░░░
+#                     __
 
 # Correct spelling for commands
 setopt correct
@@ -29,6 +29,7 @@ for path_candidate in /opt/local/sbin \
   ~/.cabal/bin \
   ~/.rbenv/bin \
   ~/bin \
+  ~/bin.local \
   ~/scripts \
   ~/.nexustools \
   ~/src/gocode/bin \
@@ -96,7 +97,7 @@ platform="unknown"
 
 case "$OSTYPE" in
   solaris*) platform="SOLARIS" ;;
-  darwin*)  platform="OSX" ;; 
+  darwin*)  platform="OSX" ;;
   linux*)   platform="LINUX" ;;
   bsd*)     platform="BSD" ;;
   *)        platform="unknown: $OSTYPE" ;;
@@ -112,8 +113,8 @@ if [[ "$platform" == "OSX" ]]; then
 elif [[ "$platform" == "LINUX" ]]; then
   if [[ "$(lsb_release -si)" == "Arch" ]]; then
     echo "Loading plugins for Arch Linux..."
-    zplug "plugins/archlinux", from:oh-my-zsh  
-  elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then 
+    zplug "plugins/archlinux", from:oh-my-zsh
+  elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then
     echo "Loading pluins for Ubuntu..."
     zplug "plugins/ubuntu", from:oh-my-zsh
   fi
@@ -265,7 +266,7 @@ ufetch
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
 if [[ "$platform" == "LINUX" ]]; then
-  [ -z "$DISPLAY" -a "$(fgconsole)" -eq 1 ] && exec startx 
+  [ -z "$DISPLAY" -a "$(fgconsole)" -eq 1 ] && exec startx
 fi
 
 # ----------------------- End of config ----------------------- #

@@ -154,22 +154,61 @@ what do you want to do?\n\
     fi
 }
 
-detectOS () {
-    platform="unknown"
-
-    case "$OSTYPE" in
-        solaris*) platform="solaris" ;;
-        darwin*)  platform="osx" ;;
-        linux*)   platform="linux" ;;
-        bsd*)     platform="bsd" ;;
-        *)        platform="unknown" ;;
+getos() {
+    case "$(uname)" in
+        "Linux")   os="Linux" ;;
+        "Darwin")  os="$(sw_vers -productName)" ;;
+        *"BSD" | "DragonFly") os="BSD" ;;
+        "CYGWIN"*) os="Windows" ;;
+        "SunOS") os="Solaris" ;;
+        *) printf "%s\n" "Unknown OS detected: $(uname)"; exit 1 ;;
     esac
+}
 
-    if [ "$platform" == 'linux' ]; then
-      distro=`lsb_release -si`
-    elif [ "$platform" == 'osx' ]; then
-        distro="macos"
-    fi
+getdistro() {
+    [ "$distro" ] && return
+
+    case "$os" in
+        "Linux" )
+                distro="$(awk -F 'NAME=' '/^NAME=/ {printf $2}' /etc/*ease)"
+                distro="${distro//\"}"
+
+                # Workaround for distros that store the value differently.
+                [ -z "$distro" ] && distro="$(awk -F 'TAILS_PRODUCT_NAME="|"' '/^TAILS_PRODUCT_NAME=/ {printf $2}' /etc/*ease)"
+                [ -z "$distro" ] && distro="$(awk '/BLAG/ {print $1; exit}' /etc/*ease)"
+        ;;
+
+        "Mac OS X")
+            distro="$os"
+        ;;
+
+        "iPhone OS")
+            distro="iOS $(sw_vers -productVersion)"
+        ;;
+
+        "BSD")
+            distro="$(uname -s)"
+            distro="${distro/DragonFly/DragonFlyBSD}"
+
+            # Workaround for PCBSD as uname still displays FreeBSD.
+            [ -f "/etc/pcbsd-lang" ] && distro="PCBSD"
+
+            # Workaround for PacBSD as uname displays FreeBSD.
+            [ -f "/etc/pacbsd-release" ] && distro="PacBSD"
+        ;;
+
+        "Windows")
+            distro="$(wmic os get Caption /value)"
+
+            # Strip crap from the output of wmic
+            distro="${distro/Caption'='}"
+            distro="${distro/Microsoft }"
+        ;;
+
+        "Solaris")
+            distro="$(nawk 'NR==1{gsub(/^ \t]+|[ \t]+$/,""); printf $1 " " $2;}' /etc/release)"
+        ;;
+    esac
 }
 
 find_dependencies () {
@@ -217,9 +256,9 @@ install_other () {
     done
 
     ask "Install vim-plug?" Y && info "Installing vim-plug" && curl -fsLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && success "Installed vim-plug"
-    if [[ "$platform" == "linux" ]]; then
+    if [[ "$os" == "Linux" ]]; then
         ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && chsh -s "$(which zsh)"; success "Made ZSH default shell"
-    elif [[ "$distro" == "macos" ]]; then
+    elif [[ "$os" == "Mac OS X" ]]; then
         ask "Make ZSH the default shell?" Y && info "Making ZSH the default shell" && sudo dscl . -create /Users/$USER UserShell $(brew --prefix)/bin/zsh; success "Made ZSH default shell"
     fi
 }
@@ -253,7 +292,8 @@ install_bin () {
     link_file "$src" "$dst"
 }
 
-detectOS
+getos
+getdistro
 ask "Install packages?" Y && install_packages
 echo ''
 ask "Install dotfiles?" Y && install_dotfiles
@@ -262,11 +302,11 @@ ask "Install bin?" Y && install_bin
 echo ''
 ask "Install other scripts and configs?" Y && install_other
 echo ''
-if [[ "$platform" == "linux" ]]; then
-    ask "Install configs for Linux?" Y && os_specific
+if [[ "$os" == "Linux" ]]; then
+    ask "Install configs for $distro?" Y && os_specific
 fi
 
 echo ''
-if [[ "$distro" == 'macos' ]]; then
-  ask "Install sensible defaults for macOS?" Y && bash "$DOTFILES_ROOT/setup/macos"
+if [[ "$distro" == 'Mac OS X' ]]; then
+  ask "Install sensible defaults for Mac OS X?" Y && bash "$DOTFILES_ROOT/setup/macos"
 fi
