@@ -93,7 +93,7 @@ brew install coreutils \
     speedtest_cli \
     ssh-copy-id \
     tree \
-    homebrew/binary/kwm > /dev/null && \
+    koekeishiya/kwm/kwm > /dev/null && \
     brew-alloptions mpv && \
     success "Installed packages!"
 
