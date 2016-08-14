@@ -82,6 +82,8 @@ if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" || "$SHELL" == 
 elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" || "$SHELL" == "/usr/bin/bash/" ]]; then
   alias br='exec bash'
 fi
+
+alias subl="open -a /Applications/Sublime\ Text.all"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
