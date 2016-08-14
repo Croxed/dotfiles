@@ -85,7 +85,6 @@ getdistro() {
             distro="$(nawk 'NR==1{gsub(/^ \t]+|[ \t]+$/,""); printf $1 " " $2;}' /etc/release)"
         ;;
     esac
-    distro+=" $(uname -m)"
 }
 
 getpackages() {
