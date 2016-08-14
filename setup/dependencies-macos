@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+# Install command-line tools using Homebrew.
+
+function brew-alloptions () {
+    brew install $1 $(brew options $1 | grep -E '^--with-' - | tr '\n' ' ')
+}
+
+# Ask for the administrator password upfront.
+sudo -v
+
+info () {
+    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+user () {
+    printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+}
+
+success () {
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
+    exit
+}
+# Keep-alive: update existing `sudo` time stamp until the script has finished.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Installing xcode-cli
+info "Installing xcode-cli"
+touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+PROD=$(softwareupdate -l |
+  grep "\*.*Command Line" |
+  head -n 1 | awk -F"*" '{print $2}' |
+  sed -e 's/^ *//' |
+  tr -d '\n')
+  softwareupdate -i "$PROD" -v > /dev/null && success "Installed xcode-cli"
+
+
+# Checking if Homebrew is installed
+if ! type -p brew > /dev/null ; then
+    # Install Homebrew
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Update and upgrade homebrew.
+brew update > /dev/null
+brew upgrade --all > /dev/null
+
+# Tapping into some repos
+info "Tapping into repos"
+brew tap homebrew/versions > /dev/null && \
+brew tap caskroom/versions > /dev/null && success "Done!"
+
+# Install ALL packages
+info "Installing packages"
+brew install coreutils \
+    moreutils \
+    findutils \
+    gnu-sed --with-default-names \
+    wget --with-iri \
+    vim --override-system-vi \
+    homebrew/dupes/grep \
+    homebrew/dupes/openssh \
+    homebrew/dupes/screen \
+    bfg \
+    binutils \
+    binwalk \
+    nmap \
+    neofetch \
+    atool \
+    stow \
+    tcpflow \
+    tcpreplay \
+    tcptrace \
+    ucspi-tcp \
+    xz \
+    ack \
+    dark-mode \
+    git \
+    git-lfs \
+    imagemagick --with-webp \
+    lua \
+    lynx \
+    p7zip \
+    pigz \
+    tmux \
+    pv \
+    rename \
+    speedtest_cli \
+    ssh-copy-id \
+    tree \
+    koekeishiya/kwm/kwm > /dev/null && \
+    brew-alloptions mpv && \
+    success "Installed packages!"
+
+# Installing usefull applications
+info "Installing apps"
+brew cask install iterm2-beta --appdir=/Applications \
+    keka --appdir=/Applications \
+    dropbox --appdir=/Applications \
+    transmission --appdir=/Applications \
+    sublime-text-dev --appdir=/Applications \
+    exa > /dev/null && success "Installed apps!"
+
+# Linking gsha256sum to sha256sum
+sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
+
+# Remove outdated versions from the cellar.
+brew cleanup > /dev/null
