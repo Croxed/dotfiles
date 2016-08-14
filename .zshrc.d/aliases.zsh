@@ -13,7 +13,7 @@ alias c="clear && printf '\e[3J'"
 if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
 fi
- 
+
 ## Use a long listing format ##
 alias ll='ls -la --git'
 
@@ -25,7 +25,7 @@ alias termclock='tty-clock -C 2 -crsDBb'
 
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
- 
+
 # confirmation #
 alias mv='mv -i'
 alias cp='cp -i'
@@ -83,7 +83,7 @@ elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" || "$SHELL"
   alias br='exec bash'
 fi
 
-alias subl="open -a /Applications/Sublime\ Text.all"
+alias subl="open -a /Applications/Sublime\ Text.app"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
