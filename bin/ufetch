@@ -257,14 +257,19 @@ getterm() {
             name="$(ps -p $parent -o comm=)"
         ;;
     esac
+    
+    if [ -z "$term" ]; then
+      term="$(perl -lpe 's/\0/ /g' /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)"
+        echo "$term"
+    fi
 
-    case "${name// }" in
-        "${SHELL/*\/}" | *"sh" | "tmux" | "screen") getterm "$parent" ;;
-        "login" | "init") term="$(tty)"; term="${term/*\/}" ;;
-        "ruby" | "1" | "systemd" | "sshd" | "python"*) unset term ;;
-        "gnome-terminal-") term="gnome-terminal" ;;
-        *) term="$name" ;;
-    esac
+   # case "${name// }" in
+   #     "${SHELL/*\/}" | *"sh" | "tmux" | "screen") getterm "$parent" ;;
+   #     "login" | "init") term="$(tty)"; term="${term/*\/}" ;;
+   #     "ruby" | "1" | "systemd" | "sshd" | "python"*) unset term ;;
+   #     "gnome-terminal-") term="gnome-terminal" ;;
+   #     *) term="$name" ;;
+   # esac
 }
 
 # }}}

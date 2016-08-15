@@ -17,7 +17,7 @@ Xft.lcdfilter: lcddefault
 
 ! rofi
 rofi.modi: run
-rofi.font: Hack 15
+rofi.font: Hack 12
 rofi.width: 40
 rofi.lines: 5
 rofi.columns: 1
@@ -67,12 +67,13 @@ rofi.fuzzy: false
 ! URxvt configuration
 !######################
 
-URxvt.font: 		    xft:Hack:style=Regular:size=11
-URxvt.boldFont:		    xft:Hack:style=Bold:size=11
+URxvt.font: 		    xft:Hack:style=Regular:size=12
+URxvt.boldFont:		    xft:Hack:style=Bold:size=12
 URxvt.scrollBar: 	    false
 URxvt.cursorUnderline:	true
 URxvt.cursorBlink:	    true
 URxvt.termName:         rxvt-256color
+URxvt*perl-lib:        /usr/lib/urxvt/perl
 URxvt.perl-ext-common: default,matcher,clipboard
 URxvt.url-launcher:    firefox
 URxvt.matcher.button:  1
