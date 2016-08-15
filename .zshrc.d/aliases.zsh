@@ -86,3 +86,4 @@ alias subl="open -a /Applications/Sublime\ Text.app"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
+alias updateall="apacman -Syu --noconfirm --noedit"

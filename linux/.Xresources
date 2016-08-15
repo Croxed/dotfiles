@@ -7,6 +7,8 @@
 !    ██   ░░██░███  ░░██████ ██████ ░░██████ ░░██████░███  ░░█████ ░░██████ ██████ 
 !   ░░     ░░ ░░░    ░░░░░░ ░░░░░░   ░░░░░░   ░░░░░░ ░░░    ░░░░░   ░░░░░░ ░░░░░░  
 
+#include </home/oscar/.colors/sourcerer.Xcolors>
+
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -33,36 +35,6 @@ rofi.terminal: termite
 rofi.padding: 5
 rofi.fuzzy: false
 
-! === gruvbox color scheme ===
-*background: #1d2021
-*foreground: #ebdbb2
-! Black + DarkGrey
-*color0:  #282828
-*color8:  #928374
-! DarkRed + Red
-*color1:  #cc241d
-*color9:  #fb4934
-! DarkGreen + Green
-*color2:  #98971a
-*color10: #b8bb26
-! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #fabd2f
-! DarkBlue + Blue
-*color4:  #458588
-*color12: #83a598
-! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #d3869b
-! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #8ec07c
-! LightGrey + White
-*color7:  #a89984
-*color15: #ebdbb2
-
-
-
 !######################
 ! URxvt configuration
 !######################
@@ -73,11 +45,14 @@ URxvt.scrollBar: 	    false
 URxvt.cursorUnderline:	true
 URxvt.cursorBlink:	    true
 URxvt.termName:         rxvt-256color
-URxvt*perl-lib:        /usr/lib/urxvt/perl
 URxvt.perl-ext-common: default,matcher,clipboard
 URxvt.url-launcher:    firefox
 URxvt.matcher.button:  1
 URxvt.internalBorder:  16
 URxvt.lineSpace:       1
-URxvt.keysym.Mod1-c: perl:clipboard:copy
-URxvt.keysym.Mod1-v: perl:clipboard:paste
+URxvt.keysym.C-C:   perl:clipboard:copy
+URxvt.keysym.C-V:   perl:clipboard:paste
+URxvt.keysym.C-A-V: perl:clipboard:paste_escaped
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
+URxvt.iso14755:   false
