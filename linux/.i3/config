@@ -297,8 +297,8 @@ bar {
         separator          $transparent
 
 #                          BORDER       BACKGROUND   TEXT
-        focused_workspace  $transparent $transparent $darkwhite
-        inactive_workspace $transparent $transparent $white
+        focused_workspace  $transparent $transparent #ffffff
+        inactive_workspace $transparent $transparent #888888
         active_workspace   $transparent $transparent $white
         urgent_workspace   $darkred     $darkred     $transparent
         binding_mode       $darkred     $darkred     $transparent
@@ -306,7 +306,7 @@ bar {
 }
 
 # AUTOSTART
-exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/wallpaper-794.png
+exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/black_metal.png
 exec --no-startup-id compton -b
 
 exec --no-startup-id nm-applet &
