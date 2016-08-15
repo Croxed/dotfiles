@@ -1,0 +1,940 @@
+{
+	"folder_history":
+	[
+	],
+	"last_version": 3120,
+	"last_window_id": 15,
+	"log_indexing": false,
+	"settings":
+	{
+		"new_window_height": 1118.0,
+		"new_window_settings":
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"get",
+						"getdistro"
+					],
+					[
+						"su",
+						"success"
+					],
+					[
+						"s",
+						"success"
+					],
+					[
+						"de",
+						"dependencies"
+					],
+					[
+						"S",
+						"success"
+					],
+					[
+						"con",
+						"continue"
+					],
+					[
+						"inst",
+						"install_other"
+					],
+					[
+						"min",
+						"mindepth"
+					],
+					[
+						"D",
+						"DOTFILES_ROOT"
+					],
+					[
+						"fa",
+						"fail"
+					],
+					[
+						"no",
+						"noFile"
+					]
+				]
+			},
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 92.0,
+				"last_filter": "Package Control: Install",
+				"selected_items":
+				[
+					[
+						"Package Control: Install",
+						"Package Control: Install Package"
+					],
+					[
+						"insatll",
+						"Package Control: Install Package"
+					]
+				],
+				"width": 449.0
+			},
+			"console":
+			{
+				"height": 126.0,
+				"history":
+				[
+					"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/Users/Oscar/dotfiles/.vim/vimrc",
+				"/Users/Oscar/dotfiles/.zshrc",
+				"/Users/Oscar/dotfiles/bin/ufetch",
+				"/Users/Oscar/dotfiles/scripts/updates.sh",
+				"/Users/Oscar/dotfiles/install.sh",
+				"/Users/Oscar/dotfiles/bin/infoterm",
+				"/Users/Oscar/dotfiles/bin/bars",
+				"/Users/Oscar/dotfiles/setup/dependencies-macos",
+				"/Users/Oscar/dotfiles/setup/dependencies-Arch",
+				"/Users/Oscar/dotfiles/setup/dependencies-Ubuntu",
+				"/Users/Oscar/dotfiles/setup/outputs.sh",
+				"/Users/Oscar/dotfiles/scripts/outputs.sh",
+				"/Users/Oscar/dotfiles/test.sh",
+				"/Users/Oscar/dotfiles/setup/template.sh",
+				"/Users/Oscar/test.sh",
+				"/Users/Oscar/dotfiles/setup/setup.sh",
+				"/Users/Oscar/dotfiles/setup/main.sh",
+				"/Users/Oscar/Downloads/snake-2.asm",
+				"/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 30.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"tmux",
+					"vim",
+					"echo",
+					"echo -e",
+					"echo",
+					"echo -e",
+					"echo"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"incremental_find":
+			{
+				"height": 30.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"output.unsaved_changes":
+			{
+				"height": 142.0
+			},
+			"pinned_build_system": "",
+			"replace":
+			{
+				"height": 56.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"show_minimap": true,
+			"show_open_files": false,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			}
+		},
+		"new_window_width": 1880.0
+	},
+	"windows":
+	[
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"get",
+						"getdistro"
+					],
+					[
+						"su",
+						"success"
+					],
+					[
+						"s",
+						"success"
+					],
+					[
+						"de",
+						"dependencies"
+					],
+					[
+						"S",
+						"success"
+					],
+					[
+						"con",
+						"continue"
+					],
+					[
+						"inst",
+						"install_other"
+					],
+					[
+						"min",
+						"mindepth"
+					],
+					[
+						"D",
+						"DOTFILES_ROOT"
+					],
+					[
+						"fa",
+						"fail"
+					],
+					[
+						"no",
+						"noFile"
+					]
+				]
+			},
+			"buffers":
+			[
+				{
+					"file": "/Users/Oscar/dotfiles/.zshrc",
+					"settings":
+					{
+						"buffer_size": 8111,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/Users/Oscar/dotfiles/bin/ufetch",
+					"settings":
+					{
+						"buffer_size": 9794,
+						"line_ending": "Unix"
+					}
+				}
+			],
+			"build_system": "",
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 92.0,
+				"last_filter": "Package Control: Install",
+				"selected_items":
+				[
+					[
+						"Package Control: Install",
+						"Package Control: Install Package"
+					],
+					[
+						"insatll",
+						"Package Control: Install Package"
+					]
+				],
+				"width": 449.0
+			},
+			"console":
+			{
+				"height": 126.0,
+				"history":
+				[
+					"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/Users/Oscar/dotfiles/.vim/vimrc",
+				"/Users/Oscar/dotfiles/.zshrc",
+				"/Users/Oscar/dotfiles/bin/ufetch",
+				"/Users/Oscar/dotfiles/scripts/updates.sh",
+				"/Users/Oscar/dotfiles/install.sh",
+				"/Users/Oscar/dotfiles/bin/infoterm",
+				"/Users/Oscar/dotfiles/bin/bars",
+				"/Users/Oscar/dotfiles/setup/dependencies-macos",
+				"/Users/Oscar/dotfiles/setup/dependencies-Arch",
+				"/Users/Oscar/dotfiles/setup/dependencies-Ubuntu",
+				"/Users/Oscar/dotfiles/setup/outputs.sh",
+				"/Users/Oscar/dotfiles/scripts/outputs.sh",
+				"/Users/Oscar/dotfiles/test.sh",
+				"/Users/Oscar/dotfiles/setup/template.sh",
+				"/Users/Oscar/test.sh",
+				"/Users/Oscar/dotfiles/setup/setup.sh",
+				"/Users/Oscar/dotfiles/setup/main.sh",
+				"/Users/Oscar/Downloads/snake-2.asm",
+				"/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 30.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"tmux",
+					"vim",
+					"echo",
+					"echo -e",
+					"echo",
+					"echo -e",
+					"echo"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"groups":
+			[
+				{
+					"selected": 1,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"file": "/Users/Oscar/dotfiles/.zshrc",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 8111,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										555,
+										555
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 1,
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/Users/Oscar/dotfiles/bin/ufetch",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 9794,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										8110,
+										8110
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 4953.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 0,
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 30.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"output.unsaved_changes":
+			{
+				"height": 142.0
+			},
+			"pinned_build_system": "",
+			"position": "1 20 39 1880 1140 0 0 1920 1200 ",
+			"project": "",
+			"replace":
+			{
+				"height": 56.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"selected_group": 0,
+			"settings":
+			{
+			},
+			"show_minimap": true,
+			"show_open_files": false,
+			"show_tabs": true,
+			"side_bar_visible": true,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			},
+			"window_id": 13,
+			"workspace_name": ""
+		},
+		{
+			"auto_complete":
+			{
+				"selected_items":
+				[
+					[
+						"get",
+						"getdistro"
+					],
+					[
+						"su",
+						"success"
+					],
+					[
+						"s",
+						"success"
+					],
+					[
+						"de",
+						"dependencies"
+					],
+					[
+						"S",
+						"success"
+					],
+					[
+						"con",
+						"continue"
+					],
+					[
+						"inst",
+						"install_other"
+					],
+					[
+						"min",
+						"mindepth"
+					],
+					[
+						"D",
+						"DOTFILES_ROOT"
+					],
+					[
+						"fa",
+						"fail"
+					],
+					[
+						"no",
+						"noFile"
+					]
+				]
+			},
+			"buffers":
+			[
+				{
+					"contents": "// Place your settings in the file \"Packages/User/Preferences.sublime-settings\",\n// which overrides the settings in here.\n//\n// Settings may also be placed in syntax-specific setting files, for\n// example, in Packages/User/Python.sublime-settings for python files.\n{\n    // Sets the colors used within the text area\n    \"color_scheme\": \"Packages/Color Scheme - Default/Monokai.tmTheme\",\n\n    // Note that the font_face and font_size are overridden in the platform\n    // specific settings file, for example, \"Preferences (Linux).sublime-settings\".\n    // Because of this, setting them here will have no effect: you must set them\n    // in your User File Preferences.\n    \"font_face\": \"\",\n    \"font_size\": 10,\n\n    // Valid options are \"no_bold\", \"no_italic\", \"no_antialias\", \"gray_antialias\",\n    // \"subpixel_antialias\", \"no_round\" (OS X only), \"gdi\" (Windows only) and\n    // \"directwrite\" (Windows only)\n    \"font_options\": [],\n\n    // Characters that are considered to separate words\n    \"word_separators\": \"./\\\\()\\\"'-:,.;<>~!@#$%^&*|+=[]{}`~?\",\n\n    // Set to false to prevent line numbers being drawn in the gutter\n    \"line_numbers\": true,\n\n    // Set to false to hide the gutter altogether\n    \"gutter\": true,\n\n    // Spacing between the gutter and the text\n    \"margin\": 4,\n\n    // Fold buttons are the triangles shown in the gutter to fold regions of text\n    \"fold_buttons\": true,\n\n    // Hides the fold buttons unless the mouse is over the gutter\n    \"fade_fold_buttons\": true,\n\n    // Columns in which to display vertical rulers\n    \"rulers\": [],\n\n    // Set to true to turn spell checking on by default\n    \"spell_check\": false,\n\n    // The number of spaces a tab is considered equal to\n    \"tab_size\": 4,\n\n    // Set to true to insert spaces when tab is pressed\n    \"translate_tabs_to_spaces\": false,\n\n    // If translate_tabs_to_spaces is true, use_tab_stops will make tab and\n    // backspace insert/delete up to the next tabstop\n    \"use_tab_stops\": true,\n\n    // Set to false to disable detection of tabs vs. spaces on load\n    \"detect_indentation\": true,\n\n    // Calculates indentation automatically when pressing enter\n    \"auto_indent\": true,\n\n    // Makes auto indent a little smarter, e.g., by indenting the next line\n    // after an if statement in C. Requires auto_indent to be enabled.\n    \"smart_indent\": true,\n\n    // Adds whitespace up to the first open bracket when indenting. Requires\n    // auto_indent to be enabled.\n    \"indent_to_bracket\": false,\n\n    // Trims white space added by auto_indent when moving the caret off the\n    // line.\n    \"trim_automatic_white_space\": true,\n\n    // Disables horizontal scrolling if enabled.\n    // May be set to true, false, or \"auto\", where it will be disabled for\n    // source code, and otherwise enabled.\n    \"word_wrap\": \"auto\",\n\n    // Set to a value other than 0 to force wrapping at that column rather than the\n    // window width\n    \"wrap_width\": 0,\n\n    // Set to false to prevent word wrapped lines from being indented to the same\n    // level\n    \"indent_subsequent_lines\": true,\n\n    // Draws text centered in the window rather than left aligned\n    \"draw_centered\": false,\n\n    // Controls auto pairing of quotes, brackets etc\n    \"auto_match_enabled\": true,\n\n    // Word list to use for spell checking\n    \"dictionary\": \"Packages/Language - English/en_US.dic\",\n\n    // Sets which scopes are checked for spelling errors\n    \"spelling_selector\": \"markup.raw, source string.quoted - punctuation - meta.preprocessor.c.include, source comment - source comment.block.preprocessor, -(source, constant, keyword, storage, support, variable, markup.underline.link, meta.tag)\",\n\n    // Set to true to draw a border around the visible rectangle on the minimap.\n    // The color of the border will be determined by the \"minimapBorder\" key in\n    // the color scheme\n    \"draw_minimap_border\": false,\n\n    // Always visualise the viewport on the minimap, as opposed to only\n    // showing it on mouse over\n    \"always_show_minimap_viewport\": false,\n\n    // If enabled, will highlight any line with a caret\n    \"highlight_line\": false,\n\n    // Valid values are \"smooth\", \"phase\", \"blink\" and \"solid\".\n    \"caret_style\": \"smooth\",\n\n    // These settings control the size of the caret\n    \"caret_extra_top\": 0,\n    \"caret_extra_bottom\": 0,\n    \"caret_extra_width\": 0,\n\n    // Set to false to disable underlining the brackets surrounding the caret\n    \"match_brackets\": true,\n\n    // Set to false if you'd rather only highlight the brackets when the caret is\n    // next to one\n    \"match_brackets_content\": true,\n\n    // Set to false to not highlight square brackets. This only takes effect if\n    // match_brackets is true\n    \"match_brackets_square\": true,\n\n    // Set to false to not highlight curly brackets. This only takes effect if\n    // match_brackets is true\n    \"match_brackets_braces\": true,\n\n    // Set to false to not highlight angle brackets. This only takes effect if\n    // match_brackets is true\n    \"match_brackets_angle\": false,\n\n    // Enable visualization of the matching tag in HTML and XML\n    \"match_tags\": true,\n\n    // Highlights other occurrences of the currently selected text\n    \"match_selection\": true,\n\n    // Additional spacing at the top of each line, in pixels\n    \"line_padding_top\": 0,\n\n    // Additional spacing at the bottom of each line, in pixels\n    \"line_padding_bottom\": 0,\n\n    // Set to false to disable scrolling past the end of the buffer.\n    // On OS X, this value is overridden in the platform specific settings, so\n    // you'll need to place this line in your user settings to override it.\n    \"scroll_past_end\": true,\n\n    // This controls what happens when pressing up or down when on the first\n    // or last line.\n    // On OS X, this value is overridden in the platform specific settings, so\n    // you'll need to place this line in your user settings to override it.\n    \"move_to_limit_on_up_down\": false,\n\n    // Set to \"none\" to turn off drawing white space, \"selection\" to draw only the\n    // white space within the selection, and \"all\" to draw all white space\n    \"draw_white_space\": \"selection\",\n\n    // Set to false to turn off the indentation guides.\n    // The color and width of the indent guides may be customized by editing\n    // the corresponding .tmTheme file, and specifying the colors \"guide\",\n    // \"activeGuide\" and \"stackGuide\"\n    \"draw_indent_guides\": true,\n\n    // Controls how the indent guides are drawn, valid options are\n    // \"draw_normal\" and \"draw_active\". draw_active will draw the indent\n    // guides containing the caret in a different color.\n    \"indent_guide_options\": [\"draw_normal\"],\n\n    // Set to true to removing trailing white space on save\n    \"trim_trailing_white_space_on_save\": false,\n\n    // Set to true to ensure the last line of the file ends in a newline\n    // character when saving\n    \"ensure_newline_at_eof_on_save\": false,\n\n    // Set to true to automatically save files when switching to a different file\n    // or application\n    \"save_on_focus_lost\": false,\n\n    // Save via writing to an alternate file, and then renaming it over the\n    // original file.\n    \"atomic_save\": false,\n\n    // The encoding to use when the encoding can't be determined automatically.\n    // ASCII, UTF-8 and UTF-16 encodings will be automatically detected.\n    \"fallback_encoding\": \"Western (Windows 1252)\",\n\n    // Encoding used when saving new files, and files opened with an undefined\n    // encoding (e.g., plain ascii files). If a file is opened with a specific\n    // encoding (either detected or given explicitly), this setting will be\n    // ignored, and the file will be saved with the encoding it was opened\n    // with.\n    \"default_encoding\": \"UTF-8\",\n\n    // Files containing null bytes are opened as hexadecimal by default\n    \"enable_hexadecimal_encoding\": true,\n\n    // Determines what character(s) are used to terminate each line in new files.\n    // Valid values are 'system' (whatever the OS uses), 'windows' (CRLF) and\n    // 'unix' (LF only).\n    \"default_line_ending\": \"system\",\n\n    // When enabled, hovering over a word will show a popup listing all\n    // possible locations for the definition symbol. Requires index_files.\n    \"show_definitions\": true,\n\n    // When enabled, pressing tab will insert the best matching completion.\n    // When disabled, tab will only trigger snippets or insert a tab.\n    // Shift+tab can be used to insert an explicit tab when tab_completion is\n    // enabled.\n    \"tab_completion\": true,\n\n    // Enable auto complete to be triggered automatically when typing.\n    \"auto_complete\": true,\n\n    // The maximum file size where auto complete will be automatically triggered.\n    \"auto_complete_size_limit\": 4194304,\n\n    // The delay, in ms, before the auto complete window is shown after typing\n    \"auto_complete_delay\": 50,\n\n    // Controls what scopes auto complete will be triggered in\n    \"auto_complete_selector\": \"meta.tag - punctuation.definition.tag.begin, source - comment - string.quoted.double.block - string.quoted.single.block - string.unquoted.heredoc\",\n\n    // Additional situations to trigger auto complete\n    \"auto_complete_triggers\": [ {\"selector\": \"text.html\", \"characters\": \"<\"} ],\n\n    // By default, auto complete will commit the current completion on enter.\n    // This setting can be used to make it complete on tab instead.\n    // Completing on tab is generally a superior option, as it removes\n    // ambiguity between committing the completion and inserting a newline.\n    \"auto_complete_commit_on_tab\": false,\n\n    // Controls if auto complete is shown when snippet fields are active.\n    // Only relevant if auto_complete_commit_on_tab is true.\n    \"auto_complete_with_fields\": false,\n\n    // Controls what happens when pressing the up key while the first item in\n    // the auto complete window is selected: if false, the window is hidden,\n    // otherwise the last item in the window is selected. Likewise for the\n    // down key when the last item is selected.\n    \"auto_complete_cycle\": false,\n\n    // Automatically close HTML and XML tags when </ is entered.\n    \"auto_close_tags\": true,\n\n    // By default, shift+tab will only unindent if the selection spans\n    // multiple lines. When pressing shift+tab at other times, it'll insert a\n    // tab character - this allows tabs to be inserted when tab_completion is\n    // enabled. Set this to true to make shift+tab always unindent, instead of\n    // inserting tabs.\n    \"shift_tab_unindent\": false,\n\n    // If true, the copy and cut commands will operate on the current line\n    // when the selection is empty, rather than doing nothing.\n    \"copy_with_empty_selection\": true,\n\n    // If true, the selected text will be copied into the find panel when it's\n    // shown.\n    // On OS X, this value is overridden in the platform specific settings, so\n    // you'll need to place this line in your user settings to override it.\n    \"find_selected_text\": true,\n\n    // When auto_find_in_selection is enabled, the \"Find in Selection\" flag\n    // will be enabled automatically when multiple lines of text are selected\n    \"auto_find_in_selection\": false,\n\n    // When drag_text is enabled, clicking on selected text will begin a\n    // drag-drop operation. This is not currently implemented under Linux.\n    \"drag_text\": true,\n\n    //\n    // User Interface Settings\n    //\n\n    // The theme controls the look of Sublime Text's UI (buttons, tabs, scroll bars, etc)\n    \"theme\": \"Default.sublime-theme\",\n\n    // Set to 0 to disable smooth scrolling. Set to a value between 0 and 1 to\n    // scroll slower, or set to larger than 1 to scroll faster\n    \"scroll_speed\": 1.0,\n\n    // Controls side bar animation when expanding or collapsing folders\n    \"tree_animation_enabled\": true,\n\n    // Controls animation throughout the application\n    \"animation_enabled\": true,\n\n    // Makes tabs with modified files more visible\n    \"highlight_modified_tabs\": false,\n\n    \"show_tab_close_buttons\": true,\n\n    // Show folders in the side bar in bold\n    \"bold_folder_labels\": false,\n\n    // OS X only: Set to true to disable Lion style full screen support.\n    // Sublime Text must be restarted for this to take effect.\n    \"use_simple_full_screen\": false,\n\n    // OS X only. Valid values are true, false, and \"auto\". Auto will enable\n    // the setting when running on a screen 2560 pixels or wider (i.e., a\n    // Retina display). When this setting is enabled, OpenGL is used to\n    // accelerate drawing. Sublime Text must be restarted for changes to take\n    // effect.\n    \"gpu_window_buffer\": \"auto\",\n\n    // Valid values are \"system\", \"enabled\" and \"disabled\"\n    \"overlay_scroll_bars\": \"system\",\n\n    // Allows tabs to scroll left and right, instead of simply shrinking\n    \"enable_tab_scrolling\": true,\n\n    // Display file encoding in the status bar\n    \"show_encoding\": false,\n\n    // Display line endings in the status bar\n    \"show_line_endings\": false,\n\n    //\n    // Application Behavior Settings\n    //\n\n    // Exiting the application with hot_exit enabled will cause it to close\n    // immediately without prompting. Unsaved modifications and open files will\n    // be preserved and restored when next starting.\n    //\n    // Closing a window with an associated project will also close the window\n    // without prompting, preserving unsaved changes in the workspace file\n    // alongside the project.\n    \"hot_exit\": true,\n\n    // remember_full_screen will allow Sublime Text to start in full screen\n    // mode if it was exited in full screen mode. When set to false, Sublime\n    // Text will never start in full screen mode.\n    \"remember_full_screen\": false,\n\n    // Always prompt before reloading a file, even if the file hasn't been\n    // modified. The default behavior is to automatically reload a file if it\n    // hasn't been edited. If a file has unsaved changes, a prompt will always\n    // be shown.\n    \"always_prompt_for_file_reload\": false,\n\n    // OS X only: When files are opened from finder, or by dragging onto the\n    // dock icon, this controls if a new window is created or not.\n    \"open_files_in_new_window\": true,\n\n    // OS X only: This controls if an empty window is created at startup or not.\n    \"create_window_at_startup\": true,\n\n    // Set to true to close windows as soon as the last file is closed, unless\n    // there's a folder open within the window.\n    // On OS X, this value is overridden in the platform specific settings, so\n    // you'll need to place this line in your user settings to override it.\n    \"close_windows_when_empty\": false,\n\n    // Show the full path to files in the title bar.\n    // On OS X, this value is overridden in the platform specific settings, so\n    // you'll need to place this line in your user settings to override it.\n    \"show_full_path\": true,\n\n    // Shows the Build Results panel when building. If set to false, the Build\n    // Results can be shown via the Tools/Build Results menu.\n    \"show_panel_on_build\": true,\n\n    // Shows build errors just under the line on which they occur.\n    \"show_errors_inline\": true,\n\n    // Preview file contents when clicking on a file in the side bar. Double\n    // clicking or editing the preview will open the file and assign it a tab.\n    \"preview_on_click\": true,\n\n    // folder_exclude_patterns and file_exclude_patterns control which files\n    // are listed in folders on the side bar. These can also be set on a per-\n    // project basis.\n    \"folder_exclude_patterns\": [\".svn\", \".git\", \".hg\", \"CVS\"],\n    \"file_exclude_patterns\": [\"*.pyc\", \"*.pyo\", \"*.exe\", \"*.dll\", \"*.obj\",\"*.o\", \"*.a\", \"*.lib\", \"*.so\", \"*.dylib\", \"*.ncb\", \"*.sdf\", \"*.suo\", \"*.pdb\", \"*.idb\", \".DS_Store\", \"*.class\", \"*.psd\", \"*.db\", \"*.sublime-workspace\"],\n    // These files will still show up in the side bar, but won't be included in\n    // Goto Anything or Find in Files\n    \"binary_file_patterns\": [\"*.jpg\", \"*.jpeg\", \"*.png\", \"*.gif\", \"*.ttf\", \"*.tga\", \"*.dds\", \"*.ico\", \"*.eot\", \"*.pdf\", \"*.swf\", \"*.jar\", \"*.zip\"],\n\n    // File indexing parses all files in the side bar, and builds an index of\n    // their symbols. This is required for Goto Definition to work.\n    \"index_files\": true,\n\n    // Set the number threads to use for indexing. A value of 0 will make\n    // Sublime Text guess based on the number of cores. Use the index_files\n    // setting to disable all workers.\n    \"index_workers\": 0,\n\n    // index_exclude_patterns indicate which files won't be indexed.\n    \"index_exclude_patterns\": [\"*.log\"],\n\n    // List any packages to ignore here. When removing entries from this list,\n    // a restart may be required if the package contains plugins.\n    \"ignored_packages\": [\"Vintage\"]\n}\n",
+					"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+					"file_size": -1,
+					"file_write_time": -1,
+					"settings":
+					{
+						"buffer_size": 16708,
+						"line_ending": "Unix",
+						"read_only": true,
+						"scratch": true
+					}
+				},
+				{
+					"contents": "{\n\t// A list of URLs that each contain a JSON file with a list of repositories.\n\t// The repositories from these channels are placed in order after the\n\t// repositories from the \"repositories\" setting\n\t\"channels\": [\n\t\t\"https://packagecontrol.io/channel_v3.json\"\n\t],\n\n\t// A list of URLs that contain a packages JSON file. These repositories\n\t// are placed in order before repositories from the \"channels\"\n\t// setting\n\t\"repositories\": [],\n\n\t// A list of packages to install pre-release versions for. Versions\n\t// under 1.0.0 are not considered pre-release, only those using the SemVer\n\t// -prerelease suffixes will be ignored if the package is not in this\n\t// list.\n\t\"install_prereleases\": [],\n\n\t// If debugging information for HTTP/HTTPS connections should be printed\n\t// to the Sublime Text console\n\t\"debug\": false,\n\n\t// This helps solve naming issues where a repository it not named the\n\t// same as the package should be. This is primarily only useful for\n\t// GitHub and BitBucket repositories. This mapping will override the\n\t// mapping that is retrieved from the repository channels.\n\t\"package_name_map\": {},\n\n\t// If package install, upgrade and removal info should be submitted to\n\t// the channel for aggregated statistics\n\t\"submit_usage\": true,\n\n\t// The URL to post install, upgrade and removal notices to\n\t\"submit_url\": \"https://packagecontrol.io/submit\",\n\n\t// If packages should be automatically upgraded when ST starts\n\t\"auto_upgrade\": true,\n\n\t// If missing packages should be automatically installed when ST starts\n\t\"install_missing\": true,\n\n\t// If a package was installed by Package Control (has a\n\t// package-metadata.json file) but is not in installed_packages, remove it\n\t// based upon the assumption that it was removed on another machine and\n\t// the Package Control.sublime-settings file was synced to this machine.\n\t\"remove_orphaned\": true,\n\n\t// The minimum frequency in hours in which to check for automatic upgrades,\n\t// setting this to 0 will always check for automatic upgrades\n\t\"auto_upgrade_frequency\": 1,\n\n\t// Packages to not auto upgrade\n\t\"auto_upgrade_ignore\": [],\n\n\t// Timeout for downloading channels, repositories and packages. Doesn't\n\t// have an effect on Windows due to a bug in WinINet.\n\t\"timeout\": 30,\n\n\t// The number of seconds to cache repository and package info for\n\t\"cache_length\": 300,\n\n\t// An HTTP proxy server to use for requests. Not normally used on Windows\n\t// since the system proxy configuration is utilized via WinINet. However,\n\t// if WinINet is not working properly, this will be used by the Urllib\n\t// downloader, which acts as a fallback.\n\t\"http_proxy\": \"\",\n\t// An HTTPS proxy server to use for requests - this will inherit from\n\t// http_proxy if it is set to \"\" or null and http_proxy has a value. You\n\t// can set this to false to prevent inheriting from http_proxy. Not\n\t// normally used on Windows since the system proxy configuration is\n\t// utilized via WinINet. However, if WinINet is not working properly, this\n\t// will be used by the Urllib downloader, which acts as a fallback.\n\t\"https_proxy\": \"\",\n\n\t// Username and password for both http_proxy and https_proxy. May be used\n\t// with WinINet to set credentials for system-level proxy config.\n\t\"proxy_username\": \"\",\n\t\"proxy_password\": \"\",\n\n\t// If HTTP responses should be cached to disk\n\t\"http_cache\": true,\n\n\t// Number of seconds to cache HTTP responses for, defaults to one week\n\t\"http_cache_length\": 604800,\n\n\t// User agent for HTTP requests. If \"%s\" is present, will be replaced\n\t// with the current version.\n\t\"user_agent\": \"Package Control v%s\",\n\n\t// A list of package names to ignore when performing operations. This will\n\t// only affect packages that appear to be a git or hg repository, but will\n\t// be especially useful for package developers who manually deal with the\n\t// repository and don't want Package Control touching it.\n\t//\n\t// It can help if trying to list packages to install hangs, possibly due\n\t// to an interactive prompt.\n\t//\n\t// The setting can also be set to the boolean true to ignore all git and hg\n\t// repositories, no matter what the name.\n\t\"ignore_vcs_packages\": [],\n\n\t// Custom path(s) to \"git\" binary for when it can't be automatically\n\t// found on the system and a package includes a .git metadata directory.\n\t// Supports more than one path to allow users to sync settings across\n\t// operating systems.\n\t\"git_binary\": [],\n\n\t// This should NOT contain the name of the remote or branch - that will\n\t// be automatically determined.\n\t\"git_update_command\": [\"pull\", \"--ff\", \"--commit\"],\n\n\t// Custom path(s) to \"hg\" binary for when it can't be automatically\n\t// found on the system and a package includes a .hg metadata directory.\n\t// Supports more than one path to allow users to sync settings across\n\t// operating systems.\n\t\"hg_binary\": [],\n\n\t// For HG repositories, be sure to use \"default\" as the remote URL.\n\t// This is the default behavior when cloning an HG repo.\n\t\"hg_update_command\": [\"pull\", \"--update\"],\n\n\t// Additional packages to ignore when listing unmanaged packages.\n\t\"unmanaged_packages_ignore\": [],\n\n\t// The downloader backends that should be used for HTTP(S) requests, split\n\t// by operating system to allow for configuration to be shared.\n\t//\n\t// Valid options include: \"urllib\", \"curl\", \"wget\", (Windows-only) \"wininet\"\n\t//\n\t// This setting allows Windows users to bypass wininet and use urllib\n\t// instead if they machine or network presents trouble to wininet. Some\n\t// OS X and Linux users have also reported better luck with certain proxies\n\t// using curl or wget instead of urllib.\n\t//\n\t// The \"curl\" and \"wget\" options require the command line \"curl\" or \"wget\"\n\t// program installed and present in the PATH.\n\t\"downloader_precedence\": {\n\t\t\"windows\": [\"wininet\"],\n\t\t\"osx\": [\"urllib\"],\n\t\t\"linux\": [\"urllib\", \"curl\", \"wget\"]\n\t},\n\n\t// Directories to ignore when creating a package\n\t\"dirs_to_ignore\": [\n\t\t\".hg\", \".git\", \".svn\", \"_darcs\", \"CVS\"\n\t],\n\n\t// Files to ignore when creating a package\n\t\"files_to_ignore\": [\n\t\t\"*.pyc\", \".hgignore\", \".gitignore\", \".bzrignore\",\n\t\t\"*.sublime-project\", \"*.sublime-workspace\", \"*.tmTheme.cache\"\n\t],\n\n\t// Files to include, even if they match a pattern in files_to_ignore\n\t\"files_to_include\": [],\n\n\t// When a package is created, copy it to this folder - defaults to Desktop\n\t\"package_destination\": \"\",\n\n\t// A way to create different packaging profiles for different types of\n\t// package releases, such as for different platforms or binary-only\n\t// releases.\n\t//\n\t// The key of the object will be the profile name and a list of them will\n\t// be presenting when running the \"Create Package File\" command. The\n\t// profile \"Default\" will use the top-level version on the following\n\t// settings:\n\t//\n\t// - \"dirs_to_ignore\"\n\t// - \"files_to_ignore\"\n\t// - \"files_to_include\"\n\t// - \"package_destination\"\n\t//\n\t// If a profile does not include one of those three setting, it will fall\n\t// back to the top-level settings.\n\t\"package_profiles\": {\n\t\t\"Binaries Only\": {\n\t\t\t// Exclude all .py files, but consequently include all .pyc files\n\t\t\t\"files_to_ignore\": [\n\t\t\t\t\"*.py\", \".hgignore\", \".gitignore\", \".bzrignore\",\n\t\t\t\t\"*.sublime-project\", \"*.sublime-workspace\", \"*.tmTheme.cache\"\n\t\t\t],\n\n\t\t\t// Include __init__.py so Sublime Text will load the package\n\t\t\t\"files_to_include\": [\n\t\t\t\t\"__init__.py\"\n\t\t\t]\n\t\t}\n\t},\n\n\t// Enable the ability to run the tests - this is only for development\n\t\"enable_tests\": false\n}\n",
+					"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+					"file_size": -1,
+					"file_write_time": -1,
+					"settings":
+					{
+						"buffer_size": 7379,
+						"line_ending": "Unix",
+						"read_only": true,
+						"scratch": true
+					}
+				},
+				{
+					"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+					"settings":
+					{
+						"buffer_size": 872,
+						"line_ending": "Unix"
+					}
+				}
+			],
+			"build_system": "",
+			"build_system_choices":
+			[
+			],
+			"build_varint": "",
+			"command_palette":
+			{
+				"height": 92.0,
+				"last_filter": "Package Control: Install",
+				"selected_items":
+				[
+					[
+						"Package Control: Install",
+						"Package Control: Install Package"
+					],
+					[
+						"insatll",
+						"Package Control: Install Package"
+					]
+				],
+				"width": 449.0
+			},
+			"console":
+			{
+				"height": 126.0,
+				"history":
+				[
+					"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+				]
+			},
+			"distraction_free":
+			{
+				"menu_visible": true,
+				"show_minimap": false,
+				"show_open_files": false,
+				"show_tabs": false,
+				"side_bar_visible": false,
+				"status_bar_visible": false
+			},
+			"file_history":
+			[
+				"/Users/Oscar/dotfiles/.vim/vimrc",
+				"/Users/Oscar/dotfiles/.zshrc",
+				"/Users/Oscar/dotfiles/bin/ufetch",
+				"/Users/Oscar/dotfiles/scripts/updates.sh",
+				"/Users/Oscar/dotfiles/install.sh",
+				"/Users/Oscar/dotfiles/bin/infoterm",
+				"/Users/Oscar/dotfiles/bin/bars",
+				"/Users/Oscar/dotfiles/setup/dependencies-macos",
+				"/Users/Oscar/dotfiles/setup/dependencies-Arch",
+				"/Users/Oscar/dotfiles/setup/dependencies-Ubuntu",
+				"/Users/Oscar/dotfiles/setup/outputs.sh",
+				"/Users/Oscar/dotfiles/scripts/outputs.sh",
+				"/Users/Oscar/dotfiles/test.sh",
+				"/Users/Oscar/dotfiles/setup/template.sh",
+				"/Users/Oscar/test.sh",
+				"/Users/Oscar/dotfiles/setup/setup.sh",
+				"/Users/Oscar/dotfiles/setup/main.sh",
+				"/Users/Oscar/Downloads/snake-2.asm",
+				"/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+			],
+			"find":
+			{
+				"height": 30.0
+			},
+			"find_in_files":
+			{
+				"height": 0.0,
+				"where_history":
+				[
+				]
+			},
+			"find_state":
+			{
+				"case_sensitive": false,
+				"find_history":
+				[
+					"tmux",
+					"vim",
+					"echo",
+					"echo -e",
+					"echo",
+					"echo -e",
+					"echo"
+				],
+				"highlight": true,
+				"in_selection": false,
+				"preserve_case": false,
+				"regex": false,
+				"replace_history":
+				[
+				],
+				"reverse": false,
+				"show_context": true,
+				"use_buffer2": true,
+				"whole_word": false,
+				"wrap": true
+			},
+			"groups":
+			[
+				{
+					"selected": 1,
+					"sheets":
+					[
+						{
+							"buffer": 0,
+							"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 16708,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										16708
+									]
+								],
+								"settings":
+								{
+									"edit_settings_other_view_id": 48,
+									"edit_settings_view": "base",
+									"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 1,
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 7379,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										7379,
+										7379
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 0,
+							"type": "text"
+						}
+					]
+				},
+				{
+					"selected": 0,
+					"sheets":
+					[
+						{
+							"buffer": 2,
+							"file": "/Users/Oscar/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+							"semi_transient": false,
+							"settings":
+							{
+								"buffer_size": 872,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"edit_settings_other_view_id": 47,
+									"edit_settings_view": "user",
+									"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"stack_index": 2,
+							"type": "text"
+						}
+					]
+				}
+			],
+			"incremental_find":
+			{
+				"height": 30.0
+			},
+			"input":
+			{
+				"height": 0.0
+			},
+			"layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					],
+					[
+						1,
+						0,
+						2,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					0.5,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			},
+			"menu_visible": true,
+			"output.find_results":
+			{
+				"height": 0.0
+			},
+			"output.unsaved_changes":
+			{
+				"height": 142.0
+			},
+			"pinned_build_system": "",
+			"position": "1 20 39 1880 1140 0 0 1920 1200 ",
+			"project": "",
+			"replace":
+			{
+				"height": 56.0
+			},
+			"save_all_on_build": true,
+			"select_file":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_project":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"select_symbol":
+			{
+				"height": 0.0,
+				"last_filter": "",
+				"selected_items":
+				[
+				],
+				"width": 0.0
+			},
+			"selected_group": 0,
+			"settings":
+			{
+			},
+			"show_minimap": true,
+			"show_open_files": false,
+			"show_tabs": true,
+			"side_bar_visible": false,
+			"side_bar_width": 150.0,
+			"status_bar_visible": true,
+			"template_settings":
+			{
+			},
+			"window_id": 15,
+			"workspace_name": ""
+		}
+	],
+	"workspaces":
+	{
+		"recent_workspaces":
+		[
+		]
+	}
+}
