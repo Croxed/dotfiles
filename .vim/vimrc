@@ -173,13 +173,13 @@ let g:gruvbox_contrast_dark='neutral'
 
 let g:gruvbox_invert_selection=0
 
-silent! colorscheme gruvbox
+silent! colorscheme blaquemagick
 
 
 let g:tmuxline_powerline_separators = 1
 
 let g:lightline = {
-      \'colorscheme': 'gruvbox',
+      \'colorscheme': 'wombat',
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \}

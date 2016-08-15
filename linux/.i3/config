@@ -306,7 +306,7 @@ bar {
 }
 
 # AUTOSTART
-exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/black_metal.png
+exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/wallpaper_forest.jpg
 exec --no-startup-id compton -b
 
 exec --no-startup-id nm-applet &
