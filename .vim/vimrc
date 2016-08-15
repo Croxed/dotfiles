@@ -168,18 +168,18 @@ syntax on
 set background=dark
 
 " Colorscheme management
-"let g:gruvbox_contrast_dark='neutral'
-let base16colorspace=256
+let g:gruvbox_contrast_dark='neutral'
+"let base16colorspace=256
 
 let g:gruvbox_invert_selection=0
 
-silent! colorscheme base16-ocean
+silent! colorscheme gruvbox
 
 
 let g:tmuxline_powerline_separators = 1
 
 let g:lightline = {
-      \'colorscheme': 'wombat',
+      \'colorscheme': 'gruvbox',
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \}
