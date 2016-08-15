@@ -3,6 +3,10 @@
 #export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
+git-yolo() {
+  git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+}
+
 # Simple shit #
 #alias ls='ls -FhlG'
 alias ls='exa'
