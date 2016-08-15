@@ -59,7 +59,6 @@ alias poweroff='sudo /sbin/shutdown -h now'
 alias myip='curl icanhazip.com'
 
 # Other IP / Method
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ifconfig en0 inet | grep 'inet ' | awk ' { print $2 } '"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
