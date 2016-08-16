@@ -52,11 +52,11 @@ interval=2
 border=#aaaaaa
 color=#ffffff
 
-#[battery]
-#command=$HOME/scripts/battery.sh
-#interval=10
-#color=#ffffff
-#border=#444444
+[battery]
+command=$HOME/scripts/battery.sh
+interval=10
+color=#ffffff
+border=#999999
 
 [time]
 label=    
