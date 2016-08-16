@@ -173,7 +173,11 @@ let g:gruvbox_contrast_dark='neutral'
 
 let g:gruvbox_invert_selection=0
 
-silent! colorscheme blaquemagick
+if system('uname') =~ "Darwin"
+  silent! colorscheme gray2
+else
+  silent! colorscheme blaquemagick
+endif
 
 
 let g:tmuxline_powerline_separators = 1
