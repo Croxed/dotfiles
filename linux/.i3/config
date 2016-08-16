@@ -22,7 +22,7 @@ set $black       #282828
 set $darkblack   #1d2021
 set $transparent #00000000
 
-set $ws1  "1:  "
+set $ws1  "1:  "
 set $ws2  "2:  "
 set $ws3  "3:  "
 set $ws4  "4:  "
@@ -31,7 +31,7 @@ set $ws6  "6:  "
 set $ws7  "7:  "
 set $ws8  "8:  "
 set $ws9  "9:  "
-set $ws10 "10:  "
+set $ws10 "10:  "
 
 set $default_gaps_inner 5
 set $default_gaps_outer 3
@@ -111,7 +111,8 @@ bindsym $mod+Shift+plus scratchpad show
 
 bindsym $mod+Shift+s sticky toggle
 # put YouTube into fullscreen and execute this for media mode
-bindsym $mod+y fullscreen disable; floating enable; resize set 400 300; sticky enable; move window to position 2140 20
+bindsym $mod+y fullscreen disable; floating enable; resize set 650 400; move window to position 635 400
+bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 650 400; sticky enable; move window to position 635 400
 
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -141,7 +142,7 @@ bindsym $mod+Shift+r restart
 bindsym --release Print exec --no-startup-id "maim -p 0 -c 0.96,0.5,0.09 $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
 bindsym --release Shift+Print exec --no-startup-id "maim -s -p 0 -c 0.96,0.5,0.09 $HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
 
-bindsym $mod+n exec --no-startup-id thunar
+bindsym $mod+n exec --no-startup-id pcmanfm
 
 set $mode_resize resize
 bindsym $mod+r mode "$mode_resize"
@@ -264,6 +265,7 @@ for_window [class="(?i)gsimplecal"] floating enable, move position mouse
 for_window [class="(?i)qemu-system"] floating enable
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)blueman"] floating enable
+for_window [class="(?i)pcmanfm"] floating enable
 
 #for_window [instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [instance="__scratchpad"] floating enable
@@ -272,7 +274,7 @@ for_window [instance="__nmtui"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down 34px
 
-assign [class="(?i)chrome"]                       $ws1
+assign [class="(?i)chromium"]                     $ws1
 assign [class="(?i)eclipse" window_type="splash"] $ws3
 assign [class="(?i)eclipse" window_type="normal"] $ws3
 assign [class="(?i)thunderbird"]                  $ws9
@@ -306,8 +308,7 @@ bar {
 }
 
 # AUTOSTART
-exec_always --no-startup-id hsetroot -fill $HOME/.config/wallpapers/wallpaper_forest.jpg
-#exec_always $HOME/.config/lemonbuddy/launch.sh &
+exec_always --no-startup-id hsetroot -fill $HOME/.config/wallpapers/wallpaper_forest.jpg -blur 10
 exec --no-startup-id compton -b &
 
 exec --no-startup-id nm-applet &
