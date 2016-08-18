@@ -310,6 +310,7 @@ bar {
 # AUTOSTART
 exec_always --no-startup-id hsetroot -fill $HOME/.config/wallpapers/wallpaper_forest.jpg -blur 10
 exec --no-startup-id compton -b &
+exec --no-startup-ip xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &
 
 exec --no-startup-id nm-applet &
 exec --no-startup-id blueman-applet &
