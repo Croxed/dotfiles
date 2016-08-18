@@ -48,7 +48,7 @@ color=#ffffff
 [wireless]
 label=  
 #command=[[ -z "$(ifconfig ens1 | grep -i inet | awk '{ print $2 }' | head -1)" ]] || echo "$(ifconfig ens1 | grep -i inet | awk '{ print $2 }' | head -1) "
-command=[[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r) "
+command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && i3-msg exec /usr/bin/nm-connection-editor &> /dev/null || true) && [[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r) "
 interval=2
 border=#aaaaaa
 color=#ffffff
