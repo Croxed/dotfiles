@@ -8,7 +8,7 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        $HOME/.i3/i3-suspend
+        $HOME/.i3/i3-suspend "$HOME/Pictures/arch-logo-mini.png"
         ;;
     hibernate)
         systemctl hibernate
