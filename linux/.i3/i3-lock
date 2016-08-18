@@ -1,0 +1,5 @@
+#!/bin/bash
+scrot -e 'mv $f /tmp/screen.png'
+convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+[[ -f /home/oscar/Pictures/arch-logo-mini.png ]] && convert /tmp/screen.png /home/oscar/Pictures/arch-logo-mini.png -gravity center -composite -matte /tmp/screen.png
+i3lock -u -i /tmp/screen.png

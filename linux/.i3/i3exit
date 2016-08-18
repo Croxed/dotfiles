@@ -2,13 +2,13 @@
 
 case "$1" in
     lock)
-        i3lock-fancy -p -f Hack
+        $HOME/.i3/i3-lock
         ;;
     logout)
         i3-msg exit
         ;;
     suspend)
-        systemctl suspend
+        $HOME/.i3/i3-suspend
         ;;
     hibernate)
         systemctl hibernate
