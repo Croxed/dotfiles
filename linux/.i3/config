@@ -75,6 +75,8 @@ bindsym $mod+Shift+Down move down 35px
 bindsym $mod+Shift+Up move up 35px
 bindsym $mod+Shift+Right move right 35px
 
+# Center floating windows
+bindsym $mod+c move absolute position center
 
 bindsym $mod+h split h
 bindsym $mod+v split v
@@ -111,7 +113,7 @@ bindsym $mod+Shift+plus scratchpad show
 
 bindsym $mod+Shift+s sticky toggle
 # put YouTube into fullscreen and execute this for media mode
-bindsym $mod+y fullscreen disable; floating enable; resize set 650 400; move window to position 635 400
+bindsym $mod+y fullscreen disable; floating enable; resize set 700 450; move window to position 610 375
 bindsym $mod+Shift+y fullscreen disable; floating enable; resize set 650 400; sticky enable; move window to position 635 400
 
 bindsym $mod+Shift+1 move container to workspace number $ws1

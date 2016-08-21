@@ -7,7 +7,9 @@
 !    ██   ░░██░███  ░░██████ ██████ ░░██████ ░░██████░███  ░░█████ ░░██████ ██████
 !   ░░     ░░ ░░░    ░░░░░░ ░░░░░░   ░░░░░░   ░░░░░░ ░░░    ░░░░░   ░░░░░░ ░░░░░░
 
-#include </home/oscar/.colors/blaquemagick.Xcolors>
+!#include </home/oscar/.colors/blaquemagick.Xcolors>
+#include </home/oscar/.colors/sourcerer.Xcolors>
+
 
 Xft.dpi: 96
 Xft.antialias: true
@@ -45,17 +47,6 @@ URxvt.scrollBar: 	    false
 URxvt.cursorUnderline:	true
 URxvt.cursorBlink:	    true
 URxvt.termName:         rxvt-256color
-!URxvt.perl-ext-common: default,matcher,clipboard
-!URxvt.url-launcher:    firefox
-!URxvt.matcher.button:  1
-!URxvt.internalBorder:  16
-!URxvt.lineSpace:       1
-!URxvt.keysym.C-C:   perl:clipboard:copy
-!URxvt.keysym.C-V:   perl:clipboard:paste
-!URxvt.keysym.C-A-V: perl:clipboard:paste_escaped
-!URxvt.clipboard.copycmd:  xsel -ib
-!URxvt.clipboard.pastecmd: xsel -ob
-!URxvt.iso14755:   false
 
 urxvt*boldFont:
 urxvt*italicFont:

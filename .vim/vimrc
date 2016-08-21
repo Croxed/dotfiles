@@ -176,7 +176,8 @@ let g:gruvbox_invert_selection=0
 if system('uname') =~ "Darwin"
   silent! colorscheme gray2
 else
-  silent! colorscheme blaquemagick
+  "silent! colorscheme blaquemagick
+  silent! colorscheme sourcerer
 endif
 
 
