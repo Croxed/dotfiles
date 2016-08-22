@@ -47,6 +47,9 @@ alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
 # Start tmux
 alias ltmux="tmux attach -t base || tmux new -s base"
 
+# Musical tmux
+alias lmtmux="tmux attach -t music || tmux new -s music"
+
 # To exit terminal
 alias e='exit'
 
