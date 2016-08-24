@@ -309,4 +309,5 @@ fi
 echo ''
 if [[ "$distro" == 'Mac OS X' ]]; then
   ask "Install sensible defaults for Mac OS X?" Y && bash "$DOTFILES_ROOT/setup/macos"
+  ask "Install QuickLook plugins?" Y && bash "$DOTFILES_ROOT/setup/qlInstall"
 fi
