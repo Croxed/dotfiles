@@ -40,72 +40,21 @@ do
   fi
 done
 
-# ----------------------- Start of zplug config ----------------------- #
+# ----------------------- Start of ZIM config ----------------------- #
 
-# Check if zplug is installed
-[[ -d ~/.zplug ]] || {
-git clone https://github.com/zplug/zplug ~/.zplug
-source ~/.zplug/zplug && zplug update --self
+[[ -d ${ZDOTDIR:-${HOME}}/.zim ]] || {
+  git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
+  cp ${ZDOTDIR:-${HOME}}/.zim/templates/zlogin ${ZDOTDIR:-${HOME}}/.zlogin && source ${ZDOTDIR:-${HOME}}/.zlogin
 }
 
-# Load zplug
-source ~/.zplug/zplug
+#
+# User configuration sourced by interactive shells
+#
 
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search", nice:19
-zplug "djui/alias-tips"
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh, nice:14
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "chrissicool/zsh-256color"
-zplug "zsh-users/zsh-completions", use:"src"
-zplug "zsh-users/zsh-syntax-highlighting", nice:17
-zplug "zsh-users/zsh-autosuggestions", nice:18
-zplug "rimraf/k"
-zplug "plugins/gitfast", from:oh-my-zsh, nice:15
-#zplug "oskarkrawczyk/honukai-iterm-zsh", use:"honukai.zsh-theme", nice:16
-zplug "mafredri/zsh-async"
-zplug "sindresorhus/pure", use:"pure.zsh", nice:16
-
-
-platform="unknown"
-
-case "$OSTYPE" in
-  solaris*) platform="SOLARIS" ;;
-  darwin*)  platform="OSX" ;;
-  linux*)   platform="LINUX" ;;
-  bsd*)     platform="BSD" ;;
-  *)        platform="unknown: $OSTYPE" ;;
-esac
-
-
-if [[ "$platform" == "OSX" ]]; then
-  echo -e "Loading plugins for OS X"
-  zplug "unixorn/tumult.plugin.zsh"
-  zplug "plugins/osx", from:oh-my-zsh
-  zplug "plugins/brew", from:oh-my-zsh
-  zplug "mwilliammyers/plugin-osx"
-elif [[ "$platform" == "LINUX" ]]; then
-  if [[ "$(lsb_release -si)" == "Arch" ]]; then
-    echo "Loading plugins for Arch Linux..."
-    zplug "plugins/archlinux", from:oh-my-zsh
-  elif [[ "$(lsb_release -si)" == "Ubuntu" ]]; then
-    echo "Loading pluins for Ubuntu..."
-    zplug "plugins/ubuntu", from:oh-my-zsh
-  fi
-else
-  echo "Cannot identify your OS..."
+# Source zim
+if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 fi
-
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-zplug load
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
@@ -131,12 +80,14 @@ export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/20
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 
 ### AUTOSUGGESTIONS ###
-if zplug check zsh-users/zsh-autosuggestions; then
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
-fi
-
-# ----------------------- End of zplug config ----------------------- #
+[[ -d ${ZDOTDIR:-${HOME}}/.zsh/zsh-autosuggestions ]] || {
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZDOTDIR:-${HOME}}/.zsh/zsh-autosuggestions
+}
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+# ----------------------- End of ZIM config ----------------------- #
 
 # set some history options
 setopt append_history
@@ -228,8 +179,6 @@ dedupe_path
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
 # ----------------------- User config ----------------------- #
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh

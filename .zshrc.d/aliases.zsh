@@ -8,7 +8,7 @@ git-yolo() {
 }
 
 # Simple shit #
-alias ls='gls -Fhl --color=auto'
+alias ls='ls -FhlGp'
 #alias ls='exa'
 alias ..="cd .."
 alias c="clear && printf '\e[3J'"
@@ -19,8 +19,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 ## Use a long listing format ##
-#alias ll='ls -la --git'
-alias ll='gls -la --color=auto'
+alias ll='ls -la'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
