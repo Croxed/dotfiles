@@ -40,30 +40,6 @@ do
   fi
 done
 
-# Fun with SSH
-if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
-  if [[ "$(uname -s)" == "Darwin" ]]; then
-    # We're on OS X. Try to load ssh keys using pass phrases stored in
-    # the OSX keychain.
-    #
-    # You can use ssh-add -K /path/to/key to store pass phrases into
-    # the OSX keychain
-    ssh-add -k
-  fi
-fi
-
-if [ -f ~/.ssh/id_rsa ]; then
-  if [ $(ssh-add -l | grep -c ".ssh/id_rsa" ) -eq 0 ]; then
-    ssh-add ~/.ssh/id_rsa
-  fi
-fi
-
-if [ -f ~/.ssh/id_dsa ]; then
-  if [ $(ssh-add -L | grep -c ".ssh/id_dsa" ) -eq 0 ]; then
-    ssh-add ~/.ssh/id_dsa
-  fi
-fi
-
 # ----------------------- Start of zplug config ----------------------- #
 
 # Check if zplug is installed
@@ -253,13 +229,6 @@ dedupe_path
 
 # ----------------------- User config ----------------------- #
 
-# Base16 Shell
-#[[ -d ~/.config/base16-shell ]] || {
-#git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-#}
-#BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-#[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 ufetch
 
@@ -271,8 +240,3 @@ if [[ "$platform" == "LINUX" ]]; then
 fi
 
 # ----------------------- End of config ----------------------- #
-PATH="/home/oscar/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/oscar/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/oscar/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/oscar/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/oscar/perl5"; export PERL_MM_OPT;

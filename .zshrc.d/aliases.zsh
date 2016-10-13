@@ -20,7 +20,7 @@ fi
 
 ## Use a long listing format ##
 #alias ll='ls -la --git'
-alias ll'gls -la --color=auto'
+alias ll='gls -la --color=auto'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
