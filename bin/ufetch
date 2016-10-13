@@ -260,7 +260,6 @@ getterm() {
     
     if [ -z "$term" ]; then
       term="$(perl -lpe 's/\0/ /g' /proc/$(xdotool getwindowpid $(xdotool getactivewindow))/cmdline)"
-        echo "$term"
     fi
 
    # case "${name// }" in
