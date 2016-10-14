@@ -7,7 +7,7 @@
 Run following command to install my dotfiles. 
 
 ```
-git clone https://github.com/Croxed/dotfiles "$HOME/.dotfiles"; cd "$HOME/.dotfiles/setup"; sh setup.sh
+git clone https://github.com/Croxed/dotfiles "$HOME/.dotfiles"; cd "$HOME/.dotfiles"; bash install.sh
 ```
 The repo will be cloned to ~/.dotfiles for simplicity.
 
