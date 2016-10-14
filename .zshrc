@@ -77,13 +77,17 @@ export DISABLE_CORRECTION=true
 export DISABLE_UPDATE_PROMPT=true
 export EDITOR='vim'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
-export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 
 ### AUTOSUGGESTIONS ###
 [[ -d ${ZDOTDIR:-${HOME}}/.zsh/zsh-autosuggestions ]] || {
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZDOTDIR:-${HOME}}/.zsh/zsh-autosuggestions
 }
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -d ${ZDOTDIR:-${HOME}}/.zsh/alias-tips ]] || {
+  git clone https://github.com/djui/alias-tips.git ${ZDOTDIR:-${HOME}}/.zsh/alias-tips
+}
+source ${ZDOTDIR:-${HOME}}/.zsh/alias-tips/alias-tips.plugin.zsh
+source ${ZDOTDIR:-${HOME}}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
