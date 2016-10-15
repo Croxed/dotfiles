@@ -8,7 +8,8 @@ git-yolo() {
 }
 
 # Simple shit #
-if( "$(uname)" == "Darwin" ); then
+if [ "$(uname)" = "Darwin" ] 
+then
   alias ls='ls -FhlGp'
 else
   alias ls='ls -Fhlp --color=auto'
