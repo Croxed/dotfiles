@@ -33,6 +33,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias termclock='tty-clock -C 2 -crsDBb'
 
+alias dirs="dirs -v"
+
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
 
