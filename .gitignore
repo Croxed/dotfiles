@@ -3,6 +3,7 @@
 .i3/config.vanilla
 .vim/autoload
 .zsh/cache
+.zsh/complete
 .vim/plugged
 .vim/undo
 */__pycache__
