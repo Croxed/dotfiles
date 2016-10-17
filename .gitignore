@@ -4,6 +4,8 @@
 .vim/autoload
 .zsh/cache
 .zsh/complete
+.zsh/.zcompdump*
+.zsh/.zhistory
 .vim/plugged
 .vim/undo
 */__pycache__
