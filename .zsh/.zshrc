@@ -58,9 +58,9 @@ fi
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
-mkdir -p ~/.zsh/.zshrc.d
-if [ -d ${ZDOTDIR:-{HOME}}/.zshrc.d ]; then
-  for dotfile in ${ZDOTDIR:-${HOME}}/.zshrc.d/*
+mkdir -p ${ZDOTDIR:-${HOME}}/zshrc.d
+if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
+  for dotfile in ${ZDOTDIR:-${HOME}}/zshrc.d/*
   do
     if [ -r "${dotfile}" ]; then
       source "${dotfile}"
