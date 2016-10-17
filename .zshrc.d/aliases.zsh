@@ -33,6 +33,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias termclock='tty-clock -C 2 -crsDBb'
 
+alias dots='git --git-dir=$HOME/.dots.git/ --work-tree=$HOME'
+
 alias dirs="dirs -v"
 
 # do not delete / or prompt if deleting more than 3 files at a time #

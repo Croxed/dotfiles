@@ -28,6 +28,72 @@
 "              If you're a more advanced user, building your own .vimrc based
 "              on this file is still a good idea.
 "------------------------------------------------------------
+""""""""""""""""""""""""
+"  My vimrc  "
+""""""""""""""""""""""""
+"" Autofolding .vimrc
+" see http://vimcasts.org/episodes/writing-a-custom-fold-expression/
+""" defines a foldlevel for each line of code
+function! VimFolds(lnum)
+  let s:thisline = getline(a:lnum)
+  if match(s:thisline, '^"" ') >= 0
+    return '>2'
+  endif
+  if match(s:thisline, '^""" ') >= 0
+    return '>3'
+  endif
+  let s:two_following_lines = 0
+  if line(a:lnum) + 2 <= line('$')
+    let s:line_1_after = getline(a:lnum+1)
+    let s:line_2_after = getline(a:lnum+2)
+    let s:two_following_lines = 1
+  endif
+  if !s:two_following_lines
+      return '='
+    endif
+  else
+    if (match(s:thisline, '^"""""') >= 0) &&
+       \ (match(s:line_1_after, '^"  ') >= 0) &&
+       \ (match(s:line_2_after, '^""""') >= 0)
+      return '>1'
+    else
+      return '='
+    endif
+  endif
+endfunction
+
+""" defines a foldtext
+function! VimFoldText()
+  " handle special case of normal comment first
+  let s:info = '('.string(v:foldend-v:foldstart).' l)'
+  if v:foldlevel == 1
+    let s:line = ' ◇ '.getline(v:foldstart+1)[3:-2]
+  elseif v:foldlevel == 2
+    let s:line = '   ●  '.getline(v:foldstart)[3:]
+  elseif v:foldlevel == 3
+    let s:line = '     ▪ '.getline(v:foldstart)[4:]
+  endif
+  if strwidth(s:line) > 80 - len(s:info) - 3
+    return s:line[:79-len(s:info)-3+len(s:line)-strwidth(s:line)].'...'.s:info
+  else
+    return s:line.repeat(' ', 80 - strwidth(s:line) - len(s:info)).s:info
+  endif
+endfunction
+
+""" set foldsettings automatically for vim files
+augroup fold_vimrc
+  autocmd!
+  autocmd FileType vim
+                   \ setlocal foldmethod=expr |
+                   \ setlocal foldexpr=VimFolds(v:lnum) |
+                   \ setlocal foldtext=VimFoldText() |
+     "              \ set foldcolumn=2 foldminlines=2
+augroup END
+
+""""""""""""""""""""""""
+"  VIM-PLUG  "
+""""""""""""""""""""""""
+"" Plugins
 set nocompatible              " be iMproved, required
 
 " set the runtime path to include Vundle and initialize
@@ -53,7 +119,6 @@ Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plug 'ascenator/L9', {'name': 'newL9'}
-
 
 " Editor
 Plug 'tpope/vim-surround'
@@ -133,20 +198,20 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chriskempson/base16-vim'
 
 "------------------------------------------------------------
-
+"" My own configs
 " Mine
 Plug 'tpope/vim-sensible'
 Plug 'edkolev/tmuxline.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
 
-" Local
-Plug '~/.fzf'
-
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 "------------------------------------------------------------
-" Features {{{1
+""""""""""""""""""""""""
+"  Configs "
+""""""""""""""""""""""""
+"" Features
 "
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
@@ -159,7 +224,7 @@ call plug#end()            " required
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
 "filetype indent plugin on
-
+"" Config for theme and lightline
 " Enable syntax highlighting
 syntax on
 
@@ -186,42 +251,9 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \}
-"Vim-airline
-"===========
-"let g:airline_theme='base16_monokai'
-"let g:airline_powerline_fonts = 0
-"branch parts
-"let g:airline#extensions#branch#enabled = 1
-"seperators
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '◀'
-"modes
-"let g:airline_section_b="%{fugitive#head()}"
-"let g:airline_section_y=""
-"let g:airline_section_gutter=""
-"let g:airline#extensions#whitespace#enabled = 0
-" let g:airline#extensions#tabline#enabled = 1
-
-"" if !exists('g:airline_symbols')
-""    let g:airline_symbols = {}
-""  endif
-
-" unicode symbols
-"" let g:airline_left_sep = '»'
-"" let g:airline_left_sep = '▶'
-"" let g:airline_right_sep = '«'
-"" let g:airline_right_sep = '◀'
-"" let g:airline_symbols.linenr = '␊'
-"" let g:airline_symbols.linenr = '␤'
-"" let g:airline_symbols.linenr = '¶'
-"" let g:airline_symbols.branch = '⎇'
-"" let g:airline_symbols.paste = 'ρ'
-"" let g:airline_symbols.paste = 'Þ'
-"" let g:airline_symbols.paste = '∥'
-"" let g:airline_symbols.whitespace = 'Ξ'
 
 "------------------------------------------------------------
-" Must have options {{{1
+"" Must have options
 "
 " These are highly recommended options.
 
@@ -263,7 +295,7 @@ set hlsearch
 
 
 "------------------------------------------------------------
-" Usability options {{{1
+"" Usability options
 "
 " These are options that users frequently set in their .vimrc. Some of them
 " change Vim's behaviour in ways which deviate from the true Vi way, but
@@ -318,7 +350,7 @@ set pastetoggle=<F11>
 
 
 "------------------------------------------------------------
-" Indentation options {{{1
+"" Indentation options
 "
 " Indentation settings according to personal preference.
 
@@ -334,7 +366,7 @@ set expandtab
 "set tabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim variables
+"" => Vim variables
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8 " set the encoding to utf-8
 set t_Co=256 " set terminal color 265
@@ -390,7 +422,7 @@ if !empty(&viminfo)
 endif
 
 "------------------------------------------------------------
-" Mappings {{{1
+"" Mappings
 "
 " Useful mappings
 
