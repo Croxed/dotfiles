@@ -2,6 +2,7 @@
 .vim/.netrwhist
 .i3/config.vanilla
 .vim/autoload
+.zsh/cache
 .vim/plugged
 .vim/undo
 */__pycache__
