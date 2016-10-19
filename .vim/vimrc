@@ -95,31 +95,14 @@ augroup END
 """"""""""""""""""""""""
 "" Plugins
 set nocompatible              " be iMproved, required
-
-" set the runtime path to include Vundle and initialize
+" set the runtime path to include vim-plug and initialize
 call plug#begin('~/.vim/plugged')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 Plug 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plug 'ascenator/L9', {'name': 'newL9'}
-
 " Editor
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -147,53 +130,29 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'jpo/vim-railscasts-theme'
-Plug 'morhetz/gruvbox'
-Plug 'powerline/powerline'
-
 " From another .vimrc
-
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-s2)'     }
 Plug 'godlygeek/csapprox',        { 'for': 'fugitiveblame'            }
-Plug 'junegunn/fzf',              { 'on': 'FZF', 'dir': '~/local/fzf', 'do': './install --bin' }
 Plug 'junegunn/gv.vim',           { 'on': 'GV'                        }
 Plug 'junegunn/vader.vim',
 Plug 'junegunn/vim-easy-align',   { 'on': '<plug>(LiveEasyAlign)'     }
 Plug 'justinmk/vim-dirvish'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-surround'
-
-Plug 'elixir-lang/vim-elixir',  { 'for': 'elixir'     }
-Plug 'tpope/vim-rails'
-Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua'        }
 Plug 'xolox/vim-misc',          { 'for': 'lua'        }
-
 Plug '/data/github/vim-easy-going'
 Plug '/data/github/vim-grepper'
 Plug '/data/github/vim-janah'
-Plug '/data/github/vim-randomtag', { 'on': 'Random'   }
-Plug '/data/github/vim-rfc',       { 'on': 'RFC'      }
-Plug '/data/github/vim-sayonara',  { 'on': 'Sayonara' }
 Plug '/data/github/vim-signify'
 Plug '/data/github/vim-startify'
 Plug '/data/github/vim-syntaxful'
 
-" Search
-Plug 'rking/ag.vim'
-Plug 'mileszs/ack.vim'
-
 " Git
 Plug 'airblade/vim-gitgutter'
-
 " Indent
 Plug 'nathanaelkane/vim-indent-guides'
-
 " Vim themes
 Plug 'chriskempson/base16-vim'
 
@@ -218,12 +177,12 @@ call plug#end()            " required
 
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as sanely reset options when re-sourcing .vimrc
-"set nocompatible
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
-"filetype indent plugin on
+filetype indent plugin on
+
 "" Config for theme and lightline
 " Enable syntax highlighting
 syntax on
@@ -284,6 +243,8 @@ set wildmenu
 " Show partial commands in the last line of the screen
 set showcmd
 
+language en_GB.UTF-8
+
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
 " mapping of <C-L> below)
 set hlsearch
@@ -331,9 +292,6 @@ set confirm
 
 " Use visual bell instead of beeping when doing something wrong
 set visualbell
-
-" Enable use of the mouse for all modes
-set mouse=a
 
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"

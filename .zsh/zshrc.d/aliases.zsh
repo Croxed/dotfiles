@@ -4,7 +4,7 @@
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
 git-yolo() {
-  git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
 }
 
 # Simple shit #
@@ -21,7 +21,7 @@ alias c="clear && printf '\e[3J'"
 #alias c="clear"
 
 if [ $UID -ne 0 ]; then
-    alias reboot='sudo reboot'
+  alias reboot='sudo reboot'
 fi
 
 ## Use a long listing format ##
@@ -33,12 +33,10 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias termclock='tty-clock -C 2 -crsDBb'
 
-alias dots='git --git-dir=$HOME/.dots.git/ --work-tree=$HOME'
-
 alias dirs="dirs -v"
 
 # do not delete / or prompt if deleting more than 3 files at a time #
-#alias rm='rm -I --preserve-root'
+alias rm='rm -I --preserve-root'
 
 # confirmation #
 alias mv='mv -i'
@@ -79,18 +77,23 @@ alias myip='curl icanhazip.com'
 alias localip="ifconfig en0 inet | grep 'inet ' | awk ' { print $2 } '"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
-# Flush the dns cache #
-alias flushdns='sudo killall -HUP mDNSResponder'
+if[ "$(uname)" == "Darwim" ]; then
 
-## Show & hide hidden files in finder ##
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+  # Flush the dns cache #
+  alias flushdns='sudo killall -HUP mDNSResponder'
 
-# Update system with all available updates #
-alias sysupdate='sudo softwareupdate -iva'
+  ## Show & hide hidden files in finder ##
+  alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+  alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-# Edit this file (as I tend to do it quite often) #
-alias editAlias='vim $HOME/.zshrc.d/aliases.zsh'
+  # Update system with all available updates #
+  alias sysupdate='sudo softwareupdate -iva'
+
+  alias subl="open -a /Applications/Sublime\ Text.app"
+  alias stfu="osascript -e 'set volume output muted true'"
+  alias pumpitup="osascript -e 'set volume 7'"
+  alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
+fi
 
 # Reload shell #
 if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" || "$SHELL" == "/usr/bin/zsh" ]]; then
@@ -99,8 +102,4 @@ elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" || "$SHELL"
   alias br='exec bash'
 fi
 
-alias subl="open -a /Applications/Sublime\ Text.app"
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume 7'"
-alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 alias updateall="apacman -Syu --noconfirm --noedit"
