@@ -77,8 +77,7 @@ alias myip='curl icanhazip.com'
 alias localip="ifconfig en0 inet | grep 'inet ' | awk ' { print $2 } '"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
-if[ "$(uname)" == "Darwim" ]; then
-
+if [ "$(uname)" = "Darwin" ]; then
   # Flush the dns cache #
   alias flushdns='sudo killall -HUP mDNSResponder'
 
@@ -87,8 +86,9 @@ if[ "$(uname)" == "Darwim" ]; then
   alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
   # Update system with all available updates #
-  alias sysupdate='sudo softwareupdate -iva'
+  alias sysupdate='sudo softwareupdate -ia'
 
+  alias bubu="brew update && brew upgrade"
   alias subl="open -a /Applications/Sublime\ Text.app"
   alias stfu="osascript -e 'set volume output muted true'"
   alias pumpitup="osascript -e 'set volume 7'"
