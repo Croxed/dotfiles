@@ -115,7 +115,7 @@ setopt pushd_ignore_dups
 # Keep a ton of history.
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=~/.zsh_history
+HISTFILE=${ZDOTDIR:-${HOME}}/.zsh_history
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
 # Long running processes should return time after they complete. Specified
@@ -187,7 +187,7 @@ ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
-if [[ "$platform" == "LINUX" ]]; then
+if [[ "$(uname)" == "Linux" ]]; then
   [ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
   export PANEL_FIFO="/tmp/panel-fifo"
 fi
