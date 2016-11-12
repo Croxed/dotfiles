@@ -3,6 +3,7 @@
 .i3/config.vanilla
 .vim/autoload
 .zsh/cache
+.zsh/zcompcache
 .zsh/complete
 .zsh/.zcompdump*
 .zsh/.zsh_history
