@@ -5,7 +5,7 @@
 .zsh/cache
 .zsh/complete
 .zsh/.zcompdump*
-.zsh/.zhistory
+.zsh/.zsh_history
 .vim/plugged
 .vim/undo
 */__pycache__
