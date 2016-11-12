@@ -36,7 +36,7 @@ alias termclock='tty-clock -C 2 -crsDBb'
 alias dirs="dirs -v"
 
 # do not delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
+#alias rm='rm -I --preserve-root'
 
 # confirmation #
 alias mv='mv -i'
@@ -88,7 +88,10 @@ if [ "$(uname)" = "Darwin" ]; then
   # Update system with all available updates #
   alias sysupdate='sudo softwareupdate -ia'
 
-  alias bubu="brew update && brew upgrade"
+  alias brews='brew list -1'
+  alias bubo='brew update && brew outdated'
+  alias bubc='brew upgrade && brew cleanup'
+  alias bubu='bubo && bubc'
   alias subl="open -a /Applications/Sublime\ Text.app"
   alias stfu="osascript -e 'set volume output muted true'"
   alias pumpitup="osascript -e 'set volume 7'"
