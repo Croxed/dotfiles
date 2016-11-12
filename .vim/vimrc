@@ -295,6 +295,9 @@ set nostartofline
 " line of a window
 set ruler
 
+set nobackup
+set nowb
+set noswapfile
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
