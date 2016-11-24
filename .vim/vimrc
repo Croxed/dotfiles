@@ -20,80 +20,9 @@
 "                         ██████████▄▄▄▄▄▄▄██████████
 "                         ███████████████████████████
 "
-
-" URL: http://vim.wikia.com/wiki/Example_vimrc
-" Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
-" Description: A minimal, but feature rich, example .vimrc. If you are a
-"              newbie, basing your first .vimrc on this file is a good choice.
-"              If you're a more advanced user, building your own .vimrc based
-"              on this file is still a good idea.
 "------------------------------------------------------------
-""""""""""""""""""""""""
-"  My vimrc  "
-""""""""""""""""""""""""
-"" Autofolding .vimrc
-" see http://vimcasts.org/episodes/writing-a-custom-fold-expression/
-""" defines a foldlevel for each line of code
-function! VimFolds(lnum)
-  let s:thisline = getline(a:lnum)
-  if match(s:thisline, '^"" ') >= 0
-    return '>2'
-  endif
-  if match(s:thisline, '^""" ') >= 0
-    return '>3'
-  endif
-  let s:two_following_lines = 0
-  if line(a:lnum) + 2 <= line('$')
-    let s:line_1_after = getline(a:lnum+1)
-    let s:line_2_after = getline(a:lnum+2)
-    let s:two_following_lines = 1
-  endif
-  if !s:two_following_lines
-      return '='
-    endif
-  else
-    if (match(s:thisline, '^"""""') >= 0) &&
-       \ (match(s:line_1_after, '^"  ') >= 0) &&
-       \ (match(s:line_2_after, '^""""') >= 0)
-      return '>1'
-    else
-      return '='
-    endif
-  endif
-endfunction
-
-""" defines a foldtext
-function! VimFoldText()
-  " handle special case of normal comment first
-  let s:info = '('.string(v:foldend-v:foldstart).' l)'
-  if v:foldlevel == 1
-    let s:line = ' ◇ '.getline(v:foldstart+1)[3:-2]
-  elseif v:foldlevel == 2
-    let s:line = '   ●  '.getline(v:foldstart)[3:]
-  elseif v:foldlevel == 3
-    let s:line = '     ▪ '.getline(v:foldstart)[4:]
-  endif
-  if strwidth(s:line) > 80 - len(s:info) - 3
-    return s:line[:79-len(s:info)-3+len(s:line)-strwidth(s:line)].'...'.s:info
-  else
-    return s:line.repeat(' ', 80 - strwidth(s:line) - len(s:info)).s:info
-  endif
-endfunction
-
-""" set foldsettings automatically for vim files
-augroup fold_vimrc
-  autocmd!
-  autocmd FileType vim
-                   \ setlocal foldmethod=expr |
-                   \ setlocal foldexpr=VimFolds(v:lnum) |
-                   \ setlocal foldtext=VimFoldText() |
-     "              \ set foldcolumn=2 foldminlines=2
-augroup END
-
-""""""""""""""""""""""""
-"  VIM-PLUG  "
-""""""""""""""""""""""""
-"" Plugins
+" => Plugins
+"{{{
 set nocompatible              " be iMproved, required
 " set the runtime path to include vim-plug and initialize
 call plug#begin('~/.vim/plugged')
@@ -128,6 +57,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jonathanfilip/vim-lucius'
+
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-s2)'     }
@@ -155,23 +85,19 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chriskempson/base16-vim'
 
 "------------------------------------------------------------
-"" My own configs
-" Mine
+" My own configs
 Plug 'tpope/vim-sensible'
 Plug 'edkolev/tmuxline.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
-Plug 'vimwiki/vimwiki'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
-"------------------------------------------------------------
-""""""""""""""""""""""""
-"  Configs "
-""""""""""""""""""""""""
-"" Features
-"
+"}}}
+" => Configs "
+"{{{
+
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
 
@@ -222,10 +148,9 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \}
-
-"------------------------------------------------------------
-"" Must have options
-"
+"}}}
+" => Must have options
+"{{{
 " These are highly recommended options.
 
 " Vim with default settings does not allow easy switching between multiple files
@@ -266,10 +191,10 @@ set hlsearch
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
 " set nomodeline
 
-
-"------------------------------------------------------------
-"" Usability options
-"
+set foldmethod=marker
+"}}}
+" => Usability options
+"{{{
 " These are options that users frequently set in their .vimrc. Some of them
 " change Vim's behaviour in ways which deviate from the true Vi way, but
 " which are considered to add usability. Which, if any, of these options to
@@ -320,11 +245,9 @@ set notimeout ttimeout ttimeoutlen=200
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
-
-
-"------------------------------------------------------------
-"" Indentation options
-"
+"}}}
+" => Indentation options
+"{{{
 " Indentation settings according to personal preference.
 
 " Indentation settings for using 4 spaces instead of tabs.
@@ -337,10 +260,9 @@ set expandtab
 " four characters wide.
 "set shiftwidth=4
 "set tabstop=4
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Vim variables
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"}}}
+" => Vim variables
+"{{{
 set encoding=utf-8 " set the encoding to utf-8
 set t_Co=256 " set terminal color 265
 set clipboard=unnamed " fix not copying between clipboard and vim
@@ -393,10 +315,9 @@ set linespace=0
 if !empty(&viminfo)
   set viminfo^=!
 endif
-
-"------------------------------------------------------------
-"" Mappings
-"
+"}}}
+" => Mappings
+" {{{
 " Useful mappings
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
@@ -408,4 +329,4 @@ map Y y$
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-"------------------------------------------------------------
+"}}}
