@@ -238,6 +238,7 @@ set visualbell
 set cmdheight=2
 
 " Display absolute or relative number to the left
+set number
 set relativenumber
 
 " Quickly time out on keycodes, but never time out on mappings
