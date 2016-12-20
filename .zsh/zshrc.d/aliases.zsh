@@ -7,6 +7,9 @@ git-yolo() {
 git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
 }
 
+docker-attack(){
+  docker exec -it $1 bash
+}
 # Simple shit #
 if [ "$(uname)" = "Darwin" ] 
 then
@@ -99,10 +102,6 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 # Reload shell #
-if [[ "$SHELL" == "/bin/zsh" || "$SHELL" == "/usr/local/bin/zsh" || "$SHELL" == "/usr/bin/zsh" ]]; then
-  alias zr='exec zsh'
-elif [[ "$SHELL" == "/bin/bash" || "$SHELL" == "/usr/local/bin/bash" || "$SHELL" == "/usr/bin/bash/" ]]; then
-  alias br='exec bash'
-fi
+alias reload='exec "$SHELL"'
 
 alias updateall="apacman -Syu --noconfirm --noedit"
