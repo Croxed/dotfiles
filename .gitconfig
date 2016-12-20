@@ -1,28 +1,32 @@
 [user]
-    name = Oscar Wennergren
-    email = oscar@wennergren.se
+  name = Oscar Wennergren
+  email = oscar@wennergren.se
 
 [alias]
-    a = add --all
-    c = commit
-    st = status
-    co = checkout
-    up = pull --rebase=preserve
-    g = grep --break --heading --line-number
-    fa = fetch --all
-    p = push
-    pf = push -f
+  a = add --all
+  c = commit
+  st = status
+  co = checkout
+  up = pull --rebase=preserve
+  g = grep --break --heading --line-number
+  fa = fetch --all
+  p = push
+  pf = push -f
+  # the acronym stands for "subtree add"
+  sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
+  #         # the acronym stands for "subtree update"
+  sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
 
 [color]
-    diff = auto
-    status = auto
-    branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [push]
-    default = simple
+  default = simple
 [merge]
-    tool = vimdiff
+  tool = vimdiff
 [mergetool]
-    keepBackup = false
+  keepBackup = false
 [gui]
-    fontui = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
-    fontdiff = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+  fontui = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+  fontdiff = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0

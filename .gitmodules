@@ -1,9 +1,0 @@
-[submodule ".zsh/.zim"]
-	path = .zsh/.zim
-	url = https://github.com/Eriner/zim.git
-[submodule ".zsh/alias-tips"]
-	path = .zsh/alias-tips
-	url = https://github.com/djui/alias-tips.git
-[submodule ".zsh/zsh-autosuggestions"]
-	path = .zsh/zsh-autosuggestions
-	url = https://githubcom/zsh-users/zsh-autosuggestions.git
