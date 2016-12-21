@@ -74,7 +74,7 @@ def install_required():
     from sys import platform as _platform
     dist = ""
     if _platform == "linux" or _platform == "linux2":
-       dist = platform.dist()
+       dist = platform.dist()[0]
     elif _platform == "darwin":
        dist = "macOS"
     elif _platform == "win32":

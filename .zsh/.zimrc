@@ -24,7 +24,7 @@ zmodules=(archive ssh directory environment git history input utility meta custo
 #
 
 # Set your desired prompt here
-zprompt_theme='pure'
+zprompt_theme='lean'
 
 #
 # Completion

@@ -51,6 +51,7 @@ done
 # User configuration sourced by interactive shells
 #
 
+PROMPT_LEAN_TMUX=""
 # Source zim
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
