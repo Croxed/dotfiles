@@ -7,9 +7,9 @@
 Run following command to install my dotfiles. 
 
 ```
-git clone https://github.com/Croxed/dotfiles "$HOME/.dotfiles"; cd "$HOME/.dotfiles"; bash install.sh
+curl -L https://github.com/Croxed/dotfiles/raw/master/install.py | python
 ```
-The repo will be cloned to ~/.dotfiles for simplicity.
+The repo will be cloned to ~/.dotconfig/dotfiles.
 
 #### dots
 
@@ -36,7 +36,7 @@ Might implement flag to use and install [MacPorts](https://www.macports.org) ins
 
 * [Arch Linux](http://archlinux.org/)
 * [Ubuntu](http://www.ubuntu.com)
-* macOS
+* [macOS](http://www.apple.com/se/macos)
 
 If your OS is not yet implemented, please do a PR.
 
