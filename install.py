@@ -79,8 +79,8 @@ def install_required():
        dist = "macOS"
     elif _platform == "win32":
        dist = "Windows"
-    command = "bash dependencies/dependencies-{dist}".format(
-            dist=dist)
+    command = "bash {dotfiles}dependencies/dependencies-{dist}".format(
+            dist=dist, dotfiles=DOTFILES)
     f.info(command)
     return True if run(command) else False
 
@@ -111,7 +111,8 @@ def install_extras():
        install = DOTFILES + "/Linux"
        linux = True
     elif _platform == "darwin":
-       install = "dependencies/macos"
+       install = "{dotfiles}dependencies/macos".format(
+                dotfiles=DOTFILES)
 
     if linux:
         for dfs in install:
