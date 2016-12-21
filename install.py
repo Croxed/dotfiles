@@ -17,7 +17,7 @@ DOTFILES = os.path.join(HOME, ".dotconfig/dotfiles")
 ALL_DOTFILES = set(x[len(DOTFILES+"/"):] for x in glob.glob(DOTFILES + "/.*"))
 # 除外するファイル名の設定
 EXCLUDE_DOTFILES = set([".git", ".git_commit_template.txt",
-                        ".gitignore", ".travis.yml", ".gitmodules"])
+                        ".gitignore", ".travis.yml", ".gitmodules", "dependencies", "Linux"])
 # ホームディレクトリ上にシンボリックリンクを貼るファイルの名前
 DOT_HOME_FILES = ALL_DOTFILES - EXCLUDE_DOTFILES
 
@@ -79,8 +79,9 @@ def install_required():
        dist = "macOS"
     elif _platform == "win32":
        dist = "Windows"
-    command = "bash dependencies/{dist}".format(
+    command = "bash dependencies/dependencies-{dist}".format(
             dist=dist)
+    f.info(command)
     return True if run(command) else False
 
 def has_required():
@@ -102,6 +103,31 @@ def downloading_dotfiles(branch="master"):
     f.info(command)
     return True if run(command) else False
 
+def install_extras():
+    from sys import platform as _platform
+    install = ""
+    linux = False
+    if _platform == "linux" or _platform == "linux2":
+       install = DOTFILES + "/Linux"
+       linux = True
+    elif _platform == "darwin":
+       install = "dependencies/macos"
+
+    if linux;
+        for dfs in install:
+            src = os.path.join(DOTFILES, dfs)
+            dst = os.path.join(HOME, dfs)
+
+            try:
+                os.symlink(src, dst)
+                f.success("✓ linking {src} ==> {dst}".format(src=src, dst=dst))
+            except:
+                f.warn("{src} ==> {dst} has been already existed".format(src=src, dst=dst))
+    else:
+        command = "bash {install}".format(
+            install=install)
+        f.info(command)
+        return True if run(command) else False
 
 def deploy():
     for dfs in DOT_HOME_FILES:
@@ -162,7 +188,7 @@ def install():
     if initialize() is False:
         f.fail("✗ Initializing failed")
         sys.exit(1)
-
+    f.info("==> Installing Extras")
     f.info("==> Start to test")
     test()
 
