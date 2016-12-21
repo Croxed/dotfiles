@@ -190,6 +190,9 @@ def install():
         f.fail("✗ Initializing failed")
         sys.exit(1)
     f.info("==> Installing Extras")
+    if not install_extras():
+        f.fail("✗ Could not install extras")
+        sys.exit(1)
     f.info("==> Start to test")
     test()
 
