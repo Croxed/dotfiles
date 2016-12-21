@@ -60,9 +60,9 @@ info "Installing packages"
 brew install coreutils \
     moreutils \
     findutils \
-    gnu-sed --with-default-names \
-    wget --with-iri \
-    vim --override-system-vi \
+    gnu-sed \
+    wget \
+    vim \
     homebrew/dupes/grep \
     homebrew/dupes/openssh \
     homebrew/dupes/screen \
@@ -82,7 +82,7 @@ brew install coreutils \
     dark-mode \
     git \
     git-lfs \
-    imagemagick --with-webp \
+    imagemagick \
     lua \
     lynx \
     p7zip \
