@@ -2,18 +2,17 @@
 .vim/.netrwhist
 .i3/config.vanilla
 .vim/autoload
-.zsh/cache
-.zsh/.zcompcache
-.zsh/complete
-.zsh/.zcompdump*
-.zsh/.zsh_history
-.zsh/*.zwc
 .vim/plugged
 .vim/undo
 */__pycache__
 *.pyc
 
 .vim/colors/eclm_wombat.vim
+
+.zsh/*
+!.zsh/.zshrc
+!.zsh/.zimrc
+!.zsh/.zshrc.d
 
 .config/*
 !.config/dunst
