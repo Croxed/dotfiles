@@ -28,7 +28,7 @@ for path_candidate in /opt/local/sbin \
   /usr/local/share/npm/bin \
   ~/.cabal/bin \
   ~/.rbenv/bin \
-  ~/bin \
+  ~/.bin \
   ~/bin.local \
   ~/scripts \
   ~/.nexustools \
