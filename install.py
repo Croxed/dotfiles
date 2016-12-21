@@ -113,7 +113,7 @@ def install_extras():
     elif _platform == "darwin":
        install = "dependencies/macos"
 
-    if linux;
+    if linux:
         for dfs in install:
             src = os.path.join(DOTFILES, dfs)
             dst = os.path.join(HOME, dfs)
