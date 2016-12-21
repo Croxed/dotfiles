@@ -109,7 +109,8 @@ def install_extras():
     install = ""
     linux = False
     if _platform == "linux" or _platform == "linux2":
-       install = DOTFILES + "/Linux"
+       installpath = os.path.join(DOTFILES, "Linux")
+       install = set(x[len(installpath+"/"):] for x in glob.glob(installpath + "/*"))
        linux = True
     elif _platform == "darwin":
        install = "{dotfiles}/dependencies/macos".format(
@@ -117,7 +118,7 @@ def install_extras():
 
     if linux:
         for dfs in install:
-            src = os.path.join(DOTFILES, dfs)
+            src = os.path.join(install, dfs)
             dst = os.path.join(HOME, dfs)
 
             try:
