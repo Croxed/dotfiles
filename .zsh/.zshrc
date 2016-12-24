@@ -189,10 +189,13 @@ dedupe_path
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-	eval "$(ssh-agent -s)"
-	ssh-add ~/.ssh/id_rsa
+if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  eval `ssh-agent`
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
 fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+ssh-add -l > /dev/null || ssh-add
+
 # ----------------------- User config ----------------------- #
 ufetch
 
