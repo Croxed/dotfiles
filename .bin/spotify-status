@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 track="$(spotify track)"
 artist="$(spotify artist)"
-trackSwin="$(swinsian-song)"
 
-if [ "$track" == " " ]; then
+if [ "$track" != " " ]; then
   printf '%s - %s\n' "$track" "$artist"
 else
-  printf '%s' "$trackSwin"
+  printf '%s' "$(swinsian-song)"
 fi

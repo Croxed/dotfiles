@@ -4,7 +4,7 @@
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
 git-yolo() {
-git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+git commit -m "$(curl http://whatthecommit.com | grep '<p>' | gsed -r 's/^.{3}//')" && git push -f
 }
 
 docker-attack(){

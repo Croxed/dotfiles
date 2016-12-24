@@ -26,6 +26,7 @@ for path_candidate in /opt/local/sbin \
   /usr/bin/core_perl \
   /opt/local/bin \
   /usr/local/share/npm/bin \
+  /usr/local/opt/coreutils/libexec/gnubin \
   ~/.cabal/bin \
   ~/.rbenv/bin \
   ~/.bin \
