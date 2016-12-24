@@ -30,3 +30,5 @@
 [gui]
   fontui = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
   fontdiff = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+[credential]
+	helper = osxkeychain

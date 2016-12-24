@@ -189,15 +189,32 @@ dedupe_path
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
-if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-  eval `ssh-agent`
-  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+# Fun with SSH
+if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
+	if [[ "$(uname -s)" == "Darwin" ]]; then
+		# We're on OS X. Try to load ssh keys using pass phrases stored in
+		# the OSX keychain.
+		#
+		# You can use ssh-add -K /path/to/key to store pass phrases into
+		# the OSX keychain
+		ssh-add -k
+	fi
 fi
-export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-ssh-add -l > /dev/null || ssh-add
+
+if [ -f ~/.ssh/id_rsa ]; then
+	if [ $(ssh-add -l | grep -c ".ssh/id_rsa" ) -eq 0 ]; then
+		ssh-add ~/.ssh/id_rsa
+	fi
+fi
+
+if [ -f ~/.ssh/id_dsa ]; then
+	if [ $(ssh-add -L | grep -c ".ssh/id_dsa" ) -eq 0 ]; then
+		ssh-add ~/.ssh/id_dsa
+	fi
+fi
 
 # ----------------------- User config ----------------------- #
-ufetch
+# ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
