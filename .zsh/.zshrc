@@ -22,30 +22,30 @@ PATH=/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/bin:/usr/bin
 
 # Conditional PATH additions
 for path_candidate in /opt/local/sbin \
-  /Applications/Xcode.app/Contents/Developer/usr/bin \
-  /usr/bin/core_perl \
-  /opt/local/bin \
-  /usr/local/share/npm/bin \
-  /usr/local/opt/coreutils/libexec/gnubin \
-  ~/.cabal/bin \
-  ~/.rbenv/bin \
-  ~/.bin \
-  ~/bin.local \
-  ~/scripts \
-  ~/.nexustools \
-  ~/src/gocode/bin \
-  /usr/local/CrossPack-AVR/bin
+	/Applications/Xcode.app/Contents/Developer/usr/bin \
+	/usr/bin/core_perl \
+	/opt/local/bin \
+	/usr/local/share/npm/bin \
+	/usr/local/opt/coreutils/libexec/gnubin \
+	~/.cabal/bin \
+	~/.rbenv/bin \
+	~/.bin \
+	~/bin.local \
+	~/scripts \
+	~/.nexustools \
+	~/src/gocode/bin \
+	/usr/local/CrossPack-AVR/bin
 do
-  if [ -d ${path_candidate} ]; then
-    export PATH=${PATH}:${path_candidate}
-  fi
+	if [ -d ${path_candidate} ]; then
+		export PATH=${PATH}:${path_candidate}
+	fi
 done
 
 # ----------------------- Start of ZIM config ----------------------- #
 
 [[ -d ${ZDOTDIR:-${HOME}}/.zim ]] || {
-  git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
-  cp ${ZDOTDIR:-${HOME}}/.zim/templates/zlogin ${ZDOTDIR:-${HOME}}/.zlogin && source ${ZDOTDIR:-${HOME}}/.zlogin
+git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
+cp ${ZDOTDIR:-${HOME}}/.zim/templates/zlogin ${ZDOTDIR:-${HOME}}/.zlogin && source ${ZDOTDIR:-${HOME}}/.zlogin
 }
 
 #
@@ -55,19 +55,19 @@ done
 PROMPT_LEAN_TMUX=""
 # Source zim
 if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+	source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 fi
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
 mkdir -p ${ZDOTDIR:-${HOME}}/zshrc.d
 if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
-  for dotfile in ${ZDOTDIR:-${HOME}}/zshrc.d/*
-  do
-    if [ -r "${dotfile}" ]; then
-      source "${dotfile}"
-    fi
-  done
+	for dotfile in ${ZDOTDIR:-${HOME}}/zshrc.d/*
+	do
+		if [ -r "${dotfile}" ]; then
+			source "${dotfile}"
+		fi
+	done
 fi
 
 ### CONFIG ###
@@ -82,13 +82,13 @@ export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/20
 
 ### AUTOSUGGESTIONS ###
 [[ -d ${ZDOTDIR:-${HOME}}/zsh-autosuggestions ]] || {
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZDOTDIR:-${HOME}}/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZDOTDIR:-${HOME}}/zsh-autosuggestions
 }
 [[ -d ${ZDOTDIR:-${HOME}}/alias-tips ]] || {
-  git clone https://github.com/djui/alias-tips.git ${ZDOTDIR:-${HOME}}/alias-tips
+git clone https://github.com/djui/alias-tips.git ${ZDOTDIR:-${HOME}}/alias-tips
 }
 [[ -d ${ZDOTDIR:-${HOME}}/docker-alias ]] || {
-  git clone https://github.com/tcnksm/docker-alias ${ZDOTDIR:-${HOME}}/docker-alias
+git clone https://github.com/tcnksm/docker-alias ${ZDOTDIR:-${HOME}}/docker-alias
 }
 
 source ${ZDOTDIR:-${HOME}}/alias-tips/alias-tips.plugin.zsh
@@ -132,11 +132,11 @@ TIMEFMT="%U user %S system %P cpu %*Es total"
 
 # Expand aliases inline - see http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-    zle _expand_alias
-    zle expand-word
-  fi
-  zle self-insert
+	if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+		zle _expand_alias
+		zle expand-word
+	fi
+	zle self-insert
 }
 
 zle -N globalias
@@ -149,7 +149,7 @@ export LOCATE_PATH=/var/db/locate.database
 
 # JAVA setup - needed for iam-* tools
 if [ -d /Library/Java/Home ];then
-  export JAVA_HOME=/Library/Java/Home
+	export JAVA_HOME=/Library/Java/Home
 fi
 
 # Speed up autocomplete, force prefix mapping
@@ -160,10 +160,10 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 
 # Load any custom zsh completions we've installed
 if [ -d ~/.zsh-completions ]; then
-  for completion in ~/.zsh-completions/*
-  do
-    source "$completion"
-  done
+	for completion in ~/.zsh-completions/*
+	do
+		source "$completion"
+	done
 fi
 
 # In case a plugin adds a redundant path entry, remove duplicate entries
@@ -173,53 +173,34 @@ fi
 # dotfiles repo at https://github.com/mislav/dotfiles
 
 dedupe_path() {
-  typeset -a paths result
-  paths=($path)
+	typeset -a paths result
+	paths=($path)
 
-  while [[ ${#paths} -gt 0 ]]; do
-    p="${paths[1]}"
-    shift paths
-    [[ -z ${paths[(r)$p]} ]] && result+="$p"
-  done
+	while [[ ${#paths} -gt 0 ]]; do
+		p="${paths[1]}"
+		shift paths
+		[[ -z ${paths[(r)$p]} ]] && result+="$p"
+	done
 
-  export PATH=${(j+:+)result}
+	export PATH=${(j+:+)result}
 }
 
 dedupe_path
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
-SH_ENV="$HOME/.ssh/env"
-
-function start_agent {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
-}
-
-# Source SSH settings, if applicable
-
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+	eval "$(ssh-agent -s)"
+	ssh-add ~/.ssh/id_rsa
 fi
-
 # ----------------------- User config ----------------------- #
 ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
 if [[ "$(uname)" == "Linux" ]]; then
-  [ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
-  export PANEL_FIFO="/tmp/panel-fifo"
+	[ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
+	export PANEL_FIFO="/tmp/panel-fifo"
 fi
 
 # ----------------------- End of config ----------------------- #
