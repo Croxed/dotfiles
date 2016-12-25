@@ -214,7 +214,7 @@ if [ -f ~/.ssh/id_dsa ]; then
 fi
 
 # ----------------------- User config ----------------------- #
-# ufetch
+ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
