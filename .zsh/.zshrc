@@ -53,10 +53,40 @@ cp ${ZDOTDIR:-${HOME}}/.zim/templates/zlogin ${ZDOTDIR:-${HOME}}/.zlogin && sour
 #
 
 PROMPT_LEAN_TMUX=""
-# Source zim
-if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-	source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+
+export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
+[[ -d ${ZDOTDIR:-${HOME}}/.zplug ]] ||(
+ git clone https://github.com/zplug/zplug $ZPLUG_HOME 
+) 
+
+source $ZPLUG_HOME/init.zsh
+
+zplug "zsh-users/zsh-history-substring-search", defer:2
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "djui/alias-tips"
+zplug "tcnksm/docker-alias", use:zshrc
+zplug "plugins/git",   from:oh-my-zsh
+zplug "modules/prompt", from:prezto
+zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
+
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+prompt -s pure
+# Source zim
+#if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
+#	source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+#fi
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
@@ -91,9 +121,9 @@ git clone https://github.com/djui/alias-tips.git ${ZDOTDIR:-${HOME}}/alias-tips
 git clone https://github.com/tcnksm/docker-alias ${ZDOTDIR:-${HOME}}/docker-alias
 }
 
-source ${ZDOTDIR:-${HOME}}/alias-tips/alias-tips.plugin.zsh
-source ${ZDOTDIR:-${HOME}}/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${ZDOTDIR:-${HOME}}/docker-alias/zshrc
+#source ${ZDOTDIR:-${HOME}}/alias-tips/alias-tips.plugin.zsh
+#source ${ZDOTDIR:-${HOME}}/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ${ZDOTDIR:-${HOME}}/docker-alias/zshrc
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
