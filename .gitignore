@@ -23,8 +23,8 @@
 !.config/termite
 !.config/wallpapers
 !.config/neofetch
-!.config/nvim/init.vim
-!.config/nvim/colors
+!.config/nvim
+.config/nvim/autoload
 !.config/htop
 !.config/htop/htoprc
 
