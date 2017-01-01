@@ -12,7 +12,7 @@
 .zsh/*
 !.zsh/.zshrc
 !.zsh/.zimrc
-!.zsh/.zshrc.d
+!.zsh/zshrc.d
 
 .config/*
 !.config/dunst
