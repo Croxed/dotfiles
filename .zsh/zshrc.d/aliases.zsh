@@ -18,10 +18,8 @@ else
   alias ls='ls -Fhlp --color=auto'
 fi
 
-#alias ls='exa'
 alias ..="cd .."
 alias c="clear && printf '\e[3J'"
-#alias c="clear"
 
 if [ $UID -ne 0 ]; then
   alias reboot='sudo reboot'
@@ -47,7 +45,7 @@ alias cp='cp -i'
 alias ln='ln -i'
 
 # Using nvim instead of vim "
-#alias vim="nvim"
+alias vim="nvim"
 
 # Other shit #
 alias wget='wget -c'

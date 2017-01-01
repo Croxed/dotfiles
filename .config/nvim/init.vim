@@ -47,7 +47,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -66,22 +65,15 @@ Plug 'jonathanfilip/vim-lucius'
 
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
-Plug 'easymotion/vim-easymotion', { 'on': '<plug>(easymotion-s2)'     }
+Plug 'easymotion/vim-easymotion'
 Plug 'godlygeek/csapprox',        { 'for': 'fugitiveblame'            }
-Plug 'junegunn/gv.vim',           { 'on': 'GV'                        }
 Plug 'junegunn/vader.vim',
-Plug 'junegunn/vim-easy-align',   { 'on': '<plug>(LiveEasyAlign)'     }
+Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-scriptease'
 Plug 'xolox/vim-misc',          { 'for': 'lua'        }
-Plug '/data/github/vim-easy-going'
-Plug '/data/github/vim-grepper'
-Plug '/data/github/vim-janah'
-Plug '/data/github/vim-signify'
-Plug '/data/github/vim-startify'
-Plug '/data/github/vim-syntaxful'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -92,7 +84,6 @@ Plug 'chriskempson/base16-vim'
 
 "------------------------------------------------------------
 " My own configs
-Plug 'tpope/vim-sensible'
 Plug 'edkolev/tmuxline.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
