@@ -1,13 +1,7 @@
 *.swp
-.vim/.netrwhist
 .i3/config.vanilla
-.vim/autoload
-.vim/plugged
-.vim/undo
 */__pycache__
 *.pyc
-
-.vim/colors/eclm_wombat.vim
 
 .zsh/*
 !.zsh/.zshrc
@@ -22,11 +16,8 @@
 !.config/i3lock
 !.config/termite
 !.config/wallpapers
-!.config/neofetch
 !.config/nvim
 .config/nvim/autoload
-!.config/htop
-!.config/htop/htoprc
 
 !.config/i3blocks
 !.config/i3blocks/config
