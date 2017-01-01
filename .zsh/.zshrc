@@ -34,7 +34,8 @@ for path_candidate in /opt/local/sbin \
 	~/scripts \
 	~/.nexustools \
 	~/src/gocode/bin \
-	/usr/local/CrossPack-AVR/bin
+	/usr/local/CrossPack-AVR/bin \
+  /usr/local/texlive/2016/bin/x86_64-darwin
 do
 	if [ -d ${path_candidate} ]; then
 		export PATH=${PATH}:${path_candidate}
@@ -70,6 +71,7 @@ zplug "tcnksm/docker-alias", use:zshrc
 zplug "plugins/git",   from:oh-my-zsh
 zplug "modules/prompt", from:prezto
 zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+zplug "rauchg/wifi-password", as:command, use:wifi-password.sh, rename-to:wifi-password, if:"[[ $OSTYPE == *darwin* ]]"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -82,7 +84,10 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
 
-prompt -s pure
+autoload -Uz promptinit
+promptinit
+prompt pure
+
 # Source zim
 #if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
 #	source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
