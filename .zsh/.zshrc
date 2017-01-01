@@ -88,11 +88,6 @@ autoload -Uz promptinit
 promptinit
 prompt pure
 
-# Source zim
-#if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-#	source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
-#fi
-
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
 mkdir -p ${ZDOTDIR:-${HOME}}/zshrc.d
@@ -115,20 +110,6 @@ export DISABLE_UPDATE_PROMPT=true
 export EDITOR='vim'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
 
-### AUTOSUGGESTIONS ###
-[[ -d ${ZDOTDIR:-${HOME}}/zsh-autosuggestions ]] || {
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZDOTDIR:-${HOME}}/zsh-autosuggestions
-}
-[[ -d ${ZDOTDIR:-${HOME}}/alias-tips ]] || {
-git clone https://github.com/djui/alias-tips.git ${ZDOTDIR:-${HOME}}/alias-tips
-}
-[[ -d ${ZDOTDIR:-${HOME}}/docker-alias ]] || {
-git clone https://github.com/tcnksm/docker-alias ${ZDOTDIR:-${HOME}}/docker-alias
-}
-
-#source ${ZDOTDIR:-${HOME}}/alias-tips/alias-tips.plugin.zsh
-#source ${ZDOTDIR:-${HOME}}/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source ${ZDOTDIR:-${HOME}}/docker-alias/zshrc
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
