@@ -86,7 +86,7 @@ def install_required():
     return True if run(command) else False
 
 def has_required():
-    REQUIRED_COMMAND = ("tmux", "zsh", "vim", "git")
+    REQUIRED_COMMAND = ("tmux", "zsh", "nvim", "git")
     rest = list(filter(lambda x: not which(x), REQUIRED_COMMAND))
     if rest != []:
         f.warn("Please install the command. " + ", ".join(rest))
