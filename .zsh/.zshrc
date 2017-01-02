@@ -44,11 +44,6 @@ done
 
 # ----------------------- Start of ZIM config ----------------------- #
 
-[[ -d ${ZDOTDIR:-${HOME}}/.zim ]] || {
-git clone --recursive https://github.com/Eriner/zim.git ${ZDOTDIR:-${HOME}}/.zim
-cp ${ZDOTDIR:-${HOME}}/.zim/templates/zlogin ${ZDOTDIR:-${HOME}}/.zlogin && source ${ZDOTDIR:-${HOME}}/.zlogin
-}
-
 #
 # User configuration sourced by interactive shells
 #
