@@ -23,7 +23,6 @@
 "------------------------------------------------------------
 " => Plugins
 "{{{
-set nocompatible              " be iMproved, required
 " set the runtime path to include vim-plug and initialize
 
 " auto-install vim-plug                                                                                                                
@@ -85,16 +84,17 @@ Plug 'chriskempson/base16-vim'
 "------------------------------------------------------------
 " My own configs
 Plug 'edkolev/tmuxline.vim'
-Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
+Plug 'cocopon/iceberg.vim'
+Plug 'arcticicestudio/nord-vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 "}}}
 " => Configs "
 "{{{
-
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
 
@@ -103,10 +103,12 @@ call plug#end()            " required
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
+" and for pl<ugins that are filetype specific.
 filetype indent plugin on
 
-"" Config for theme and lightline
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+"" Config f<or theme and lightline
 " Enable syntax highlighting
 syntax on
 
@@ -118,10 +120,10 @@ let g:gruvbox_contrast_dark='neutral'
 
 let g:gruvbox_invert_selection=0
 
+
 if system('uname') =~ "Darwin"
-  silent! colorscheme gray2
+  silent! colorscheme nord
 else
-  "silent! colorscheme blaquemagick
   silent! colorscheme sourcerer
 endif
 
@@ -141,7 +143,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:tmuxline_powerline_separators = 1
 
 let g:lightline = {
-      \'colorscheme': 'wombat',
+      \'colorscheme': 'nord',
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \}
@@ -266,17 +268,17 @@ set t_Co=256 " set terminal color 265
 set clipboard=unnamed " fix not copying between clipboard and vim
 set backspace=indent,eol,start " fix backspace not deleteing existing text
 "set number " set numbers column on the left
-set complete-=i " Faster vim completion
+"set complete-=i " Faster vim completion
 set nrformats-=octal " Increment numbers decimally using Ctrl+A and Ctrl+X
 set autoindent " Auto indent
 set smartindent "Smart indet
 set smarttab
 set softtabstop=2 " indentation
+"set termguicolors
 set tabstop=2 " indentation
 set shiftwidth=2 " indentation
 set expandtab " convert tabs to spaces
 "set ttyscroll=3 " speed up scrolling
-set ttyfast " Optimize for fast terminal connections
 set lazyredraw " to avoid scrolling problems
 "set ttimeout " less timeout for faster navigation
 "set ttimeoutlen=100 " time out for faster navigation
