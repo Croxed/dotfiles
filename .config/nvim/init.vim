@@ -142,7 +142,8 @@ Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/syntastic'
-
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
