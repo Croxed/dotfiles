@@ -124,7 +124,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-scriptease'
-Plug 'xolox/vim-misc',          { 'for': 'lua'        }
+Plug 'xolox/vim-misc'
 
 " Git
 Plug 'airblade/vim-gitgutter'

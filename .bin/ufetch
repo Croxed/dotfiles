@@ -588,7 +588,6 @@ get_wm
 get_de
 get_term
 get_model
-echo "${shell} is the shell"
 name="$(whoami)"
 HOST="$(hostname)"
 KERNEL="$(uname -srm)"
