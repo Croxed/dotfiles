@@ -14,7 +14,7 @@ except ImportError:
 
 
 HOME = os.path.expanduser("~")  # User Home Directory
-DOTFILES = os.path.join(HOME, ".dotconfig/dotfiles")
+DOTFILES = os.path.join(HOME, ".dotfiles")
 ALL_DOTFILES = set(x[len(DOTFILES+"/"):] for x in glob.glob(DOTFILES + "/.*"))
 # 除外するファイル名の設定
 EXCLUDE_DOTFILES = set([".git", ".git_commit_template.txt",
