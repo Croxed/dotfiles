@@ -146,15 +146,3 @@ sudo apt install -y \
   unzip \
   zip &> /dev/null && \
   success "Tools installed"
-
-
-info "Installing rust"
-if ! type -p rustc > /dev/null ; then
-  curl -sSf https://static.rust-lang.org/rustup.sh | sh &> /dev/null && success "Rust inslled"
-fi
-info "Installing exa"
-cd "$(mktemp -d)"
-git clone https://github.com/ogham/exa .exa &> /dev/null
-cd .exa
-sudo make install &> /dev/null && \
-success "Done!"

@@ -92,19 +92,15 @@ brew install coreutils \
     rename \
     speedtest_cli \
     ssh-copy-id \
-    tree \
-    koekeishiya/kwm/kwm > /dev/null && \
-    brew-alloptions mpv && \
+    tree > /dev/null && \
     success "Installed packages!"
 
 # Installing usefull applications
 info "Installing apps"
-brew cask install iterm2-beta --appdir=/Applications \
-    keka --appdir=/Applications \
+brew cask install keka --appdir=/Applications \
     dropbox --appdir=/Applications \
     transmission --appdir=/Applications \
-    sublime-text-dev --appdir=/Applications \
-    exa > /dev/null && success "Installed apps!"
+    > /dev/null && success "Installed apps!"
 
 # Linking gsha256sum to sha256sum
 sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum

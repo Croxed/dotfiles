@@ -20,21 +20,47 @@ fail () {
 info "Installing prerequisites for apacman..."
 sudo pacman -S base-devel fakeroot jshon expac git && success "Done"
 
-info "Installing apacman..."
-cd "$(mktemp -d)"
-git clone https://aur.archlinux.org/apacman &> /dev/null
-cd apacman
-makepkg -si && success "Done"
-cd -
+# Make sure our shiny new arch is up-to-date
+info "Checking for system updates..."
+sudo pacman -Syu
+
+# Create a tmp-working-dir an navigate into it
+mkdir -p /tmp/pacaur_install
+cd /tmp/pacaur_install
+
+# If you didn't install the "base-devil" group,
+# we'll need those.
+info "Installing some needed packages"
+sudo pacman -S binutils make gcc fakeroot --noconfirm && success "Done"
+
+# Install pacaur dependencies from arch repos
+info "Installing prerequisites for pacaur"
+sudo pacman -S expac yajl git --noconfirm && success "Done"
+
+# Install "cower" from AUR
+info "Installing cower"
+curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower
+makepkg PKGBUILD --skippgpcheck
+sudo pacman -U cower*.tar.xz --noconfirm && success "Done"
+
+# Install "pacaur" from AUR
+info "Installing pacaur"
+curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur
+makepkg PKGBUILD
+sudo pacman -U pacaur*.tar.xz --noconfirm && success "Done"
+
+# Clean up...
+cd ~
+rm -r /tmp/pacaur_install
 
 info "Installing terminal packages..."
-apacman --noconfirm --noedit -S \
-  termite-git \
+pacaur --noconfirm --noedit -S \
+  rxvt-unicode-256xresources \
   zsh &> /dev/null && \
   success "Installed terminal packages"
 
 info "Installing Python dependencies..."
-apacman --noconfirm --noedit -S \
+pacaur --noconfirm --noedit -S \
   python-basiciw \
   python-netifaces \
   python-yaml \
@@ -44,7 +70,7 @@ apacman --noconfirm --noedit -S \
   success "Installed python dependencies"
 
 info "Installing window manager..."
-apacman --noconfirm --noedit -S \
+pacaur --noconfirm --noedit -S \
   xcb-util-keysyms \
   xcb-util-wm \
   xcb-util-cursor \
@@ -59,8 +85,7 @@ apacman --noconfirm --noedit -S \
   success "WM installed"
 
 info "Installing tools..."
-apacman --noconfirm --noedit -S \
-  gsimplecal \
+pacaur --noconfirm --noedit -S \
   thunar \
   feh \
   acpi \
@@ -86,8 +111,6 @@ apacman --noconfirm --noedit -S \
   file-roller \
   tumbler \
   eog \
-  numix-themes \
-  numix-icon-theme-git \
   tk \
   spotify \
   evince \
@@ -98,7 +121,6 @@ apacman --noconfirm --noedit -S \
   openssh \
   arandr \
   xclip \
-  thefuck \
   youtube-dl \
   slop \
   maim \
@@ -110,7 +132,6 @@ apacman --noconfirm --noedit -S \
   pulseaudio-bluetooth \
   blueman \
   redshift \
-  google-chrome \
   firefox \
   lm_sensors \
   atool \
@@ -128,18 +149,17 @@ apacman --noconfirm --noedit -S \
   zip \
   vim \
   tmux \
-  exa-git \
   i3lock-fancy-git &> /dev/null && \
   success "Tools installed"
 
 info "Installing some python stuff..."
-apacman --noconfirm --noedit -S \
+pacaur --noconfirm --noedit -S \
   python-pillow \
   python-urllib3 &> /dev/null && \
   success "Done"
 
 info "Installing some perl stuff..."
-apacman --noconfirm --noedit -S \
+pacaur --noconfirm --noedit -S \
   perl-anyevent-i3 \
   perl-json-xs &> /dev/null && \
   success "Done"
