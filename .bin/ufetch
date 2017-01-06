@@ -4,6 +4,49 @@
 #
 
 # FUNCTIONS {{{
+
+get_ppid() {
+    # Get parent process ID of PID.
+    case "$os" in
+        "Windows")
+            ppid="$(ps -p "${1:-$PPID}" | awk '{printf $2}')"
+            ppid="${ppid/'PPID'}"
+        ;;
+
+        "Linux")
+            ppid="$(grep -i -F "PPid:" "/proc/${1:-$PPID}/status")"
+            ppid="$(trim "${ppid/PPid:}")"
+        ;;
+
+        *)
+            ppid="$(ps -p "${1:-$PPID}" -o ppid=)"
+        ;;
+    esac
+
+    printf "%s" "$ppid"
+}
+
+get_process_name() {
+    # Get PID name.
+    case "$os" in
+        "Windows")
+            name="$(ps -p "${1:-$PPID}" | awk '{printf $8}')"
+            name="${name/'COMMAND'}"
+            name="${name/*\/}"
+        ;;
+
+        "Linux")
+            name="$(< "/proc/${1:-$PPID}/comm")"
+        ;;
+
+        *)
+            name="$(ps -p "${1:-$PPID}" -o comm=)"
+        ;;
+    esac
+
+    printf "%s" "$name"
+}
+
 get_os() {
     case "$(uname)" in
         "Linux")   os="Linux" ;;
