@@ -4,17 +4,17 @@ set -e
 set -u
 
 IGNORE=(
-    ".git"
-    ".gitignore"
-    ".gitmodules"
-    "README.md"
-    ".DS_Store"
-    "install.sh"
-    "bin"
-    "setup"
-    "scripts"
-    "linux"
-    ".config"
+  ".git"
+  ".gitignore"
+  ".gitmodules"
+  "README.md"
+  ".DS_Store"
+  "install.sh"
+  "bin"
+  "setup"
+  "scripts"
+  "linux"
+  ".config"
 )
 
 DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -26,7 +26,7 @@ ask() {
     if [ "${2:-}" = "Y" ]; then
       prompt="Y/n"
       default=Y
-    elif [ "${2:-}" = "N" ]; then
+      elif [ "${2:-}" = "N" ]; then
       prompt="y/N"
       default=N
     else
@@ -39,7 +39,7 @@ ask() {
 
     # Default?
     if [ -z "$REPLY" ]; then
-       REPLY=$default
+      REPLY=$default
     fi
 
     # Check if the reply is valid
@@ -89,7 +89,7 @@ info(){
   tput cnorm || true
 }
 testing(){
-  if command -v $1 2&>/dev/null; then
+  if command -v "$1" 2&>/dev/null; then
     echo "true"
   else
     echo "false"
@@ -99,61 +99,61 @@ testing(){
 control_dependencies(){
   for arg in "$@"; do
     tempfile="$(mktemp)"
-    testing $arg > ${tempfile} &
+    testing "$arg" > "${tempfile}" &
     progress $! "Controlling $arg"
-    exec 3< ${tempfile}
+    exec 3< "${tempfile}"
     read <&3 line
     if [ "$line" == "true" ]; then
-        completed "Command $arg was found"
-    elif [ "$line" == "false" ]; then
-        failed "Command $arg was not found"
-        exit -1
+      completed "Command $arg was found"
+      elif [ "$line" == "false" ]; then
+      failed "Command $arg was not found"
+      exit -1
     fi
   done
 }
 
 link_file () {
-    local src=$1 dst=$2
+  local src=$1 dst=$2
 
-    local overwrite= backup= skip=
-    local action=
+  local overwrite= backup= skip=
+  local action=
 
-    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  then
+    local currentSrc="$(readlink $dst)"
+    if [ "$currentSrc" == "$src" ]
     then
-        local currentSrc="$(readlink $dst)"
-        if [ "$currentSrc" == "$src" ]
-        then
-            skip=true;
-        else
-          mv "$dst" "${dst}.backup"
-        fi
+      skip=true;
+    else
+      mv "$dst" "${dst}.backup"
     fi
+  fi
 
-    if [ "$skip" != "true" ]  # "false" or empty
-    then
-        ln -s "$1" "$2"
-    fi
+  if [ "$skip" != "true" ]  # "false" or empty
+  then
+    ln -s "$1" "$2"
+  fi
 }
 
 install_dotfiles () {
-    local overwrite_all=false backup_all=false skip_all=false
+  local overwrite_all=false backup_all=false skip_all=false
 
-    for src in $(find "$DOTFILES_ROOT" -mindepth 1 -maxdepth 1)
-    do
-        if [[ "${IGNORE[@]}" =~ "$(basename $src)" ]]
-        then
-            continue
-        fi
-        dst="$HOME/$(basename "$src")"
-        link_file "$src" "$dst"
-    done
+  for src in $(find "$DOTFILES_ROOT" -mindepth 1 -maxdepth 1)
+  do
+    if [[ "${IGNORE[@]}" =~ "$(basename $src)" ]]
+    then
+      continue
+    fi
+    dst="$HOME/$(basename "$src")"
+    link_file "$src" "$dst"
+  done
 
-    mkdir -p "$HOME/.config"
-    for src in $(find "$DOTFILES_ROOT/.config" -mindepth 1 -maxdepth 1)
-    do
-        dst="$HOME/.config/$(basename "$src")"
-        link_file "$src" "$dst"
-    done
+  mkdir -p "$HOME/.config"
+  for src in $(find "$DOTFILES_ROOT/.config" -mindepth 1 -maxdepth 1)
+  do
+    dst="$HOME/.config/$(basename "$src")"
+    link_file "$src" "$dst"
+  done
 }
 
 dotfiles(){
@@ -162,15 +162,51 @@ dotfiles(){
   progress $! "Installing dotfiles.."
   exec 3< ${tempfile}
   read <&3 line
-  if [ "$line" == "true" || "$line" == "" ]; then
-      completed "Done installing dotfiles"
-  elif [ "$line" == "false" ]; then
-      failed "Dotfiles not installed"
-      exit -1
+  if [ "$line" == "true" ] || [ "$line" == "" ]; then
+    completed "Done installing dotfiles"
+    elif [ "$line" == "false" ]; then
+    failed "Dotfiles not installed"
+    exit -1
   fi
 }
 
+extra_dotfiles(){
+  if [[ "$OSTYPE" == "linux*" ]]; then
+    local overwrite_all=false backup_all=false skip_all=false
+
+    for src in $(find "$DOTFILES_ROOT/Linux" -mindepth 1 -maxdepth 1)
+    do
+      if [[ "${IGNORE[@]}" =~ "$(basename $src)" ]]
+      then
+        continue
+      fi
+      dst="$HOME/$(basename "$src")"
+      link_file "$src" "$dst"
+    done
+
+    mkdir -p "$HOME/.config"
+    for src in $(find "$DOTFILES_ROOT/Linux/.config" -mindepth 1 -maxdepth 1)
+    do
+      dst="$HOME/.config/$(basename "$src")"
+      link_file "$src" "$dst"
+    done
+  fi
+}
+extras(){
+  tempfile="$(mktemp)"
+  extra_dotfiles > ${tempfile} &
+  progress $! "Installing dotfiles.."
+  exec 3< ${tempfile}
+  read <&3 line
+  if [ "$line" == "true" ] || [ "$line" == "" ]; then
+    completed "Done installing dotfiles"
+    elif [ "$line" == "false" ]; then
+    failed "Dotfiles not installed"
+    exit -1
+  fi
+}
 
 control_dependencies "tmux" "nvim" "git" "zsh"
 dotfiles
+extras
 printf " All processes are successfully completed \U1F389\n"

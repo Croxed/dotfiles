@@ -147,7 +147,6 @@ Plug 'plasticboy/vim-markdown'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
-let g:ackprg = 'ag --vimgrep --smart-case'                                                   
 cnoreabbrev ag Ack                                                                           
 cnoreabbrev aG Ack                                                                           
 cnoreabbrev Ag Ack                                                                           
@@ -463,7 +462,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ag and put the cursor in the right position
-map <leader>g :Ag
+map <leader>g :Ack
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
