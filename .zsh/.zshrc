@@ -30,6 +30,7 @@ for path_candidate in /opt/local/sbin \
 	~/.cabal/bin \
 	~/.rbenv/bin \
 	~/.bin \
+    ~/.cargo/bin \
 	~/bin.local \
 	~/scripts \
 	~/.nexustools \
