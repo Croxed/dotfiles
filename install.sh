@@ -115,8 +115,7 @@ control_dependencies(){
 link_file () {
   local src=$1 dst=$2
 
-  local overwrite= backup= skip=
-  local action=
+  local skip=
 
   if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
   then
