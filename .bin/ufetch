@@ -672,7 +672,7 @@ cat <<EOF
     ${c06}▉▉  |
     ${c11}  ▉▉| ${f1}OS ${f0}........... $f2${distro}
     ${c13}▉▉  | ${f1}kernel ${f0}....... $f2${KERNEL}
-    ${c14}  ▉▉| ${f1}Model ${f0}........ $f2${model}
+    ${c14}  ▉▉| ${f1}model ${f0}........ $f2${model}
     ${c02}▉▉  | ${f1}uptime ${f0}....... $f2${UPTIME}
     ${c14}  ▉▉| ${f1}packages ${f0}..... $f2${packages}
     ${c15}▉▉  | ${f1}de ${f0}........... $f2${de}

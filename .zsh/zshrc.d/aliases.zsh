@@ -11,12 +11,21 @@ docker-attack(){
   docker exec -it $1 bash
 }
 # Simple shit #
-if [ "$(uname)" = "Darwin" ] 
-then
-  alias ls='ls -FhlGp'
-else
-  alias ls='ls -Fhlp --color=auto'
+### Colored ls
+if [ -x /usr/bin/dircolors ]; then
+  eval "`dircolors -b`"
+  alias ls='ls  -Fhlp --color=auto'
+  alias grep='grep --color=auto'
+elif [ "$(uname)" = "Darwin" ]; then
+  alias ls='ls -FhlpG'
 fi
+
+#if [ "$(uname)" = "Darwin" ] 
+#then
+#  alias ls='ls -FhlGp'
+#else
+#  alias ls='ls -Fhlp --color=auto'
+#fi
 
 alias ..="cd .."
 alias c="clear && printf '\e[3J'"
