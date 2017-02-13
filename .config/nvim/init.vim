@@ -141,7 +141,6 @@ Plug 'w0rp/ale'
 Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 " All of your Plugins must be added before the following line
@@ -152,14 +151,6 @@ cnoreabbrev aG Ack
 cnoreabbrev Ag Ack                                                                           
 cnoreabbrev AG Ack  
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
