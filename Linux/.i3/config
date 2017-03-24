@@ -56,8 +56,8 @@ client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $black
 
 floating_modifier $mod
-bindsym $mod+Return exec --no-startup-id $HOME/scripts/fullscreen_wrap.sh $editor
-bindsym $mod+Shift+Return exec --no-startup-id $HOME/scripts/fullscreen_wrap.sh $editor --name __scratchpad
+bindsym $mod+Return exec --no-startup-id $HOME/.scripts/fullscreen_wrap.sh $editor
+bindsym $mod+Shift+Return exec --no-startup-id $HOME/.scripts/fullscreen_wrap.sh $editor --name __scratchpad
 
 bindsym $mod+q kill
 
@@ -127,13 +127,13 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/scripts/volume_control.py down 5
-bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/scripts/volume_control.py up 5
-bindsym XF86AudioMute exec --no-startup-id $HOME/scripts/volume_control.py toggle
-bindsym $mod+Shift+v exec --no-startup-id "killall pavucontrol; $HOME/scripts/fullscreen_wrap.sh pavucontrol -t 3"
+bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/.scripts/volume_control.py down 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.scripts/volume_control.py up 5
+bindsym XF86AudioMute exec --no-startup-id $HOME/.scripts/volume_control.py toggle
+bindsym $mod+Shift+v exec --no-startup-id "killall pavucontrol; $HOME/.scripts/fullscreen_wrap.sh pavucontrol -t 3"
 
-bindsym XF86MonBrightnessDown exec --no-startup-id ${HOME}/scripts/backlight.sh -U 10
-bindsym XF86MonBrightnessUp exec --no-startup-id ${HOME}/scripts/backlight.sh -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id ${HOME}/.scripts/backlight.sh -U 10
+bindsym XF86MonBrightnessUp exec --no-startup-id ${HOME}/.scripts/backlight.sh -A 10
 
 bindsym $mod+Shift+w exec --no-startup-id $editor --name "__nmtui" -e "nmtui-connect"
 
@@ -159,7 +159,7 @@ mode "$mode_resize" {
     bindsym Shift+Up resize shrink height 20 px or 5 ppt
     bindsym Shift+Right resize grow width 20 px or 5 ppt
 
-    bindsym s mode "default", exec --no-startup-id $HOME/scripts/slopsize.sh
+    bindsym s mode "default", exec --no-startup-id $HOME/.scripts/slopsize.sh
 
     bindsym 1 mode "default", resize set 1000 600
     bindsym 2 mode "default", resize set 1500 600
@@ -231,21 +231,21 @@ mode "$mode_gaps_outer" {
 set $mode_brightness brightness
 bindsym $mod+Shift+b mode "$mode_brightness"
 mode "$mode_brightness" {
-    bindsym plus  exec --no-startup-id ${HOME}/scripts/backlight.sh -A 10
-    bindsym minus exec --no-startup-id ${HOME}/scripts/backlight.sh -U 10
-    bindsym Shift+plus  exec --no-startup-id ${HOME}/scripts/backlight.sh -A 1
-    bindsym Shift+minus exec --no-startup-id ${HOME}/scripts/backlight.sh -U 1
+    bindsym plus  exec --no-startup-id ${HOME}/.scripts/backlight.sh -A 10
+    bindsym minus exec --no-startup-id ${HOME}/.scripts/backlight.sh -U 10
+    bindsym Shift+plus  exec --no-startup-id ${HOME}/.scripts/backlight.sh -A 1
+    bindsym Shift+minus exec --no-startup-id ${HOME}/.scripts/backlight.sh -U 1
 
-    bindsym 0     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 100
-    bindsym 1     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 10
-    bindsym 2     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 20
-    bindsym 3     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 30
-    bindsym 4     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 40
-    bindsym 5     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 50
-    bindsym 6     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 60
-    bindsym 7     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 70
-    bindsym 8     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 80
-    bindsym 9     mode "default", exec --no-startup-id ${HOME}/scripts/backlight.sh -S 90
+    bindsym 0     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 100
+    bindsym 1     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 10
+    bindsym 2     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 20
+    bindsym 3     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 30
+    bindsym 4     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 40
+    bindsym 5     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 50
+    bindsym 6     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 60
+    bindsym 7     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 70
+    bindsym 8     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 80
+    bindsym 9     mode "default", exec --no-startup-id ${HOME}/.scripts/backlight.sh -S 90
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
