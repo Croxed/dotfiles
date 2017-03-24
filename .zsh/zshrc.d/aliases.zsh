@@ -3,6 +3,8 @@
 #export CLICOLOR=1
 #export LSCOLORS=ExFxBxDxCxegedabagacad
 
+eval "$(dircolors -b)"
+
 git-yolo() {
 git commit -m "$(curl http://whatthecommit.com | grep '<p>' | gsed -r 's/^.{3}//')" && git push -f
 }
@@ -17,7 +19,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias ls='ls  -Fhlp --color=auto'
   alias grep='grep --color=auto'
 elif [ "$(uname)" = "Darwin" ]; then
-  alias ls='ls -FhlpG'
+  alias ls='gls -Fhlp --color=auto'
 fi
 
 #if [ "$(uname)" = "Darwin" ] 

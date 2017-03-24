@@ -256,9 +256,10 @@ endif
 
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set statusline+=%{ALEGetStatusLine()}
+let g:ale_sign_column_always = 1
+
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'

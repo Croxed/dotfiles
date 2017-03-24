@@ -161,7 +161,7 @@ export LOCATE_PATH=/var/db/locate.database
 
 # JAVA setup - needed for iam-* tools
 if [ -d /Library/Java/Home ];then
-	export JAVA_HOME=/Library/Java/Home
+    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 fi
 
 # Speed up autocomplete, force prefix mapping
