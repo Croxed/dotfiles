@@ -6,7 +6,11 @@
 eval "$(dircolors -b)"
 
 git-yolo() {
-git commit -m "$(curl http://whatthecommit.com | grep '<p>' | gsed -r 's/^.{3}//')" && git push -f
+if [ "$(uname)" = "Darwin" ]; then
+    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | gsed -r 's/^.{3}//')" && git push -f
+else
+    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+fi
 }
 
 docker-attack(){
