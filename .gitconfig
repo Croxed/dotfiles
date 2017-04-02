@@ -21,6 +21,7 @@
   diff = auto
   status = auto
   branch = auto
+	ui = true
 [push]
   default = simple
 [merge]
