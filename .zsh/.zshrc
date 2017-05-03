@@ -230,6 +230,9 @@ ufetch
 
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
+export TTC_REPOS="~/OneDrive/Development/LenaSYS"
+export TTC_WEATHER="Gothenburg"
+
 if [[ "$(uname)" == "Linux" ]]; then
 	[ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
 	export PANEL_FIFO="/tmp/panel-fifo"
