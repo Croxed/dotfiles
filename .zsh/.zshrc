@@ -49,7 +49,7 @@ done
 # User configuration sourced by interactive shells
 #
 
-PROMPT_LEAN_TMUX=""
+#PROMPT_LEAN_TMUX=""
 
 export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
 [[ -d ${ZDOTDIR:-${HOME}}/.zplug ]] ||(
@@ -63,6 +63,8 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "djui/alias-tips"
+#zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+#zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
 zplug "tcnksm/docker-alias", use:zshrc
 zplug "plugins/git",   from:oh-my-zsh
 zplug "modules/prompt", from:prezto
@@ -82,7 +84,7 @@ zplug load --verbose
 
 autoload -Uz promptinit
 promptinit
-prompt pure
+prompt filthy
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
