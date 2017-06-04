@@ -69,7 +69,7 @@ alias du='du -ch'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
 
 # Start tmux
-alias ltmux="tmux -CC attach -t base || tmux -CC new -s base"
+alias ltmux="tmux attach -t base || tmux new -s base"
 
 # Musical tmux
 alias lmtmux="tmux -CC attach -t music || tmux -CC new -s music"
