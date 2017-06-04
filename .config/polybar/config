@@ -79,7 +79,6 @@ padding-right = 0
 
 module-margin-left = 0
 module-margin-right = 0
-
 font-0 = Hack:fontformat=truetype:size=8;1
 font-1 = FontAwesome:pixelsize=12;0
 
@@ -186,7 +185,7 @@ type = internal/date
 interval = 5
 
 date-alt = "%Y-%m-%d"
-time = "%a %b %d, %I:%M %p"
+time = "%a %b %d, %H:%M"
 time-alt = %H:%M:%S
 
 format-padding = 1

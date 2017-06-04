@@ -82,8 +82,7 @@ def install_required():
         dist = "macOS"
     elif _platform == "win32":
         dist = "Windows"
-    command = "bash {dotfiles}/dependencies/dependencies-{dist}".format(
-            dist=dist, dotfiles=DOTFILES)
+    command = "bash {dotfiles}/dependencies/dependencies-{dist}".format(dist=dist, dotfiles=DOTFILES)
     f.info(command)
     return True if run(command) else False
 
@@ -189,18 +188,6 @@ def query_yes_no(question, default="yes"):
         else:
             sys.stdout.write("Please respond with 'yes' or 'no' "
                     "(or 'y' or 'n').\n")
-
-            def initialize():
-                init_directory = os.path.join(DOTFILES, "init")
-    scripts = set(glob.glob(init_directory + "/*"))
-    scripts = scripts - set([os.path.join(init_directory, "README.md")])
-    for s in scripts:
-        try:
-            f.info("Run: %s" % s)
-            subprocess.check_call(shlex.split("bash " + s))
-        except OSError:
-            sys.exit("[Error:initialize()]Command not found.")
-
 
 def test():
     for x in DOT_HOME_FILES:
