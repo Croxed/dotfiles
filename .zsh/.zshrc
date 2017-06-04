@@ -51,10 +51,21 @@ done
 
 #PROMPT_LEAN_TMUX=""
 
+[[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
+ mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
+)
+
+fpath=( ${ZDOTDIR:-${HOME}}/.zfunctions $fpath )
+
 export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
 [[ -d ${ZDOTDIR:-${HOME}}/.zplug ]] ||(
- git clone https://github.com/zplug/zplug $ZPLUG_HOME 
-) 
+ git clone https://github.com/zplug/zplug $ZPLUG_HOME
+)
+
+[[ -d ${ZDOTDIR:-${HOME}}/filthy ]] ||(
+ git clone https://github.com/molovo/filty ${ZDOTDIR:-${HOME}}/filthy
+ ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
+)
 
 source $ZPLUG_HOME/init.zsh
 
