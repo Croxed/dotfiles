@@ -9,6 +9,9 @@
 !.zsh/zshrc.d
 
 .config/*
+!.config/bspwm
+!.config/sxhkd
+!.config/.compton.conf
 !.config/dunst
 !.config/gsimplecal
 !.config/gtk-2.0
@@ -17,7 +20,8 @@
 !.config/polybar
 !.config/termite
 !.config/wallpapers
-!.config/nvim
+!.config/nvim/colors
+!.config/nvim/init.vim
 .config/nvim/autoload
 
 !.config/i3blocks
