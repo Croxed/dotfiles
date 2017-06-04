@@ -240,4 +240,6 @@ if [[ "$(uname)" == "Linux" ]]; then
 	export PANEL_FIFO="/tmp/panel-fifo"
 fi
 
+
+eval $(thefuck --alias)
 # ----------------------- End of config ----------------------- #

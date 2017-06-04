@@ -113,6 +113,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --all'}
 
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
@@ -140,7 +141,7 @@ Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
 Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'PotatoesMaster/i3-vim-syntax'
