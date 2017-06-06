@@ -20,8 +20,7 @@ DOTFILES = os.path.join(HOME, ".dotfiles")
 ALL_DOTFILES = set(x[len(DOTFILES+"/"):] for x in glob.glob(DOTFILES + "/.*"))
 # 除外するファイル名の設定
 LINUX_DOTS = set([".xinitrc", ".i3", ".Xresources", ".colors", ".gtkrc-2.0"])
-EXCLUDE_DOTFILES = set([".git", ".git_commit_template.txt",
-    ".gitignore", ".travis.yml", ".gitmodules", "dependencies", "Linux", "install.sh", "install.py", ".xinitrc", ".i3", ".Xresources", ".colors", ".gtkrc-2.0"])
+EXCLUDE_DOTFILES = set([".git", ".git_commit_template.txt", "README.md", ".gitignore", ".travis.yml", ".gitmodules", "dependencies", "Linux", "install.sh", "install.py", ".xinitrc", ".i3", ".Xresources", ".colors", ".gtkrc-2.0"])
 # ホームディレクトリ上にシンボリックリンクを貼るファイルの名前
 DOT_HOME_FILES = ALL_DOTFILES - EXCLUDE_DOTFILES
 
