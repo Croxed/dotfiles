@@ -43,6 +43,10 @@ do
 	fi
 done
 
+if [[ "$(uname)" == "Linux" ]]; then
+	[ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
+	export PANEL_FIFO="/tmp/panel-fifo"
+fi
 # ----------------------- Start of ZIM config ----------------------- #
 
 #
@@ -74,13 +78,9 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "djui/alias-tips"
-#zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
-#zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
 zplug "tcnksm/docker-alias", use:zshrc
 zplug "plugins/git",   from:oh-my-zsh
-zplug "modules/prompt", from:prezto
-zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "rauchg/wifi-password", as:command, use:wifi-password.sh, rename-to:wifi-password, if:"[[ $OSTYPE == *darwin* ]]"
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -245,12 +245,6 @@ ufetch
 
 export TTC_REPOS="~/OneDrive/Development/LenaSYS"
 export TTC_WEATHER="Gothenburg"
-
-if [[ "$(uname)" == "Linux" ]]; then
-	[ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
-	export PANEL_FIFO="/tmp/panel-fifo"
-fi
-
 
 eval $(thefuck --alias)
 # ----------------------- End of config ----------------------- #
