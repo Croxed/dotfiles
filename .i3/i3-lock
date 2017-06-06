@@ -1,8 +1,15 @@
-#!/bin/bash
-TMPBG=/tmp/screen.png
-LOCK=$1
-RES="$(xrandr | grep \* | cut -d' ' -f4)"
+#!/usr/bin/env bash
+#edited from https://github.com/meskarune/i3lock-fancy
 
-ffmpeg -f x11grab -video_size $RES -y -i $DISPLAY -i $LOCK -filter_complex "boxblur=5:1,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" -vframes 1 $TMPBG -loglevel quiet
-i3lock -i $TMPBG
-rm $TMPBG
+image=$(mktemp).png
+
+param=(--textcolor=00000000 --insidecolor=00000000 --ringcolor=fafafaff \
+    --linecolor=00000000 --keyhlcolor=fabb5cff --ringvercolor=fadd5cff \
+    --separatorcolor=00000000 \
+    --insidevercolor=00000000 \
+    --ringwrongcolor=f13459ff --insidewrongcolor=00000000)
+
+ffmpeg -loglevel quiet -y -s 1920x1080 -f x11grab -i $DISPLAY -vframes 1 -vf "gblur=sigma=16" "$image"
+convert "$image" overlay.png -gravity center -composite "$image"
+
+i3lock "${param[@]}" -i "$image"

@@ -1,6 +1,6 @@
 
 set $mod Mod4
-set $editor urxvt
+set $editor alacritty
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
@@ -32,8 +32,8 @@ set $ws8  "8:  "
 set $ws9  "9:  "
 set $ws10 "10:  "
 
-set $default_gaps_inner 5
-set $default_gaps_outer 3
+set $default_gaps_inner 15
+set $default_gaps_outer 9
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
@@ -88,6 +88,8 @@ bindsym $mod+g fullscreen global
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
+bindsym $mod+m move workspace to output left
 
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
@@ -275,7 +277,7 @@ for_window [instance="__nmtui"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down 34px
 
-assign [class="(?i)chromium"]                     $ws1
+assign [class="(?i)firefox"]                     $ws1
 assign [class="(?i)eclipse" window_type="splash"] $ws3
 assign [class="(?i)eclipse" window_type="normal"] $ws3
 assign [class="(?i)thunderbird"]                  $ws9
@@ -309,7 +311,7 @@ assign [class="(?i)thunderbird"]                  $ws9
 # }
 
 # AUTOSTART
-exec_always --no-startup-id nitrogen --restore 
+exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b &
 exec --no-startup-id xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &

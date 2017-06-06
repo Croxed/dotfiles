@@ -251,7 +251,7 @@ if system('uname') =~ "Darwin"
   endtry
 else
   try
-      silent! colorscheme sourcerer
+      silent! colorscheme nord
   catch
   endtry
 endif

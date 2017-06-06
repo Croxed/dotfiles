@@ -214,6 +214,8 @@ dedupe_path
 # Hook for desk activation
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
+eval `ssh-agent -s`
+
 # Fun with SSH
 if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
 	if [[ "$(uname -s)" == "Darwin" ]]; then

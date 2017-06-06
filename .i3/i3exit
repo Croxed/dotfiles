@@ -2,7 +2,7 @@
 
 case "$1" in
     lock)
-        $HOME/.i3/i3-lock "$HOME/Pictures/arch-logo-mini.png"
+        $HOME/.i3/i3-lock 
         ;;
     logout)
         i3-msg exit
