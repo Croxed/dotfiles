@@ -1,6 +1,6 @@
 
 set $mod Mod4
-set $editor alacritty
+set $editor urxvt
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
