@@ -29,8 +29,7 @@ sudo apt install -y \
 info "Installing Python dependencies..."
 sudo apt install -y \
   python \
-  python3 &> /dev/null && \
-  success "Done"
+  python3
 
 info "Installing window manager dependencies..."
 sudo apt install -y \
@@ -49,8 +48,7 @@ sudo apt install -y \
   libxcb-xkb-dev \
   libxkbcommon-dev \
   libxkbcommon-x11-dev \
-  help2man &> /dev/null && \
-  success "WM dependencies installed"
+  help2man
 
 info "Installing i3-gaps.."
 cd ~
@@ -58,30 +56,29 @@ cd ~
 # clone the repository
 cd "$(mktemp -d)"
 
-git clone https://www.github.com/Airblader/i3 .i3-gaps &> /dev/null
+git clone https://www.github.com/Airblader/i3 .i3-gaps
 
 cd .i3-gaps
 
 # do this if you want the stable branch, skip it if you want the dev branch (gaps-next)
-git checkout gaps &> /dev/null && git pull &> /dev/null
+git checkout gaps && git pull
 
 # compile & install
-make &> /dev/null
-sudo make install &> /dev/null
+make
+sudo make install
 
 cd "$(mktemp -d)"
-git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps &> /dev/null
+git clone git://github.com/Airblader/i3blocks-gaps .i3blocks-gaps
 cd .i3blocks-gaps
-make clean all &> /dev/null
-sudo make install &> /dev/null
-success "Installed i3-gaps"
+make clean all
+sudo make install
 
 info "Installing light"
 cd "$(mktemp -d)"
-git clone https://github.com/haikarainen/light .light &> /dev/null
+git clone https://github.com/haikarainen/light .light
 cd .light
-make &> /dev/null
-sudo make install &> /dev/null
+make
+sudo make install
 
 success "Light installed!"
 cd ~
@@ -144,5 +141,4 @@ sudo apt install -y \
   tar \
   unrar \
   unzip \
-  zip &> /dev/null && \
-  success "Tools installed"
+  zip

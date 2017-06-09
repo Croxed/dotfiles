@@ -37,7 +37,7 @@ PROD=$(softwareupdate -l |
   head -n 1 | awk -F"*" '{print $2}' |
   sed -e 's/^ *//' |
   tr -d '\n')
-  softwareupdate -i "$PROD" > /dev/null && success "Installed xcode-cli"
+  softwareupdate -i "$PROD"
 
 
 # Checking if Homebrew is installed
@@ -47,13 +47,13 @@ if ! type -p brew > /dev/null ; then
 fi
 
 # Update and upgrade homebrew.
-brew update > /dev/null
-brew upgrade --all > /dev/null
+brew update
+brew upgrade --all
 
 # Tapping into some repos
 info "Tapping into repos"
-brew tap homebrew/versions > /dev/null && \
-brew tap caskroom/versions > /dev/null && success "Done!"
+brew tap homebrew/versions
+brew tap caskroom/versions
 
 # Install ALL packages
 info "Installing packages"
@@ -92,18 +92,16 @@ brew install coreutils \
     rename \
     speedtest_cli \
     ssh-copy-id \
-    tree > /dev/null && \
-    success "Installed packages!"
+    tree
 
 # Installing usefull applications
 info "Installing apps"
 brew cask install keka --appdir=/Applications \
     dropbox --appdir=/Applications \
-    transmission --appdir=/Applications \
-    > /dev/null && success "Installed apps!"
+    transmission --appdir=/Applications
 
 # Linking gsha256sum to sha256sum
 sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
 # Remove outdated versions from the cellar.
-brew cleanup > /dev/null
+brew cleanup

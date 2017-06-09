@@ -39,8 +39,6 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CURRENT_OS="MACOS" #CENTOS, UBUNUTU are other valid options
 function findCurrentOSType()
 {
-    echo "Finding the current os type"
-    echo
     osType=$(uname)
     case "$osType" in
             "Darwin")
@@ -56,7 +54,7 @@ function findCurrentOSType()
                 else
                     DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
                 fi
-                CURRENT_OS=$(echo $DISTRO | tr 'a-z' 'A-Z')
+                CURRENT_OS=$(echo $DISTRO | tr 'a-z' 'A-Z' | tr -d "\"")
             } ;;
             *)
             {
