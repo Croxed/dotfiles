@@ -67,7 +67,7 @@ export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
 )
 
 [[ -d ${ZDOTDIR:-${HOME}}/filthy ]] ||(
- git clone https://github.com/molovo/filty ${ZDOTDIR:-${HOME}}/filthy
+ git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
  ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
 )
 
