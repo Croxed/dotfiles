@@ -45,5 +45,6 @@ setxkbmap -option ctrl:nocaps
 xmodmap -e 'clear lock'
 xmodmap -e 'keycode 66 = Hyper_L'
 xsetroot -cursor_name left_ptr
+exec urxvt &
 
-exec i3
+exec i3 --shmlog-size=26214400

@@ -52,9 +52,9 @@ function findCurrentOSType()
                 if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
                     DISTRO=$(gawk -F= '/^NAME/{print $2}' /etc/os-release)
                 else
-                    DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+                    DISTRO=$(cat /etc/*-release | grep -e "NAME" | head -1 | awk -F"\"" '{ print $2 }')
                 fi
-                CURRENT_OS=$(echo $DISTRO | tr 'a-z' 'A-Z' | tr -d "\"")
+                CURRENT_OS=$(echo $DISTRO | tr 'a-z' 'A-Z')
             } ;;
             *)
             {
@@ -64,12 +64,13 @@ function findCurrentOSType()
     esac
 }
 
+findCurrentOSType
 if [[ "$CURRENT_OS" == "MACOS" ]]; then
-  ask "Do you want to install dependencies?" && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
-  ask "Do you want to install sensible defaults?" && bash "$CURRENT_DIR"/macos
-  ask "Do you want to install QuickLook plugins?" && bash "$CURRENT_DIR"/qlInstall
+  ask "Do you want to install dependencies?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
+  ask "Do you want to install sensible defaults?" Y && bash "$CURRENT_DIR"/macos
+  ask "Do you want to install QuickLook plugins?" Y && bash "$CURRENT_DIR"/qlInstall
 elif [[ -f "$CURRENT_DIR"/dependencies-"$CURRENT_OS" ]]; then
-  ask "Do you want to install dependencies for $CURRENT_OS?" && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
+  ask "Do you want to install dependencies for $CURRENT_OS?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
 else
   printf "$CURRENT_OS not supported for dependencies."
   exit 1
