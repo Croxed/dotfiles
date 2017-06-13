@@ -7,9 +7,6 @@
 !    ██   ░░██░███  ░░██████ ██████ ░░██████ ░░██████░███  ░░█████ ░░██████ ██████
 !   ░░     ░░ ░░░    ░░░░░░ ░░░░░░   ░░░░░░   ░░░░░░ ░░░    ░░░░░   ░░░░░░ ░░░░░░
 
-!#include </home/oscar/.colors/blaquemagick.Xcolors>
-!#include </home/oscar/.colors/sourcerer.Xcolors>
-
 
 Xft.dpi: 96
 Xft.antialias: true

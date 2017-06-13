@@ -1,5 +1,5 @@
 [colors]
-background = ${xrdb:background} 
+background = ${xrdb:color0} 
 background-alt = ${xrdb:color1}
 background-unf = ${xrdb:color4}
 background-mod0 = ${xrdb:color5}
@@ -7,7 +7,7 @@ background-mod1 = ${xrdb:color6}
 background-mod2 = ${xrdb:color11}
 background-alrt = ${xrdb:color12}
 
-foreground = ${xrdb:foreground}
+foreground = ${xrdb:color7}
 foreground-alt = ${xrdb:color8}
 primary = ${xrdb:color10}
 secondary = ${xrdb:color11}

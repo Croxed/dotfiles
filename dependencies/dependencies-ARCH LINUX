@@ -18,7 +18,7 @@ fail () {
 }
 
 info "Installing prerequisites..."
-sudo pacman -S base-devel fakeroot jshon expac git
+sudo pacman -S base-devel fakeroot jshon expac git yajl make makepkg binutils --noconfirm
 
 # Make sure our shiny new arch is up-to-date
 info "Checking for system updates..."
@@ -27,15 +27,6 @@ sudo pacman -Syu
 # Create a tmp-working-dir an navigate into it
 mkdir -p /tmp/pacaur_install
 cd /tmp/pacaur_install
-
-# If you didn't install the "base-devil" group,
-# we'll need those.
-info "Installing some needed packages"
-sudo pacman -S binutils make gcc fakeroot --noconfirm
-
-# Install pacaur dependencies from arch repos
-info "Installing prerequisites for pacaur"
-sudo pacman -S expac yajl git --noconfirm
 
 # Install "cower" from AUR
 info "Installing cower"
@@ -63,7 +54,6 @@ pacaur --noconfirm --noedit -S \
   xcb-util-keysyms \
   xcb-util-wm \
   xcb-util-cursor \
-  yajl \
   startup-notification \
   libev \
   i3-gaps \
@@ -138,6 +128,7 @@ pacaur --noconfirm --noedit -S \
   neovim-git \
   python-neovim \
   tmux \
+  wal-git \
   i3lock-fancy-git
 
 success "Done installing packages"

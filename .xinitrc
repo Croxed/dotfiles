@@ -45,6 +45,6 @@ setxkbmap -option ctrl:nocaps
 xmodmap -e 'clear lock'
 xmodmap -e 'keycode 66 = Hyper_L'
 xsetroot -cursor_name left_ptr
-wal -i "${HOME}/.config/wallpapers"
+wal -i "$(< "${HOME}/.cache/wal/wal")"
 exec urxvt &
 exec i3

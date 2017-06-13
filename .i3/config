@@ -253,8 +253,8 @@ mode "$mode_brightness" {
 }
 
 # fix graphics glitch
-new_window none
-#for_window [class=(?i)termite] border pixel 3
+#new_window none
+for_window [class="^.*"] border pixel 1
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
