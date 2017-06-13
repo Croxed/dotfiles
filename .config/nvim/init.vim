@@ -114,7 +114,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --all'}
-
+Plug 'shawncplus/phpcomplete.vim'
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
@@ -145,6 +145,9 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'dylanaraps/wal'
+
+
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -251,7 +254,7 @@ if system('uname') =~ "Darwin"
   endtry
 else
   try
-      silent! colorscheme sourcerer
+      silent! colorscheme wal
   catch
   endtry
 endif

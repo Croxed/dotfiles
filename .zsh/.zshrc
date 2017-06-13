@@ -249,4 +249,6 @@ export TTC_REPOS="~/OneDrive/Development/LenaSYS"
 export TTC_WEATHER="Gothenburg"
 
 eval $(thefuck --alias)
+
+command -v wal >/dev/null 2>&1 || { (wal -r &) }
 # ----------------------- End of config ----------------------- #
