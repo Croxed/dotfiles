@@ -1,7 +1,9 @@
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*)
-EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml .gitignore
+EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml .gitignore .config
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
+CONFIGCANDIDATES := $(wildcard .config/*)
+CONFIGDOTS := $(filter-out $(EXCLUSIONS), $(CONFIGCANDIDATES))
 
 .DEFAULT_GOAL := help
 
@@ -14,6 +16,8 @@ deploy: ## Create symlink to home directory
 	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@mkdir -p $(HOME)/.config
+	@$(foreach val, $(CONFIGDOTS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 
 init: ## Setup environment settings
 	@DOTPATH=$(DOTPATH) bash $(DOTPATH)/dependencies/install.sh
