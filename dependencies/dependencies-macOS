@@ -49,21 +49,13 @@ fi
 # Update and upgrade homebrew.
 brew update
 brew upgrade --all
-<<<<<<< Updated upstream
-
-# Tapping into some repos
-info "Tapping into repos"
-brew tap homebrew/versions
-brew tap caskroom/versions
-=======
->>>>>>> Stashed changes
 
 # Install ALL packages
 info "Installing packages"
 brew install coreutils \
     moreutils \
     findutils \
-    gnu-sed \
+    gnu-sed --default-names \
     wget \
     vim \
     grep \
