@@ -49,11 +49,14 @@ fi
 # Update and upgrade homebrew.
 brew update
 brew upgrade --all
+<<<<<<< Updated upstream
 
 # Tapping into some repos
 info "Tapping into repos"
 brew tap homebrew/versions
 brew tap caskroom/versions
+=======
+>>>>>>> Stashed changes
 
 # Install ALL packages
 info "Installing packages"
@@ -63,9 +66,9 @@ brew install coreutils \
     gnu-sed \
     wget \
     vim \
-    homebrew/dupes/grep \
-    homebrew/dupes/openssh \
-    homebrew/dupes/screen \
+    grep \
+    openssh \
+    screen \
     bfg \
     binutils \
     binwalk \
@@ -86,13 +89,20 @@ brew install coreutils \
     lua \
     lynx \
     p7zip \
+    python3 \
     pigz \
     tmux \
     pv \
     rename \
-    speedtest_cli \
     ssh-copy-id \
     tree
+
+info "Installing python packages"
+pip3 install neovim\
+    jedi \
+    mistune \
+    psutil \
+    setproctitle
 
 # Installing usefull applications
 info "Installing apps"
