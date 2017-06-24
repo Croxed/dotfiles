@@ -7,7 +7,7 @@ eval "$(dircolors -b)"
 
 git-yolo() {
 if [ "$(uname)" = "Darwin" ]; then
-    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | gsed -r 's/^.{3}//')" && git push -f
+    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
 else
     git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
 fi
@@ -21,19 +21,17 @@ docker-attack(){
 if [ -x /usr/bin/dircolors ]; then
   eval "`dircolors -b`"
   alias ls='ls  -Fhlp --color=auto'
-  alias grep='grep --color=auto'
 elif [ "$(uname)" = "Darwin" ]; then
   alias ls='gls -Fhlp --color=auto'
 fi
 
-#if [ "$(uname)" = "Darwin" ] 
-#then
-#  alias ls='ls -FhlGp'
-#else
-#  alias ls='ls -Fhlp --color=auto'
-#fi
+if [ "$(uname)" = "Darwin" ]
+then
+  alias ls='ls -FhlGp'
+else
+  alias ls='ls -Fhlp --color=auto'
+fi
 
-alias ..="cd .."
 alias c="clear && printf '\e[3J'"
 
 if [ $UID -ne 0 ]; then
@@ -52,7 +50,7 @@ alias termclock='tty-clock -C 2 -crsDBb'
 alias dirs="dirs -v"
 
 # do not delete / or prompt if deleting more than 3 files at a time #
-#alias rm='rm -I --preserve-root'
+alias rm='rm -I --preserve-root'
 
 # confirmation #
 alias mv='mv -i'
@@ -68,20 +66,11 @@ alias df='df -H'
 alias du='du -ch'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
 
-# Start tmux
-alias ltmux="tmux attach -t base || tmux new -s base"
-
-# Musical tmux
-alias lmtmux="tmux -CC attach -t music || tmux -CC new -s music"
-
 # To exit terminal
 alias e='exit'
 
 # See http://www.shellperson.net/using-sudo-with-an-alias/
 alias sudo='sudo '
-
-# This alias reloads this file
-alias reload_profile='. ~/.bash_profile'
 
 # Mac get stuck very often and are extremely slow and unstable on shutdowns. This forces a shutdown.
 alias poweroff='sudo /sbin/shutdown -h now'
