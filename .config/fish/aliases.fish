@@ -148,5 +148,5 @@ function c
 end
 
 function git-yolo
-  git commit -m (curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//') ;and git push
+  git commit -m (curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//') ;and git push -f
 end
