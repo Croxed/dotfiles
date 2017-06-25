@@ -23,6 +23,9 @@
 !.config/nvim/colors
 !.config/nvim/init.vim
 .config/nvim/autoload
+!.config/fish/aliases.fish
+!.config/fish/config.fish
+!.config/fish/fishfile
 
 !.config/i3blocks
 !.config/i3blocks/config

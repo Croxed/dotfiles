@@ -115,7 +115,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
 let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
 set omnifunc=syntaxcomplete#Complete
-
+let g:deoplete#sources#jedi#python_path = "/usr/local/bin/python3"
 set statusline+=%#warningmsg#
 set statusline+=%*
 set statusline+=%{ALEGetStatusLine()}
@@ -142,7 +142,8 @@ set completeopt+=noselect
 "      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
 "      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
 "      \}
-
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 
 "}}}
