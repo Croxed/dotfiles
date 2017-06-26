@@ -58,7 +58,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-scriptease'
 Plug 'xolox/vim-misc'
-
+Plug 'dag/vim-fish'
 " Git
 Plug 'airblade/vim-gitgutter'
 " Indent
@@ -172,6 +172,8 @@ let g:mapleader = " "
 " Fast saving
 nmap <leader>w :w!<cr>
 
+
+map <F7> mzgg=G`z
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 "command W w !sudo tee %

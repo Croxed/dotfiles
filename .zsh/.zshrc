@@ -22,31 +22,44 @@ PATH=/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/bin:/usr/bin
 
 # Conditional PATH additions
 for path_candidate in /opt/local/sbin \
-	/Applications/Xcode.app/Contents/Developer/usr/bin \
-	/usr/bin/core_perl \
-	/opt/local/bin \
-	/usr/local/share/npm/bin \
-	/usr/local/opt/coreutils/libexec/gnubin \
-	~/.cabal/bin \
-	~/.rbenv/bin \
-	~/.bin \
+    /Applications/Xcode.app/Contents/Developer/usr/bin \
+    /usr/bin/core_perl \
+    /opt/local/bin \
+    /usr/local/share/npm/bin \
+    /usr/local/opt/coreutils/libexec/gnubin \
+    ~/.cabal/bin \
+    ~/.rbenv/bin \
+    ~/.bin \
     ~/.cargo/bin \
-	~/bin.local \
-	~/scripts \
-	~/.nexustools \
-	~/src/gocode/bin \
-	/usr/local/CrossPack-AVR/bin \
-  /usr/local/texlive/2016/bin/x86_64-darwin
+    ~/bin.local \
+    ~/scripts \
+    ~/.nexustools \
+    ~/src/gocode/bin \
+    /usr/local/CrossPack-AVR/bin \
+    /usr/local/texlive/2016/bin/x86_64-darwin
 do
-	if [ -d ${path_candidate} ]; then
-		export PATH=${PATH}:${path_candidate}
-	fi
+    if [ -d ${path_candidate} ]; then
+        export PATH=${PATH}:${path_candidate}
+    fi
 done
 
 if [[ "$(uname)" == "Linux" ]]; then
-	[ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
-	export PANEL_FIFO="/tmp/panel-fifo"
+    [ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
+    export PANEL_FIFO="/tmp/panel-fifo"
 fi
+
+# Greeter
+function zshGreeter() {
+    echo "\n"
+    echo "         _     "
+    echo "        | |    "
+    echo " _______| |__  "
+    echo "|_  / __| '_ \ "
+    echo " / /\__ \ | | |"
+    echo "/___|___/_| |_|"
+    echo "\n"
+}
+
 # ----------------------- Start of ZIM config ----------------------- #
 
 #
@@ -56,19 +69,19 @@ fi
 #PROMPT_LEAN_TMUX=""
 
 [[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
- mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
+mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
 )
 
 fpath=( ${ZDOTDIR:-${HOME}}/.zfunctions $fpath )
 
 export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
 [[ -d ${ZDOTDIR:-${HOME}}/.zplug ]] ||(
- git clone https://github.com/zplug/zplug $ZPLUG_HOME
+git clone https://github.com/zplug/zplug $ZPLUG_HOME
 )
 
 [[ -d ${ZDOTDIR:-${HOME}}/filthy ]] ||(
- git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
- ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
+git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
+ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
 )
 
 source $ZPLUG_HOME/init.zsh
@@ -101,12 +114,12 @@ prompt filthy
 # loading all files from .zshrc.d directory
 mkdir -p ${ZDOTDIR:-${HOME}}/zshrc.d
 if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
-	for dotfile in ${ZDOTDIR:-${HOME}}/zshrc.d/*
-	do
-		if [ -r "${dotfile}" ]; then
-			source "${dotfile}"
-		fi
-	done
+    for dotfile in ${ZDOTDIR:-${HOME}}/zshrc.d/*
+    do
+        if [ -r "${dotfile}" ]; then
+            source "${dotfile}"
+        fi
+    done
 fi
 
 ### CONFIG ###
@@ -157,11 +170,11 @@ TIMEFMT="%U user %S system %P cpu %*Es total"
 
 # Expand aliases inline - see http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-	if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-		zle _expand_alias
-		zle expand-word
-	fi
-	zle self-insert
+    if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle self-insert
 }
 
 zle -N globalias
@@ -185,10 +198,10 @@ zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:
 
 # Load any custom zsh completions we've installed
 if [ -d ~/.zsh-completions ]; then
-	for completion in ~/.zsh-completions/*
-	do
-		source "$completion"
-	done
+    for completion in ~/.zsh-completions/*
+    do
+        source "$completion"
+    done
 fi
 
 # In case a plugin adds a redundant path entry, remove duplicate entries
@@ -198,16 +211,16 @@ fi
 # dotfiles repo at https://github.com/mislav/dotfiles
 
 dedupe_path() {
-	typeset -a paths result
-	paths=($path)
+    typeset -a paths result
+    paths=($path)
 
-	while [[ ${#paths} -gt 0 ]]; do
-		p="${paths[1]}"
-		shift paths
-		[[ -z ${paths[(r)$p]} ]] && result+="$p"
-	done
+    while [[ ${#paths} -gt 0 ]]; do
+        p="${paths[1]}"
+        shift paths
+        [[ -z ${paths[(r)$p]} ]] && result+="$p"
+    done
 
-	export PATH=${(j+:+)result}
+    export PATH=${(j+:+)result}
 }
 
 dedupe_path
@@ -218,31 +231,30 @@ eval `ssh-agent -s`
 
 # Fun with SSH
 if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
-	if [[ "$(uname -s)" == "Darwin" ]]; then
-		# We're on OS X. Try to load ssh keys using pass phrases stored in
-		# the OSX keychain.
-		#
-		# You can use ssh-add -K /path/to/key to store pass phrases into
-		# the OSX keychain
-		ssh-add -k
-	fi
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        # We're on OS X. Try to load ssh keys using pass phrases stored in
+        # the OSX keychain.
+        #
+        # You can use ssh-add -K /path/to/key to store pass phrases into
+        # the OSX keychain
+        ssh-add -k
+    fi
 fi
 
 if [ -f ~/.ssh/id_rsa ]; then
-	if [ $(ssh-add -l | grep -c ".ssh/id_rsa" ) -eq 0 ]; then
-		ssh-add ~/.ssh/id_rsa
-	fi
+    if [ $(ssh-add -l | grep -c ".ssh/id_rsa" ) -eq 0 ]; then
+        ssh-add ~/.ssh/id_rsa
+    fi
 fi
 
 if [ -f ~/.ssh/id_dsa ]; then
-	if [ $(ssh-add -L | grep -c ".ssh/id_dsa" ) -eq 0 ]; then
-		ssh-add ~/.ssh/id_dsa
-	fi
+    if [ $(ssh-add -L | grep -c ".ssh/id_dsa" ) -eq 0 ]; then
+        ssh-add ~/.ssh/id_dsa
+    fi
 fi
 
 # ----------------------- User config ----------------------- #
 ufetch
-
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
 export TTC_REPOS="~/OneDrive/Development/LenaSYS"
