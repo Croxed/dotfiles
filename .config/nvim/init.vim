@@ -32,7 +32,19 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
-Plug 'itchyny/lightline.vim'
+if system('uname') =~ "Darwin"
+  try
+      Plug 'itchyny/lightline.vim'
+  catch
+  endtry
+else
+  try
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+  catch
+  endtry
+endif
+
 Plug 'morhetz/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
@@ -47,7 +59,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jonathanfilip/vim-lucius'
-
+Plug 'dracula/vim', { 'as': 'dracula' }
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
@@ -108,17 +120,11 @@ let g:lightline = {
       \ },
       \ }
 
-
-"autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
 let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
 set omnifunc=syntaxcomplete#Complete
 let g:deoplete#sources#jedi#python_path = "/usr/local/bin/python3"
-set statusline+=%#warningmsg#
-set statusline+=%*
-set statusline+=%{ALEGetStatusLine()}
 let g:ale_sign_column_always = 1
 
 
@@ -137,14 +143,34 @@ set completeopt+=noinsert
 " deoplete.nvim recommend
 set completeopt+=noselect
 
-"let g:lightline = {
-"      \'colorscheme': 'nord',
-"      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-"      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-"      \}
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 1
+"let g:Powerline_sybols = 'unicode'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_tab_nr = 1
+
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#buffer_nr_format = '%s:'
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#fnametruncate = 0
+"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type= 2
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
+let g:airline#extensions#tabline#tabs_label = 'TABS'
+
+let g:airline_theme = 'nord'
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -280,12 +306,12 @@ else
   catch
   endtry
 endif
-
+set t_Co=256
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    set t_Co=256
+    "set t_Co=256
     set guitablabel=%M\ %t
 endif
 
