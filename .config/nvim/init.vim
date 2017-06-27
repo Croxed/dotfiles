@@ -32,6 +32,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
+
 if system('uname') =~ "Darwin"
   try
       Plug 'itchyny/lightline.vim'
@@ -109,43 +110,147 @@ call plug#end()            " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
+" lightline.vim {{{
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ] ],
+      \   'right': [ [ 'ale', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
+      \ },
+      \ 'component': {
+      \   'lineinfo': ' %3l:%-2v'
+      \ },
+      \ 'component_expand': {
+      \   'ale': 'LightLineAle'
+      \ },
+      \ 'component_type': {
+      \   'ale': 'error',
+      \   'capslock': 'warning'
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'readonly': 'LightLineReadonly',
+      \   'fugitive': 'LightLineFugitive',
+      \   'mode': 'LightLineMode',
+      \   'filename': 'LightLineFilename',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'capslock': 'LightLineCapslock',
       \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' },
+      \ 'tabline': {
+      \   'left': [ [ 'tabs' ] ],
+      \   'right': [ [ '' ] ]
+      \ },
+      \ 'tabline_separator': { 'left': '', 'right': '' },
+      \ 'tabline_subseparator': { 'left': '|', 'right': '|' },
       \ }
 
+let s:except_ft = 'help\|qf\|undotree\|fzf\|vim-plug\|vaffle'
+function! LightLineReadonly()
+  return &ft !~? s:except_ft && &readonly ? '' : ''
+endfunction
+
+function! LightLineModified()
+  return &ft =~ s:except_ft ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightLineFugitive()
+  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? ' '._ : ''
+  endif
+  return ''
+endfunction
+
+function! LightLineMode()
+  return &ft == 'help' ? 'help' :
+        \ &ft == 'undotree' ? 'undotree' :
+        \ &ft == 'fzf' ? 'fzf' :
+        \ &ft == 'vim-plug' ? 'plugin' :
+        \ &ft == 'qf' ? 'quickfix' :
+        \ &ft == 'vaffle' ? 'vaffle' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightLineFilename()
+  let fname = expand('%:f')
+  return &ft =~ s:except_ft ? '' :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+function! LightLineFileformat()
+  return winwidth(0) > 90 && &ft !~? s:except_ft ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineCapslock()
+  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*CapsLockStatusline")
+    return CapsLockStatusline()
+  endif
+  return ''
+endfunction
+
+function! LightLineAle()
+  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ALEGetStatusLine")
+    return ALEGetStatusLine()
+  endif
+  return ''
+endfunction
+
+augroup UpdateAleLightLine
+  autocmd!
+  autocmd User ALELint call lightline#update()
+augroup END
+
+let g:lightline.mode_map = {
+      \ 'n':      'N',
+      \ 'i':      'I',
+      \ 'R':      'R',
+      \ 'v':      'V',
+      \ 'V':      'VL',
+      \ 'c':      'C',
+      \ "\<C-v>": 'VB',
+      \ 's':      'SELECT',
+      \ 'S':      'S-LINE',
+      \ "\<C-s>": 'S-BLOCK',
+      \ 't':      'T',
+      \ '?':      '      ' }
+" }}}
+
+" deoplete.vim {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
 let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
 set omnifunc=syntaxcomplete#Complete
 let g:deoplete#sources#jedi#python_path = "/usr/local/bin/python3"
 let g:ale_sign_column_always = 1
+" deoplete.nvim recommend
+set completeopt+=noselect
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+"}}}
 
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
+" ale.vim {{{
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"}}}
 
-" neocomplete like
-set completeopt+=noinsert
-" deoplete.nvim recommend
-set completeopt+=noselect
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
+" airline.vim {{{
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -171,6 +276,7 @@ let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
 let g:airline#extensions#tabline#tabs_label = 'TABS'
 
 let g:airline_theme = 'nord'
+"}}}
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -311,12 +417,8 @@ set t_Co=256
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    "set t_Co=256
     set guitablabel=%M\ %t
 endif
-
-" Set utf8 as standard encoding
-set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
@@ -432,7 +534,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set laststatus=2
 
 " Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
