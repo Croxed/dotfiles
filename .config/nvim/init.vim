@@ -18,8 +18,8 @@ set shell=zsh
 
 " auto-install vim-plug
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent ! curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
+    silent ! curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
@@ -34,16 +34,16 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 
 if system('uname') =~ "Darwin"
-  try
-      Plug 'itchyny/lightline.vim'
-  catch
-  endtry
+    try
+        Plug 'itchyny/lightline.vim'
+    catch
+    endtry
 else
-  try
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-  catch
-  endtry
+    try
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+    catch
+    endtry
 endif
 
 Plug 'morhetz/gruvbox'
@@ -112,120 +112,120 @@ call plug#end()            " required
 
 " lightline.vim {{{
 let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ] ],
-      \   'right': [ [ 'ale', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
-      \ },
-      \ 'component': {
-      \   'lineinfo': ' %3l:%-2v'
-      \ },
-      \ 'component_expand': {
-      \   'ale': 'LightLineAle'
-      \ },
-      \ 'component_type': {
-      \   'ale': 'error',
-      \   'capslock': 'warning'
-      \ },
-      \ 'component_function': {
-      \   'readonly': 'LightLineReadonly',
-      \   'fugitive': 'LightLineFugitive',
-      \   'mode': 'LightLineMode',
-      \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
-      \   'capslock': 'LightLineCapslock',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' },
-      \ 'tabline': {
-      \   'left': [ [ 'tabs' ] ],
-      \   'right': [ [ '' ] ]
-      \ },
-      \ 'tabline_separator': { 'left': '', 'right': '' },
-      \ 'tabline_subseparator': { 'left': '|', 'right': '|' },
-      \ }
+            \ 'colorscheme': 'nord',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ] ],
+            \   'right': [ [ 'ale', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
+            \ },
+            \ 'component': {
+            \   'lineinfo': ' %3l:%-2v'
+            \ },
+            \ 'component_expand': {
+            \   'ale': 'LightLineAle'
+            \ },
+            \ 'component_type': {
+            \   'ale': 'error',
+            \   'capslock': 'warning'
+            \ },
+            \ 'component_function': {
+            \   'readonly': 'LightLineReadonly',
+            \   'fugitive': 'LightLineFugitive',
+            \   'mode': 'LightLineMode',
+            \   'filename': 'LightLineFilename',
+            \   'fileformat': 'LightLineFileformat',
+            \   'filetype': 'LightLineFiletype',
+            \   'fileencoding': 'LightLineFileencoding',
+            \   'capslock': 'LightLineCapslock',
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' },
+            \ 'tabline': {
+            \   'left': [ [ 'tabs' ] ],
+            \   'right': [ [ '' ] ]
+            \ },
+            \ 'tabline_separator': { 'left': '', 'right': '' },
+            \ 'tabline_subseparator': { 'left': '|', 'right': '|' },
+            \ }
 
 let s:except_ft = 'help\|qf\|undotree\|fzf\|vim-plug\|vaffle'
 function! LightLineReadonly()
-  return &ft !~? s:except_ft && &readonly ? '' : ''
+    return &ft !~? s:except_ft && &readonly ? '' : ''
 endfunction
 
 function! LightLineModified()
-  return &ft =~ s:except_ft ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    return &ft =~ s:except_ft ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineFugitive()
-  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? ' '._ : ''
-  endif
-  return ''
+    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*fugitive#head")
+        let _ = fugitive#head()
+        return strlen(_) ? ' '._ : ''
+    endif
+    return ''
 endfunction
 
 function! LightLineMode()
-  return &ft == 'help' ? 'help' :
-        \ &ft == 'undotree' ? 'undotree' :
-        \ &ft == 'fzf' ? 'fzf' :
-        \ &ft == 'vim-plug' ? 'plugin' :
-        \ &ft == 'qf' ? 'quickfix' :
-        \ &ft == 'vaffle' ? 'vaffle' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
+    return &ft == 'help' ? 'help' :
+                \ &ft == 'undotree' ? 'undotree' :
+                \ &ft == 'fzf' ? 'fzf' :
+                \ &ft == 'vim-plug' ? 'plugin' :
+                \ &ft == 'qf' ? 'quickfix' :
+                \ &ft == 'vaffle' ? 'vaffle' :
+                \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! LightLineFilename()
-  let fname = expand('%:f')
-  return &ft =~ s:except_ft ? '' :
-        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+    let fname = expand('%:f')
+    return &ft =~ s:except_ft ? '' :
+                \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+                \ ('' != fname ? fname : '[No Name]') .
+                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 function! LightLineFileformat()
-  return winwidth(0) > 90 && &ft !~? s:except_ft ? &fileformat : ''
+    return winwidth(0) > 90 && &ft !~? s:except_ft ? &fileformat : ''
 endfunction
 
 function! LightLineFiletype()
-  return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! LightLineFileencoding()
-  return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&fenc) ? &fenc : &enc) : ''
+    return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! LightLineCapslock()
-  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*CapsLockStatusline")
-    return CapsLockStatusline()
-  endif
-  return ''
+    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*CapsLockStatusline")
+        return CapsLockStatusline()
+    endif
+    return ''
 endfunction
 
 function! LightLineAle()
-  if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ALEGetStatusLine")
-    return ALEGetStatusLine()
-  endif
-  return ''
+    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ALEGetStatusLine")
+        return ALEGetStatusLine()
+    endif
+    return ''
 endfunction
 
 augroup UpdateAleLightLine
-  autocmd!
-  autocmd User ALELint call lightline#update()
+    autocmd!
+    autocmd User ALELint call lightline#update()
 augroup END
 
 let g:lightline.mode_map = {
-      \ 'n':      'N',
-      \ 'i':      'I',
-      \ 'R':      'R',
-      \ 'v':      'V',
-      \ 'V':      'VL',
-      \ 'c':      'C',
-      \ "\<C-v>": 'VB',
-      \ 's':      'SELECT',
-      \ 'S':      'S-LINE',
-      \ "\<C-s>": 'S-BLOCK',
-      \ 't':      'T',
-      \ '?':      '      ' }
+            \ 'n':      'N',
+            \ 'i':      'I',
+            \ 'R':      'R',
+            \ 'v':      'V',
+            \ 'V':      'VL',
+            \ 'c':      'C',
+            \ "\<C-v>": 'VB',
+            \ 's':      'SELECT',
+            \ 'S':      'S-LINE',
+            \ "\<C-s>": 'S-BLOCK',
+            \ 't':      'T',
+            \ '?':      '      ' }
 " }}}
 
 " deoplete.vim {{{
@@ -248,6 +248,18 @@ let g:ale_sign_warning = '--'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_fix_on_save = 1
+let g:ale_linters = {
+            \   'javascript': ['eslint']
+            \}
+
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = [
+            \ 'eslint',
+            \]
+let g:ale_fixers.python = [
+            \ 'yapf'
+            \]
 "}}}
 
 " airline.vim {{{
@@ -267,7 +279,7 @@ let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#fnametruncate = 0
 "let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type= 2
@@ -312,7 +324,7 @@ map <F7> mzgg=G`z
 
 " set vim startup faster
 if !empty(&viminfo)
-  set viminfo^=!
+    set viminfo^=!
 endif
 
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -402,15 +414,15 @@ set background=dark
 " Colorscheme management
 
 if system('uname') =~ "Darwin"
-  try
-      silent! colorscheme nord
-  catch
-  endtry
+    try
+        silent! colorscheme nord
+    catch
+    endtry
 else
-  try
-      silent! colorscheme wal
-  catch
-  endtry
+    try
+        silent! colorscheme wal
+    catch
+    endtry
 endif
 set t_Co=256
 " Set extra options when running in GUI mode
@@ -517,8 +529,8 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
+    set switchbuf=useopen,usetab,newtab
+    set stal=2
 catch
 endtry
 
@@ -551,17 +563,17 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
 endif
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -631,21 +643,21 @@ endfunction
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
 endfunction
 "}}}
