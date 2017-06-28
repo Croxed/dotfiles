@@ -31,18 +31,15 @@ case Darwin
   end
 
   function bubo
-    command brew update $argv
-    command brew outdated $argv
+    command brew update ;and brew outdated
   end
 
   function bubc
-    command brew upgrade $argv
-    command brew cleanup $argv
+    command brew upgrade ;and brew cleanup
   end
 
   function bubu
-    bubo $argv
-    bubc $argv
+    bubo ;and bubc
   end
 
   function subl
