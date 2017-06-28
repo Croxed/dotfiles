@@ -1,4 +1,5 @@
 function fish_greeting
+    command clear
     fish_logo
 end
 
@@ -41,9 +42,21 @@ end
 
 source $HOME/.config/fish/aliases.fish
 
+# Load extra configs
 for file in ~/.config/fish/conf.d/*.fish
     source $file
 end
+
+# Remove duplicates in path
+set --local path_sorted
+for i in $PATH
+    if not contains $i $path_sorted
+        set path_sorted $path_sorted $i
+    end
+end
+
+# finally, set the PATH variable
+set PATH $path_sorted
 
 setenv SSH_ENV $HOME/.ssh/environment
 
