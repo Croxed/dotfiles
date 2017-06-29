@@ -45,20 +45,7 @@ done
 
 if [[ "$(uname)" == "Linux" ]]; then
     [ -z "$DISPLAY" -a "$XDG_VTNR" -eq 1 ] && exec startx
-    export PANEL_FIFO="/tmp/panel-fifo"
 fi
-
-# Greeter
-function zshGreeter() {
-    echo "\n"
-    echo "         _     "
-    echo "        | |    "
-    echo " _______| |__  "
-    echo "|_  / __| '_ \ "
-    echo " / /\__ \ | | |"
-    echo "/___|___/_| |_|"
-    echo "\n"
-}
 
 # ----------------------- Start of ZIM config ----------------------- #
 
@@ -254,13 +241,9 @@ if [ -f ~/.ssh/id_dsa ]; then
 fi
 
 # ----------------------- User config ----------------------- #
-ufetch
+clear
+echo -e "\e[01;35m$(figlet -f colossal $(getos))\e[00m"
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
-
-export TTC_REPOS="~/OneDrive/Development/LenaSYS"
-export TTC_WEATHER="Gothenburg"
-
-eval $(thefuck --alias)
 
 (command -v wal >/dev/null 2>&1) && { (wal -r &) }
 # ----------------------- End of config ----------------------- #

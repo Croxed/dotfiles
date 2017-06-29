@@ -87,10 +87,6 @@ function termclock
   command tty-clock -C 2 -crsDBb $argv
 end
 
-function dirs
-  command dirs -v $argv
-end
-
 function mv
   command mv -i $argv
 end

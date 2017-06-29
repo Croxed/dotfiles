@@ -1,0 +1,134 @@
+#! /usr/bin/env bash
+get_os() {
+    case "$(uname)" in
+        "Linux")   os="Linux" ;;
+        "Darwin")  os="$(sw_vers -productName)" ;;
+        *"BSD" | "DragonFly") os="BSD" ;;
+        "CYGWIN"*) os="Windows" ;;
+        "SunOS") os="Solaris" ;;
+        *) printf "%s\n" "Unknown OS detected: $(uname)"; exit 1 ;;
+    esac
+}
+
+
+get_distro() {
+    get_os
+    [[ "$distro" ]] && return
+
+    case "$os" in
+        "Linux" | "BSD" | "MINIX")
+            if [[ "$(< /proc/version)" == *"Microsoft"* || "$(< /proc/sys/kernel/osrelease)" == *"Microsoft"* ]]; then
+                case "$distro_shorthand" in
+                    "on")   distro="$(lsb_release -sir) [Windows 10]" ;;
+                    "tiny") distro="Windows 10" ;;
+                    *)      distro="$(lsb_release -sd) on Windows 10" ;;
+                esac
+                ascii_distro="Windows 10"
+
+            elif [[ -f "/etc/GoboLinuxVersion" ]]; then
+                case "$distro_shorthand" in
+                    "on" | "tiny") distro="GoboLinux" ;;
+                    *) distro="GoboLinux $(< /etc/GoboLinuxVersion)"
+                esac
+
+            elif [[ -f "/etc/redstar-release" ]]; then
+                case "$distro_shorthand" in
+                    "on" | "tiny") distro="Red Star OS" ;;
+                    *) distro="Red Star OS $(awk -F'[^0-9*]' '$0=$2' /etc/redstar-release)"
+                esac
+
+            elif type -p lsb_release >/dev/null; then
+                case "$distro_shorthand" in
+                    "on")   lsb_flags="-sir" ;;
+                    "tiny") lsb_flags="-si" ;;
+                    *)      lsb_flags="-sd" ;;
+                esac
+                distro="$(lsb_release $lsb_flags)"
+
+            elif type -p guix >/dev/null; then
+                distro="GuixSD"
+
+            elif type -p crux >/dev/null; then
+                distro="$(crux)"
+                case "$distro_shorthand" in
+                    "on")   distro="${distro//version}" ;;
+                    "tiny") distro="${distro//version*}" ;;
+                esac
+
+            elif [[ -d "/system/app/" && -d "/system/priv-app" ]]; then
+                distro="Android $(getprop ro.build.version.release)"
+
+            elif [[ -f "/etc/os-release" || -f "/usr/lib/os-release" ]]; then
+                # Source the os-release file
+                for file in /etc/os-release /usr/lib/os-release; do
+                    source "$file" 2>/dev/null && break
+                done
+
+                # Format the distro name.
+                case "$distro_shorthand" in
+                    "on") distro="${NAME:-${DISTRIB_ID}} ${VERSION_ID:-${DISTRIB_RELEASE}}" ;;
+                    "tiny") distro="${NAME:-${DISTRIB_ID:-${TAILS_PRODUCT_NAME}}}" ;;
+                    "off") distro="${PRETTY_NAME:-${DISTRIB_DESCRIPTION}} ${UBUNTU_CODENAME}" ;;
+                esac
+
+                # Workarounds for distros that go against the os-release standard.
+                [[ -z "${distro// }" ]] && distro="$(awk '/BLAG/ {print $1; exit}' /etc/os-release /usr/lib/os-release)"
+                [[ -z "${distro// }" ]] && distro="$(awk -F'=' '{print $2; exit}' /etc/os-release /usr/lib/os-release)"
+
+            else
+                for release_file in /etc/*-release; do
+                    distro+="$(< "$release_file")"
+                done
+                if [[ -z "$distro" ]]; then
+                    case "$distro_shorthand" in
+                        "on" | "tiny") distro="$kernel_name" ;;
+                        *) distro="$kernel_name $kernel_version" ;;
+                    esac
+                    distro="${distro/DragonFly/DragonFlyBSD}"
+
+                    # Workarounds for FreeBSD based distros.
+                    [[ -f "/etc/pcbsd-lang" ]] && distro="PCBSD"
+                    [[ -f "/etc/rc.conf.trueos" ]] && distro="TrueOS"
+                    [[ -f "/etc/pacbsd-release" ]] && distro="PacBSD" # /etc/pacbsd-release is an empty file
+                fi
+            fi
+            distro="$(trim_quotes "$distro")"
+        ;;
+
+        "Mac OS X")
+            distro="macOS"
+        ;;
+
+        "iPhone OS")
+            distro="iOS $(sw_vers -productVersion)"
+
+            # "uname -m" doesn't print architecture on iOS so we force it off.
+            os_arch="off"
+        ;;
+
+        "Windows")
+            distro="$(wmic os get Caption /value)"
+
+            # Strip crap from the output of wmic.
+            distro="${distro/Caption'='}"
+            distro="${distro/Microsoft }"
+        ;;
+
+        "Solaris")
+            case "$distro_shorthand" in
+                "on" | "tiny") distro="$(awk 'NR==1{print $1 " " $3;}' /etc/release)" ;;
+                *) distro="$(awk 'NR==1{print $1 " " $2 " " $3;}' /etc/release)" ;;
+            esac
+            distro="${distro/\(*}"
+        ;;
+
+        "Haiku")
+            distro="$(uname -sv | awk '{print $1 " " $2}')"
+        ;;
+    esac
+
+    [[ -z "$distro" ]] && distro="$os (Unknown)"
+}
+
+get_distro
+echo $distro
