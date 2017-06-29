@@ -242,7 +242,7 @@ fi
 
 # ----------------------- User config ----------------------- #
 clear
-echo -e "\e[01;35m$(figlet -f colossal $(getos))\e[00m"
+greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
 (command -v wal >/dev/null 2>&1) && { (wal -r &) }
