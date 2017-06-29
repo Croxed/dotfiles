@@ -52,7 +52,7 @@ end
 
 function fish_greeting
     command clear
-    echo -e "\e[01;35m" ;and figlet -f colossal (command getos) ;and echo -e "\e[00m"
+    command greeting
 end
 
 # finally, set the PATH variable

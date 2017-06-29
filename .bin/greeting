@@ -101,9 +101,6 @@ get_distro() {
 
         "iPhone OS")
             distro="iOS $(sw_vers -productVersion)"
-
-            # "uname -m" doesn't print architecture on iOS so we force it off.
-            os_arch="off"
         ;;
 
         "Windows")
@@ -130,5 +127,96 @@ get_distro() {
     [[ -z "$distro" ]] && distro="$os (Unknown)"
 }
 
+get_shell() {
+	shell_path="off"
+    case "$shell_path" in
+        "on")  shell="$SHELL " ;;
+        "off") shell="${SHELL##*/} " ;;
+    esac
+	shell_version="on"
+    if [[ "$shell_version" == "on" ]]; then
+        case "${SHELL##*/}" in
+            "bash") shell+="${BASH_VERSION/-*}" ;;
+            "sh" | "ash" | "dash") ;;
+
+            "mksh" | "ksh")
+                shell+="$("$SHELL" -c 'printf "%s" "$KSH_VERSION"')"
+                shell="${shell/ * KSH}"
+                shell="${shell/version}"
+            ;;
+
+            *)
+                shell+="$("$SHELL" --version 2>&1)"
+                shell="${shell/ ${SHELL##*/}}"
+            ;;
+        esac
+
+        # Remove unwanted info.
+        shell="${shell/, version}"
+        shell="${shell/xonsh\//xonsh }"
+        shell="${shell/options*}"
+        shell="${shell/\(*\)}"
+    fi
+}
+
+get_term() {
+    # Workaround for macOS systems that
+    # don't support the block below.
+    case "$TERM_PROGRAM" in
+        "iTerm.app") term="iTerm2" ;;
+        "Terminal.app") term="Apple Terminal" ;;
+        "Hyper") term="HyperTerm" ;;
+        *) term="${TERM_PROGRAM/\.app}" ;;
+    esac
+
+    # Check $PPID for terminal emulator.
+    while [[ -z "$term" ]]; do
+        parent="$(get_ppid "$parent")"
+        name="$(get_process_name "$parent")"
+
+        case "${name// }" in
+            "${SHELL/*\/}" | *"sh" | "tmux"* | "screen" | "su"*) ;;
+            "login"* | *"Login"* | "init" | "(init)") term="$(tty)" ;;
+            "ruby" | "1" | "systemd" | "sshd"* | "python"* | "USER"*"PID"*) break ;;
+            "gnome-terminal-") term="gnome-terminal" ;;
+            *) term="${name##*/}" ;;
+        esac
+    done
+}
+get_term
 get_distro
-echo $distro
+get_shell
+UPTIME="$(uptime | awk -F, '{sub(".*up ",x,$1);print $1}' | sed -e 's/^[ \t]*//')"
+
+c00=$'\e[0;30m'
+c01=$'\e[0;31m'
+c02=$'\e[0;32m'
+c03=$'\e[0;33m'
+c04=$'\e[0;34m'
+c05=$'\e[0;35m'
+c06=$'\e[0;36m'
+c07=$'\e[0;37m'
+c08=$'\e[1;30m'
+c09=$'\e[1;31m'
+c10=$'\e[1;32m'
+c11=$'\e[1;33m'
+c12=$'\e[1;34m'
+c13=$'\e[1;35m'
+c14=$'\e[1;36m'
+c15=$'\e[1;37m'
+
+f0=$'\e[1;30m'
+f1=$'\e[1;37m'
+f2=$'\e[0;37m'
+c0=$'\e[00m'
+
+
+cat <<EOF
+${c14}$(figlet -f colossal $distro)${c0} 
+    ${f1}hello ${c06}$(whoami)${f1}, i'm ${c06}$(hostname -s)
+    ${f1}i've been awake for ${c06}${UPTIME} 
+    
+    ${f1}shell ${f0}......... ${c06}${shell}
+    ${f1}terminal ${f0}...... ${c06}${term}
+
+EOF
