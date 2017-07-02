@@ -14,28 +14,28 @@ fi
 }
 
 docker-attack(){
-  docker exec -it $1 bash
+docker exec -it $1 bash
 }
 # Simple shit #
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
-  eval "`dircolors -b`"
-  alias ls='ls  -Fhlp --color=auto'
+    eval "`dircolors -b`"
+    alias ls='ls  -Fhlp --color=auto'
 elif [ "$(uname)" = "Darwin" ]; then
-  alias ls='gls -Fhlp --color=auto'
+    alias ls='gls -Fhlp --color=auto'
 fi
 
 if [ "$(uname)" = "Darwin" ]
 then
-  alias ls='ls -FhlGp'
+    alias ls='ls -FhlGp'
 else
-  alias ls='ls -Fhlp --color=auto'
+    alias ls='ls -Fhlp --color=auto'
 fi
 
 alias c="clear && printf '\e[3J'"
 
 if [ $UID -ne 0 ]; then
-  alias reboot='sudo reboot'
+    alias reboot='sudo reboot'
 fi
 
 ## Use a long listing format ##
@@ -48,6 +48,14 @@ alias fgrep='fgrep --color=auto'
 alias termclock='tty-clock -C 2 -crsDBb'
 
 alias dirs="dirs -v"
+
+# Useful tree aliases
+alias tree1='tree --dirsfirst -ChFL 1'
+alias tree2='tree --dirsfirst -ChFL 2'
+alias tree3='tree --dirsfirst -ChFL 3'
+alias tree4='tree --dirsfirst -ChFL 4'
+alias tree5='tree --dirsfirst -ChFL 5'
+alias tree6='tree --dirsfirst -ChFL 6'
 
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
@@ -83,24 +91,24 @@ alias localip="ifconfig en0 inet | grep 'inet ' | awk ' { print $2 } '"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 if [ "$(uname)" = "Darwin" ]; then
-  # Flush the dns cache #
-  alias flushdns='sudo killall -HUP mDNSResponder'
+    # Flush the dns cache #
+    alias flushdns='sudo killall -HUP mDNSResponder'
 
-  ## Show & hide hidden files in finder ##
-  alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-  alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+    ## Show & hide hidden files in finder ##
+    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
-  # Update system with all available updates #
-  alias sysupdate='sudo softwareupdate -ia'
+    # Update system with all available updates #
+    alias sysupdate='sudo softwareupdate -ia'
 
-  alias brews='brew list -1'
-  alias bubo='brew update && brew outdated'
-  alias bubc='brew upgrade && brew cleanup'
-  alias bubu='bubo && bubc'
-  alias subl="open -a /Applications/Sublime\ Text.app"
-  alias stfu="osascript -e 'set volume output muted true'"
-  alias pumpitup="osascript -e 'set volume 7'"
-  alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
+    alias brews='brew list -1'
+    alias bubo='brew update && brew outdated'
+    alias bubc='brew upgrade && brew cleanup'
+    alias bubu='bubo && bubc'
+    alias subl="open -a /Applications/Sublime\ Text.app"
+    alias stfu="osascript -e 'set volume output muted true'"
+    alias pumpitup="osascript -e 'set volume 7'"
+    alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 fi
 
 # Reload shell #

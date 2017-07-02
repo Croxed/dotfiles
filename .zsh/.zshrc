@@ -73,13 +73,43 @@ ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prom
 
 source $ZPLUG_HOME/init.zsh
 
-zplug "zsh-users/zsh-history-substring-search", defer:2
-zplug "zsh-users/zsh-autosuggestions"
+# Add zplug plugins
+# OMZ Libs
+zplug "lib/compfix", from:oh-my-zsh, defer:0
+zplug "lib/clipboard", from:oh-my-zsh, defer:0
+zplug "lib/directories", from:oh-my-zsh, defer:0
+zplug "lib/grep", from:oh-my-zsh, defer:0
+zplug "lib/key-bindings", from:oh-my-zsh, defer:0
+zplug "lib/misc", from:oh-my-zsh, defer:0
+zplug "lib/termsupport", from:oh-my-zsh, defer:0
+zplug "lib/theme-and-appearance", from:oh-my-zsh, defer:0
+
+# Misc
+# zsh-syntax-highlighting must be loaded after executing compinit command and sourcing other plugins
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "zsh-users/zsh-history-substring-search", defer:3
+zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# Set Theme
+zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
+zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+
+# GIT
+zplug "plugins/git", from:oh-my-zsh
+zplug "pecigonzalo/gitfast-zsh-plugin", from:github
+zplug "plugins/git-extras", from:oh-my-zsh
+
+# Basic utils
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
+zplug "plugins/tmux", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+zplug "rimraf/k", from:github, as:plugin
+
 zplug "djui/alias-tips"
 zplug "tcnksm/docker-alias", use:zshrc
-zplug "plugins/git",   from:oh-my-zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # Install plugins if there are plugins that have not been installed
@@ -91,11 +121,10 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load 
 
-autoload -Uz promptinit
-promptinit
-prompt filthy
+#autoload -Uz promptinit
+#promptinit
 
 # Make it easy to append your own customizations that override the above by
 # loading all files from .zshrc.d directory
@@ -245,5 +274,7 @@ clear
 greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
-(command -v wal >/dev/null 2>&1) && { (wal -r &) }
+if type wal >/dev/null; then
+    (wal -r &) 
+fi
 # ----------------------- End of config ----------------------- #
