@@ -1,4 +1,26 @@
 #! /usr/bin/env bash
+trim() {
+    # When a string is passed to "echo" all trailing and leading
+    # whitespace is removed and inside the string multiple spaces are
+    # condensed into single spaces.
+    #
+    # The "set -f/+f" is here so that "echo" doesn't cause any expansion
+    # of special characters.
+    #
+    # The whitespace trim doesn't work with multiline strings so we use
+    # "${1//[[:space:]]/ }" to remove newlines before we trim the whitespace.
+    set -f
+    # shellcheck disable=2086
+    builtin echo -E ${1//[[:space:]]/ }
+    set +f
+}
+
+trim_quotes() {
+    trim_output="${1//\'}"
+    trim_output="${trim_output//\"}"
+    printf "%s" "$trim_output"
+}
+
 get_os() {
     case "$(uname)" in
         "Linux")   os="Linux" ;;
@@ -157,6 +179,31 @@ get_shell() {
         shell="${shell/options*}"
         shell="${shell/\(*\)}"
     fi
+}
+
+get_ppid() {
+    # Get parent process ID of PID.
+    ppid="$(grep -i -F "PPid:" "/proc/${1:-$PPID}/status")"
+    ppid="$(trim "${ppid/PPid:}")"
+    printf "%s" "$ppid"
+}
+
+get_process_name() {
+    # Get PID name.
+    case "$os" in
+        "Windows")
+            name="$(ps -p "${1:-$PPID}" | awk '{printf $8}')"
+            name="${name/'COMMAND'}"
+            name="${name/*\/}"
+        ;;
+        "Linux")
+            name="$(< "/proc/${1:-$PPID}/comm")"
+        ;;
+        *)
+            name="$(ps -p "${1:-$PPID}" -o comm=)"
+        ;;
+    esac
+    printf "%s" "$name"
 }
 
 get_term() {

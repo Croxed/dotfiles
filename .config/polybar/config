@@ -60,9 +60,17 @@ modules-left = i3
 modules-center = date weather
 modules-right =
 
-[bar/DP-3]
+[bar/DP-2.8]
 inherit = bar/main
-monitor = ${env:MONITOR:DP-3}
+monitor = ${env:MONITOR:DP-2.8}
+
+[bar/DP-5]
+inherit = bar/main
+monitor = ${env:MONITOR:DP-5}
+
+modules-left = i3
+modules-center = date weather
+modules-right =
 
 [module/separator]
 type = custom/text
@@ -193,7 +201,7 @@ scroll-down = ~/.config/scripts/volume.sh --down
 
 [module/weather]
 type = custom/script
-interval = 10
+interval = 100
 format = <label>
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground}

@@ -2,17 +2,12 @@
 
 import urllib.request, json
 
-city = "Stockholm"
+city = "Skoevde"
 api_key = "608f389e849c7b7427fa2eb5adf586bb"
 units = "metric"
 unit_key = "C"
 
-location = json.load(urllib.request.urlopen("http://ipinfo.io/json"))
-coord = location["loc"].split(",")
-
-location = eval(str(urllib.request.urlopen("http://ipinfo.io/json").read()))
-
-weather = eval(str(urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&APPID={}&units={}".format(coord[0], coord[1], api_key, units)).read())[2:-1])
+weather = eval(str(urllib.request.urlopen("http://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units={}".format(city, api_key, units)).read())[2:-1])
 
 info = weather["weather"][0]["description"].capitalize()
 temp = int(float(weather["main"]["temp"]))
