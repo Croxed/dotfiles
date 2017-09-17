@@ -44,6 +44,7 @@ URxvt.scrollBar: 	    false
 URxvt.cursorUnderline:	true
 URxvt.cursorBlink:	    true
 URxvt.termName:         rxvt-256color
+URxvt.internalBorder:   20
 
 urxvt*boldFont:
 urxvt*italicFont:

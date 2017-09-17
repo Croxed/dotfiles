@@ -325,7 +325,7 @@ clear
 greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
-if type wal >/dev/null; then
-    (wal -r &)
+if type wpg >/dev/null; then
+    (wpg -t &)
 fi
 # ----------------------- End of config ----------------------- #

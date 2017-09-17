@@ -45,7 +45,8 @@ setxkbmap -option ctrl:nocaps
 xmodmap -e 'clear lock'
 xmodmap -e 'keycode 66 = Hyper_L'
 xsetroot -cursor_name left_ptr
-wal -i "$(< "${HOME}/.cache/wal/wal")"
+#wal -i "$(< "${HOME}/.cache/wal/wal")"
+(wpg -t &)
 bash ${HOME}/.screenlayout/current.sh
 exec urxvt &
 exec i3
