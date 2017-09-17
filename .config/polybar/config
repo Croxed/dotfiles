@@ -72,10 +72,23 @@ modules-left = i3
 modules-center = date weather
 modules-right =
 
+[bar/LVDS1]
+inherit = bar/main
+monitor = ${env:MONITOR:LVDS1}
+
+modules-right = updates separator wifi cpu memory pvolume
+
 [module/separator]
 type = custom/text
 content = |
 content-foreground = ${colors.foreground}
+
+[module/wifi]
+type = custom/script
+interval = 60
+exec = "nmcli d show wlp4s0 | grep 'GENERAL.CONNECTION' | awk '{ $1=""; print $0 }'"
+format-prefix = "  "
+format-prefix-foreground = ${colors.foreground}
 
 [module/i3]
 type = internal/i3
