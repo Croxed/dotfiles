@@ -73,13 +73,13 @@ source $ZPLUG_HOME/init.zsh
 
 # Add zplug plugins
 # OMZ Libs
-zplug "lib/compfix", from:oh-my-zsh, defer:0
-zplug "lib/clipboard", from:oh-my-zsh, defer:0
-zplug "lib/directories", from:oh-my-zsh, defer:0
-zplug "lib/grep", from:oh-my-zsh, defer:0
-zplug "lib/key-bindings", from:oh-my-zsh, defer:0
-zplug "lib/misc", from:oh-my-zsh, defer:0
-zplug "lib/termsupport", from:oh-my-zsh, defer:0
+# zplug "lib/compfix", from:oh-my-zsh, defer:0
+# zplug "lib/clipboard", from:oh-my-zsh, defer:0
+# zplug "lib/directories", from:oh-my-zsh, defer:0
+# zplug "lib/grep", from:oh-my-zsh, defer:0
+# zplug "lib/key-bindings", from:oh-my-zsh, defer:0
+# zplug "lib/misc", from:oh-my-zsh, defer:0
+# zplug "lib/termsupport", from:oh-my-zsh, defer:0
 zplug "lib/theme-and-appearance", from:oh-my-zsh, defer:0
 
 # Misc
@@ -94,16 +94,16 @@ zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
 
 # GIT
-zplug "plugins/git", from:oh-my-zsh
-zplug "pecigonzalo/gitfast-zsh-plugin", from:github
-zplug "plugins/git-extras", from:oh-my-zsh
+# zplug "plugins/git", from:oh-my-zsh
+# zplug "pecigonzalo/gitfast-zsh-plugin", from:github
+# zplug "plugins/git-extras", from:oh-my-zsh
 
 # Basic utils
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
-zplug "plugins/tmux", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
+# zplug "plugins/sudo", from:oh-my-zsh
+# zplug "plugins/colored-man-pages", from:oh-my-zsh
+# zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
+# zplug "plugins/tmux", from:oh-my-zsh
+# zplug "plugins/z", from:oh-my-zsh
 zplug "rimraf/k", from:github, as:plugin
 
 zplug "djui/alias-tips"
@@ -138,6 +138,7 @@ unset COMPLETION_WAITING_DOTS # https://github.com/tarruda/zsh-autosuggestions#k
 #export COMPLETION_WAITING_DOTS=true
 export DEFAULT_USER="Oscar"
 export DISABLE_CORRECTION=true
+export SPACESHIP_GIT_SYMBOL=""
 #export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
 export DISABLE_UPDATE_PROMPT=true
 export EDITOR='vim'

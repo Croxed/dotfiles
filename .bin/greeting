@@ -32,6 +32,41 @@ get_os() {
     esac
 }
 
+get_ppid() {
+    # Get parent process ID of PID.
+    case "$os" in
+        "Windows")
+            ppid="$(ps -p "${1:-$PPID}" | awk '{printf $2}')"
+            ppid="${ppid/'PPID'}"
+            ;;
+        "Linux")
+            ppid="$(grep -i -F "PPid:" "/proc/${1:-$PPID}/status")"
+            ppid="$(trim "${ppid/PPid:}")"
+            ;;
+        *)
+            ppid="$(ps -p "${1:-$PPID}" -o ppid=)"
+            ;;
+    esac
+    printf "%s" "$ppid"
+}
+
+get_process_name() {
+    # Get PID name.
+    case "$os" in
+        "Windows")
+            name="$(ps -p "${1:-$PPID}" | awk '{printf $8}')"
+            name="${name/'COMMAND'}"
+            name="${name/*\/}"
+            ;;
+        "Linux")
+            name="$(< "/proc/${1:-$PPID}/comm")"
+            ;;
+        *)
+            name="$(ps -p "${1:-$PPID}" -o comm=)"
+            ;;
+    esac
+    printf "%s" "$name"
+}
 
 get_distro() {
     get_os
@@ -115,15 +150,15 @@ get_distro() {
                 fi
             fi
             distro="$(trim_quotes "$distro")"
-        ;;
+            ;;
 
         "Mac OS X")
             distro="macOS"
-        ;;
+            ;;
 
         "iPhone OS")
             distro="iOS $(sw_vers -productVersion)"
-        ;;
+            ;;
 
         "Windows")
             distro="$(wmic os get Caption /value)"
@@ -131,7 +166,7 @@ get_distro() {
             # Strip crap from the output of wmic.
             distro="${distro/Caption'='}"
             distro="${distro/Microsoft }"
-        ;;
+            ;;
 
         "Solaris")
             case "$distro_shorthand" in
@@ -139,23 +174,23 @@ get_distro() {
                 *) distro="$(awk 'NR==1{print $1 " " $2 " " $3;}' /etc/release)" ;;
             esac
             distro="${distro/\(*}"
-        ;;
+            ;;
 
         "Haiku")
             distro="$(uname -sv | awk '{print $1 " " $2}')"
-        ;;
+            ;;
     esac
 
     [[ -z "$distro" ]] && distro="$os (Unknown)"
 }
 
 get_shell() {
-	shell_path="off"
+    shell_path="off"
     case "$shell_path" in
         "on")  shell="$SHELL " ;;
         "off") shell="${SHELL##*/} " ;;
     esac
-	shell_version="on"
+    shell_version="on"
     if [[ "$shell_version" == "on" ]]; then
         case "${SHELL##*/}" in
             "bash") shell+="${BASH_VERSION/-*}" ;;
@@ -165,12 +200,12 @@ get_shell() {
                 shell+="$("$SHELL" -c 'printf "%s" "$KSH_VERSION"')"
                 shell="${shell/ * KSH}"
                 shell="${shell/version}"
-            ;;
+                ;;
 
             *)
                 shell+="$("$SHELL" --version 2>&1)"
                 shell="${shell/ ${SHELL##*/}}"
-            ;;
+                ;;
         esac
 
         # Remove unwanted info.
@@ -260,10 +295,10 @@ c0=$'\e[00m'
 
 cat <<EOF
 ${c14}$(figlet -f colossal $distro)${c0} 
-    ${f1}hello ${c06}$(whoami)${f1}, i'm ${c06}$(hostname -s)
-    ${f1}i've been awake for ${c06}${UPTIME} 
-    
-    ${f1}shell ${f0}......... ${c06}${shell}
-    ${f1}terminal ${f0}...... ${c06}${term}
+${f1}hello ${c06}$(whoami)${f1}, i'm ${c06}$(hostname -s)
+${f1}i've been awake for ${c06}${UPTIME} 
+
+${f1}shell ${f0}......... ${c06}${shell}
+${f1}terminal ${f0}...... ${c06}${term}
 
 EOF

@@ -13,6 +13,10 @@ else
 fi
 }
 
+function macfeh() {
+	open -b "drabweb.macfeh" "$@"
+}
+
 docker-attack(){
 docker exec -it $1 bash
 }
@@ -20,15 +24,16 @@ docker exec -it $1 bash
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
-    alias ls='ls  -Fhlp --color=auto'
-elif [ "$(uname)" = "Darwin" ]; then
-    alias ls='gls -Fhlp --color=auto'
 fi
 
 if [ "$(uname)" = "Darwin" ]
 then
-    alias ls='ls -FhlGp'
+    alias ls'exa -b --git'
+    #alias ls='ls -FhlGp'
+    alias ll='exa -lab --git'
 else
+    ## Use a long listing format ##
+    alias ll='ls -lFHah --color=auto'
     alias ls='ls -Fhlp --color=auto'
 fi
 
@@ -38,8 +43,6 @@ if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
 fi
 
-## Use a long listing format ##
-alias ll='ls -la'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
