@@ -312,6 +312,10 @@ if system('uname') =~ "Darwin"
         let g:clang_library_path='/usr/local/Cellar/llvm/5.0.0/lib/'
     catch
     endtry
+else
+    try
+        let g:clang_library_path='/usr/lib/clang/5.0.0/lib'
+    endtry
 endif
 "}}}
 
