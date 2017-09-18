@@ -2,6 +2,7 @@
 #edited from https://github.com/meskarune/i3lock-fancy
 
 image=$(mktemp).png
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 param=(--textcolor=00000000 --insidecolor=00000000 --ringcolor=fafafaff \
     --linecolor=00000000 --keyhlcolor=fabb5cff --ringvercolor=fadd5cff \
@@ -10,6 +11,6 @@ param=(--textcolor=00000000 --insidecolor=00000000 --ringcolor=fafafaff \
     --ringwrongcolor=f13459ff --insidewrongcolor=00000000)
 
 ffmpeg -loglevel quiet -y -s 1920x1080 -f x11grab -i $DISPLAY -vframes 1 -vf "gblur=sigma=16" "$image"
-convert "$image" overlay.png -gravity center -composite "$image"
+convert "$image" "$DIR"/overlay.png -gravity center -composite "$image"
 
 i3lock "${param[@]}" -i "$image"
