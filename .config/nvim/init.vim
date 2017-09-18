@@ -39,20 +39,11 @@ if system('uname') =~ "Darwin"
     catch
     endtry
 else
-<<<<<<< HEAD
-  try
-    Plug 'itchyny/lightline.vim'
-    " Plug 'vim-airline/vim-airline'
-    " Plug 'vim-airline/vim-airline-themes'
-  catch
-  endtry
-=======
     try
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
     catch
     endtry
->>>>>>> refs/remotes/origin/master
 endif
 
 Plug 'bling/vim-bufferline'
