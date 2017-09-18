@@ -40,8 +40,7 @@ if system('uname') =~ "Darwin"
     endtry
 else
     try
-        Plug 'vim-airline/vim-airline'
-        Plug 'vim-airline/vim-airline-themes'
+        Plug 'itchyny/lightline.vim'
     catch
     endtry
 endif
