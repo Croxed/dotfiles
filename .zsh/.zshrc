@@ -243,14 +243,14 @@ zstyle ':completion::complete:*' use-cache 1
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-        clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-        gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-        ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-        operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-        usbmux uucp vcsa wwwrun xfs '_*'
+    adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
+    clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
+    gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
+    ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
+    named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
+    operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
+    rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
+    usbmux uucp vcsa wwwrun xfs '_*'
 
 # Load any custom zsh completions we've installed
 if [ -d ~/.zsh-completions ]; then
@@ -326,7 +326,13 @@ clear
 greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
-if type wpg >/dev/null; then
-    (wpg -t &)
+if [ "$(uname)" = "Darwin" ]; then
+    if type wal >/dev/null; then
+        (wal -r &)
+    fi
+else
+    if type wpg >/dev/null; then
+        (wpg -t &)
+    fi
 fi
 # ----------------------- End of config ----------------------- #

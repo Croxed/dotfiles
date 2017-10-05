@@ -98,6 +98,7 @@ Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
+Plug 'sheerun/vim-polyglot'
 
 Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'

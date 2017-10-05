@@ -28,9 +28,12 @@ fi
 
 if [ "$(uname)" = "Darwin" ]
 then
-    alias ls'exa -b --git'
+    ## Use a long listing format ##
+    alias ll='gls -lFHah --color=auto'
+    alias ls='gls -Fhlp --color=auto'
+    #alias ls='exa -bl --git'
     #alias ls='ls -FhlGp'
-    alias ll='exa -lab --git'
+    #alias ll='exa -lab --git'
 else
     ## Use a long listing format ##
     alias ll='ls -lFHah --color=auto'
