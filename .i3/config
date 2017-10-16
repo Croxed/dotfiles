@@ -283,7 +283,8 @@ assign [class="(?i)eclipse" window_type="normal"] $ws3
 assign [class="(?i)thunderbird"]                  $ws9
 
 # AUTOSTART
-exec_always --no-startup-id wal -i "$(< "${HOME}"/.cache/wal/wal)"
+#exec_always --no-startup-id wal -i "$(< "${HOME}"/.cache/wal/wal)"
+exec_always --no-startup-id wpg -t &
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b &
 exec --no-startup-id xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &

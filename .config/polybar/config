@@ -76,6 +76,7 @@ modules-right =
 inherit = bar/main
 monitor = ${env:MONITOR:LVDS1}
 
+modules-center = bspwm
 modules-right = updates separator wifi cpu memory pvolume
 
 [module/separator]
@@ -89,6 +90,60 @@ interval = 60
 exec = "nmcli d show wlp4s0 | grep 'GENERAL.CONNECTION' | awk '{ $1=""; print $0 }'"
 format-prefix = "  "
 format-prefix-foreground = ${colors.foreground}
+
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; Default: true
+pin-workspaces = true
+
+; Output mode flags after focused state label
+; Default: false
+inline-mode = false
+
+; Create click handler used to focus workspace
+; Default: true
+enable-click = false
+
+; Create scroll handlers used to cycle workspaces
+; Default: true
+enable-scroll = false
+
+; Set the scroll cycle direction 
+; Default: true
+reverse-scroll = false
+
+; Use fuzzy (partial) matching on labels when assigning 
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces 
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
+
+label-unfocused-background = ${colors.background-unf}
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = ${colors.background}
+
+label-focused = %name%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background-alt}
+label-focused-underline = #fae3bb
+label-focused-padding = 1
+
+label-unfocused = %name%
+label-unfocused-padding = 1
+
+label-visible = %name%
+label-visible-underline = #555555
+label-visible-padding = 1
+
+label-urgent = %name%
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.background-alt}
+label-urgent-padding = 1
 
 [module/i3]
 type = internal/i3

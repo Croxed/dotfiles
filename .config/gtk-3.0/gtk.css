@@ -3,6 +3,6 @@
   margin: 0
 }
 
-vte-terminal {
-  padding: 10px;
+VteTerminal, vte-terminal {
+  padding: 20px;
 }
