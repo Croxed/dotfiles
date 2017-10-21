@@ -95,3 +95,9 @@ else
         start_agent
     end
 end
+
+#if type wpg >/dev/null
+#    wpg -r &
+#else if type wal >/dev/null
+#    wal -r &
+#end

@@ -91,16 +91,17 @@ zplug "zsh-users/zsh-completions"
 
 # Set Theme
 zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
-zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+# zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # GIT
-# zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
 # zplug "pecigonzalo/gitfast-zsh-plugin", from:github
 # zplug "plugins/git-extras", from:oh-my-zsh
 
 # Basic utils
 # zplug "plugins/sudo", from:oh-my-zsh
-# zplug "plugins/colored-man-pages", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
 # zplug "plugins/ssh-agent", from:oh-my-zsh, if:"which ssh-agent"
 # zplug "plugins/tmux", from:oh-my-zsh
 # zplug "plugins/z", from:oh-my-zsh
@@ -326,13 +327,9 @@ clear
 greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
-if [ "$(uname)" = "Darwin" ]; then
-    if type wal >/dev/null; then
-        (wal -r &)
-    fi
-else
-    if type wpg >/dev/null; then
-        (wpg -t &)
-    fi
+if type wpg >/dev/null; then
+    (wpg -t &)
+elif type wal >/dev/null; then
+    (wal -r &)
 fi
 # ----------------------- End of config ----------------------- #

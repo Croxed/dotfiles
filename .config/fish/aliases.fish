@@ -167,6 +167,7 @@ alias gba="git branch -a"
 alias gcp="git cherry-pick"
 alias gl="git lg"
 alias gpom="git pull origin master"
+alias macupdate="bash $HOME/.scripts/update"
 
 function tree1; tree --dirsfirst -ChFLQ 1 $argv; end
 function tree2; tree --dirsfirst -ChFLQ 2 $argv; end
