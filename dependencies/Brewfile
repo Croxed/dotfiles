@@ -1,3 +1,4 @@
+cask_args appdir: "/Applications"
 tap "crisidev/chunkwm"
 tap "ravenac95/sudolikeaboss"
 tap "fisherman/tap"
@@ -27,8 +28,6 @@ brew "coreutils"
 brew "cowsay"
 brew "cppcheck"
 brew "dialog"
-brew "emacs", args: ["with-cocoa"], restart_service: true
-brew "exa"
 brew "lame"
 brew "xvid"
 brew "ffmpeg"
