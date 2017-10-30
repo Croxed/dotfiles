@@ -50,44 +50,11 @@ fi
 brew update
 brew upgrade --all
 
+brew install mas
+
 # Install ALL packages
 info "Installing packages"
-brew install coreutils \
-    moreutils \
-    findutils \
-    gnu-sed --default-names \
-    wget \
-    vim \
-    grep \
-    openssh \
-    screen \
-    bfg \
-    binutils \
-    binwalk \
-    nmap \
-    neofetch \
-    atool \
-    stow \
-    tcpflow \
-    tcpreplay \
-    tcptrace \
-    ucspi-tcp \
-    xz \
-    ack \
-    dark-mode \
-    git \
-    git-lfs \
-    imagemagick \
-    lua \
-    lynx \
-    p7zip \
-    python3 \
-    pigz \
-    tmux \
-    pv \
-    rename \
-    ssh-copy-id \
-    tree
+brew bundle
 
 info "Installing python packages"
 pip3 install neovim\
@@ -96,12 +63,7 @@ pip3 install neovim\
     psutil \
     setproctitle
 
-# Installing usefull applications
-info "Installing apps"
-brew cask install keka --appdir=/Applications \
-    dropbox --appdir=/Applications \
-    transmission --appdir=/Applications
-
+pip2 install neovim
 # Linking gsha256sum to sha256sum
 sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
