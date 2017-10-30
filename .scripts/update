@@ -26,11 +26,6 @@ case "$SHELL" in
     ;;
 esac
 
-if type npm >/dev/null; then
-    info 'updating npm'
-    sudo npm update -g
-fi
-
 if type softwareupdate >/dev/null; then
     info 'checking Apple Updates'
     /usr/sbin/softwareupdate -ia
