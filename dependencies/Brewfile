@@ -20,7 +20,6 @@ brew "autoconf"
 brew "automake"
 brew "readline"
 brew "bash"
-brew "brew-rmtree"
 brew "cmake"
 brew "cmatrix"
 brew "cmus"
@@ -97,7 +96,6 @@ brew "crisidev/chunkwm/chunkwm", args: ["HEAD"]
 brew "homebrew/php/php56", args: ["with-cgi", "with-debug", "with-libmysql"]
 brew "koekeishiya/formulae/khd"
 brew "ravenac95/sudolikeaboss/sudolikeaboss"
-cask "amethyst"
 cask "mpv"
 cask "the-unarchiver"
 mas "1Password", id: 443987910

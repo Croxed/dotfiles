@@ -29,17 +29,6 @@ fail () {
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Installing xcode-cli
-info "Installing xcode-cli"
-touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
-PROD=$(softwareupdate -l |
-  grep "\*.*Command Line" |
-  head -n 1 | awk -F"*" '{print $2}' |
-  sed -e 's/^ *//' |
-  tr -d '\n')
-  softwareupdate -i "$PROD"
-
-
 # Checking if Homebrew is installed
 if ! type -p brew > /dev/null ; then
     # Install Homebrew
@@ -47,8 +36,8 @@ if ! type -p brew > /dev/null ; then
 fi
 
 # Update and upgrade homebrew.
-brew update
-brew upgrade --all
+#brew update
+#brew upgrade --all
 
 brew install mas
 
