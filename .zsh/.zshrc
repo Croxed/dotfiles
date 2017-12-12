@@ -324,7 +324,7 @@ fi
 
 # ----------------------- User config ----------------------- #
 clear
-greeting
+# greeting
 #[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
 
 if type wpg >/dev/null; then

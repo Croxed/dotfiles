@@ -52,7 +52,7 @@ end
 
 function fish_greeting
     command clear
-    command greeting
+    #command greeting
 end
 
 # finally, set the PATH variable

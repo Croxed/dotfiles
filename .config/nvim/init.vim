@@ -99,6 +99,8 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
+Plug 'rust-lang/rust.vim'
+
 
 Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
@@ -319,6 +321,10 @@ else
     endtry
 endif
 "}}}
+
+" rust {{{
+let g:rustfmt_autosave = 1
+" }}}
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
