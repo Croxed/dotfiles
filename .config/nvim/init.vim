@@ -111,6 +111,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'dylanaraps/wal'
 
+" If installed using Homebrew
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required

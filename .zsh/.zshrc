@@ -198,8 +198,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 
 # Long running processes should return time after they complete. Specified
 # in seconds.
-REPORTTIME=2
-TIMEFMT="%U user %S system %P cpu %*Es total"
+#REPORTTIME=2
+#TIMEFMT="%U user %S system %P cpu %*Es total"
 
 # Expand aliases inline - see http://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
@@ -333,3 +333,5 @@ elif type wal >/dev/null; then
     (wal -r &)
 fi
 # ----------------------- End of config ----------------------- #
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
