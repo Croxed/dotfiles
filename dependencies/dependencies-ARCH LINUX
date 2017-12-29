@@ -25,32 +25,26 @@ info "Checking for system updates..."
 sudo pacman -Syu
 
 # Create a tmp-working-dir an navigate into it
-mkdir -p /tmp/pacaur_install
-cd /tmp/pacaur_install
+mkdir -p /tmp/yay_install
+cd /tmp/yay_install
 
-# Install "cower" from AUR
-info "Installing cower"
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=cower
-makepkg PKGBUILD --skippgpcheck
-sudo pacman -U cower*.tar.xz --noconfirm
-
-# Install "pacaur" from AUR
-info "Installing pacaur"
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur
+# Install "yay" from AUR
+info "Installing yay"
+curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=yay-bin
 makepkg PKGBUILD
-sudo pacman -U pacaur*.tar.xz --noconfirm
+sudo pacman -U yay*.tar.xz --noconfirm
 
 # Clean up...
 cd ~
-rm -r /tmp/pacaur_install
+rm -r /tmp/yay_install
 
 info "Installing terminal packages..."
-pacaur --noconfirm --noedit -S \
+yay --noconfirm -S \
   rxvt-unicode-256xresources \
   zsh
 
 info "Installing window manager..."
-pacaur --noconfirm --noedit -S \
+yay --noconfirm -S \
   xcb-util-keysyms \
   xcb-util-wm \
   xcb-util-cursor \
@@ -64,7 +58,7 @@ pacaur --noconfirm --noedit -S \
   i3blocks-gaps-git
 
 info "Installing tools..."
-pacaur --noconfirm --noedit -S \
+yay --noconfirm -S \
   thunar \
   feh \
   acpi \
