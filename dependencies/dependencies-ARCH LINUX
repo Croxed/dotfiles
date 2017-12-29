@@ -30,7 +30,7 @@ cd /tmp/yay_install
 
 # Install "yay" from AUR
 info "Installing yay"
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=yay-bin
+curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin
 makepkg PKGBUILD
 sudo pacman -U yay*.tar.xz --noconfirm
 
