@@ -23,7 +23,7 @@ radius = 0.0
 fixed-center = true
 
 modules-left = date weather
-modules-center = i3
+modules-center = bspwm
 modules-right = mpd updates cpu memory pvolume
 
 background = ${colors.background}
@@ -56,7 +56,7 @@ tray-detached = true
 inherit = bar/main
 monitor = ${env:MONITOR:HDMI-0}
 
-modules-left = i3
+modules-left = bspwm
 modules-center = date weather
 modules-right =
 
@@ -68,7 +68,7 @@ monitor = ${env:MONITOR:DP-2.8}
 inherit = bar/main
 monitor = ${env:MONITOR:DP-5}
 
-modules-left = i3
+modules-left = bspwm
 modules-center = date weather
 modules-right =
 
@@ -105,7 +105,7 @@ inline-mode = false
 
 ; Create click handler used to focus workspace
 ; Default: true
-enable-click = false
+enable-click = true
 
 ; Create scroll handlers used to cycle workspaces
 ; Default: true
