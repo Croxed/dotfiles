@@ -31,53 +31,44 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-dispatch'
 
-if system('uname') =~ "Darwin"
-    try
-        Plug 'itchyny/lightline.vim'
-    catch
-    endtry
-else
-    try
-        Plug 'itchyny/lightline.vim'
-    catch
-    endtry
-endif
+Plug 'itchyny/lightline.vim'
 
 Plug 'bling/vim-bufferline'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
 Plug 'sjl/gundo.vim'
-Plug 'sjl/vitality.vim'
+" Plug 'sjl/vitality.vim'
 Plug 'gcmt/taboo.vim'
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'rizzatti/dash.vim'
+" Plug 'rizzatti/dash.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'jonathanfilip/vim-lucius'
+" Plug 'dracula/vim', { 'as': 'dracula' }
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/vader.vim',
+" Plug 'junegunn/vader.vim',
 Plug 'junegunn/vim-easy-align'
-Plug 'justinmk/vim-dirvish'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-scriptease'
+" Plug 'justinmk/vim-dirvish'
+" Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-rsi'
+" Plug 'tpope/vim-scriptease'
 Plug 'xolox/vim-misc'
-Plug 'dag/vim-fish'
+" Plug 'dag/vim-fish'
 " Git
 Plug 'airblade/vim-gitgutter'
 " Indent
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
+" Plug 'nathanaelkane/vim-indent-guides'
 " Vim themes
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
@@ -102,9 +93,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
 
 
-Plug 'felixhummel/setcolors.vim'
+" Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
-Plug 'cocopon/iceberg.vim'
+" Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -121,6 +112,11 @@ call plug#end()            " required
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
+
+" misc {{{
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_auto_colors=1
+" }}}
 
 " lightline.vim {{{
 let g:lightline = {
@@ -356,6 +352,11 @@ nmap <leader>w :w!<cr>
 
 set shortmess+=c
 
+" Show lines
+"set list lcs=tab:\|\ 
+set list lcs=tab:❘-,trail:·,extends:»,precedes:«,nbsp:× 
+" set list listchars=tab:»-,trail:·,extends:»,precedes:« 
+
 map <F7> mzgg=G`z
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -455,6 +456,7 @@ set background=dark
 if system('uname') =~ "Darwin"
     try
         silent! colorscheme nord
+        let g:nord_comment_brightness = 18
     catch
     endtry
 else
