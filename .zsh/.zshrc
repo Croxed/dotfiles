@@ -15,7 +15,9 @@ setopt correct
 # turn off the infernal correctall for filenames
 #unsetopt correctall
 
-export GOPATH=~/gopath
+# GoLang
+export GOROOT=$HOME/.go
+export GOPATH=$HOME/go
 
 # Base PATH
 PATH=/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/bin:/usr/bin
@@ -30,6 +32,8 @@ for path_candidate in /opt/local/sbin \
     ~/.cabal/bin \
     ~/.rbenv/bin \
     ~/.bin \
+    $GOPATH/bin \
+    $GOROOT/bin \
     ~/.cargo/bin \
     ~/bin.local \
     ~/scripts \
