@@ -31,54 +31,32 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'
-" Plug 'tpope/vim-dispatch'
 
 Plug 'itchyny/lightline.vim'
 
 Plug 'bling/vim-bufferline'
-" Plug 'morhetz/gruvbox'
 Plug 'Raimondi/delimitMate'
 Plug 'honza/vim-snippets'
 Plug 'sjl/gundo.vim'
-" Plug 'sjl/vitality.vim'
 Plug 'gcmt/taboo.vim'
-" Plug 'mileszs/ack.vim'
 Plug 'jlanzarotta/bufexplorer'
-" Plug 'rizzatti/dash.vim'
-Plug 'Shougo/vimproc.vim', { 'do': 'make -f make_mac.mak' }
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'ryanoasis/vim-devicons'
 Plug 'Chiel92/vim-autoformat'
-" Plug 'jonathanfilip/vim-lucius'
-" Plug 'dracula/vim', { 'as': 'dracula' }
 " From another .vimrc
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
-" Plug 'junegunn/vader.vim',
 Plug 'junegunn/vim-easy-align'
-" Plug 'justinmk/vim-dirvish'
-" Plug 'tpope/vim-projectionist'
-" Plug 'tpope/vim-rsi'
-" Plug 'tpope/vim-scriptease'
 Plug 'xolox/vim-misc'
-" Plug 'dag/vim-fish'
 " Git
 Plug 'airblade/vim-gitgutter'
 " Indent
 Plug 'Yggdroot/indentLine'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Vim themes
-" Plug 'chriskempson/base16-vim'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'zchee/deoplete-clang'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-"Plug 'zchee/deoplete-jedi'
-"Plug 'landaire/deoplete-swift'
-"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'Shougo/denite.nvim'
 Plug 'roxma/nvim-completion-manager'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
@@ -95,7 +73,6 @@ Plug 'rust-lang/rust.vim'
 
 " Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
-" Plug 'cocopon/iceberg.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'

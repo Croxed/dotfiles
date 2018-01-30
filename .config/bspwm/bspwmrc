@@ -2,7 +2,6 @@
 #
 # Bspwm configuration
 #
-
 # =====================
 # Initialition
 # =====================
@@ -16,9 +15,7 @@ trayer --edge bottom --align left --margin 5 --transparent true --alpha 255 --ic
 nm-applet &
 blueman-applet &
 dunst &
-xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &
-#xinput set-prop 15 274 1
-#xinput set-prop 15 295 1
+#xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &
 
 # =====================
 # Config
@@ -39,9 +36,20 @@ bspc config top_padding         25
 
 bspc config split_ratio          0.5
 
-bspc config paddingless_monocle  true
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
-bspc config click_to_focus       true
+bspc config paddingless_monocle     true
+bspc config borderless_monocle      true
+bspc config gapless_monocle         true
+bspc config click_to_focus          true
+bspc config focus_follows_pointer   true
+bspc config pointer_follows_monitor true
 
-bspc monitor -d 1 2 3 4 5 6
+if [ "$(hostname)" = "archbox" ];
+then
+    bspc monitor "$(bspc wm -d | jq ".monitors[] | select(.name == \"DP-5\").id")" -d I II III
+    bspc monitor "$(bspc wm -d | jq ".monitors[] | select(.name == \"DP-2.8\").id")" -d IV V VI VII
+    bspc monitor "$(bspc wm -d | jq ".monitors[] | select(.name == \"HDMI-0\").id")" -d VIII IX X
+else
+    bspc monitor -d 1 2 3 4 5 6
+fi
+
+bspc wm --adopt-orphans
