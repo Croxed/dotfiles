@@ -119,5 +119,5 @@ fi
 
 # Reload shell #
 alias reload='exec "$SHELL"'
-
+alias zr="source $ZDOTDIR/.zshrc"
 alias updateall="apacman -Syu --noconfirm --noedit"
