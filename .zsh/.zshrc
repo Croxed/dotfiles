@@ -16,9 +16,6 @@ setopt correct
 #unsetopt correctall
 
 # GoLang
-export GOROOT=$HOME/.go
-export GOPATH=$HOME/go
-export $GOROOT_BOOTSTRAP=$GOROOT
 # Base PATH
 PATH=/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/bin:/usr/bin
 
@@ -337,5 +334,8 @@ elif type wal >/dev/null; then
     (wal -r &)
 fi
 # ----------------------- End of config ----------------------- #
+export GOROOT=$HOME/.go
+export GOPATH=$HOME/go
 [ -d ~/.gvm ] && source ~/.gvm/scripts/gvm
+export GOROOT_BOOTSTRAP=$GOROOT
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
