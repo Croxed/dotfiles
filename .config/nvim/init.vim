@@ -73,7 +73,7 @@ Plug 'scrooloose/nerdtree'
 
 " Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
