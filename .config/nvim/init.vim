@@ -73,6 +73,7 @@ Plug 'rust-lang/rust.vim'
 
 " Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
+Plug 'atih/vim-go'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
