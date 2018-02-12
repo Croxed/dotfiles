@@ -69,11 +69,11 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
-
+Plug 'scrooloose/nerdtree'
 
 " Plug 'felixhummel/setcolors.vim'
 Plug 'w0rp/ale'
-Plug 'atih/vim-go'
+Plug 'fatih/vim-go'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -255,6 +255,10 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "}}}
+
+" NERDTree.vim {{{
+autocmd VimEnter * NERDTree
+" }}}
 
 " airline.vim {{{
 let g:airline_powerline_fonts = 1
