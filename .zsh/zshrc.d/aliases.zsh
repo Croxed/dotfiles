@@ -7,9 +7,9 @@ eval "$(dircolors -b)"
 
 git-yolo() {
 if [ "$(uname)" = "Darwin" ]; then
-    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+    git commit -m "$(curl -s whatthecommit.com/index.txt)" && git push -f
 else
-    git commit -m "$(curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//')" && git push -f
+    git commit -m "$(curl -s whatthecommit.com/index.txt)" && git push -f
 fi
 }
 
