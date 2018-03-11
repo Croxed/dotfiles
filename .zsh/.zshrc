@@ -336,6 +336,6 @@ fi
 # ----------------------- End of config ----------------------- #
 export GOROOT=$HOME/.go
 export GOPATH=$HOME/go
-[ -d ~/.gvm ] && source ~/.gvm/scripts/gvm
 export GOROOT_BOOTSTRAP=$GOROOT
+[ -d ~/.gvm ] && source ~/.gvm/scripts/gvm
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
