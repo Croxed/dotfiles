@@ -79,7 +79,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'dylanaraps/wal'
-
+Plug 'christoomey/vim-tmux-navigator'
 " If installed using Homebrew
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
