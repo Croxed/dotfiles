@@ -189,8 +189,8 @@ function! LightLineCapslock()
 endfunction
 
 function! LightLineAle()
-    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ALEGetStatusLine")
-        return ALEGetStatusLine()
+    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ale#statusline#Count")
+        return ale#statusline#Count()
     endif
     return ''
 endfunction
