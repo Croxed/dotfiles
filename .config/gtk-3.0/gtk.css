@@ -3,6 +3,6 @@
   margin: 0
 }
 
-VteTerminal, vte-terminal {
-  padding: 20px;
+.termite  {
+    padding: 20px;
 }
