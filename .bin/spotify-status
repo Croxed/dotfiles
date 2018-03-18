@@ -15,6 +15,6 @@ else
         artist="$(spotctl status | grep "Artist" | sed 's/Artist: //')"
         printf '▶︎ %s - %s' "$artist" "$track"
     else
-        printf '▶︎ %s' "$(mpc status | head -1)"
+        printf '▶︎ %s' "$spotstatus"
     fi
 fi
