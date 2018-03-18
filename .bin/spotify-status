@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [ "$(uname)" == "*Darwin" ]; then
+if [ "$(uname)" == "Darwin" ]; then
     track="$(spotify track)"
     artist="$(spotify artist)"
 
