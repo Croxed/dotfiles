@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 if [ "$(uname)" == "Darwin" ]; then
-    track="$(spotify track)"
-    artist="$(spotify artist)"
-
-    if [ "$track" != " " ]; then
-        printf '%s - %s\n' "$track" "$artist"
+    spotstatus="$(spotctl status)"
+    if [[ "$spotstatus" != *"paused"* ]]; then
+        track="$(spotctl status | grep "Track" | sed 's/Track: //')"
+        artist="$(spotctl status | grep "Artist" | sed 's/Artist: //')"
+        printf '▶︎ %s - %s' "$artist" "$track"
     else
-        printf '%s' "$(swinsian-song)"
+        printf '■ %s' "$spotstatus"
     fi
 else
     spotstatus="$(spotctl status)"
