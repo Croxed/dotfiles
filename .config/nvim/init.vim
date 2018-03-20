@@ -97,7 +97,7 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('fatih/vim-go')
     call dein#add('zchee/deoplete-go', {'build': 'make'}) 
     
-    " call dein#add('w0rp/ale')
+    call dein#add('w0rp/ale')
 
     call dein#add('arcticicestudio/nord-vim')
     call dein#add('godlygeek/tabular')
