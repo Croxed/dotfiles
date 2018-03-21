@@ -106,7 +106,8 @@ if dein#load_state('~/.local/share/dein/')
     " call dein#add('dylanaraps/wal')
     call dein#add('christoomey/vim-tmux-navigator')
     " If installed using Homebrew
-    call dein#add('junegunn/fzf', { 'dir': '~/.fzf', 'build': './install --all' })
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
     call dein#end()
     call dein#save_state()
