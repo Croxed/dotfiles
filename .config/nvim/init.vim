@@ -42,7 +42,6 @@ if dein#load_state('~/.local/share/dein/')
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
-    let g:deoplete#enable_at_startup = 1
 
     call dein#add('tpope/vim-fugitive')
     " Editor
@@ -480,7 +479,6 @@ set background=dark
 if system('uname') =~ "Darwin"
     try
         silent! colorscheme nord
-        let g:nord_comment_brightness = 18
     catch
     endtry
 else
@@ -489,6 +487,7 @@ else
     catch
     endtry
 endif
+let g:nord_comment_brightness = 18
 set t_Co=256
 " Set extra options when running in GUI mode
 if has("gui_running")
