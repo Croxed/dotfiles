@@ -20,7 +20,7 @@ set shell=zsh
 if &runtimepath !~# '/dein.vim'
     let s:dein_dir = expand('~/.local/share/dein').'/repos/github.com/Shougo/dein.vim'
     if ! isdirectory(s:dein_dir)
-        execute '!bash -c "mkdir -p ~/.local/share/dein; curl -fSsL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -o /tmp/install.sh; bash /tmp/install.sh ~/.local/share/dein"' 
+        execute '!curl -fSsL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- ~/.local/share/dein' 
     endif
 
     execute 'set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim'
