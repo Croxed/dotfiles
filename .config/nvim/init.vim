@@ -298,9 +298,8 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_fixers = {
-            \    'sh': [
-            \        'shfmt',
-            \    ],
+            \    'sh': ['shfmt'],
+            \    'python': [ 'autopep8','isort', 'yapf' ]
             \}
 "}}}
 
@@ -470,6 +469,9 @@ set tm=500
 if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
+
+" Python3 Config
+let g:python3_host_prog = '/usr/bin/python3'
 
 " Add a bit extra margin to the left
 set foldcolumn=1
