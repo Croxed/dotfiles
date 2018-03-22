@@ -16,7 +16,10 @@
 set encoding=utf-8
 set shell=zsh
 
-" Setup dein {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Setup dein
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  {{{
 if &runtimepath !~# '/dein.vim'
     let s:dein_dir = expand('~/.local/share/dein').'/repos/github.com/Shougo/dein.vim'
     if ! isdirectory(s:dein_dir)
@@ -27,11 +30,17 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 " }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  {{{
 if &compatible
     set nocompatible
 endif
 let g:dein#install_max_processes = 16
 let g:dein#install_progress_type = "echo"
+
 
 if dein#load_state('~/.local/share/dein/')
     call dein#begin('~/.local/share/dein/')
@@ -57,7 +66,7 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('bling/vim-bufferline')
     call dein#add('Raimondi/delimitMate')
     call dein#add('honza/vim-snippets')
-    call dein#add('sjl/gundo.vim')
+    call dein#add('mbbill/undotree')
     call dein#add('gcmt/taboo.vim')
     call dein#add('jlanzarotta/bufexplorer')
     call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
@@ -78,7 +87,7 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('SirVer/ultisnips')
     call dein#add('honza/vim-snippets')
     call dein#add('Shougo/denite.nvim')
-    call dein#add('roxma/nvim-completion-manager')
+    " call dein#add('roxma/nvim-completion-manager')
     call dein#add('autozimu/LanguageClient-neovim', { 'build': 'bash install.sh' })
     call dein#add('othree/csscomplete.vim', { 'on_ft': 'css' })
     call dein#add('roxma/clang_complete')
@@ -88,12 +97,12 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/neco-syntax')
     call dein#add('sheerun/vim-polyglot')
-    call dein#add('rust-lang/rust.vim', { 'on_ft': 'rust' })
+    " call dein#add('rust-lang/rust.vim', { 'on_ft': 'rs' })
     call dein#add('scrooloose/nerdtree')
 
     " dein#add('felixhummel/setcolors.vim'
     " Go
-    call dein#add('fatih/vim-go')
+    " call dein#add('fatih/vim-go', { 'on_ft': 'go' })
     call dein#add('zchee/deoplete-go', {'build': 'make'}) 
     
     call dein#add('w0rp/ale')
@@ -101,7 +110,7 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('arcticicestudio/nord-vim')
     call dein#add('godlygeek/tabular')
     call dein#add('plasticboy/vim-markdown')
-    call dein#add('PotatoesMaster/i3-vim-syntax')
+    " call dein#add('PotatoesMaster/i3-vim-syntax')
     " call dein#add('dylanaraps/wal')
     call dein#add('christoomey/vim-tmux-navigator')
     " If installed using Homebrew
@@ -111,6 +120,7 @@ if dein#load_state('~/.local/share/dein/')
     call dein#end()
     call dein#save_state()
 endif
+" }}}
 
 if dein#check_install()
     call dein#install()
