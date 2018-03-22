@@ -104,7 +104,7 @@ if dein#load_state('~/.local/share/dein/')
     " Go
     " call dein#add('fatih/vim-go', { 'on_ft': 'go' })
     call dein#add('zchee/deoplete-go', {'build': 'make'}) 
-    
+
     call dein#add('w0rp/ale')
 
     call dein#add('arcticicestudio/nord-vim')
@@ -299,7 +299,8 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_fixers = {
             \    'sh': ['shfmt'],
-            \    'python': [ 'autopep8','isort', 'yapf' ]
+            \    'python': [ 'autopep8','isort', 'yapf' ],
+            \    'java': [ 'google_java_format' ],
             \}
 "}}}
 
