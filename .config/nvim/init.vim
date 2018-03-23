@@ -385,6 +385,8 @@ set shortmess+=c
 " NERDTree
 nmap <leader>ne :NERDTreeToggle<cr>
 
+nmap <leader>bx :BufExplorer<cr>
+
 " Show lines
 "set list lcs=tab:\|\ 
 set list lcs=tab:❘-,trail:·,extends:»,precedes:«,nbsp:× 
@@ -472,7 +474,7 @@ if has("gui_macvim")
 endif
 
 " Python3 Config
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Add a bit extra margin to the left
 set foldcolumn=1
@@ -679,6 +681,9 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+"To map <Esc> to exit terminal-mode: >
+tnoremap <Esc> <C-\><C-n>
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
