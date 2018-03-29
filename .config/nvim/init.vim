@@ -474,7 +474,7 @@ if has("gui_macvim")
 endif
 
 " Python3 Config
-let g:python3_host_prog = '/usr/local/bin/python3'
+" let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Add a bit extra margin to the left
 set foldcolumn=1
