@@ -11,6 +11,7 @@ all:
 
 list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
+	@$(foreach val, $(CONFIGDOTS), /bin/ls -dF $(val);)
 
 deploy: ## Create symlink to home directory
 	@echo '==> Start to deploy dotfiles to home directory.'
