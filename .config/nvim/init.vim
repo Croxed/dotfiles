@@ -86,13 +86,13 @@ if dein#load_state('~/.local/share/dein/')
     " Autocomplete and syntax
     call dein#add('SirVer/ultisnips')
     call dein#add('honza/vim-snippets')
-    call dein#add('Shougo/denite.nvim')
+    " call dein#add('Shougo/denite.nvim')
     " call dein#add('roxma/nvim-completion-manager')
     call dein#add('autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' })
     call dein#add('othree/csscomplete.vim', { 'on_ft': 'css' })
-    call dein#add('roxma/clang_complete')
+    " call dein#add('roxma/clang_complete')
     " call dein#add('roxma/LanguageServer-php-neovim',  {'build': 'composer install && composer run-script parse-stubs'})
-    call dein#add('roxma/nvim-cm-tern',  {'build': 'npm install'})
+    " call dein#add('roxma/nvim-cm-tern',  {'build': 'npm install'})
     call dein#add('Shougo/neco-vim')
     call dein#add('Shougo/neoinclude.vim')
     call dein#add('Shougo/neco-syntax')
@@ -102,7 +102,7 @@ if dein#load_state('~/.local/share/dein/')
 
     " dein#add('felixhummel/setcolors.vim'
     " Go
-    " call dein#add('fatih/vim-go', { 'on_ft': 'go' })
+    call dein#add('fatih/vim-go', { 'on_ft': 'go' })
     call dein#add('zchee/deoplete-go', {'build': 'make'}) 
 
     call dein#add('w0rp/ale')

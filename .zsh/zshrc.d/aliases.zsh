@@ -6,11 +6,7 @@
 eval "$(dircolors -b)"
 
 git-yolo() {
-if [ "$(uname)" = "Darwin" ]; then
-    git commit -m "$(curl -s whatthecommit.com/index.txt)" && git push -f
-else
-    git commit -m "$(curl -s whatthecommit.com/index.txt)" && git push -f
-fi
+    git commit -m "$(curl -s http://watdagit.com/commit-message.txt)" && git push -f
 }
 
 function macfeh() {
