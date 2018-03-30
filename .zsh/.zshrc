@@ -95,9 +95,10 @@ zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "zsh-users/zsh-completions"
 
 # Set Theme
-zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
+zplug "geometry-zsh/geometry"
+# zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 # zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+# zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # GIT
 zplug "plugins/git", from:oh-my-zsh
@@ -147,6 +148,9 @@ export DISABLE_CORRECTION=true
 export SPACESHIP_GIT_SYMBOL=""
 #export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
 export DISABLE_UPDATE_PROMPT=true
+# GEOMETRY_PROMPT_PLUGINS=(virtualenv docker_machine exec_time git hg)
+PROMPT_GEOMETRY_COLORIZE_ROOT=true
+PROMPT_GEOMETRY_EXEC_TIME=true
 export EDITOR='vim'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
