@@ -33,6 +33,7 @@ for path_candidate in /opt/local/sbin \
     ~/.cabal/bin \
     ~/.rbenv/bin \
     ~/.bin \
+    $HOME/.pyenv/bin \
     $GOPATH/bin \
     $GOROOT/bin \
     ~/.cargo/bin \
@@ -343,5 +344,7 @@ elif type wal >/dev/null; then
     (wal -r &)
 fi
 # ----------------------- End of config ----------------------- #
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 [ -d ~/.gvm ] && source ~/.gvm/scripts/gvm
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
