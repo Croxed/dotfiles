@@ -157,6 +157,7 @@ export DISABLE_UPDATE_PROMPT=true
 # GEOMETRY_PROMPT_PLUGINS=(virtualenv docker_machine exec_time git hg)
 PROMPT_GEOMETRY_COLORIZE_ROOT=true
 PROMPT_GEOMETRY_EXEC_TIME=true
+SPACESHIP_VI_MODE_SHOW=false
 export EDITOR='vim'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
