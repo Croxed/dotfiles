@@ -44,17 +44,18 @@ function findCurrentOSType()
             "Darwin")
             {
                 echo "Running on Mac OSX."
-                CURRENT_OS="MACOS"
+                CURRENT_OS="macOS"
             } ;;
             "Linux")
             {
-                # If available, use LSB to identify distribution
-                if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
-                    DISTRO=$(gawk -F= '/^NAME/{print $2}' /etc/os-release)
+                if command -v apt; then
+                    CURRENT_OS="Ubuntu"
+                elif command -v pacman; then
+                    CURRENT_OS="Arch"
                 else
-                    DISTRO=$(cat /etc/*-release | grep -e "NAME" | head -1 | awk -F"\"" '{ print $2 }')
+                    echo "Unsupported OS, exiting"
+                    exit
                 fi
-                CURRENT_OS=$(echo $DISTRO | tr 'a-z' 'A-Z')
             } ;;
             *)
             {
@@ -65,7 +66,7 @@ function findCurrentOSType()
 }
 
 findCurrentOSType
-if [[ "$CURRENT_OS" == "MACOS" ]]; then
+if [[ "$CURRENT_OS" == "macOS" ]] && [[ -f "$CURRENT_DIR/dependencies-macOS" ]]; then
   ask "Do you want to install dependencies?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
   ask "Do you want to install sensible defaults?" Y && bash "$CURRENT_DIR"/macos
   ask "Do you want to install QuickLook plugins?" Y && bash "$CURRENT_DIR"/qlInstall
