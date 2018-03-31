@@ -95,9 +95,10 @@ zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "zsh-users/zsh-completions"
 
 # Set Theme
-zplug "geometry-zsh/geometry"
+# zplug "geometry-zsh/geometry"
 # zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 # zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 # zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # GIT
@@ -145,8 +146,8 @@ unset COMPLETION_WAITING_DOTS # https://github.com/tarruda/zsh-autosuggestions#k
 #export COMPLETION_WAITING_DOTS=true
 export DEFAULT_USER="Oscar"
 export DISABLE_CORRECTION=true
-export SPACESHIP_GIT_SYMBOL=""
-#export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
+# export SPACESHIP_GIT_SYMBOL=""
+export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
 export DISABLE_UPDATE_PROMPT=true
 # GEOMETRY_PROMPT_PLUGINS=(virtualenv docker_machine exec_time git hg)
 PROMPT_GEOMETRY_COLORIZE_ROOT=true
