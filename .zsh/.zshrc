@@ -75,6 +75,10 @@ git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
 ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
 )
 
+[[ -d $HOME/.pyenv ]] ||(
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+)
+
 source $ZPLUG_HOME/init.zsh
 
 # Add zplug plugins
