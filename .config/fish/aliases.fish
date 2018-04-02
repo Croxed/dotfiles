@@ -144,7 +144,7 @@ function c
 end
 
 function git-yolo
-  git commit -m (curl http://whatthecommit.com | grep '<p>' | sed -r 's/^.{3}//') ;and git push -f
+    git commit -m (curl -s "http://watdagit.com/commit-message.txt"); and git push -f
 end
 
 alias undopush="git push -f origin HEAD^:master"

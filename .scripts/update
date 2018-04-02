@@ -9,9 +9,9 @@ if type brew >/dev/null; then
     brew update
     brew upgrade
     brew cleanup
-elif type apacman >/dev/null; then
+elif type yay >/dev/null; then
     info 'updating pacman'
-    apacman -Syu
+    yay -Syu
 fi
 
 case "$SHELL" in

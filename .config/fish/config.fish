@@ -23,6 +23,9 @@ for path_candidate in /opt/local/sbin \
     ~/.cabal/bin \
     ~/.rbenv/bin \
     ~/.bin \
+    $HOME/.pyenv/bin \
+    $GOPATH/bin \
+    $GOROOT/bin \
     ~/.cargo/bin \
     ~/bin.local \
     ~/scripts \
