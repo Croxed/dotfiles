@@ -70,14 +70,14 @@ export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
 git clone https://github.com/zplug/zplug $ZPLUG_HOME
 )
 
-[[ -d ${ZDOTDIR:-${HOME}}/filthy ]] ||(
-git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
-ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
-)
+# [[ -d ${ZDOTDIR:-${HOME}}/filthy ]] ||(
+# git clone https://github.com/molovo/filthy ${ZDOTDIR:-${HOME}}/filthy
+# ln -s ${ZDOTDIR:-${HOME}}/filthy/filthy.zsh ${ZDOTFIR:-${HOME}}/.zfunctions/prompt_filthy_setup
+# )
 
-[[ -d $HOME/.pyenv ]] ||(
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-)
+# [[ -d $HOME/.pyenv ]] ||(
+# curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+# )
 
 source $ZPLUG_HOME/init.zsh
 
@@ -101,10 +101,10 @@ zplug "zsh-users/zsh-completions"
 
 # Set Theme
 # zplug "geometry-zsh/geometry"
-# zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
+zplug "mafredri/zsh-async", from:github, defer:0  # Load this first
 # zplug "pecigonzalo/pure-spaceship-zsh-theme", use:pure.zsh, from:github, as:theme
-zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-# zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # GIT
 zplug "plugins/git", from:oh-my-zsh
@@ -349,7 +349,7 @@ elif type wal >/dev/null; then
     (wal -r &)
 fi
 # ----------------------- End of config ----------------------- #
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 [ -d ~/.gvm ] && source ~/.gvm/scripts/gvm
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
