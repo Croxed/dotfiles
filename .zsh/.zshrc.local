@@ -439,4 +439,20 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
+
+[[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
+mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
+)
+
+fpath=( "${ZDOTDIR:-${HOME}}/.zfunctions" $fpath )
+
+[[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup ]] ||(
+wget https://github.com/sindresorhus/pure/raw/master/pure.zsh -O ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup
+)
+[[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/async ]] ||(
+wget https://github.com/sindresorhus/pure/raw/master/async.zsh -O ${ZDOTDIR:-${HOME}}/.zfunctions/async
+)
+
+autoload -U promptinit; promptinit
+prompt pure
 ## END OF FILE #################################################################
