@@ -357,20 +357,7 @@ if [[ "$TERM" == "xterm" ]] && [[ "$LINES" -ge 50 ]] && [[ "$COLUMNS" -ge 100 ]]
     large
 fi
 
-# dedupe_path() {
-#    typeset -a paths result
-#    paths=($path)
-
-#    while [[ ${#paths} -gt 0 ]]; do
-#        p="${paths[1]}"
-#        shift paths
-#        [[ -z ${paths[(r)$p]} ]] && result+="$p"
-#    done
-
-#    export PATH=${(j+:+)result}
-#}
-
-#dedupe_path
+eval `ssh-agent -s`
 
 if [ $(ssh-add -l | grep -c "The agent has no identities." ) -eq 1 ]; then
     if [[ "$(uname -s)" == "Darwin" ]]; then
