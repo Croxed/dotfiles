@@ -1,22 +1,9 @@
-# Make the terminal pretty and such #
-#export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-#export CLICOLOR=1
-#export LSCOLORS=ExFxBxDxCxegedabagacad
-
 eval "$(dircolors -b)"
 
 git-yolo() {
     git commit -m "$(curl -s http://watdagit.com/commit-message.txt)" && git push -f
 }
 
-function macfeh() {
-	open -b "drabweb.macfeh" "$@"
-}
-
-docker-attack(){
-docker exec -it $1 bash
-}
-# Simple shit #
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
@@ -112,8 +99,3 @@ if [ "$(uname)" = "Darwin" ]; then
     alias pumpitup="osascript -e 'set volume 7'"
     alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
 fi
-
-# Reload shell #
-alias reload='exec "$SHELL"'
-alias zr="source $ZDOTDIR/.zshrc"
-alias updateall="apacman -Syu --noconfirm --noedit"
