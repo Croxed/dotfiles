@@ -126,5 +126,9 @@ export DISTCC_HOSTS="+zeroconf"
 export WRITE_ON_UDEV=yes
 
 export ZDOTDIR="$HOME/.zsh"
+
+[[ -f ${ZDOTDIR:-${HOME}}/.zshrc ]] ||(
+wget -O ${ZDOTDIR:-${HOME}}/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+)
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
