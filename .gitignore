@@ -4,8 +4,6 @@
 *.pyc
 
 .zsh/*
-!.zsh/.zshrc
-!.zsh/.zimrc
 !.zsh/zshrc.d
 
 .config/*
