@@ -434,10 +434,10 @@ mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
 fpath=( "${ZDOTDIR:-${HOME}}/.zfunctions" $fpath )
 
 [[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup ]] ||(
-wget https://github.com/sindresorhus/pure/raw/master/pure.zsh -O ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup
+curl -fSsL https://github.com/sindresorhus/pure/raw/master/pure.zsh -o ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup
 )
 [[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/async ]] ||(
-wget https://github.com/sindresorhus/pure/raw/master/async.zsh -O ${ZDOTDIR:-${HOME}}/.zfunctions/async
+curl -fSsL https://github.com/sindresorhus/pure/raw/master/async.zsh -o ${ZDOTDIR:-${HOME}}/.zfunctions/async
 )
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
