@@ -61,8 +61,10 @@ if dein#load_state('~/.local/share/dein/')
     call dein#add('tpope/vim-unimpaired')
     call dein#add('tpope/vim-abolish')
 
-    call dein#add('itchyny/lightline.vim')
-
+    if exists('g:gui_oni')
+    else
+        call dein#add('itchyny/lightline.vim')
+    endif
     call dein#add('bling/vim-bufferline')
     call dein#add('Raimondi/delimitMate')
     call dein#add('honza/vim-snippets')
@@ -422,9 +424,6 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-"Always show current position
-set ruler
-
 " Height of the command bar
 set cmdheight=2
 
@@ -478,6 +477,24 @@ endif
 
 " Add a bit extra margin to the left
 set foldcolumn=1
+
+
+if exists('g:gui_oni')
+    " Statements here
+    " Turn off statusbar, because it is externalized
+    set noshowmode
+    set noruler
+    set laststatus=0
+    set noshowcmd
+
+    " Enable GUI mouse behavior
+    set mouse=a
+else
+    set ruler
+    set showmode
+    set laststatus=2
+    set showcmd
+endif
 
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -621,8 +638,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " => Status line
 """"""""""""""""""""""""""""""
 "{{{
-" Always show the status line
-set laststatus=2
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
