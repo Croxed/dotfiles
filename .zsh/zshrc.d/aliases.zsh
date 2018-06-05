@@ -1,8 +1,8 @@
 eval "$(dircolors -b)"
 
-git-yolo() {
-    git commit -m "$(curl -s http://watdagit.com/commit-message.txt)" && git push -f
-}
+# git-yolo() {
+#     git commit -m "$(curl -s http://watdagit.com/commit-message.txt)" && git push -f
+# }
 
 ### Colored ls
 if [ -x /usr/bin/dircolors ]; then

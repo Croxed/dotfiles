@@ -413,6 +413,7 @@ zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "zsh-users/zsh-completions"
 
 zplug "plugins/git", from:oh-my-zsh
+zplug "webyneter/docker-aliases", use:docker-aliases.plugin.zsh
 zplug "djui/alias-tips"
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
@@ -444,4 +445,5 @@ curl -fSsL https://github.com/sindresorhus/pure/raw/master/async.zsh -o ${ZDOTDI
 
 autoload -U promptinit; promptinit
 prompt pure
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 ## END OF FILE #################################################################
