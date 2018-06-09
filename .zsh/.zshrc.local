@@ -398,35 +398,41 @@ showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
 vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
 vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
 
-# ZPLUG
+## ZPLUGIN
+export ZPLG_HOME="${ZDOTDIR:-$HOME}/.zplugin"
+[[ -d ${ZDOTDIR:-$HOME}/.zplugin ]] ||(
+mkdir "$ZPLG_HOME"
+chmod g-rwX "$ZPLG_HOME"
 
-export ZPLUG_HOME=${ZDOTDIR:-${HOME}}/.zplug
-[[ -d ${ZDOTDIR:-${HOME}}/.zplug ]] ||(
-git clone https://github.com/zplug/zplug $ZPLUG_HOME
+echo ">>> Downloading zplugin to $ZPLG_HOME/bin"
+if test -d "$ZPLG_HOME/bin/.git"; then
+    cd "$ZPLG_HOME/bin"
+    git pull origin master
+else
+    cd "$ZPLG_HOME"
+    git clone --depth 10 https://github.com/zdharma/zplugin.git bin
+fi
+echo ">>> Done"
 )
 
-source $ZPLUG_HOME/init.zsh
+### Added by Zplugin's installer
+source "$ZPLG_HOME/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin's installer chunk
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:3
-zplug "zsh-users/zsh-history-substring-search", defer:3
-zplug "zsh-users/zsh-autosuggestions", defer:3
-zplug "zsh-users/zsh-completions"
+zplugin load zdharma/history-search-multi-word
 
-zplug "plugins/git", from:oh-my-zsh
-zplug "webyneter/docker-aliases", use:docker-aliases.plugin.zsh
-zplug "djui/alias-tips"
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplugin ice compile"*.lzui"
+zplugin load zdharma/zui
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light zsh-users/zsh-history-substring-search
+zplugin light zsh-users/zsh-completions
+zplugin light djui/alias-tips
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
+zplugin snippet OMZ::plugins/docker/_docker
 
 [[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
 mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
