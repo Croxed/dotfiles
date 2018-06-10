@@ -402,16 +402,8 @@ vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
 export ZPLG_HOME="${ZDOTDIR:-$HOME}/.zplugin"
 [[ -d ${ZDOTDIR:-$HOME}/.zplugin ]] ||(
 mkdir "$ZPLG_HOME"
-chmod g-rwX "$ZPLG_HOME"
-
 echo ">>> Downloading zplugin to $ZPLG_HOME/bin"
-if test -d "$ZPLG_HOME/bin/.git"; then
-    cd "$ZPLG_HOME/bin"
-    git pull origin master
-else
-    cd "$ZPLG_HOME"
-    git clone --depth 10 https://github.com/zdharma/zplugin.git bin
-fi
+git clone --depth 10 https://github.com/zdharma/zplugin.git "$ZPLG_HOME/bin"
 echo ">>> Done"
 )
 
@@ -433,7 +425,7 @@ zplugin light zsh-users/zsh-completions
 zplugin light djui/alias-tips
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
-zplugin snippet OMZ::plugins/docker/_docker
+zplugin snippet PZT::modules/docker/init.zsh
 
 [[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
 mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
@@ -452,5 +444,9 @@ curl -fSsL https://github.com/sindresorhus/pure/raw/master/async.zsh -o ${ZDOTDI
 
 autoload -U promptinit; promptinit
 prompt pure
+
+autoload -Uz compinit
+compinit
+zplugin cdreplay -q # <- execute compdefs provided by rest of plugins
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 ## END OF FILE #################################################################
