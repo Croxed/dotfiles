@@ -413,6 +413,8 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin's installer chunk
 
+## zplugin start
+
 zplugin load zdharma/history-search-multi-word
 
 zplugin ice compile"*.lzui"
@@ -426,6 +428,8 @@ zplugin light djui/alias-tips
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin snippet PZT::modules/docker/init.zsh
+
+## zplugin end
 
 [[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
 mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
