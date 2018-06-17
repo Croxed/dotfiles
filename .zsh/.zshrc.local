@@ -427,7 +427,7 @@ zplugin light zsh-users/zsh-completions
 zplugin light djui/alias-tips
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
-zplugin snippet PZT::modules/docker/init.zsh
+zplugin ice svn; zplugin snippet PZT::modules/docker
 
 ## zplugin end
 

@@ -9,7 +9,7 @@
 "░░    ░░    ░░ ░░░  ░░  ░░ ░░░     ░░░░░
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Dein.vim
+" => vim.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 " Fix shell when fish
@@ -17,18 +17,13 @@ set encoding=utf-8
 set shell=zsh
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Setup dein
+" auto-install vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  {{{
-if &runtimepath !~# '/dein.vim'
-    let s:dein_dir = expand('~/.local/share/dein').'/repos/github.com/Shougo/dein.vim'
-    if ! isdirectory(s:dein_dir)
-        execute '!curl -fSsL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- ~/.local/share/dein' 
-    endif
-
-    execute 'set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim'
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent ! curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
-
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -38,99 +33,91 @@ endif
 if &compatible
     set nocompatible
 endif
-let g:dein#install_max_processes = 16
-let g:dein#install_progress_type = "echo"
 
 
-if dein#load_state('~/.local/share/dein/')
-    call dein#begin('~/.local/share/dein/')
+call plug#begin('~/.local/share/nvim/site/plugged')
 
-    call dein#add('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
-    call dein#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
-        call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-
-    call dein#add('tpope/vim-fugitive')
-    " Editor
-    call dein#add('tpope/vim-surround')
-    call dein#add('tpope/vim-repeat')
-    call dein#add('tpope/vim-endwise')
-    call dein#add('tpope/vim-commentary')
-    call dein#add('tpope/vim-unimpaired')
-    call dein#add('tpope/vim-abolish')
-
-    if exists('g:gui_oni')
-    else
-        call dein#add('itchyny/lightline.vim')
-    endif
-    call dein#add('bling/vim-bufferline')
-    call dein#add('Raimondi/delimitMate')
-    call dein#add('honza/vim-snippets')
-    call dein#add('mbbill/undotree')
-    call dein#add('gcmt/taboo.vim')
-    call dein#add('jlanzarotta/bufexplorer')
-    call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
-    call dein#add('terryma/vim-multiple-cursors')
-    call dein#add('Chiel92/vim-autoformat')
-    " From another .vimrc
-    call dein#add('beloglazov/vim-online-thesaurus')
-    call dein#add('easymotion/vim-easymotion')
-    call dein#add('junegunn/vim-easy-align')
-    call dein#add('xolox/vim-misc')
-    " Git
-    call dein#add('airblade/vim-gitgutter')
-    " Indent
-    call dein#add('Yggdroot/indentLine')
-
-    "------------------------------------------------------------
-    " Autocomplete and syntax
-    call dein#add('SirVer/ultisnips')
-    call dein#add('honza/vim-snippets')
-    " call dein#add('Shougo/denite.nvim')
-    " call dein#add('roxma/nvim-completion-manager')
-    call dein#add('autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' })
-    call dein#add('othree/csscomplete.vim', { 'on_ft': 'css' })
-    " call dein#add('roxma/clang_complete')
-    " call dein#add('roxma/LanguageServer-php-neovim',  {'build': 'composer install && composer run-script parse-stubs'})
-    " call dein#add('roxma/nvim-cm-tern',  {'build': 'npm install'})
-    call dein#add('Shougo/neco-vim')
-    call dein#add('Shougo/neoinclude.vim')
-    call dein#add('Shougo/neco-syntax')
-    call dein#add('sheerun/vim-polyglot')
-    " call dein#add('rust-lang/rust.vim', { 'on_ft': 'rs' })
-    call dein#add('scrooloose/nerdtree')
-
-    " dein#add('felixhummel/setcolors.vim'
-    " Go
-    call dein#add('fatih/vim-go', { 'on_ft': 'go' })
-    call dein#add('zchee/deoplete-go', {'build': 'make'}) 
-
-    call dein#add('w0rp/ale')
-
-    call dein#add('arcticicestudio/nord-vim')
-    call dein#add('godlygeek/tabular')
-    call dein#add('plasticboy/vim-markdown')
-    " call dein#add('PotatoesMaster/i3-vim-syntax')
-    " call dein#add('dylanaraps/wal')
-    call dein#add('christoomey/vim-tmux-navigator')
-    " If installed using Homebrew
-    " call dein#add('junegunn/fzf', { 'build': './install --no-zsh', 'merged': 0 }) 
-    " call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-
-    call dein#end()
-    call dein#save_state()
+Plug 'Shougo/deoplete.nvim'
+if !has('nvim')
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
-" }}}
 
-if dein#check_install()
-    call dein#install()
+Plug 'tpope/vim-fugitive'
+" Editor
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
+
+if exists('g:gui_oni')
+else
+    Plug 'itchyny/lightline.vim'
 endif
+Plug 'bling/vim-bufferline'
+Plug 'Raimondi/delimitMate'
+Plug 'honza/vim-snippets'
+Plug 'mbbill/undotree'
+Plug 'gcmt/taboo.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'Shougo/vimproc.vim', { 'build': 'make' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Chiel92/vim-autoformat'
+" From another .vimrc
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/vim-easy-align'
+Plug 'xolox/vim-misc'
+" Git
+Plug 'airblade/vim-gitgutter'
+" Indent
+Plug 'Yggdroot/indentLine'
+
+"------------------------------------------------------------
+" Autocomplete and syntax
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+" Plug 'Shougo/denite.nvim'
+" Plug 'roxma/nvim-completion-manager'
+Plug 'autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' }
+Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
+" Plug 'roxma/clang_complete'
+" Plug 'roxma/LanguageServer-php-neovim',  {'build': 'composer install && composer run-script parse-stubs'}
+" Plug 'roxma/nvim-cm-tern',  {'build': 'npm install'}
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neco-syntax'
+Plug 'sheerun/vim-polyglot'
+" Plug 'rust-lang/rust.vim', { 'on_ft': 'rs' }
+Plug 'scrooloose/nerdtree'
+
+" dein#add('felixhummel/setcolors.vim'
+" Go
+Plug 'fatih/vim-go', { 'on_ft': 'go' }
+Plug 'zchee/deoplete-go', {'build': 'make'}
+
+Plug 'w0rp/ale'
+
+Plug 'arcticicestudio/nord-vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+" Plug 'PotatoesMaster/i3-vim-syntax'
+" Plug 'dylanaraps/wal'
+Plug 'christoomey/vim-tmux-navigator'
+" If installed using Homebrew
+" Plug 'junegunn/fzf', { 'build': './install --no-zsh', 'merged': 0 }
+" Plug 'junegunn/fzf.vim', { 'depends': 'fzf' }
+
+" All of your Plugins must be added before the following line
+call plug#end()            " required
+"}}}
+
 filetype plugin indent on
 syntax enable
-" All of your Plugins must be added before the following line
 "}}}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -390,9 +377,9 @@ nmap <leader>ne :NERDTreeToggle<cr>
 nmap <leader>bx :BufExplorer<cr>
 
 " Show lines
-"set list lcs=tab:\|\ 
-set list lcs=tab:❘-,trail:·,extends:»,precedes:«,nbsp:× 
-" set list listchars=tab:»-,trail:·,extends:»,precedes:« 
+"set list lcs=tab:\|\
+set list lcs=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+" set list listchars=tab:»-,trail:·,extends:»,precedes:«
 
 map <F7> mzgg=G`z
 " :W sudo saves the file
