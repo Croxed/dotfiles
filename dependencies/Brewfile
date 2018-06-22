@@ -1,6 +1,5 @@
 cask_args appdir: "/Applications"
 tap "homebrew/core"
-tap "homebrew/php"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "caskroom/fonts"
@@ -89,7 +88,6 @@ brew "wget"
 brew "zsh"
 cask "mpv"
 cask "the-unarchiver"
-mas "1Password", id: 443987910
 mas "Airmail 3", id: 918858936
 mas "Amphetamine", id: 937984704
 mas "Blackmagic Disk Speed Test", id: 425264550
