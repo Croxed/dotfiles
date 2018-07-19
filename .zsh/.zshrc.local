@@ -453,4 +453,5 @@ autoload -Uz compinit
 compinit
 zplugin cdreplay -q # <- execute compdefs provided by rest of plugins
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+. /usr/local/etc/profile.d/z.sh
 ## END OF FILE #################################################################

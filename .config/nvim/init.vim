@@ -58,7 +58,6 @@ else
 endif
 Plug 'bling/vim-bufferline'
 Plug 'Raimondi/delimitMate'
-Plug 'honza/vim-snippets'
 Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
 Plug 'jlanzarotta/bufexplorer'
@@ -70,8 +69,11 @@ Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
+Plug 'kien/ctrlp.vim'
+
 " Git
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
+"Plug 'airblade/vim-gitgutter'
 " Indent
 Plug 'Yggdroot/indentLine'
 
@@ -80,20 +82,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Plug 'Shougo/denite.nvim'
-" Plug 'roxma/nvim-completion-manager'
 Plug 'autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' }
 Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
-" Plug 'roxma/clang_complete'
-" Plug 'roxma/LanguageServer-php-neovim',  {'build': 'composer install && composer run-script parse-stubs'}
-" Plug 'roxma/nvim-cm-tern',  {'build': 'npm install'}
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
-" Plug 'rust-lang/rust.vim', { 'on_ft': 'rs' }
 Plug 'scrooloose/nerdtree'
 
-" dein#add('felixhummel/setcolors.vim'
 " Go
 Plug 'fatih/vim-go', { 'on_ft': 'go' }
 Plug 'zchee/deoplete-go', {'build': 'make'}
@@ -103,13 +99,7 @@ Plug 'w0rp/ale'
 Plug 'arcticicestudio/nord-vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-" Plug 'PotatoesMaster/i3-vim-syntax'
-" Plug 'dylanaraps/wal'
 Plug 'christoomey/vim-tmux-navigator'
-" If installed using Homebrew
-" Plug 'junegunn/fzf', { 'build': './install --no-zsh', 'merged': 0 }
-" Plug 'junegunn/fzf.vim', { 'depends': 'fzf' }
-
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 "}}}
@@ -341,6 +331,11 @@ endif
 
 " rust {{{
 let g:rustfmt_autosave = 1
+" }}}
+
+" CtrlP {{{
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 " }}}
 
 "}}}
