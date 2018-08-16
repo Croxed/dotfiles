@@ -37,7 +37,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
 
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
@@ -82,7 +82,10 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Plug 'Shougo/denite.nvim'
-Plug 'autozimu/LanguageClient-neovim', { 'build': 'bash install.sh', 'rev': 'next' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
@@ -94,6 +97,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go', { 'on_ft': 'go' }
 Plug 'zchee/deoplete-go', {'build': 'make'}
 
+Plug 'zchee/deoplete-jedi'
 Plug 'w0rp/ale'
 
 Plug 'arcticicestudio/nord-vim'
@@ -256,6 +260,16 @@ let g:lightline.mode_map = {
             \ '?':      '      ' }
 " }}}
 
+" {{{
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" }}}
+
 " deoplete.vim {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
@@ -313,20 +327,6 @@ let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
 let g:airline#extensions#tabline#tabs_label = 'TABS'
 
 let g:airline_theme = 'nord'
-"}}}
-
-" nvim-completion-manager {{{
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-if system('uname') =~ "Darwin"
-    try
-        let g:clang_library_path='/usr/local/Cellar/llvm/5.0.0/lib/'
-    catch
-    endtry
-else
-    try
-        let g:clang_library_path='/usr/lib/clang/5.0.0/lib'
-    endtry
-endif
 "}}}
 
 " rust {{{
