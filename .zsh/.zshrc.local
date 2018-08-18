@@ -51,6 +51,7 @@ for path_candidate in /opt/local/sbin \
     ~/.rbenv/bin \
     ~/.bin \
     $HOME/.pyenv/bin \
+    $HOME/anaconda3/bin \
     $GOPATH/bin \
     $GOROOT/bin \
     ~/.cargo/bin \
@@ -76,6 +77,9 @@ if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
         fi
     done
 fi
+
+# Export path to python, will help deoplete-jedi
+export PYTHON3_PATH="$(which python3)"
 
 ## Now, we'll give a few examples of what you might want to use in your
 ## .zshrc.local file (just copy'n'paste and uncomment it there):
@@ -424,6 +428,7 @@ zplugin light zsh-users/zsh-autosuggestions
 zplugin light zsh-users/zsh-history-substring-search
 zplugin light zsh-users/zsh-syntax-highlighting
 zplugin light zsh-users/zsh-completions
+zplugin light csurfer/tmuxrepl
 zplugin light djui/alias-tips
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
@@ -443,6 +448,7 @@ curl -fSsL https://github.com/sindresorhus/pure/raw/master/pure.zsh -o ${ZDOTDIR
 [[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/async ]] ||(
 curl -fSsL https://github.com/sindresorhus/pure/raw/master/async.zsh -o ${ZDOTDIR:-${HOME}}/.zfunctions/async
 )
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

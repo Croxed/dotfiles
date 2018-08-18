@@ -260,7 +260,7 @@ let g:lightline.mode_map = {
             \ '?':      '      ' }
 " }}}
 
-" {{{
+" LanguageClient {{{
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
@@ -275,7 +275,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
 let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
 set omnifunc=syntaxcomplete#Complete
-let g:deoplete#sources#jedi#python_path = "/usr/local/bin/python3"
+let g:deoplete#sources#jedi#python_path = $PYTHON3_PATH 
 let g:ale_sign_column_always = 1
 " deoplete.nvim recommend
 set completeopt+=noselect
