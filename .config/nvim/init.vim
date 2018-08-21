@@ -329,6 +329,15 @@ let g:airline#extensions#tabline#tabs_label = 'TABS'
 let g:airline_theme = 'nord'
 "}}}
 
+" nord-vim {{{
+let g:nord_italic_comments = 1
+let g:nord_uniform_status_lines = 1
+let g:nord_uniform_diff_background = 1
+let g:nord_comment_brightness = 18
+let g:nord_cursor_line_number_background = 1
+
+" }}}
+
 " rust {{{
 let g:rustfmt_autosave = 1
 " }}}
@@ -388,6 +397,7 @@ endif
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
+set cursorline
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
@@ -501,7 +511,6 @@ else
     catch
     endtry
 endif
-let g:nord_comment_brightness = 18
 set t_Co=256
 " Set extra options when running in GUI mode
 if has("gui_running")
