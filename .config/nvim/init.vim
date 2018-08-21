@@ -100,7 +100,7 @@ Plug 'zchee/deoplete-go', {'build': 'make'}
 Plug 'zchee/deoplete-jedi'
 Plug 'w0rp/ale'
 
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'christoomey/vim-tmux-navigator'
