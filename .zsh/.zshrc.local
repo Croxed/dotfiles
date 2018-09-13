@@ -44,6 +44,7 @@ export GOROOT_BOOTSTRAP=$GOROOT
 for path_candidate in /opt/local/sbin \
     /Applications/Xcode.app/Contents/Developer/usr/bin \
     /usr/bin/core_perl \
+    $HOME/anaconda3/bin \
     /opt/local/bin \
     /usr/local/share/npm/bin \
     /usr/local/opt/coreutils/libexec/gnubin \
@@ -51,7 +52,6 @@ for path_candidate in /opt/local/sbin \
     ~/.rbenv/bin \
     ~/.bin \
     $HOME/.pyenv/bin \
-    $HOME/anaconda3/bin \
     $GOPATH/bin \
     $GOROOT/bin \
     ~/.cargo/bin \
@@ -79,7 +79,7 @@ if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
 fi
 
 # Export path to python, will help deoplete-jedi
-export PYTHON3_PATH="$(which python3)"
+export PYTHON3_PATH="$(which python3.6)"
 
 ## Now, we'll give a few examples of what you might want to use in your
 ## .zshrc.local file (just copy'n'paste and uncomment it there):
