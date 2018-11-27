@@ -49,6 +49,8 @@ alias tree6='tree --dirsfirst -ChFL 6'
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
 
+# alias git='LANG=sv_SE /usr/local/bin/git'
+
 # confirmation #
 alias mv='mv -i'
 alias cp='cp -i'
