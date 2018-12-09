@@ -29,6 +29,7 @@ if [ $UID -ne 0 ]; then
     alias reboot='sudo reboot'
 fi
 
+alias cdtemp='cd $(mktemp -d)'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
