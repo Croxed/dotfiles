@@ -16,7 +16,6 @@ setopt correct
 
 export GOROOT=$HOME/.go
 export GOPATH=$HOME/go
-export GOROOT_BOOTSTRAP=$GOROOT
 
 for path_candidate in /opt/local/sbin \
     /Applications/Xcode.app/Contents/Developer/usr/bin \
@@ -29,8 +28,6 @@ for path_candidate in /opt/local/sbin \
     ~/.rbenv/bin \
     ~/.bin \
     $HOME/.pyenv/bin \
-    $GOPATH/bin \
-    $GOROOT/bin \
     ~/.cargo/bin \
     ~/bin.local \
     ~/scripts \
@@ -44,6 +41,9 @@ do
     fi
 done
 export PATH
+
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 mkdir -p ${ZDOTDIR:-${HOME}}/zshrc.d
 if [ -d ${ZDOTDIR:-{HOME}}/zshrc.d ]; then
@@ -123,7 +123,6 @@ autoload -Uz _zplugin
 zplugin load zdharma/history-search-multi-word
 
 zplugin ice compile"*.lzui"
-zplugin load zdharma/zui
 
 zplugin light zsh-users/zsh-autosuggestions
 zplugin light zsh-users/zsh-history-substring-search
@@ -136,11 +135,15 @@ zplugin light rupa/z
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin ice svn; zplugin snippet PZT::modules/docker
+zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+
+zplugin light zdharma/zui
+zplugin light zdharma/zplugin-crasis
 
 ## zplugin end
 
 ### CONFIG ###
-unset COMPLETION_WAITING_DOTS # https://github.com/tarruda/zsh-autosuggestions#known-issues
+unset COMPLETION_WAITING_DOTS
 #export COMPLETION_WAITING_DOTS=true
 export DEFAULT_USER="Oscar"
 export DISABLE_CORRECTION=true
@@ -148,51 +151,51 @@ export SPACESHIP_GIT_SYMBOL=""
 #export DISABLE_UNTRACKED_FILES_DIRTY=true # Improves repo status check time.
 export DISABLE_UPDATE_PROMPT=true
 export EDITOR='vim'
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1 # https://github.com/neovim/neovim/pull/2007#issuecomment-74863439
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down) # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}") # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
 ###############################
 # ===== Basics
-setopt no_beep              # don't beep on error
-setopt interactive_comments # Allow comments even in interactive shells (especially for Muness)
+setopt no_beep
+setopt interactive_comments
 
 # ===== Changing Directories
-setopt auto_cd           # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevarS        # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
-setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
-setopt auto_pushd        # make cd push the old directory onto the directory stack
-setopt pushdminus        # swapped the meaning of cd +1 and cd -1; we want them to mean the opposite of what they mean im csh
+setopt auto_cd
+setopt cdablevarS
+setopt pushd_ignore_dups
+setopt auto_pushd
+setopt pushdminus
 
 # ===== Expansion and Globbing
-setopt extendedglob # treat #, ~, and ^ as part of patterns for filename generation
+setopt extendedglob
 
 # ===== History
-setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
-setopt extended_history       # save timestamp of command and duration
-setopt inc_append_history     # Add comamnds as they are typed, don't wait until shell exit
-setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
-setopt hist_ignore_dups       # do not write events to history that are duplicates of previous events
-setopt hist_ignore_all_dups   # delete old recorded entry if new entry is a duplicate.
-setopt hist_ignore_space      # remove command line from history list when first character on the line is a space
-setopt hist_find_no_dups      # when searching history don't display results already cycled through twice
-setopt hist_reduce_blanks     # remove extra blanks from each command line being added to history
-setopt hist_verify            # don't execute, just expand history
-setopt share_history          # imports new commands and appends typed commands to history
-setopt hist_no_store          # remove the history (fc -l) command from the history list when invoked
-setopt long_list_jobs         # list jobs in the long format by default
+setopt append_history
+setopt extended_history
+setopt inc_append_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_find_no_dups
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt share_history
+setopt hist_no_store
+setopt long_list_jobs
 
 
 # ===== Completion
-setopt always_to_end      # when completing from the middle of a word, move the cursor to the end of the word
-setopt auto_menu          # show completion menu on successive tab press. needs unsetop menu_complete to work
-setopt auto_name_dirs     # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
-setopt complete_in_word   # allow completion from within a word/phrase
-setopt auto_list          # automatically list choices on ambiguous completion.
-unsetopt complete_aliases   # an alias of a command should complete to the command completion
-unsetopt menu_complete    # do not autoselect the first completion entry
-unsetopt flowcontrol      # do not freezes output to the terminal until you type ^q
+setopt always_to_end
+setopt auto_menu
+setopt auto_name_dirs
+setopt complete_in_word
+setopt auto_list
+unsetopt complete_aliases
+unsetopt menu_complete
+unsetopt flowcontrol
 
 # Keep a ton of history.
 HISTSIZE=100000
@@ -215,7 +218,7 @@ globalias() {
 }
 
 # ===== Scripts and Functions
-setopt multios # perform implicit tees or cats when multiple redirections are attempted
+setopt multios
 
 # ZSH Completion config
 zstyle '*' single-ignored show
@@ -277,31 +280,22 @@ dedupe_path() {
     export PATH=${(j+:+)result}
 }
 
-dedupe_path
-# Hook for desk activation
-
 [[ -d ${ZDOTDIR:-${HOME}}/.zfunctions ]] ||(
 mkdir -p ${ZDOTDIR:-${HOME}}/.zfunctions
 )
 
 fpath=( "${ZDOTDIR:-${HOME}}/.zfunctions" $fpath )
 
-[[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup ]] ||(
-curl -fSsL https://github.com/sindresorhus/pure/raw/master/pure.zsh -o ${ZDOTDIR:-${HOME}}/.zfunctions/prompt_pure_setup
-)
-[[ -f ${ZDOTDIR:-${HOME}}/.zfunctions/async ]] ||(
-curl -fSsL https://github.com/sindresorhus/pure/raw/master/async.zsh -o ${ZDOTDIR:-${HOME}}/.zfunctions/async
-)
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-autoload -U promptinit; promptinit
-prompt pure
 
 autoload -Uz compinit
 compinit
 zplugin cdreplay -q # <- execute compdefs provided by rest of plugins
+
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 [ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
+
+export PATH=/usr/local/opt/curl/bin:$PATH
+dedupe_path
 ## END OF FILE #################################################################
 # vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4
