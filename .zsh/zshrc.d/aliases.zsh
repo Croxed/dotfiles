@@ -47,6 +47,12 @@ alias tree4='tree --dirsfirst -ChFL 4'
 alias tree5='tree --dirsfirst -ChFL 5'
 alias tree6='tree --dirsfirst -ChFL 6'
 
+
+alias v='f -e vim' # quick opening files with vim
+alias m='f -e mplayer' # quick opening files with mplayer
+alias o='a -e xdg-open' # quick opening files with xdg-open
+alias j='zz' # directory jumping
+
 # do not delete / or prompt if deleting more than 3 files at a time #
 #alias rm='rm -I --preserve-root'
 

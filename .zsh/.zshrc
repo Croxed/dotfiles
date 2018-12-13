@@ -131,7 +131,7 @@ zplugin light zsh-users/zsh-completions
 zplugin light csurfer/tmuxrepl
 zplugin light djui/alias-tips
 zplugin light willghatch/zsh-saneopt
-zplugin light rupa/z
+# zplugin light rupa/z
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin ice svn; zplugin snippet PZT::modules/docker
@@ -294,6 +294,17 @@ zplugin cdreplay -q # <- execute compdefs provided by rest of plugins
 
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 [ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
+
+
+if which fasd > /dev/null; then eval "$(fasd --init auto)"; fi
+
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
 
 export PATH=/usr/local/opt/curl/bin:$PATH
 dedupe_path
