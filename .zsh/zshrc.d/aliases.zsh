@@ -48,8 +48,8 @@ alias tree5='tree --dirsfirst -ChFL 5'
 alias tree6='tree --dirsfirst -ChFL 6'
 
 
-alias v='f -e vim' # quick opening files with vim
-alias m='f -e mplayer' # quick opening files with mplayer
+alias v='f -e ${EDITOR}' # quick opening files with vim
+alias m='f -e mpv' # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
 alias j='zz' # directory jumping
 
