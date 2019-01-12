@@ -37,7 +37,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
@@ -79,7 +79,7 @@ Plug 'Yggdroot/indentLine'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -93,6 +93,7 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
+Plug 'neomake/neomake'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -103,7 +104,7 @@ Plug 'zchee/deoplete-go', {'build': 'make'}
 
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'zchee/deoplete-jedi'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
@@ -125,6 +126,20 @@ syntax enable
 " misc {{{
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_auto_colors=1
+" }}}
+
+" neomake {{{
+let g:neomake_open_list = 2
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+call neomake#configure#automake('nw', 750)
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 1s; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+
 " }}}
 
 " lightline.vim {{{
