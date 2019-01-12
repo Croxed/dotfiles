@@ -1,3 +1,4 @@
+matchai/spacefish
 fisherman/await
 edc/bass
 oh-my-fish/plugin-brew
@@ -15,8 +16,12 @@ fisherman/pwd_info
 fisherman/pwd_is_home
 oh-my-fish/plugin-python
 fisherman/shark
-fisherman/simple
 fisherman/spin
 oh-my-fish/plugin-tmux
 fisherman/transfer
-fisherman/z
+jhillyerd/plugin-git
+oh-my-fish/plugin-pbcopy
+oh-my-fish/plugin-extract
+oh-my-fish/plugin-bang-bang
+oh-my-fish/plugin-battery
+oh-my-fish/plugin-sudope

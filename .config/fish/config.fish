@@ -1,7 +1,8 @@
-if not test -f ~/.config/fish/functions/fisher.fish
-    echo "Installing fisherman for the first time"
-    curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-    fisher
+if not functions -q fisher
+    echo "Installing fisher bootstrap"
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
 end
 
 # Base PATH
@@ -38,7 +39,7 @@ for path_candidate in /opt/local/sbin \
     end
 end
 
-source $HOME/.config/fish/aliases.fish
+#:source $HOME/.config/fish/aliases.fish
 
 # Load extra configs
 for file in ~/.config/fish/conf.d/*.fish

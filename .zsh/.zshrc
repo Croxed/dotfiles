@@ -128,6 +128,7 @@ zplugin light zsh-users/zsh-autosuggestions
 zplugin light zsh-users/zsh-history-substring-search
 zplugin light zsh-users/zsh-syntax-highlighting
 zplugin light zsh-users/zsh-completions
+zplugin light zsh-users/zsh-apple-touchbar
 zplugin light csurfer/tmuxrepl
 zplugin light djui/alias-tips
 zplugin light willghatch/zsh-saneopt
@@ -305,6 +306,7 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export PATH=/usr/local/opt/curl/bin:$PATH
 dedupe_path
