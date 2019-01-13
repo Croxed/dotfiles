@@ -9,7 +9,7 @@
 "░░    ░░    ░░ ░░░  ░░  ░░ ░░░     ░░░░░
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim.vim
+" => vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 " Fix shell when fish
@@ -34,7 +34,6 @@ if &compatible
     set nocompatible
 endif
 
-
 call plug#begin('~/.local/share/nvim/site/plugged')
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -50,7 +49,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-abolish'
 
 if exists('g:gui_oni')
 else
@@ -65,28 +63,21 @@ Plug 'Shougo/vimproc.vim', { 'build': 'make' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Chiel92/vim-autoformat'
 " From another .vimrc
-Plug 'beloglazov/vim-online-thesaurus'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
-Plug 'kien/ctrlp.vim'
 
 " Git
 Plug 'mhinz/vim-signify'
-"Plug 'airblade/vim-gitgutter'
 " Indent
 Plug 'Yggdroot/indentLine'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
 Plug 'artur-shaik/vim-javacomplete2'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
@@ -402,6 +393,12 @@ set shortmess+=c
 nmap <leader>ne :NERDTreeToggle<cr>
 
 nmap <leader>bx :BufExplorer<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Show lines
 "set list lcs=tab:\|\
