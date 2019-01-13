@@ -79,7 +79,7 @@ Plug 'Yggdroot/indentLine'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -103,7 +103,8 @@ Plug 'zchee/deoplete-go', {'build': 'make'}
 
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'zchee/deoplete-jedi'
-Plug 'w0rp/ale'
+Plug 'neomake/neomake'
+" Plug 'desmap/ale-sensible' | Plug 'w0rp/ale'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
@@ -265,18 +266,6 @@ let g:lightline.mode_map = {
             \ '?':      '      ' }
 " }}}
 
-" LanguageClient {{{
-
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" }}}
-
 " deoplete.vim {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
@@ -290,6 +279,14 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "}}}
 
+" neomake {{{
+let g:neomake_open_list = 2
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 1s; no delay when writing).
+call neomake#configure#automake('nrwi', 100)
+
+" }}}
+
 " ale.vim {{{
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_error = '>>'
@@ -298,43 +295,15 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_fixers = {
-            \    'sh': ['shfmt'],
+            \    'sh': ['language_server'],
             \    'python': [ 'autopep8','isort', 'yapf' ],
-            \    'java': [ 'google_java_format' ],
+            \    'java': [ 'javac' ],
             \}
 "}}}
 
 " NERDTree.vim {{{
 " autocmd VimEnter * NERDTree
 " }}}
-
-" airline.vim {{{
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tmuxline#enabled = 1
-"let g:Powerline_sybols = 'unicode'
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#show_tab_nr = 1
-
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:airline#extensions#tabline#buffer_nr_format = '%s:'
-let g:airline#extensions#tabline#fnamecollapse = 1
-let g:airline#extensions#tabline#fnametruncate = 0
-"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#tab_nr_type= 2
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#buffers_label = 'BUFFERS'
-let g:airline#extensions#tabline#tabs_label = 'TABS'
-
-let g:airline_theme = 'nord'
-"}}}
 
 " nord-vim {{{
 let g:nord_italic_comments = 1
