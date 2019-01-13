@@ -97,7 +97,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'neomake/neomake'
 " Plug 'desmap/ale-sensible' | Plug 'w0rp/ale'
 
-Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'christoomey/vim-tmux-navigator'
@@ -120,7 +120,7 @@ let g:indent_guides_auto_colors=1
 
 " lightline.vim {{{
 let g:lightline = {
-            \ 'colorscheme': 'solarized',
+            \ 'colorscheme': 'nord',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ], [ 'bufferline' ] ],
             \   'right': [ [ 'ale', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
@@ -523,12 +523,12 @@ set termguicolors
 
 if system('uname') =~ "Darwin"
     try
-        silent! colorscheme solarized8_flat 
+        silent! colorscheme nord 
     catch
     endtry
 else
     try
-        silent! colorscheme solarized8_flat 
+        silent! colorscheme nord 
     catch
     endtry
 endif
