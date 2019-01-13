@@ -73,6 +73,6 @@ if [[ "$CURRENT_OS" == "macOS" ]] && [[ -f "$CURRENT_DIR/dependencies-macOS" ]];
 elif [[ -f "$CURRENT_DIR"/dependencies-"$CURRENT_OS" ]]; then
   ask "Do you want to install dependencies for $CURRENT_OS?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
 else
-  printf "$CURRENT_OS not supported for dependencies."
+  printf "%s not supported for dependencies." "$CURRENT_OS"
   exit 1
 fi
