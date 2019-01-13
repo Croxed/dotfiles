@@ -14,7 +14,7 @@
 " {{{
 " Fix shell when fish
 set encoding=utf-8
-set shell=zsh
+set shell=fish
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto-install vim-plug
@@ -83,10 +83,10 @@ Plug 'Yggdroot/indentLine'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
 Plug 'artur-shaik/vim-javacomplete2'
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
@@ -117,7 +117,6 @@ call plug#end()            " required
 filetype plugin indent on
 syntax enable
 "}}}
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,14 +325,14 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
 let g:fzf_layout = { 'window': '10split enew' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~20%' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -568,7 +567,9 @@ set expandtab
 set smarttab
 
 " Enable clipboard
-set clipboard+=unnamedplus " fix not copying between clipboard and vim
+let g:clipboard = {'copy': {'+': 'pbcopy', '*': 'pbcopy'}, 'paste': {'+': 'pbpaste', '*': 'pbpaste'}, 'name': 'pbcopy', 'cache_enabled': 0}
+set clipboard+=unnamedplus
+" set clipboard+=unnamedplus " fix not copying between clipboard and vim
 
 " 1 tab == 4 spaces
 set shiftwidth=4
@@ -637,6 +638,9 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Open FZF for editing
+map <leader>f :Files<cr>
 
 " Specify the behavior when switching between buffers
 try
