@@ -39,7 +39,7 @@ for path_candidate in /opt/local/sbin \
     end
 end
 
-#:source $HOME/.config/fish/aliases.fish
+# fish $HOME/.config/fish/aliases.fish
 
 # Load extra configs
 for file in ~/.config/fish/conf.d/*.fish
@@ -100,8 +100,4 @@ else
     end
 end
 
-#if type wpg >/dev/null
-#    wpg -r &
-#else if type wal >/dev/null
-#    wal -r &
-#end
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
