@@ -1,4 +1,4 @@
-if test uname = "Darwin"
+if test (uname) = "Darwin"
     alias ll 'gls -lFHah --color=auto' --save 
     alias ls 'gls -Fhlp --color=auto' --save 
     alias flushdns 'sudo killall -HUP mDNSResponder' --save 
@@ -20,7 +20,6 @@ end
 alias c "clear && printf '\e[3J'" --save 
 alias reboot 'sudo reboot' --save 
 alias cdtemp 'cd (mktemp -d)' --save 
-alias grep 'grep --color auto' --save 
 alias egrep 'egrep --color auto' --save 
 alias fgrep 'fgrep --color auto' --save 
 alias termclock 'tty-clock -C 2 -crsDBb' --save 
