@@ -57,8 +57,13 @@ end
 
 function fish_greeting
     command clear
-    #command greeting
+    fish_logo white cyan magenta
+    echo -e '\n' (set_color red)(whoami)'@'(hostname)
+    echo -e (set_color yellow)' Uptime: '(set_color white) (uptime | sed 's/.*up \([^,]*\), .*/\1/')
+    echo -e (set_color yellow)' Version: '(set_color white)(echo $FISH_VERSION) '\n'
 end
+
+
 
 # finally, set the PATH variable
 set PATH $path_sorted
