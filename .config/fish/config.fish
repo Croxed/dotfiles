@@ -24,6 +24,7 @@ for path_candidate in /opt/local/sbin \
     ~/.cabal/bin \
     ~/.rbenv/bin \
     ~/.bin \
+    $HOME/.fzf/bin \
     $HOME/.pyenv/bin \
     $GOPATH/bin \
     $GOROOT/bin \
@@ -100,4 +101,7 @@ else
     end
 end
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+set -x EDITOR 'nvim'
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+set -x FZF_FIND_FILE_COMMAND 'fd --type f --hidden --follow --exclude .git'
+set -x FZF_OPEN_COMMAND 'fd --type f --hidden --follow --exclude .git'
