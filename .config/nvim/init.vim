@@ -299,6 +299,13 @@ let g:nord_cursor_line_number_background = 1
 let g:rustfmt_autosave = 1
 " }}}
 
+" UltiSnips {{{
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}}
+
 " fzf {{{
 "
 " This is the default extra key bindings
