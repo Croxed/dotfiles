@@ -48,7 +48,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
 
 if exists('g:gui_oni')
 else
@@ -83,7 +82,7 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -123,16 +122,12 @@ let g:lightline = {
             \ 'colorscheme': 'nord',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ], [ 'bufferline' ] ],
-            \   'right': [ [ 'ale', 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
+            \   'right': [ [ 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
             \ },
             \ 'component': {
             \   'lineinfo': ' %3l:%-2v'
             \ },
-            \ 'component_expand': {
-            \   'ale': 'LightLineAle'
-            \ },
             \ 'component_type': {
-            \   'ale': 'error',
             \   'capslock': 'warning'
             \ },
             \ 'component_function': {
@@ -290,10 +285,6 @@ let g:ale_fixers = {
             \    'java': [ 'javac' ],
             \}
 "}}}
-
-" NERDTree.vim {{{
-" autocmd VimEnter * NERDTree
-" }}}
 
 " nord-vim {{{
 let g:nord_italic_comments = 1
@@ -471,7 +462,6 @@ set mat=2
 
 " Set both relative number and absolute number
 set number
-"set relativenumber
 
 " No annoying sound on errors
 set noerrorbells
@@ -479,34 +469,13 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Properly disable sound on errors on MacVim
-if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
-endif
-
-" Python3 Config
-" let g:python3_host_prog = '/usr/local/bin/python3'
-
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-
-if exists('g:gui_oni')
-    " Statements here
-    " Turn off statusbar, because it is externalized
-    set noshowmode
-    set noruler
-    set laststatus=0
-    set noshowcmd
-
-    " Enable GUI mouse behavior
-    set mouse=a
-else
-    set ruler
-    set showmode
-    set laststatus=2
-    set showcmd
-endif
+set ruler
+set showmode
+set laststatus=2
+set showcmd
 
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -521,17 +490,10 @@ set termguicolors
 
 " Colorscheme management
 
-if system('uname') =~ "Darwin"
-    try
-        silent! colorscheme nord 
-    catch
-    endtry
-else
-    try
-        silent! colorscheme nord 
-    catch
-    endtry
-endif
+try
+    silent! colorscheme nord 
+catch
+endtry
 set t_Co=256
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -651,15 +613,6 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 "}}}
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-"{{{
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -743,15 +696,6 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
-endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
 endfunction
 
 " Don't close window, when deleting a buffer
