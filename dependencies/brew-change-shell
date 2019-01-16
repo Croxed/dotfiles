@@ -1,0 +1,34 @@
+#! /usr/bin/env bash
+
+select_shell(){
+    PS3='Please enter your new shell: '
+    shells=("bash" "fish" "zsh")
+    select opt in "${shells[@]}"
+    do
+        printf "%s" "$opt"
+        break;
+    done
+}
+
+install_shell(){
+    shell="${bin_path}/$1"
+    if [ ! -f "$shell" ]; then
+        brew install "$1" > /dev/null
+    fi
+}
+
+change_shell(){
+    install_shell "$1"
+    bin_path="$(brew --prefix)/bin"
+    shell="${bin_path}/$1"
+    echo "Changing shell for user $USER to $shell"
+    grep "$shell" /etc/shells > /dev/null || echo "$shell" | sudo tee -a /etc/shells
+    chsh -s "$shell" "$USER"
+}
+
+if ! type brew > /dev/null; then
+    echo "ERROR: brew not installed"
+    exit 1
+fi
+
+change_shell "$(select_shell)"

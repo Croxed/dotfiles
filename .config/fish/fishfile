@@ -13,3 +13,6 @@ oh-my-fish/plugin-pbcopy
 oh-my-fish/plugin-extract
 oh-my-fish/plugin-bang-bang
 oh-my-fish/plugin-sudope
+brgmnn/fish-docker-compose
+oh-my-fish/plugin-gi
+oh-my-fish/plugin-wttr
