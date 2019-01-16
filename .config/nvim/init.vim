@@ -265,10 +265,17 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "}}}
 
 " neomake {{{
-let g:neomake_open_list = 2
+let g:neomake_open_list = 0
+let g:neomake_java_enabled_makers=['mvn']
 " Full config: when writing or reading a buffer, and on changes in insert and
 " normal mode (after 1s; no delay when writing).
 call neomake#configure#automake('nrwi', 100)
+
+autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
+			\   q :cclose<cr>:lclose<cr>
+autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
+			\   bd|
+			\   q | endif
 
 " }}}
 
@@ -366,6 +373,11 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " {{{
 " Sets how many lines of history VIM has to remember
 
+let g:python_host_skip_check=1
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 set history=500
 
 set foldmethod=marker
@@ -413,6 +425,11 @@ if !empty(&viminfo)
     set viminfo^=!
 endif
 
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 set cursorline
@@ -423,7 +440,7 @@ set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
 
 " Ignore compiled files
@@ -433,6 +450,12 @@ if has("win16") || has("win32")
 else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
+
+"Always show current position
+set ruler
+
+" Show row number
+set number
 
 " Height of the command bar
 set cmdheight=2
@@ -467,22 +490,19 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
-" Set both relative number and absolute number
-set number
-
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
 
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
 " Add a bit extra margin to the left
 set foldcolumn=1
-
-set ruler
-set showmode
-set laststatus=2
-set showcmd
 
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -640,14 +660,18 @@ if has("mac") || has("macunix")
     vmap <D-k> <M-k>
 endif
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
 
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
