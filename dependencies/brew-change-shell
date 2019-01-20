@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+bin_path="$(brew --prefix)/bin"
 select_shell(){
     PS3='Please enter your new shell: '
     shells=("bash" "fish" "zsh")
@@ -19,7 +20,6 @@ install_shell(){
 
 change_shell(){
     install_shell "$1"
-    bin_path="$(brew --prefix)/bin"
     shell="${bin_path}/$1"
     echo "Changing shell for user $USER to $shell"
     grep "$shell" /etc/shells > /dev/null || echo "$shell" | sudo tee -a /etc/shells
