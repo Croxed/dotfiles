@@ -1,0 +1,127 @@
+#!/bin/zsh
+
+# A fast, clean, and informative zsh prompt written by Nathaniel Maia
+
+# setup colors
+autoload -U colors && colors
+
+_prompt_defaults()
+{
+    # source file for _git_status function
+    : ${GIT_PROMPT_SOURCE="$HOME/.zsh/themes/git_prompt/git_prompt.zsh"}
+
+    # user name/hostname format string
+    : ${PROMPT_USERFMT=""}
+
+    # time format string
+    : ${PROMPT_TIMEFMT="%*"}
+
+    # multi-line prompt?
+    tempv=$'\n'
+    : ${PROMPT_MULTILINE=$tempv}
+    unset tempv
+
+    # color used for matching characters
+    : ${PROMPT_WRAPCOL="%F{magenta}"}
+
+    # red when shell is escalated, cyan otherwise
+    : ${PROMPT_USERCOL="%(!,%F{red},%F{cyan})"}
+
+    # red exit code when the last command exits non-zero
+    : ${PROMPT_ECODE="%(?,, %F{red}%?)"}
+
+    # ranger sub-shell color
+    : ${PROMPT_RANGERCOL="%F{blue}"}
+
+    # vi-mode colors
+    : ${PROMPT_VIINSCOL="%F{cyan}"}
+    : ${PROMPT_VICMDCOL="%F{red}"}
+
+    # when running as root and the user format wasn't defined, show the username
+    [[ $(whoami) == 'root' && -z $PROMPT_USER_FMT ]] && PROMPT_USER_FMT=" %n "
+
+    if [[ -z $PROMPT_MULTILINE ]]; then
+        : ${PROMPT_LNBR1=">"}
+        PROMPT_LNBR1="${PROMPT_WRAPCOL}${PROMPT_LNBR1}%f"
+    else
+        # for multi-line prompts define some nice characters
+        : ${PROMPT_ARROW=">"} # ➜ ➤ ► ▻ ▸ ▹ ❯
+        : ${PROMPT_LNBR1="┌"}   # ┌ ┏ ╓ ╒
+        : ${PROMPT_LNBR2="└"}   # └ ┗ ╙ ╘
+
+        # and colorize them
+        PROMPT_ARROW="${PROMPT_WRAPCOL}${PROMPT_ARROW}%f"
+        PROMPT_LNBR1="${PROMPT_WRAPCOL}${PROMPT_LNBR1}%f"
+        PROMPT_LNBR2="${PROMPT_WRAPCOL}${PROMPT_LNBR2}%f"
+    fi
+}
+
+_promt_time()
+{
+    (( (${COLUMNS:-$(tput cols)} / 4) / 4 > 2 )) && print -n " $PROMPT_TIMEFMT"
+}
+
+_prompt_dir()
+{
+    if [[ -z $PROMPT_MULTILINE ]]; then
+        (( ${COLUMNS:-$(tput cols)} > 60 )) && print -n "%-45<...<%~%<<" || print -n "..%1~"
+    else
+        print -n "%-2<...<%~%<<"
+    fi
+}
+
+_prompt_vimode()
+{
+    [[ $KEYMAP =~ vicmd ]] && print -n "$PROMPT_VICMDCOL" || print -n "$PROMPT_VIINSCOL"
+}
+
+_promt_ranger()
+{
+    [[ $RANGER_LEVEL ]] &&
+        print -n " $PROMPT_RANGERCOL(r$([[ $RANGER_LEVEL -gt 1 ]] && print $RANGER_LEVEL))%f"
+}
+
+_prompt_precmd_title()
+{
+    print -n "\e]2;$USER@zsh - $PWD\a"
+}
+
+_prompt_preexec_title()
+{
+    print -n "\e]2;$USER@zsh - $PWD: " && print -n "${(q)1}\a"
+}
+
+# load the default values used in the prompt
+_prompt_defaults
+
+# source the git prompt, if it fails and the _git_status function is undefined create a fallback
+if ! { . $GIT_PROMPT_SOURCE && type _git_status; } >/dev/null 2>&1; then
+    _git_status()
+    {
+        git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (%F{magenta}\1%f)/'
+    }
+fi
+
+# add hook functions
+if [[ $TERM =~ (xterm|rxvt|st) ]]; then
+    precmd_functions+=(_prompt_precmd_title)
+    preexec_functions+=(_prompt_preexec_title)
+fi
+
+# set the prompts
+PROMPT='${PROMPT_LNBR1}${PROMPT_ECODE}${PROMPT_USERCOL}${PROMPT_USERFMT} '
+PROMPT+='${PROMPT_WRAPCOL}$(_prompt_dir; _promt_ranger)${PROMPT_MULTILINE}'
+PROMPT+='${PROMPT_LNBR2}${PROMPT_ARROW} $(_prompt_vimode)%#%f '
+
+# right prompt
+RPROMPT='$(_git_status; _promt_time)'
+
+# command continuation
+PS2='%_ ==> '
+
+# used for select built-in
+PS3='choose: '
+
+# used for xtrace/set -x
+PS4='+%N:%I:%_ ==> '
+
