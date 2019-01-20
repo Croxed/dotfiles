@@ -38,7 +38,6 @@ fi
 
 alias f='ranger'
 
-alias gp='git pull'
 alias gf='git fetch'
 alias gc='git clone'
 alias gs='git stash'
