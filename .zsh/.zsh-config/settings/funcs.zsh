@@ -446,6 +446,10 @@ EOF
     echo -n "$REPLY$s"
 }
 
+# reloads the shell
+reload () {
+    exec $SHELL $SHELL_ARGS "$@"
+}
 
 genecho()
 {

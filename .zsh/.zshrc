@@ -11,9 +11,6 @@
 # ░░ ░░░░░░ ░░░░░░  ░░   ░░ ░░░     ░░░░░
 #
 
-# catch non-zsh and non-interactive shells
-[[ $- == *i* && $ZSH_VERSION ]] && SHELL=/usr/bin/zsh || return 0
-
 # path to the framework root directory
 SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 
@@ -23,6 +20,11 @@ SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 # reduce system calls for timezone
 typeset -gx TZ=:/etc/localtime
 
+# Set golang paths before sourcing into path
+typeset -gx GOROOT="$HOME/.go"
+typeset -gx GOPATH="$HOME/go"
+
+# all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
     "/opt/local/sbin"
@@ -35,7 +37,10 @@ path_candidate=(
     "~/.cabal/bin"
     "~/.rbenv/bin"
     "~/.bin"
+    "$HOME/.fzf/bin"
     "$HOME/.pyenv/bin"
+    "$GOPATH/bin"
+    "$GOROOT/bin"
     "~/.cargo/bin"
     "~/bin.local"
     "~/scripts"
@@ -50,6 +55,9 @@ typeset -U path=($path_candidate[@] $path[@])
 
 # strip empty fields from the path
 path=("${path[@]:#}")
+
+# catch non-zsh and non-interactive shells
+[[ $- == *i* && $ZSH_VERSION ]] && SHELL="$(which zsh)" || return 0
 
 # used internally by zsh for loading themes and completions
 typeset -U fpath=("$SIMPL_ZSH_DIR/"{completion,themes} $fpath)
@@ -68,35 +76,6 @@ export MANWIDTH=100
 export IGNOREEOF=100
 export HISTSIZE=10000
 export SAVEHIST=10000
-
-## ZPLUGIN
-export ZPLG_HOME="${ZDOTDIR:-$HOME}/.zplugin"
-[[ -d ${ZDOTDIR:-$HOME}/.zplugin ]] ||(
-mkdir "$ZPLG_HOME"
-echo ">>> Downloading zplugin to $ZPLG_HOME/bin"
-git clone --depth 10 https://github.com/zdharma/zplugin.git "$ZPLG_HOME/bin"
-echo ">>> Done"
-)
-
-### Added by Zplugin's installer
-source "$ZPLG_HOME/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin's installer chunk
-
-## zplugin start
-
-zplugin load zdharma/history-search-multi-word
-
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zsh-users/zsh-syntax-highlighting
-zplugin light zsh-users/zsh-completions
-zplugin light willghatch/zsh-saneopt
-zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
-
-## zplugin end
 
 # ...
 

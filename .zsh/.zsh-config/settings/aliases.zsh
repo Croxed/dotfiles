@@ -70,7 +70,7 @@ alias df='df -H'
 alias du='du -ch'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
 
-if hash nvim >/dev/null 2>&1; then
+if hash pacman >/dev/null 2>&1; then
     # pacman stuff
     alias pup='sudo pacman -Syyu' # update
     alias pin='sudo pacman -S'    # install
@@ -81,7 +81,7 @@ if hash nvim >/dev/null 2>&1; then
     # pkg stuff
     alias pkg='makepkg --printsrcinfo > .SRCINFO && makepkg -fsrc'
     alias spkg='pkg --sign'
-elif hash nvim >/dev/null 2>&1; then
+elif hash brew >/dev/null 2>&1; then
     # homebrew stuff
     alias brews='brew list -1'
     alias bubo='brew update && brew outdated'
