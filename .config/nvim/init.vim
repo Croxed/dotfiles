@@ -42,6 +42,9 @@ if !has('nvim')
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'mhinz/vim-startify'
+Plug 'wsdjeg/FlyGrep.vim'
+
 Plug 'tpope/vim-fugitive'
 " Editor
 Plug 'tpope/vim-surround'
@@ -57,7 +60,7 @@ Plug 'bling/vim-bufferline'
 Plug 'Raimondi/delimitMate'
 Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
-Plug 'jlanzarotta/bufexplorer'
+Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
 Plug 'Shougo/vimproc.vim', { 'build': 'make' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Chiel92/vim-autoformat'
@@ -89,16 +92,16 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Go
 Plug 'fatih/vim-go', { 'on_ft': 'go' }
-Plug 'zchee/deoplete-go', {'build': 'make'}
+Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
 
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-Plug 'zchee/deoplete-jedi'
+Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
 Plug 'neomake/neomake'
 " Plug 'desmap/ale-sensible' | Plug 'w0rp/ale'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'christoomey/vim-tmux-navigator'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -373,6 +376,7 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " {{{
 " Sets how many lines of history VIM has to remember
 
+let g:loaded_python_provider = 1
 let g:python_host_skip_check=1
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_skip_check=1
@@ -432,7 +436,7 @@ endif
 "{{{
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
-set cursorline
+" set cursorline
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
@@ -513,10 +517,14 @@ set foldcolumn=1
 syntax on
 
 set background=dark
-set termguicolors
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+set t_8b=^[[48;2;%lu;%lu;%lum
+set t_8f=^[[38;2;%lu;%lu;%lum
 
 " Colorscheme management
-
 try
     silent! colorscheme nord 
 catch
@@ -611,7 +619,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>t<leader> :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
