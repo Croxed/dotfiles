@@ -401,7 +401,7 @@ let g:mapleader = "\<Space>"
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set shortmess+=c
+set shortmess+=aAcIws  " Hide or shorten certain messages
 
 " NERDTree
 nmap <leader>ne :NERDTreeToggle<cr>
@@ -417,6 +417,8 @@ nmap ga <Plug>(EasyAlign)
 " Show lines
 "set list lcs=tab:\|\
 set list lcs=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+
+set linebreak breakindent
 " set list listchars=tab:»-,trail:·,extends:»,precedes:«
 
 map <F7> mzgg=G`z
@@ -454,6 +456,16 @@ if has("win16") || has("win32")
 else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
+
+" enable mouse
+set mouse=a
+if has('mouse_sgr')
+    " sgr mouse is better but not every term supports it
+    set ttymouse=sgr
+endif
+
+" enable vim modelines
+set modeline
 
 "Always show current position
 set ruler
@@ -706,6 +718,39 @@ map <leader>pp :setlocal paste!<cr>
 "To map <Esc> to exit terminal-mode: >
 tnoremap <Esc> <C-\><C-n>
 
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => autocmd
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+let g:lasttab = 1
+augroup save_last_tab
+    autocmd!
+    autocmd TabLeave * let g:lasttab = tabpagenr()
+augroup END
+
+" Reload changes if file changed outside of vim requires autoread
+augroup load_changed_file
+    autocmd!
+    autocmd FocusGained,BufEnter * if mode() !=? 'c' | checktime | endif
+    autocmd FileChangedShellPost * echo "Changes loaded from source file"
+augroup END
+
+" when quitting a file, save the cursor position
+augroup save_cursor_position
+    autocmd!
+    autocmd BufReadPost * call setpos(".", getpos("'\""))
+augroup END
+
+" when not running in a console or a terminal that doesn't support 256 colors
+" enable cursorline in the currently active window and disable it in inactive ones
+if $DISPLAY !=? '' && &t_Co == 256
+    augroup cursorline
+        autocmd!
+        autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+        autocmd WinLeave * setlocal nocursorline
+    augroup END
+endif
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
