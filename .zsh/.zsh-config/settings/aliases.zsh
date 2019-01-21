@@ -36,9 +36,14 @@ else
     alias sv='sudo vim'
 fi
 
+alias tmux='tmux -u'
+
 alias cdtemp='cd $(mktemp -d)'
 
-alias f='ranger'
+alias v='f -e ${EDITOR}' # quick opening files with vim
+alias m='f -e mpv' # quick opening files with mplayer
+alias o='a -e xdg-open' # quick opening files with xdg-open
+alias j='zz' # directory jumping
 
 alias gp='git push'
 alias gf='git fetch'

@@ -24,6 +24,7 @@ for path_candidate in /opt/local/sbin \
     ~/.cabal/bin \
     ~/.rbenv/bin \
     ~/.bin \
+    $HOME/github.com/graalvm/Contents/Home/bin \
     $HOME/.fzf/bin \
     $HOME/.pyenv/bin \
     $GOPATH/bin \
@@ -89,6 +90,10 @@ function test_identities
     end
 end
 
+function reload
+    source "$HOME/.config/fish/config.fish"
+end
+
 if [ -n "$SSH_AGENT_PID" ]
     ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
     if [ $status -eq 0 ]
@@ -103,6 +108,14 @@ else
         test_identities
     else
         start_agent
+    end
+end
+
+begin
+    set -l NORD_DIRCOLORS "$HOME/.config/dircolors/nord"
+
+    if test -e "$NORD_DIRCOLORS"
+        eval (dircolors -c "$NORD_DIRCOLORS")
     end
 end
 

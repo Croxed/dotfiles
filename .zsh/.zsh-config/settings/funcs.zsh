@@ -370,7 +370,7 @@ mdf()
 mip()
 {
     local localip
-    localip=$(/usr/bin/ip add show dev "$(ip add | awk -F: '/UP/ && !/LOOP/ { gsub (" ", "", $2); print $2}')" | awk '/inet/ { print $2 }' |awk -F/ 'NR==1{print $1}')
+    localip="$(ip route get 1 | awk -F'src ' '/src / { print $2}')"
     printf "%s" "${localip:-Not connected}"
 }
 
@@ -378,7 +378,7 @@ ii()
 {
     echo -e "\nYou are logged on \e[1;31m$HOSTNAME"
     echo -e "\n\e[1;31mAdditionnal information:\e[m " ; uname -a
-    echo -e "\n\e[1;31mUsers logged on:\e[m "         ; w -hs | awk '{print $1}' | sort | uniq
+    echo -e "\n\e[1;31mUsers logged on:\e[m "         ; w -hi | awk '{print $1}' | sort | uniq
     echo -e "\n\e[1;31mCurrent date:\e[m "            ; date
     echo -e "\n\e[1;31mMachine stats:\e[m "           ; uptime
     echo -e "\n\e[1;31mMemory stats:\e[m "            ; free
