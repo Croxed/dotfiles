@@ -36,8 +36,11 @@ else
     alias sv='sudo vim'
 fi
 
+alias cdtemp='cd $(mktemp -d)'
+
 alias f='ranger'
 
+alias gp='git push'
 alias gf='git fetch'
 alias gc='git clone'
 alias gs='git stash'
