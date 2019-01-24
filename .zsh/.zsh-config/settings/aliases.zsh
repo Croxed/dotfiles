@@ -1,7 +1,6 @@
 #!/usr/bin/zsh
 
 alias q='exit 0'
-alias d='clear'
 
 if hash gls >/dev/null 2>&1; then
     ## Use a long listing format ##

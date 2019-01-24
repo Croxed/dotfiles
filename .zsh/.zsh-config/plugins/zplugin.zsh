@@ -23,6 +23,7 @@ zplugin light zsh-users/zsh-syntax-highlighting
 zplugin light zsh-users/zsh-completions
 zplugin light willghatch/zsh-saneopt
 zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
 zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 

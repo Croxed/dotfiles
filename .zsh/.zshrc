@@ -41,6 +41,7 @@ path_candidate=(
     "$HOME/.pyenv/bin"
     "$GOPATH/bin"
     "$GOROOT/bin"
+    "$HOME/github.com/graalvm/Contents/Home/bin"
     "~/.cargo/bin"
     "~/bin.local"
     "~/scripts"
