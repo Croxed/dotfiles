@@ -71,8 +71,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'othree/csscomplete.vim', { 'on_ft': 'css' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+Plug 'othree/csscomplete.vim', { 'for': 'css' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
@@ -81,9 +81,9 @@ Plug 'sheerun/vim-polyglot'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 " Go
-Plug 'fatih/vim-go', { 'on_ft': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
 
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
