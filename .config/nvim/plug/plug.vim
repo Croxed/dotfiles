@@ -62,7 +62,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
 
 " Git
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
+"Plug 'mhinz/vim-signify'
 " Indent
 Plug 'Yggdroot/indentLine'
 

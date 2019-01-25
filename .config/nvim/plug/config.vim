@@ -13,11 +13,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" misc {{{
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_auto_colors=1
-" }}}
-
 " lightline.vim {{{
 let g:lightline = {
             \ 'colorscheme': 'nord',
@@ -106,18 +101,6 @@ function! LightLineCapslock()
     return ''
 endfunction
 
-function! LightLineAle()
-    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*ale#statusline#Count")
-        return ale#statusline#Count()
-    endif
-    return ''
-endfunction
-
-augroup UpdateAleLightLine
-    autocmd!
-    autocmd User ALELint call lightline#update()
-augroup END
-
 function! MyBufferline()
     call bufferline#refresh_status()
     let b = g:bufferline_status_info.before
@@ -156,12 +139,8 @@ let g:lightline.mode_map = {
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
 let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
-set omnifunc=syntaxcomplete#Complete
-let g:deoplete#sources#jedi#python_path = $PYTHON3_PATH 
-let g:ale_sign_column_always = 1
-" deoplete.nvim recommend
-set completeopt+=noselect
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+set omnifunc=syntaxcomplete#Complete 
+
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "}}}
 
@@ -180,20 +159,6 @@ autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 
 " }}}
 
-" ale.vim {{{
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_fixers = {
-            \    'sh': ['language_server'],
-            \    'python': [ 'autopep8','isort', 'yapf' ],
-            \    'java': [ 'javac' ],
-            \}
-"}}}
-
 " nord-vim {{{
 let g:nord_italic_comments = 1
 let g:nord_uniform_status_lines = 1
@@ -201,10 +166,6 @@ let g:nord_uniform_diff_background = 1
 let g:nord_comment_brightness = 18
 let g:nord_cursor_line_number_background = 1
 
-" }}}
-
-" rust {{{
-let g:rustfmt_autosave = 1
 " }}}
 
 " UltiSnips {{{
@@ -264,6 +225,12 @@ let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" }}}
+
+" vim-gitgutter {{{
+let g:gitgutter_grep = 'rg'
+let g:gitgutter_highlight_lines = 1
 
 " }}}
 
