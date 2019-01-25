@@ -37,7 +37,10 @@ endif
 Plug 'mhinz/vim-startify'
 Plug 'wsdjeg/FlyGrep.vim'
 
+" Git"
 Plug 'tpope/vim-fugitive'
+Plug 'sodapopcan/vim-twiggy'
+
 " Editor
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
