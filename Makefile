@@ -39,6 +39,7 @@ install: update deploy init ## Run make update, deploy, init
 clean: ## Remove the dot files and this repo
 	@echo 'Remove dot files in your home directory...'
 	@-$(foreach val, $(DOTFILES), rm -vrf $(HOME)/$(val);)
+	@-$(foreach val, $(CONFIGDOTS), rm -vrf $(HOME)/$(val);)
 	-rm -rf $(DOTPATH)
 
 help: ## Self-documented Makefile

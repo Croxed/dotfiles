@@ -34,19 +34,19 @@ path_candidate=(
     "/opt/local/bin"
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
-    "~/.cabal/bin"
-    "~/.rbenv/bin"
-    "~/.bin"
+    "$HOME/.cabal/bin"
+    "$HOME/.rbenv/bin"
+    "$HOME/.bin"
     "$HOME/.fzf/bin"
     "$HOME/.pyenv/bin"
     "$GOPATH/bin"
     "$GOROOT/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
-    "~/.cargo/bin"
-    "~/bin.local"
-    "~/scripts"
-    "~/.nexustools"
-    "~/src/gocode/bin"
+    "$HOME/.cargo/bin"
+    "$HOME/bin.local"
+    "$HOME/scripts"
+    "$HOME/.nexustools"
+    "$HOME/src/gocode/bin"
     "/usr/local/CrossPack-AVR/bin"
     "/usr/local/texlive/2016/bin/x86_64-darwin"
     )
@@ -89,3 +89,5 @@ export SAVEHIST=10000
 # then change the prompt used here
 #
 
+
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh

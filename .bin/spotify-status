@@ -2,8 +2,8 @@
 if [ "$(uname)" == "Darwin" ]; then
     spotstatus="$(spotctl status)"
     if [[ "$spotstatus" != *"paused"* ]]; then
-        track="$(spotctl status | grep "Track" | sed 's/Track: //')"
-        artist="$(spotctl status | grep "Artist" | sed 's/Artist: //')"
+        track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
+        artist="$(echo "${spotstatus}"| grep "Artist" | sed 's/Artist: //')"
         printf '▶︎ %s - %s' "$artist" "$track"
     else
         printf '■ %s' "$spotstatus"
@@ -11,8 +11,8 @@ if [ "$(uname)" == "Darwin" ]; then
 else
     spotstatus="$(spotctl status)"
     if [[ "$spotstatus" != *"paused"* ]]; then
-        track="$(spotctl status | grep "Track" | sed 's/Track: //')"
-        artist="$(spotctl status | grep "Artist" | sed 's/Artist: //')"
+        track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
+        artist="$(echo "${spotstatus}"| grep "Artist" | sed 's/Artist: //')"
         printf '▶︎ %s - %s' "$artist" "$track"
     else
         printf '▶︎ %s' "$spotstatus"
