@@ -17,7 +17,7 @@
 let g:lightline = {
             \ 'colorscheme': 'nord',
             \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filename' ], [ 'bufferline' ] ],
+            \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch' ], [ 'filename' ], [ 'bufferline' ] ],
             \   'right': [ [ 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
             \ },
             \ 'component': {
@@ -28,7 +28,7 @@ let g:lightline = {
             \ },
             \ 'component_function': {
             \   'readonly': 'LightLineReadonly',
-            \   'fugitive': 'LightLineFugitive',
+            \   'gitbranch': 'LightLineGitbranch',
             \   'mode': 'LightLineMode',
             \   'bufferline': 'MyBufferline',
             \   'filename': 'LightLineFilename',
@@ -56,9 +56,9 @@ function! LightLineModified()
     return &ft =~ s:except_ft ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
-function! LightLineFugitive()
-    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*fugitive#head")
-        let _ = fugitive#head()
+function! LightLineGitbranch()
+    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*gitbranch#name")
+        let _ = gitbranch#name()
         return strlen(_) ? ' '._ : ''
     endif
     return ''

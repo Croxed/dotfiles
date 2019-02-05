@@ -38,7 +38,8 @@ Plug 'mhinz/vim-startify'
 Plug 'wsdjeg/FlyGrep.vim'
 
 " Git"
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-gitbranch'
 Plug 'sodapopcan/vim-twiggy'
 
 " Editor
