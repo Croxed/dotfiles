@@ -105,6 +105,7 @@ brew "zsh-completions"
 cask "mpv"
 cask "the-unarchiver"
 cask "dteoh/sqa/slowquitapps"
+cask "kitty"
 mas "Airmail 3", id: 918858936
 mas "Amphetamine", id: 937984704
 mas "CotEditor", id: 1024640650
