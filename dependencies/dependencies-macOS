@@ -2,6 +2,8 @@
 
 # Install command-line tools using Homebrew.
 
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 function brew-alloptions () {
     brew install "$1 $(brew options "$1" | grep -E '^--with-' - | tr '\n' ' ')"
 }
@@ -39,6 +41,8 @@ fi
 #brew update
 #brew upgrade --all
 
+cd "$CURRENT_DIR" || exit 1
+
 brew install mas
 
 # Install ALL packages
@@ -58,3 +62,5 @@ sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
 
 # Remove outdated versions from the cellar.
 brew cleanup
+
+cd - || exit 1

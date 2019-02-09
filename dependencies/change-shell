@@ -29,14 +29,14 @@ find_path() {
 
     case "${mgr}" in
     "brew")
+        {
         shell_path="$(brew --prefix)/bin"
-        printf "%s" "$shell_path"
-        return
+        }
         ;;
     *)
+        {
         shell_path="/usr/bin"
-        printf "%s" "$shell_path"
-        return
+        }
         ;;
     esac
 
