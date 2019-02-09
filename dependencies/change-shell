@@ -1,0 +1,93 @@
+#! /usr/bin/env bash
+select_shell() {
+    PS3='Please enter your new shell: '
+    local shells=("bash" "fish" "zsh")
+    select opt in "${shells[@]}"; do
+        printf "%s" "$opt"
+        break
+    done
+}
+
+find_mgr() {
+    local package_managers=("brew" "pacman" "apt" "dnf")
+    for pkg_mgr in "${package_managers[@]}"; do
+        if type "${pkg_mgr}" >/dev/null 2>&1; then
+            printf "%s" "${pkg_mgr}"
+            return 0
+        fi
+    done
+
+    echo "ERROR: no supported package manager was not installed" >&2
+    exit 1
+}
+
+find_path() {
+    local mgr
+    mgr="$(find_mgr)"
+
+    local shell_path
+
+    case "${mgr}" in
+    "brew")
+        shell_path="$(brew --prefix)/bin"
+        printf "%s" "$shell_path"
+        return
+        ;;
+    *)
+        shell_path="/usr/bin"
+        printf "%s" "$shell_path"
+        return
+        ;;
+    esac
+
+    printf "%s" "$shell_path"
+}
+
+install_with_mgr() {
+    local mgr
+    mgr="$(find_mgr)"
+
+    case "${mgr}" in
+    "brew")
+        brew install "$1" >/dev/null
+        return
+        ;;
+    "pacman")
+        sudo pacman -S "$1" >/dev/null
+        return
+        ;;
+    "apt")
+        sudo apt install "$1" >/dev/null
+        return
+        ;;
+    "yum")
+        sudo yum install "$1" >/dev/null
+        return
+        ;;
+    *)
+        echo "ERROR: ${mgr} is not supported" >&2
+        exit 1
+        ;;
+    esac
+}
+
+install_shell() {
+    local shell_path
+    shell_path="$(find_path)/$1"
+
+    if [ ! -f "${shell_path}" ]; then
+        install_with_mgr "$1"
+    fi
+    printf "%s" "$shell_path"
+}
+
+change_shell() {
+    local shell
+    shell="$(install_shell "$1")"
+
+    echo "Changing shell for user $USER to ${shell}"
+    grep "$shell" /etc/shells >/dev/null || echo "$shell" | sudo tee -a /etc/shells
+    chsh -s "$shell" "$USER"
+}
+
+change_shell "$(select_shell)"
