@@ -1,20 +1,50 @@
 #!/usr/bin/env bash
-info () {
-    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+info() {
+  printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"
 }
 
-user () {
-    printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+user() {
+  printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
 }
 
-success () {
-    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+success() {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
 }
 
-fail () {
-    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-    echo ''
-    exit
+fail() {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n" "$1"
+  echo ''
+  exit
+}
+
+# Verifiy if we're on bash 4 or greater
+bash_compatible()
+{
+  if [ "${BASH_VERSINFO[0]}" -lt 4 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Fetches all dependencies from Pacfile and expands them, separating by space
+get_dependencies()
+{
+  if [ -f "${DIR}/Pacfile" ]; then
+    local file_data
+    if bash_compatible; then
+        IFS=$' ' read -d "" -ra file_data < "${DIR}/Pacfile"
+    else
+      mapfile -t file_data < "${DIR}/Pacfile"
+    fi
+    printf "%s " "${file_data[@]}"
+  else
+    printf "%s" "Could not find Pacfile in ${DIR}..."
+    exit 1
+  fi
 }
 
 info "Installing prerequisites..."
@@ -25,104 +55,18 @@ info "Checking for system updates..."
 sudo pacman -Syu
 
 # Create a tmp-working-dir an navigate into it
-mkdir -p /tmp/yay_install
-cd /tmp/yay_install
+cd "$(mktempd)" || exit 1
 
 # Install "yay" from AUR
 info "Installing yay"
-curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin
+curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin"
 makepkg PKGBUILD
 sudo pacman -U yay*.tar.xz --noconfirm
 
-# Clean up...
-cd ~
-rm -r /tmp/yay_install
+# Return to latest dir
+cd - || exit 1
 
-info "Installing terminal packages..."
-yay --noconfirm -S \
-  rxvt-unicode-256xresources \
-  zsh
-
-info "Installing window manager..."
-yay --noconfirm -S \
-  xcb-util-keysyms \
-  xcb-util-wm \
-  xcb-util-cursor \
-  startup-notification \
-  libev \
-  i3-gaps \
-  i3lock \
-  xedgewarp-git \
-  unclutter-xfixes-git \
-  polybar-git \
-  i3blocks-gaps-git
-
-info "Installing tools..."
-yay --noconfirm -S \
-  thunar \
-  feh \
-  acpi \
-  compton \
-  xdotool \
-  pulseaudio-ctl \
-  pavucontrol \
-  network-manager-applet \
-  networkmanager-openvpn \
-  imagemagick \
-  dunst \
-  python \
-  python-pip \
-  python2-pip \
-  compton-git \
-  ttf-font-awesome \
-  ohsnap \
-  ttf-hack \
-  powerline-fonts-git \
-  weechat \
-  thunar-archive-plugin \
-  file-roller \
-  tumbler \
-  eog \
-  tk \
-  spotify \
-  evince \
-  rofi \
-  libmtp \
-  gvfs-mtp \
-  xtitle-git \
-  openssh \
-  arandr \
-  xclip \
-  youtube-dl \
-  slop \
-  maim \
-  neofetch-git \
-  w3m \
-  htop \
-  bluez \
-  bluez-utils \
-  pulseaudio-bluetooth \
-  blueman \
-  redshift \
-  firefox \
-  lm_sensors \
-  atool \
-  bzip2 \
-  cpio \
-  gzip \
-  lha \
-  lzop \
-  p7zip \
-  tar \
-  unace \
-  unrar \
-  unzip \
-  xz \
-  zip \
-  neovim-git \
-  python-neovim \
-  tmux \
-  wal-git \
-  i3lock-fancy-git
+info "Installing depedencies ..."
+yay --noconfirm -S "$(get_dependencies)"
 
 success "Done installing packages"

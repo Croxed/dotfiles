@@ -35,11 +35,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 if ! type -p brew > /dev/null ; then
     # Install Homebrew
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    # Update homebrew.
+    brew update
 fi
-
-# Update and upgrade homebrew.
-#brew update
-#brew upgrade --all
 
 cd "$CURRENT_DIR" || exit 1
 
@@ -51,14 +50,11 @@ brew bundle
 
 info "Installing python packages"
 pip3 install neovim\
-    jedi \
-    mistune \
-    psutil \
-    setproctitle
-
-pip2 install neovim
-# Linking gsha256sum to sha256sum
-sudo ln -s /usr/local/bin/gsha256sum /usr/local/bin/sha256sum
+pynvim \
+jedi \
+mistune \
+psutil \
+setproctitle
 
 # Remove outdated versions from the cellar.
 brew cleanup

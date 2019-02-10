@@ -36,43 +36,52 @@ ask() {
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-CURRENT_OS="MACOS" #CENTOS, UBUNUTU are other valid options
-function findCurrentOSType()
+function find_current_os_type()
 {
-    osType=$(uname)
-    case "$osType" in
+    os_type=$(uname)
+    case "$os_type" in
             "Darwin")
             {
-                echo "Running on Mac OSX."
-                CURRENT_OS="macOS"
+                : "macOS"
             } ;;
             "Linux")
             {
-                if command -v apt; then
-                    CURRENT_OS="Ubuntu"
-                elif command -v pacman; then
-                    CURRENT_OS="Arch"
+                if type -p apt; then
+                    : "Ubuntu"
+                elif type -p pacman; then
+                    : "Arch"
                 else
-                    echo "Unsupported OS, exiting"
-                    exit
+                    printf "%s\n" "Unsupported OS, exiting"
+                    exit 1
                 fi
             } ;;
             *)
             {
-                echo "Unsupported OS, exiting"
-                exit
+                prints "%s\n" "Unsupported OS, exiting"
+                exit 1
             } ;;
     esac
+
+    printf "%s" "$_"
 }
 
-findCurrentOSType
-if [[ "$CURRENT_OS" == "macOS" ]] && [[ -f "$CURRENT_DIR/dependencies-macOS" ]]; then
-  ask "Do you want to install dependencies?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
-  ask "Do you want to install sensible defaults?" Y && bash "$CURRENT_DIR"/macos
-  ask "Do you want to install QuickLook plugins?" Y && bash "$CURRENT_DIR"/qlInstall
-elif [[ -f "$CURRENT_DIR"/dependencies-"$CURRENT_OS" ]]; then
-  ask "Do you want to install dependencies for $CURRENT_OS?" Y && bash "$CURRENT_DIR"/dependencies-"$CURRENT_OS"
-else
-  printf "%s not supported for dependencies." "$CURRENT_OS"
-  exit 1
-fi
+install_for_os()
+{
+  current_os="$(find_current_os_type)"
+  printf "%s\n" "Trying install for ${current_os}"
+  if [[ "$current_os" == "macOS" ]] && [[ -f "$CURRENT_DIR/dependencies-macOS" ]]; then
+    ask "Do you want to install dependencies?" Y && bash "$CURRENT_DIR"/dependencies-"$current_os"
+    ask "Do you want to install sensible defaults?" Y && bash "$CURRENT_DIR"/macos
+    ask "Do you want to install QuickLook plugins?" Y && bash "$CURRENT_DIR"/qlInstall
+  elif [[ -f "$CURRENT_DIR"/dependencies-"$current_os" ]]; then
+    ask "Do you want to install dependencies for $current_os?" Y && bash "$CURRENT_DIR"/dependencies-"$current_os"
+  else
+    printf "%s not supported for dependencies." "$current_os"
+    exit 1
+  fi
+}
+
+install_for_os
+
+# Change your shell
+bash "${CURRENT_DIR}/change-shell"

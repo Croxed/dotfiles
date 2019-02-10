@@ -11,13 +11,13 @@ select_shell() {
 find_mgr() {
     local package_managers=("brew" "pacman" "apt" "dnf")
     for pkg_mgr in "${package_managers[@]}"; do
-        if type "${pkg_mgr}" >/dev/null 2>&1; then
+        if type -p "${pkg_mgr}" >/dev/null 2>&1; then
             printf "%s" "${pkg_mgr}"
             return 0
         fi
     done
 
-    echo "ERROR: no supported package manager was not installed" >&2
+    printf "%s\n" "ERROR: no supported package manager was not installed" >&2
     exit 1
 }
 
@@ -25,22 +25,16 @@ find_path() {
     local mgr
     mgr="$(find_mgr)"
 
-    local shell_path
-
     case "${mgr}" in
     "brew")
-        {
-        shell_path="$(brew --prefix)/bin"
-        }
+        : "$(brew --prefix)/bin"
         ;;
     *)
-        {
-        shell_path="/usr/bin"
-        }
+        : "/usr/bin"
         ;;
     esac
 
-    printf "%s" "$shell_path"
+    printf "%s" "$_"
 }
 
 install_with_mgr() {
@@ -49,26 +43,25 @@ install_with_mgr() {
 
     case "${mgr}" in
     "brew")
-        brew install "$1" >/dev/null
-        return
+        : "brew install"
         ;;
     "pacman")
-        sudo pacman -S "$1" >/dev/null
-        return
+        : "sudo pacman -S"
         ;;
     "apt")
-        sudo apt install "$1" >/dev/null
-        return
+        : "sudo apt install"
         ;;
     "yum")
-        sudo yum install "$1" >/dev/null
-        return
+        : "sudo yum install"
         ;;
     *)
-        echo "ERROR: ${mgr} is not supported" >&2
+        printf "%s\n" "ERROR: ${mgr} is not supported" >&2
         exit 1
         ;;
     esac
+
+    # Install shell with correct install command
+    "$_" "$1" >/dev/null 2>&1
 }
 
 install_shell() {
@@ -82,12 +75,12 @@ install_shell() {
 }
 
 change_shell() {
-    local shell
-    shell="$(install_shell "$1")"
+    local your_shell
+    your_shell="$(install_shell "$1")"
 
-    echo "Changing shell for user $USER to ${shell}"
-    grep "$shell" /etc/shells >/dev/null || echo "$shell" | sudo tee -a /etc/shells
-    chsh -s "$shell" "$USER"
+    printf "%s\n" "Changing shell for user $USER to ${your_shell}"
+    grep "$your_shell" /etc/shells >/dev/null || printf "%s" "$your_shell" | sudo tee -a /etc/shells
+    chsh -s "$your_shell" "$USER"
 }
 
 change_shell "$(select_shell)"
