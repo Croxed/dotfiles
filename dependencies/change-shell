@@ -80,6 +80,7 @@ change_shell() {
 
     printf "%s\n" "Changing shell for user $USER to ${your_shell}"
     grep "$your_shell" /etc/shells >/dev/null || printf "%s" "$your_shell" | sudo tee -a /etc/shells
+    printf "\n"
     chsh -s "$your_shell" "$USER"
 }
 

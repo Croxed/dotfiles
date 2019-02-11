@@ -15,7 +15,7 @@
 SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 
 # use ~/.cache history location when not root
-[[ $(whoami) == 'root' ]] || HISTFILE=~/.cache/.zsh_history
+[[ "$EUID" -eq 0 ]] || HISTFILE=~/.cache/.zsh_history
 
 # reduce system calls for timezone
 typeset -gx TZ=:/etc/localtime
@@ -88,6 +88,5 @@ export SAVEHIST=10000
 #
 # then change the prompt used here
 #
-
 
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh

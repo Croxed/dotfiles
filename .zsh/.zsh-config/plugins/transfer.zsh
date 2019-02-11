@@ -5,8 +5,7 @@
 #   Remco Verhoef <remco@dutchcoders.io>
 #
 
-curl --version 2>&1 > /dev/null
-if [ $? -ne 0 ]; then
+if ! type -p curl > /dev/null 2>&1; then
   echo "Could not find curl."
   return 1
 fi

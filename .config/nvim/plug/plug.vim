@@ -43,7 +43,7 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'sodapopcan/vim-twiggy'
 
 " Editor
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'

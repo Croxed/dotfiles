@@ -2,7 +2,7 @@
 
 alias q='exit 0'
 
-if hash gls >/dev/null 2>&1; then
+if type -p gls >/dev/null 2>&1; then
     ## Use a long listing format ##
     alias ll='gls -lah --color=auto'
     alias ls='gls -Ah --color=auto'
@@ -26,7 +26,7 @@ alias x='chmod +x'
 alias du='du -kh'
 alias df='df -kTh'
 
-if hash nvim >/dev/null 2>&1; then
+if type -p nvim >/dev/null 2>&1; then
     alias vim='nvim'
     alias v='nvim'
     alias sv='sudo nvim'
@@ -76,7 +76,7 @@ alias df='df -H'
 alias du='du -ch'
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -P'
 
-if hash pacman >/dev/null 2>&1; then
+if type -p pacman >/dev/null 2>&1; then
     # pacman stuff
     alias pup='sudo pacman -Syyu' # update
     alias pin='sudo pacman -S'    # install
@@ -87,7 +87,7 @@ if hash pacman >/dev/null 2>&1; then
     # pkg stuff
     alias pkg='makepkg --printsrcinfo > .SRCINFO && makepkg -fsrc'
     alias spkg='pkg --sign'
-elif hash brew >/dev/null 2>&1; then
+elif type -p brew >/dev/null 2>&1; then
     # homebrew stuff
     alias brews='brew list -1'
     alias bubo='brew update && brew outdated'
@@ -121,7 +121,7 @@ alias timer='time read -p "Press enter to stop"'
 alias xp='xprop | awk -F\"'" '/CLASS/ {printf \"NAME = %s\nCLASS = %s\n\", \$2, \$4}'"
 alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
 
-if [ "$(uname)" = "Darwin" ]; then
+if [[ "$OSTYPE" == darwin* ]]; then
     # Flush the dns cache #
     alias flushdns='sudo killall -HUP mDNSResponder'
 
