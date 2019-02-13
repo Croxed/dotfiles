@@ -10,13 +10,11 @@ setopt always_to_end
 setopt complete_in_word
 setopt auto_param_slash
 
-# setup LS_COLORS
-eval "$(dircolors -b)"
 
 COMPDUMPFILE="${ZDOTDIR:-$HOME}/.zcompdump"
 COMPCACHEPATH="${ZDOTDIR:-$HOME}"
 
-autoload -U compinit && compinit -u -d "${COMPDUMPFILE}"  # allow insecure completions
+autoload compinit && compinit -u -d "${COMPDUMPFILE}"  # allow insecure completions
 
 # completion settings and style
 
