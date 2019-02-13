@@ -1,3 +1,4 @@
+#! /bin/zsh
 ## ZPLUGIN
 export ZPLG_HOME="${ZDOTDIR:-$HOME}/.zplugin"
 [[ -d ${ZDOTDIR:-$HOME}/.zplugin ]] ||(

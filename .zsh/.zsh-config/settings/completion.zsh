@@ -10,11 +10,20 @@ setopt always_to_end
 setopt complete_in_word
 setopt auto_param_slash
 
-
 COMPDUMPFILE="${ZDOTDIR:-$HOME}/.zcompdump"
 COMPCACHEPATH="${ZDOTDIR:-$HOME}"
 
-autoload compinit && compinit -u -d "${COMPDUMPFILE}"  # allow insecure completions
+autoload compinit
+
+# If
+local -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+if [ $(date +'%j') != $updated_at ]; then
+  compinit -u -d "${COMPDUMPFILE}"
+else
+  compinit -C -u
+fi
+
+#autoload compinit && compinit -u -d "${COMPDUMPFILE}"  # allow insecure completions
 
 # completion settings and style
 

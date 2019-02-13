@@ -102,5 +102,18 @@ EOF
 }
 alias keep='noglob keep'
 
+# This was written entirely by Mikael Magnusson (Mikachu)
+# Basically type '...' to get '../..' with successive .'s adding /..
+function rationalise-dot {
+    local MATCH # keep the regex match from leaking to the environment
+    if [[ $LBUFFER =~ '(^|/| |      |'$'\n''|\||;|&)\.\.$' ]]; then
+      LBUFFER+=/
+      zle self-insert
+      zle self-insert
+    else
+      zle self-insert
+    fi
+}
+
 # see http://zsh.sourceforge.net/Doc/Release/Shell-Builtin-Commands.html#index-tty_002c-freezing
 ttyctl -f

@@ -47,6 +47,7 @@ zle -N zle-keymap-select
 zle -N edit-command-line
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+zle -N rationalise-dot
 
 # use vi-mode
 bindkey -v
@@ -84,5 +85,10 @@ bindkey '^[^M' self-insert-unmeta
 bindkey -M viins " " globalias
 bindkey -M viins "^ " magic-space
 bindkey -M isearch " " magic-space
+
+# Expands ... to ../..
+bindkey . rationalise-dot
+# without this, typing a . aborts incremental history search
+bindkey -M isearch . self-insert
 
 export KEYTIMEOUT=1
