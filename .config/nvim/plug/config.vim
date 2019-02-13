@@ -230,7 +230,7 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 " vim-gitgutter {{{
 let g:gitgutter_grep = 'rg'
-let g:gitgutter_highlight_lines = 1
+let g:gitgutter_highlight_lines = 0
 
 " }}}
 
