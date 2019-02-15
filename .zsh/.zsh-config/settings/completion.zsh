@@ -15,12 +15,12 @@ COMPCACHEPATH="${ZDOTDIR:-$HOME}"
 
 autoload compinit
 
-# If
-local -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+local updated_at="$(date +'%j' -r ${COMPDUMPFILE} 2>/dev/null)"
 if [ $(date +'%j') != $updated_at ]; then
-  compinit -u -d "${COMPDUMPFILE}"
+    rm -f "${COMPDUMPFILE}"
+    compinit -u -d "${COMPDUMPFILE}"
 else
-  compinit -C -u
+    compinit -C -u
 fi
 
 #autoload compinit && compinit -u -d "${COMPDUMPFILE}"  # allow insecure completions
