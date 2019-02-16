@@ -69,15 +69,17 @@ install_for_os()
 {
   current_os="$(find_current_os_type)"
   printf "%s\n" "Trying install for ${current_os}"
-  if [[ "$current_os" == "macOS" ]] && [[ -f "$CURRENT_DIR/dependencies-macOS" ]]; then
-    ask "Do you want to install dependencies?" Y && bash "$CURRENT_DIR"/dependencies-"$current_os"
-    ask "Do you want to install sensible defaults?" Y && bash "$CURRENT_DIR"/macos
-    ask "Do you want to install QuickLook plugins?" Y && bash "$CURRENT_DIR"/qlInstall
-  elif [[ -f "$CURRENT_DIR"/dependencies-"$current_os" ]]; then
-    ask "Do you want to install dependencies for $current_os?" Y && bash "$CURRENT_DIR"/dependencies-"$current_os"
+
+  if [[ -f "${CURRENT_DIR}/dependencies-${current_os}" ]]; then
+    ask "Do you want to install dependencies for ${current_os}?" Y && bash "${CURRENT_DIR}(dependencies-${current_os}"
   else
-    printf "%s not supported for dependencies." "$current_os"
+    printf "%s not supported for dependencies." "${current_os}"
     exit 1
+  fi
+
+  if [[ "${current_os}" == "macOS" ]]; then
+    ask "Do you want to install sensible defaults?" Y && bash "${CURRENT_DIR}/macos"
+    ask "Do you want to install QuickLook plugins?" Y && bash  "${CURRENT_DIR}/qlInstall"
   fi
 }
 

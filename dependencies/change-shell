@@ -1,10 +1,22 @@
 #! /usr/bin/env bash
+
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
 select_shell() {
     PS3='Please enter your new shell: '
     local shells=("bash" "fish" "zsh")
     select opt in "${shells[@]}"; do
-        printf "%s" "$opt"
-        break
+        if containsElement "${opt}" "${shells[@]}"; then
+            printf "%s" "$opt"
+            break
+        else
+            continue
+        fi
     done
 }
 
@@ -78,7 +90,7 @@ change_shell() {
     local your_shell
     your_shell="$(install_shell "$1")"
 
-    printf "%s\n" "Changing shell for user $USER to ${your_shell}"
+    printf "%s\n" "Your shell will be set to ${your_shell}"
     grep "$your_shell" /etc/shells >/dev/null || printf "%s" "$your_shell" | sudo tee -a /etc/shells
     printf "\n"
     chsh -s "$your_shell" "$USER"
