@@ -50,7 +50,7 @@ zle -N down-line-or-beginning-search
 zle -N rationalise-dot
 
 # use vi-mode
-bindkey -v
+#bindkey -v
 
 # allow v to edit the command line (standard behaviour)
 autoload -Uz edit-command-line

@@ -58,9 +58,7 @@ alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 
 alias c="clear && printf '\e[3J'"
 
-if [ $UID -ne 0 ]; then
-    alias reboot='sudo reboot'
-fi
+[[ "$EUID" -eq 0 ]] && alias reboot='sudo reboot'
 
 # Useful tree aliases
 alias tree1='tree --dirsfirst -ChFL 1'
@@ -100,7 +98,7 @@ alias smk='sudo make clean install && make clean'
 alias ssmk='sudo make clean install && make clean && rm -iv config.h'
 
 # aliases inside tmux session
-if [[ $TERM == *tmux* ]]; then
+if [[ ! -z "$TMUX" ]]; then
     alias :sp='tmux split-window'
     alias :vs='tmux split-window -h'
 fi
