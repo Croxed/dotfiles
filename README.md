@@ -18,7 +18,6 @@ macOS uses [homebrew](http://brew.sh) to install packages.
 Might implement flag to use and install [MacPorts](https://www.macports.org) instead later on.
 
 * [Arch Linux](http://archlinux.org/)
-* [Ubuntu](http://www.ubuntu.com)
 * [macOS](http://www.apple.com/se/macos)
 
 If your OS is not yet implemented, please do a PR.
