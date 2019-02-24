@@ -190,7 +190,7 @@ mp()
 
 pp()
 {
-    mp f | awk '!/awk/ && $0~var' var=${1:-".*"}
+    mp "-f" | awk '!/awk/ && $0~var' var=${1:-".*"}
 }
 
 ff()
@@ -251,7 +251,7 @@ fstr()
     esac done
     shift $((OPTIND - 1))
     [[ $# -lt 1 ]] && printf "fstr: find string in files.\n%s" "$usage"
-    find . -type f -name "${2:-*}" -print 0 | xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
+    find . -type f -name "${2:-*}" -print0 | xargs -0 egrep --color=always -sn ${case} "$1" 2>&- | more
 }
 
 swap()
@@ -466,15 +466,16 @@ genecho()
 }
 
 # just type '...' to get '../..'
-rationalise-dot() {
-local MATCH
-if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
-  LBUFFER+=/
-  zle self-insert
-  zle self-insert
-else
-  zle self-insert
-fi
+rationalise-dot() 
+{
+    local MATCH
+    if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
+        LBUFFER+=/
+        zle self-insert
+        zle self-insert
+    else
+        zle self-insert
+    fi
 }
 zle -N rationalise-dot
 bindkey . rationalise-dot
