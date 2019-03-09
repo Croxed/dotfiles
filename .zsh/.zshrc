@@ -47,6 +47,8 @@ path_candidate=(
     "$HOME/scripts"
     "$HOME/.nexustools"
     "$HOME/src/gocode/bin"
+    "$HOME/.yarn/bin"
+    "$HOME/.config/yarn/global/node_modules/.bin"
     )
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'

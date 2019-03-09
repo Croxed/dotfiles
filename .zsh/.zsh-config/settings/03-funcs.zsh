@@ -465,6 +465,15 @@ genecho()
     } >s2
 }
 
+e()
+{
+    if [ -z "$1" ]; then
+        nvim "$(fzf)"
+    else
+        nvim "$1"
+    fi
+}
+
 # just type '...' to get '../..'
 rationalise-dot() 
 {
