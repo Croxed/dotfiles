@@ -16,7 +16,7 @@ COMPCACHEPATH="${ZDOTDIR:-$HOME}"
 autoload compinit
 
 local updated_at="$(date +'%j' -r ${COMPDUMPFILE} 2>/dev/null)"
-if [ $(date +'%j') != $updated_at ]; then
+if [ $(date +'%j') != $updated_at ] || [ ! -f "${COMPDUMPFILE}" ]; then
     rm -f "${COMPDUMPFILE}"
     compinit -u -d "${COMPDUMPFILE}"
 else
