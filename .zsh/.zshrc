@@ -49,6 +49,7 @@ path_candidate=(
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
+    "$HOME/Library/Python/3.7/bin"
     )
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'
