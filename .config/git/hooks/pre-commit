@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+contains_element () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
+REMOTE_URL="$(git config --get remote.origin.url)"
+
+if [ -z "$PROTECTED_BRANCHES" ]; then
+    PROTECTED_BRANCHES=(master develop release)
+fi
+
+if [ -n "${PROTECTED_URL}" ]; then
+    grep "${PROTECTED_URL}" <<< "${REMOTE_URL}" 2>&1 > /dev/null
+    ON_RESTRICTED_URL="$?"
+fi
+
+CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+
+RESTRICTED_URL="${ON_RESTRICTED_URL:-1}"
+
+if contains_element "${CURRENT_BRANCH}" "${PROTECTED_BRANCHES[@]}" && [ "${RESTRICTED_URL}" -eq 0 ]; then
+    printf 'You are on a protected branch (%s). No commits allowed\n' "${CURRENT_BRANCH}" >&2
+    exit 1
+fi

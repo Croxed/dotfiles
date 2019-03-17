@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+array_contains () {
+    local seeking=$1; shift
+    local in=1
+    for element; do
+        if [ "$element" == "$seeking" ]; then
+            in=0
+            break
+        fi
+    done
+    return $in
+}
+
+# This way you can customize which branches should be skipped when
+# prepending commit message. 
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+  BRANCHES_TO_SKIP=(master release develop test)
+fi
+
+if [ -z "$PROTECTED_BRANCHES" ]; then
+    PROTECTED_BRANCHES=(master develop release)
+fi
+CURRENT_BRANCH="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+
+printf '%s' "${CURRENT_BRANCH}" >&2
+if [ "$(array_contains "${CURRENT_BRANCH}" "${PROTECTED_BRANCHES[@]}")" ]; then
+    printf 'You are on a protected branch (%s). No commits allowed\n' "${CURRENT_BRANCH}"
+    exit 1
+fi
+
+BRANCH_NAME="$(sed -E "s/^(([a-z]+\-)?[0-9]+).*/\1/" <<< "${CURRENT_BRANCH}" | tr '[:lower:]' '[:upper:]')"
+BRANCH_NAME="${BRANCH_NAME##*/}"
+
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" "$1")
+
+if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then 
+  sed -i.bak -e "1s/^/$BRANCH_NAME: /" "$1"
+fi
