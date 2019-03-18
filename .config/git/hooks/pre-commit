@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ -f "${HOME}"/.secrets ] && source "${HOME}"/.secrets
+
 contains_element () {
   local e match="$1"
   shift
