@@ -18,18 +18,7 @@ if [ -z "$BRANCHES_TO_SKIP" ]; then
   BRANCHES_TO_SKIP=(master release develop test)
 fi
 
-if [ -z "$PROTECTED_BRANCHES" ]; then
-    PROTECTED_BRANCHES=(master develop release)
-fi
-CURRENT_BRANCH="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-
-printf '%s' "${CURRENT_BRANCH}" >&2
-if [ "$(array_contains "${CURRENT_BRANCH}" "${PROTECTED_BRANCHES[@]}")" ]; then
-    printf 'You are on a protected branch (%s). No commits allowed\n' "${CURRENT_BRANCH}"
-    exit 1
-fi
-
-BRANCH_NAME="$(sed -E "s/^(([a-z]+\-)?[0-9]+).*/\1/" <<< "${CURRENT_BRANCH}" | tr '[:lower:]' '[:upper:]')"
+BRANCH_NAME="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -E "s/^(([a-z]+\-)?[0-9]+).*/\1/" | tr '[:lower:]' '[:upper:]')"
 BRANCH_NAME="${BRANCH_NAME##*/}"
 
 BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
