@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
-
-array_contains () {
-    local seeking=$1; shift
-    local in=1
-    for element; do
-        if [ "$element" == "$seeking" ]; then
-            in=0
-            break
-        fi
-    done
-    return $in
-}
-
 # This way you can customize which branches should be skipped when
 # prepending commit message. 
 if [ -z "$BRANCHES_TO_SKIP" ]; then
@@ -21,7 +8,7 @@ fi
 BRANCH_NAME="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -E "s/^(([a-z]+\-)?[0-9]+).*/\1/" | tr '[:lower:]' '[:upper:]')"
 BRANCH_NAME="${BRANCH_NAME##*/}"
 
-BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -ic "^$BRANCH_NAME$")
 BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" "$1")
 
 if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then 
