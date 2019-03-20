@@ -16,16 +16,16 @@ autoload -Uz _zplugin
 
 ## zplugin start
 
-zplugin load zdharma/history-search-multi-word
-
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light zdharma/fast-syntax-highlighting
-zplugin light zsh-users/zsh-completions
-zplugin light willghatch/zsh-saneopt
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
-zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
-zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+zplugin ice wait'0' silent; zplugin load zdharma/history-search-multi-word
 
+zplugin ice wait'0' silent; zplugin light zsh-users/zsh-autosuggestions
+zplugin ice wait'0' silent; zplugin light zsh-users/zsh-history-substring-search
+zplugin ice wait'0' silent; zplugin light zsh-users/zsh-completions
+# Load syntax last
+zplugin ice wait'0' silent; zplugin light willghatch/zsh-saneopt
+zplugin ice wait'0' silent; zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zplugin ice wait'0' silent; zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
+zplugin ice wait'0' silent; zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
+zplugin ice wait'0' silent atinit'zpcompinit; zpcdreplay'; zplugin light zdharma/fast-syntax-highlighting
 ## zplugin end
