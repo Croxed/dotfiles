@@ -16,7 +16,7 @@ if [ -z "$PROTECTED_BRANCHES" ]; then
 fi
 
 if [ -n "${PROTECTED_URL}" ]; then
-    grep "${PROTECTED_URL}" <<< "${REMOTE_URL}" 2>&1 > /dev/null
+    grep -E "${PROTECTED_URL}" <<< "${REMOTE_URL}" 2>&1 > /dev/null
     ON_RESTRICTED_URL="$?"
 fi
 
