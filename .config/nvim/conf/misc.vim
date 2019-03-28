@@ -51,4 +51,7 @@ endif
 
 " java completions
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" max line width for git commit messages
+au FileType gitcommit set tw=72
 "}}}
