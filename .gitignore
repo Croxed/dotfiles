@@ -4,6 +4,8 @@
 *.pyc
 
 .zsh/*
+!.zsh/.zshrc
+!.zsh/.zsh-config
 !.zsh/zshrc.d
 
 .config/*
@@ -18,9 +20,9 @@
 !.config/polybar
 !.config/termite
 !.config/wallpapers
-!.config/nvim/colors
-!.config/nvim/init.vim
-.config/nvim/autoload
+!.config/nvim/
+.config/nvim/spell
+.config/nvim/.netrwhist
 !.config/fish/aliases.fish
 !.config/fish/config.fish
 !.config/fish/fishfile
