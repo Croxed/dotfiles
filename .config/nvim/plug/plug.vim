@@ -96,6 +96,9 @@ Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
 Plug 'neomake/neomake'
 " Plug 'desmap/ale-sensible' | Plug 'w0rp/ale'
 
+" Fold faster, work harder
+Plug 'Konfekt/FastFold'
+
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
