@@ -496,3 +496,8 @@ function ppgrep()
 { 
     pgrep "$@" | xargs ps -f -p
 }
+
+# Change wallpaper on macOS
+function wallpaper() {
+    sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$1'" && killall Dock 
+}
