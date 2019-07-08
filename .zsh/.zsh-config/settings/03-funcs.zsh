@@ -501,3 +501,19 @@ function ppgrep()
 function wallpaper() {
     sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$1'" && killall Dock 
 }
+
+
+docker-ssh () 
+{
+    if [ -z "$1" ]; then
+        echo "No container specified"
+    fi
+    # Get containerID from an active container
+    containerid=$(docker ps -f "name=$1" | awk 'END { print $1 }')
+    if [ -z "$containerid" ]; then
+        echo "Container not found"
+    fi
+
+    # SSH into given container
+    docker exec -i -t "$containerid" /bin/bash
+}
