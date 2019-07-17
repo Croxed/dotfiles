@@ -16,7 +16,7 @@ autoload -Uz _zplugin
 
 ## zplugin start
 
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+zplugin load romkatv/powerlevel10k
 zplugin ice wait'0' silent; zplugin load zdharma/history-search-multi-word
 
 zplugin ice wait'0' silent; zplugin light zsh-users/zsh-autosuggestions
