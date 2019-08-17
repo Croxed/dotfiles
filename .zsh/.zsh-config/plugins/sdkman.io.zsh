@@ -2,7 +2,9 @@
 
 [ ! -d "$HOME/.sdkman" ] && {
     printf 'Installing sdkman\n'
-    (curl -s "https://get.sdkman.io" | bash) &> /dev/null &2>1
+    local tempFile="$(mktemp)"
+    curl -s "https://get.sdkman.io" > "${tempFile}"
+    bash "${tempFile}" > /dev/null 2>&1
     printf 'Installation complete\n'
 }
 
