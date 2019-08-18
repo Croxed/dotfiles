@@ -32,7 +32,7 @@ color15 = #ECEFF4
 
 [options]
 font = Hack 12
-browser = firefox 
+browser = google-chrome 
 clickable_url = false
 dynamic_title = true
 scrollback_lines = 999999

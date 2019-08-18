@@ -22,9 +22,9 @@ set history=500
 " speedup sourcing of python
 let g:loaded_python_provider = 1
 let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/local/bin/python'
+let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
 
 " Enable filetype plugins
 filetype plugin indent on
