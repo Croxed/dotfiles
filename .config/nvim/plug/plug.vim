@@ -35,12 +35,11 @@ if !has('nvim')
 endif
 
 Plug 'mhinz/vim-startify'
-Plug 'wsdjeg/FlyGrep.vim'
 
 " Git"
 " Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
-Plug 'sodapopcan/vim-twiggy'
+" Plug 'sodapopcan/vim-twiggy'
 
 " Editor
 Plug 'machakann/vim-sandwich'
@@ -66,8 +65,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
 
 " Git
-Plug 'airblade/vim-gitgutter'
-"Plug 'mhinz/vim-signify'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 " Indent
 Plug 'Yggdroot/indentLine'
 
@@ -85,7 +84,7 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'scrooloose/nerdtree'
 
 " fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
