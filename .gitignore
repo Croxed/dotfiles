@@ -34,3 +34,7 @@
 !.weechat/weechat.conf
 !.weechat/plugins.conf
 !.weechat/perl/beep.pl
+
+.ncmpcpp/*
+!.ncmpcpp/config
+!.ncmpcpp/bindings
