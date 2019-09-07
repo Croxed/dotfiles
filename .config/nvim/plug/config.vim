@@ -304,4 +304,8 @@ let g:twiggy_local_branch_sort = 'mru'
 let g:twiggy_remote_branch_sort = 'date'
 " }}}""
 
+" nnn {{{
+let g:nnn#layout = { 'left': '~20%' } " or right, up, down
+" }}}
+
 "}}}

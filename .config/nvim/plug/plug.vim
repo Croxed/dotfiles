@@ -52,7 +52,7 @@ else
     Plug 'itchyny/lightline.vim'
 endif
 Plug 'bling/vim-bufferline'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
 Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
@@ -60,7 +60,6 @@ Plug 'Shougo/vimproc.vim', { 'build': 'make' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Chiel92/vim-autoformat'
 " From another .vimrc
-Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
 
@@ -69,6 +68,9 @@ Plug 'xolox/vim-misc'
 Plug 'mhinz/vim-signify'
 " Indent
 Plug 'Yggdroot/indentLine'
+
+" File explorer
+Plug 'mcchrish/nnn.vim'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
