@@ -308,4 +308,8 @@ let g:twiggy_remote_branch_sort = 'date'
 let g:nnn#layout = { 'left': '~20%' } " or right, up, down
 " }}}
 
+" gutentags {{{
+let g:gutentags_cache_dir = expand('~/.cache/tags') 
+" }}}
+
 "}}}

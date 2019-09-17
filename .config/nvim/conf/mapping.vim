@@ -39,6 +39,12 @@ command W w !sudo tee %
 " Open FZF for editing
 map <leader>f :Files<cr>
 
+" Open tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" Go to definition (tags)
+nmap <C-B> g<C-]>
+
 "}}}
 """"""""""""""""""""""""""""""
 " => Visual mode related

@@ -84,6 +84,7 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 " Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
@@ -99,6 +100,7 @@ Plug 'neomake/neomake'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'godlygeek/tabular'
