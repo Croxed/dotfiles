@@ -85,6 +85,8 @@ Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 " Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
+" Nice color preview inline in neovim
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }

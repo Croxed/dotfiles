@@ -312,4 +312,7 @@ let g:nnn#layout = { 'left': '~20%' } " or right, up, down
 let g:gutentags_cache_dir = expand('~/.cache/tags') 
 " }}}
 
+" kexokinase {{{
+let g:Hexokinase_highlighters = [ 'sign_column' ]
+" }}}
 "}}}
