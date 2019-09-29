@@ -167,6 +167,8 @@ let g:nord_uniform_diff_background = 1
 let g:nord_cursor_line_number_background = 1
 
 " }}}
+
+" denite {{{
 " Wrap in try/catch to avoid errors on initial install before plugin is available
 try
 " Use ripgrep for searching current directory for files

@@ -96,9 +96,10 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
 
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+Plug 'davidhalter/jedi-vim', { 'for' : 'python' }
 Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
 Plug 'neomake/neomake'
-" Plug 'desmap/ale-sensible' | Plug 'w0rp/ale'
+Plug 'desmap/ale-sensible' | Plug 'dense-analysis/ale'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
