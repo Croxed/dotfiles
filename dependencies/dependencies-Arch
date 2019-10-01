@@ -71,6 +71,6 @@ fi
 cd - || exit 1
 
 info "Installing depedencies ..."
-#yay --noconfirm -S "$(get_dependencies)"
+yay --noconfirm -S "$(get_dependencies)"
 
 success "Done installing packages"
