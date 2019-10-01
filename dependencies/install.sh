@@ -46,9 +46,9 @@ function find_current_os_type()
             } ;;
             "Linux")
             {
-                if type -p apt; then
+                if type -p apt > /dev/null; then
                     : "Ubuntu"
-                elif type -p pacman; then
+                elif type -p pacman > /dev/null; then
                     : "Arch"
                 else
                     printf "%s\n" "Unsupported OS, exiting"
@@ -69,9 +69,10 @@ install_for_os()
 {
   current_os="$(find_current_os_type)"
   printf "%s\n" "Trying install for ${current_os}"
+  printf "%s\n" "Trying to find ${CURRENT_DIR}/dependencies-${current_os}"
 
   if [[ -f "${CURRENT_DIR}/dependencies-${current_os}" ]]; then
-    ask "Do you want to install dependencies for ${current_os}?" Y && bash "${CURRENT_DIR}(dependencies-${current_os}"
+    ask "Do you want to install dependencies for ${current_os}?" Y && bash "${CURRENT_DIR}/dependencies-${current_os}"
   else
     printf "%s not supported for dependencies." "${current_os}"
     exit 1

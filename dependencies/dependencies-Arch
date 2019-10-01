@@ -58,15 +58,23 @@ sudo pacman -Syu
 cd "$(mktempd)" || exit 1
 
 # Install "yay" from AUR
-info "Installing yay"
-curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin"
-makepkg PKGBUILD
-sudo pacman -U yay*.tar.xz --noconfirm
+#info "Installing yay"
+#curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin"
+#makepkg PKGBUILD
+#sudo pacman -U yay*.tar.xz --noconfirm
 
 # Return to latest dir
 cd - || exit 1
 
 info "Installing depedencies ..."
-yay --noconfirm -S "$(get_dependencies)"
+#yay --noconfirm -S "$(get_dependencies)"
+
+local file_data
+mapfile -t file_data < "${DIR}/Pacfile"
+for dep in "${file_data[@]}"
+do
+	info "Installing $dep"
+	yay --noconfirm -S "$dep" 
+done
 
 success "Done installing packages"

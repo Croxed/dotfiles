@@ -15,7 +15,9 @@ param=("--textcolor=00000000"
 "--ringwrongcolor=f13459ff" 
 "--insidewrongcolor=00000000")
 
-ffmpeg -loglevel quiet -y -s 1920x1080 -f x11grab -i "${DISPLAY}" -vframes 1 -vf "gblur=sigma=16" "$image"
-convert "$image" "$DIR"/overlay.png -gravity center -composite "$image"
+# ffmpeg -loglevel quiet -y -s 1920x1080 -f x11grab -i "${DISPLAY}" -vframes 1 -vf "gblur=sigma=16" "$image"
+# convert "$image" "$DIR"/overlay.png -gravity center -composite "$image"
 
-i3lock "${param[@]}" -i "$image"
+i3lock-fancy "${param[@]}" -i "$image"
+
+betterlockscreen -l dim --off 30

@@ -7,7 +7,7 @@
 !    ██   ░░██░███  ░░██████ ██████ ░░██████ ░░██████░███  ░░█████ ░░██████ ██████
 !   ░░     ░░ ░░░    ░░░░░░ ░░░░░░   ░░░░░░   ░░░░░░ ░░░    ░░░░░   ░░░░░░ ░░░░░░
 
-#include "/home/oscarw/.colors/nord"
+!#include "/home/oscarw/.colors/nord"
 
 Xft.dpi: 96
 Xft.antialias: true

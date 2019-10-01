@@ -126,7 +126,7 @@ case "$1" in
         ;;
         --togmute)
 		volMuteStatus
-                if [ ${curStatus} = 'yes' ]
+                if [ "${curStatus}" = 'yes' ]
 	        then
         	        volMute unmute
 	        else
@@ -145,7 +145,7 @@ case "$1" in
         *)
 		getCurVol
 		volMuteStatus
-                if [ ${curStatus} = 'yes' ]
+                if [ "${curStatus}" = 'yes' ]
                 then
 			echo " $curVol%"
 		else
