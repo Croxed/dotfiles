@@ -286,17 +286,13 @@ assign [class="(?i)eclipse" window_type="normal"] $ws3
 assign [class="(?i)thunderbird"]                  $ws9
 
 # AUTOSTART
-exec_always --no-startup-id wal -i "$(< "${HOME}"/.cache/wal/wal)" -sq
+#exec_always --no-startup-id wal -i "$(< "${HOME}"/.cache/wal/wal)" -sq
 #exec_always --no-startup-id wpg -t & 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec-always --no-startup-id setxkbmap -layout se
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
+exec-always --no-startup-id setxkbmap -layout se &
+exec-always --no-startup-id nitrogen --restore &
 exec --no-startup-id compton -b &
-exec --no-startup-id xautolock -time 15 -locker '$HOME/.i3/i3exit lock' &
-#exec --no-startup-id trayer --edge bottom --align left --margin 5 --transparent true --alpha 255 --iconspacing 5 --height 24 &
-
-exec --no-startup-id nm-applet &
-exec --no-startup-id blueman-applet &
-exec --no-startup-id redshift-gtk &
+exec --no-startup-id xautolock -time 15 -locker $HOME/.i3/i3lock &
 
 exec --no-startup-id dunst &
 exec --no-startup-id xedgewarp -b
