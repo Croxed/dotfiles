@@ -18,6 +18,7 @@
 !.config/gtk-3.0
 !.config/i3lock
 !.config/polybar
+!.config/scripts
 !.config/termite
 !.config/wallpapers
 !.config/nvim/
