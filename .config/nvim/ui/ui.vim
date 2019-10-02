@@ -119,7 +119,6 @@ try
     silent! colorscheme nord 
 catch
 endtry
-set t_Co=256
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac

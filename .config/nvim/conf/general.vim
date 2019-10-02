@@ -55,6 +55,15 @@ if has('clipboard')
 	set clipboard& clipboard+=unnamedplus
 endif
 
+" Better grepping in vim
+if executable('rg')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+elseif executable('ag')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '')
+endif
+
 " set vim startup faster
 if !empty(&viminfo)
     set viminfo^=!
