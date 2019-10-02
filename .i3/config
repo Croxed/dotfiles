@@ -292,9 +292,9 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 exec-always --no-startup-id setxkbmap -layout se &
 exec-always --no-startup-id nitrogen --restore &
 exec --no-startup-id compton -b &
-exec --no-startup-id xautolock -time 15 -locker $HOME/.i3/i3lock &
+exec --no-startup-id xautolock -time 15 -locker '$HOME/.i3/i3lock' &
 
 exec --no-startup-id dunst &
-exec --no-startup-id xedgewarp -b
+exec --no-startup-id xedgewarp -b &
 
 # vim:filetype=i3
