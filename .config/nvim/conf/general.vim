@@ -36,8 +36,33 @@ set autoread
 set shortmess+=aAcIws  
 
 " Enable clipboard
-let g:clipboard = {'copy': {'+': 'pbcopy', '*': 'pbcopy'}, 'paste': {'+': 'pbpaste', '*': 'pbpaste'}, 'name': 'pbcopy', 'cache_enabled': 0}
-set clipboard+=unnamedplus
+if has('mac')
+	let g:clipboard = {
+		\   'name': 'macOS-clipboard',
+		\   'copy': {
+		\      '+': 'pbcopy',
+		\      '*': 'pbcopy',
+		\    },
+		\   'paste': {
+		\      '+': 'pbpaste',
+		\      '*': 'pbpaste',
+		\   },
+		\   'cache_enabled': 0,
+		\ }
+endif
+
+if has('clipboard')
+	set clipboard& clipboard+=unnamedplus
+endif
+
+" Better grepping in vim
+if executable('rg')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
+elseif executable('ag')
+	set grepformat=%f:%l:%m
+	let &grepprg = 'ag --vimgrep' . (&smartcase ? ' --smart-case' : '')
+endif
 
 " set vim startup faster
 if !empty(&viminfo)

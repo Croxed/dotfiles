@@ -58,10 +58,14 @@ sudo pacman -Syu
 cd "$(mktempd)" || exit 1
 
 # Install "yay" from AUR
-info "Installing yay"
-curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin"
-makepkg PKGBUILD
-sudo pacman -U yay*.tar.xz --noconfirm
+if hash yay 2> /dev/null; then
+    success "yay already installed!"
+else
+    info "Installing yay"
+    curl -o PKGBUILD "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay-bin"
+    makepkg PKGBUILD
+    sudo pacman -U yay*.tar.xz --noconfirm
+fi
 
 # Return to latest dir
 cd - || exit 1
