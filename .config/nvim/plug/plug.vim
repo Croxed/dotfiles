@@ -103,9 +103,10 @@ Plug 'desmap/ale-sensible' | Plug 'dense-analysis/ale'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+Plug 'cocopon/iceberg.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'christoomey/vim-tmux-navigator'

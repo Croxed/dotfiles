@@ -15,7 +15,7 @@
 
 " lightline.vim {{{
 let g:lightline = {
-            \ 'colorscheme': 'nord',
+            \ 'colorscheme': 'iceberg',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch' ], [ 'filename' ], [ 'bufferline' ] ],
             \   'right': [ [ 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
