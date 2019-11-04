@@ -35,7 +35,6 @@ path_candidate=(
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/.bin"
-    "/Applications/Xcode.app/Contents/Developer/usr/bin"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
     "$HOME/.fzf/bin"
@@ -48,6 +47,7 @@ path_candidate=(
     "$HOME/.nexustools"
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
+    "$HOME/Development/cabo/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
     "$HOME/Library/Python/3.7/bin"
     )

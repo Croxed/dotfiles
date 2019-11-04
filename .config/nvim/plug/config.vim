@@ -145,7 +145,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "}}}
 
 " neomake {{{
-let g:neomake_open_list = 0
+let g:neomake_open_list = 2
 let g:neomake_java_enabled_makers=['mvn']
 " Full config: when writing or reading a buffer, and on changes in insert and
 " normal mode (after 1s; no delay when writing).
@@ -316,5 +316,32 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " kexokinase {{{
 let g:Hexokinase_highlighters = [ 'sign_column' ]
+" }}}
+" vista {{{
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+
+" Set the executive for some filetypes explicitly. Use the explicit executive
+" instead of the default one for these filetypes when using `:Vista` without
+" specifying the executive.
+let g:vista_executive_for = {
+  \ 'cpp': 'vim_lsp',
+  \ 'php': 'vim_lsp',
+  \ }
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 " }}}
 "}}}

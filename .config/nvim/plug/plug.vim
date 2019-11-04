@@ -34,6 +34,10 @@ if !has('nvim')
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+if has('nvim-0.4')
+    Plug 'liuchengxu/vim-clap'
+endif
+
 Plug 'mhinz/vim-startify'
 
 " Git"
@@ -84,7 +88,8 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 " Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
+"Plug 'majutsushi/tagbar'
 " Nice color preview inline in neovim
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 

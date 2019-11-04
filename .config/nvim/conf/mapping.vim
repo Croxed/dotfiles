@@ -40,7 +40,7 @@ command W w !sudo tee %
 map <leader>f :Files<cr>
 
 " Open tagbar
-nmap <F8> :TagbarToggle<CR>
+nmap <F8> :Vista!!<CR>
 
 " Go to definition (tags)
 nmap <C-B> g<C-]>

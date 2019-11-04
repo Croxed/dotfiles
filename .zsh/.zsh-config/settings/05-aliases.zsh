@@ -90,7 +90,8 @@ elif type -p brew >/dev/null 2>&1; then
     alias brews='brew list -1'
     alias bubo='brew update && brew outdated'
     alias bubc='brew upgrade && brew cleanup'
-    alias bubu='bubo && bubc'
+    alias caskupdate='brew cask upgrade'
+    alias bubu='bubo && bubc && caskupdate'
 fi
 
 alias mk='make && make clean'
