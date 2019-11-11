@@ -29,6 +29,7 @@ declare -a path_candidate
 path_candidate=(
     "/opt/local/sbin"
     "/opt/local/bin"
+    "/usr/local/sbin"
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/usr/bin/core_perl"

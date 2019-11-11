@@ -28,7 +28,6 @@ endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
@@ -80,13 +79,21 @@ Plug 'mcchrish/nnn.vim'
 " Autocomplete and syntax
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/denite.nvim'
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-Plug 'othree/csscomplete.vim', { 'for': 'css' }
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'marlonfan/coc-phpls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 " Plug 'scrooloose/nerdtree'
 Plug 'liuchengxu/vista.vim'
 "Plug 'majutsushi/tagbar'
@@ -98,11 +105,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
 
-Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-Plug 'davidhalter/jedi-vim', { 'for' : 'python' }
-Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
 Plug 'neomake/neomake'
 Plug 'desmap/ale-sensible' | Plug 'dense-analysis/ale'
 
