@@ -115,9 +115,7 @@ Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 " Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
 " Plug 'fatih/vim-go', { 'for': 'go' }
 
-Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-Plug 'davidhalter/jedi-vim', { 'for' : 'python' }
-Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+" Plug 'davidhalter/jedi-vim', { 'for' : 'python' }
 Plug 'neomake/neomake'
 " Plug 'desmap/ale-sensible' | Plug 'dense-analysis/ale'
 
@@ -125,8 +123,8 @@ Plug 'neomake/neomake'
 Plug 'Konfekt/FastFold'
 " Plug 'ludovicchabant/vim-gutentags'
 
-" Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
-Plug 'cocopon/iceberg.vim'
+Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+" Plug 'cocopon/iceberg.vim'
 Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'christoomey/vim-tmux-navigator'

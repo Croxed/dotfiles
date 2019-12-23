@@ -116,7 +116,7 @@ endif
 
 " Colorscheme management
 try
-    silent! colorscheme iceberg 
+    silent! colorscheme nord 
 catch
 endtry
 
