@@ -12,3 +12,4 @@ typeset -gx ENABLE_CORRECTION=true
 
 typeset -gx LANG=en_US.UTF-8
 typeset -gx LC_*=en_US.UTF-8
+typeset -gx NVM_LAZY_LOAD=true

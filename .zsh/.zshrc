@@ -20,6 +20,9 @@ SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 # reduce system calls for timezone
 typeset -gx TZ=:/etc/localtime
 
+module_path+=( "$HOME/.zsh/.zplugin/bin/zmodules/Src" )
+zmodload zdharma/zplugin
+
 # Set golang paths before sourcing into path
 typeset -gx GOROOT="$HOME/.go"
 typeset -gx GOPATH="$HOME/go"
