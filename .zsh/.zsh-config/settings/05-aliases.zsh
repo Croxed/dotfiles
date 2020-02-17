@@ -55,6 +55,7 @@ alias gcm='git commit -m'
 alias glg='git log --stat'
 alias gpo='git push origin HEAD'
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
+alias gi='git-ignore'
 
 alias c="clear && printf '\e[3J'"
 

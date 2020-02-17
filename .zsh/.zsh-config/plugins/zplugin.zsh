@@ -33,5 +33,6 @@ zplugin ice wait silent; zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin ice wait silent; zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
 zplugin ice wait silent; zplugin snippet OMZ::plugins/docker-compose/docker-compose.plugin.zsh
 zplugin ice wait silent atinit'zpcompinit; zpcdreplay'; zplugin light zdharma/fast-syntax-highlighting
+zplugin ice wait silent pick'init.zsh' blockf; zplugin light laggardkernel/git-ignore
 zplugin pack for fzf
 ## zplugin end
