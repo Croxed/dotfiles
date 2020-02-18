@@ -47,6 +47,7 @@ function z4h() {
     junegunn/fzf                       # https://github.com/zsh-users/junegunn/fzf
     lukechilds/zsh-nvm                 # https://github.com/lukechilds/zsh-nvm
     laggardkernel/git-ignore           # https://github.com/laggardkernel/git-ignore
+    jarmo/expand-aliases-oh-my-zsh     # https://github.com/jarmo/expand-aliases-oh-my-zsh
   )
 
   {
@@ -417,6 +418,7 @@ export PAGER=less
 typeset -gaU cdpath fpath mailpath path
 fpath+=($Z4H_DIR/zsh-users/zsh-completions/src)
 
+[ -d /usr/local/share/zsh/site-functions ] && fpath+=(/usr/local/share/zsh/site-functions)
 # Extend PATH.
 path+=($Z4H_DIR/junegunn/fzf/bin)
 
@@ -488,6 +490,8 @@ fi
 # Source custom plugins
 source $Z4H_DIR/laggardkernel/git-ignore/git-ignore.plugin.zsh
 source $Z4H_DIR/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh
+source $Z4H_DIR/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+
 
 # Initialize prompt. Type `p10k configure` or edit ~/.p10k.zsh to customize it.
 [[ -f ${ZDOTDIR:-${HOME}}/.p10k.zsh ]] && source ${ZDOTDIR:-${HOME}}/.p10k.zsh
