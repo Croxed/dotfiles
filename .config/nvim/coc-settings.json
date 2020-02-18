@@ -16,7 +16,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "java.format.settings.url": "~/Development/loyalty-app/formatter.xml",
-  "git.addGBlameToVirtualText": true
+  "java.format.settings.url": "~/Development/loyalty-app/formatter.xml"
 }
 

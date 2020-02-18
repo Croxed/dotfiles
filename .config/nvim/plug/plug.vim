@@ -28,7 +28,6 @@ endif
 
 call plug#begin('~/.local/share/nvim/site/plugged')
 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if !has('nvim')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
@@ -38,12 +37,12 @@ if has('nvim-0.4')
     Plug 'liuchengxu/vim-clap'
 endif
 
+Plug 'dstein64/vim-startuptime'
+
 Plug 'mhinz/vim-startify'
 
 " Git"
-" Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
-" Plug 'sodapopcan/vim-twiggy'
 
 " Editor
 Plug 'machakann/vim-sandwich'
@@ -68,21 +67,15 @@ Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
 
 " Git
-" Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
 " Indent
 Plug 'Yggdroot/indentLine'
 
-" File explorer
-Plug 'mcchrish/nnn.vim'
-
 "------------------------------------------------------------
 " Autocomplete and syntax
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/denite.nvim'
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-Plug 'othree/csscomplete.vim', { 'for': 'css' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
@@ -102,31 +95,21 @@ Plug 'marlonfan/coc-phpls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
-" Plug 'scrooloose/nerdtree'
 Plug 'liuchengxu/vista.vim'
-"Plug 'majutsushi/tagbar'
 " Nice color preview inline in neovim
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " fzf
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim', { 'on': 'Files' }
-" Go
-" Plug 'zchee/deoplete-go', {'build': 'make', 'for': 'go'}
-" Plug 'fatih/vim-go', { 'for': 'go' }
 
-" Plug 'davidhalter/jedi-vim', { 'for' : 'python' }
 Plug 'neomake/neomake'
-" Plug 'desmap/ale-sensible' | Plug 'dense-analysis/ale'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
-" Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
-" Plug 'cocopon/iceberg.vim'
 Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'christoomey/vim-tmux-navigator'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
