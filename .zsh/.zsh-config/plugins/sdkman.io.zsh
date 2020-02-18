@@ -8,4 +8,4 @@
     printf 'Installation complete\n'
 }
 
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+source "$HOME/.sdkman/bin/sdkman-init.sh" &>/dev/null
