@@ -437,6 +437,8 @@ path+=($Z4H_DIR/junegunn/fzf/bin)
 # path to the framework root directory
 SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 
+fpath+=("$SIMPL_ZSH_DIR"/completions)
+
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
@@ -494,6 +496,7 @@ zstyle ':completion:*:*:*:*:processes' command 'ps -A -o pid,user,command -w'
 for f in "$SIMPL_ZSH_DIR"/plugins/*?.zsh; do
     . "$f" 2>/dev/null
 done
+
 
 # Enable iTerm2 shell integration if available.
 if [[ $TERM_PROGRAM == iTerm.app && -e ~/.iterm2_shell_integration.zsh ]]; then
