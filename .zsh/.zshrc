@@ -1,3 +1,14 @@
+#
+#                    ██
+#                   ░██
+#     ██████  ██████░██      ██████  █████
+#    ░░░░██  ██░░░░ ░██████ ░░██░░█ ██░░░██
+#       ██  ░░█████ ░██░░░██ ░██ ░ ░██  ░░
+#  ██  ██    ░░░░░██░██  ░██ ░██   ░██   ██
+# ░██ ██████ ██████ ░██  ░██░███   ░░█████
+# ░░ ░░░░░░ ░░░░░░  ░░   ░░ ░░░     ░░░░░
+#
+
 if (( _z4h_initialized )); then
   print -ru2 -- ${(%):-"%F{3}z4h%f: please use %F{2}%Uexec%u ${Z4H_ZSH//\%/%%}%f instead of %F{2}source%f %U~/.zshrc%u"}
   return 1
@@ -419,6 +430,7 @@ typeset -gaU cdpath fpath mailpath path
 fpath+=($Z4H_DIR/zsh-users/zsh-completions/src)
 
 [ -d /usr/local/share/zsh/site-functions ] && fpath+=(/usr/local/share/zsh/site-functions)
+
 # Extend PATH.
 path+=($Z4H_DIR/junegunn/fzf/bin)
 
@@ -462,11 +474,6 @@ path=("${path[@]:#}")
 # catch non-zsh and non-interactive shells
 [[ $- == *i* && $ZSH_VERSION ]] && SHELL="$(which zsh)" || return 0
 
-# source shell configuration files
-for f in "$SIMPL_ZSH_DIR"/{settings,plugins}/*?.zsh; do
-    . "$f" 2>/dev/null
-done
-
 # Initialize completions.
 autoload -Uz compinit
 compinit -d ${XDG_CACHE_HOME:-~/.cache}/.zcompdump-$ZSH_VERSION
@@ -480,7 +487,13 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle '*' single-ignored show
 zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
 zstyle ':completion:*:rm:*' file-patterns '*:all-files'
+zstyle ':completion:*:*:git:*' file-patterns '*:all-files'
 zstyle ':completion:*:*:*:*:processes' command 'ps -A -o pid,user,command -w'
+
+# source shell configuration files
+for f in "$SIMPL_ZSH_DIR"/{settings,plugins}/*?.zsh; do
+    . "$f" 2>/dev/null
+done
 
 # Enable iTerm2 shell integration if available.
 if [[ $TERM_PROGRAM == iTerm.app && -e ~/.iterm2_shell_integration.zsh ]]; then
