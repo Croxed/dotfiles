@@ -491,7 +491,7 @@ zstyle ':completion:*:*:git:*' file-patterns '*:all-files'
 zstyle ':completion:*:*:*:*:processes' command 'ps -A -o pid,user,command -w'
 
 # source shell configuration files
-for f in "$SIMPL_ZSH_DIR"/{settings,plugins}/*?.zsh; do
+for f in "$SIMPL_ZSH_DIR"/plugins/*?.zsh; do
     . "$f" 2>/dev/null
 done
 
@@ -499,12 +499,6 @@ done
 if [[ $TERM_PROGRAM == iTerm.app && -e ~/.iterm2_shell_integration.zsh ]]; then
   z4h source ~/.iterm2_shell_integration.zsh
 fi
-
-# Source custom plugins
-source $Z4H_DIR/laggardkernel/git-ignore/git-ignore.plugin.zsh
-source $Z4H_DIR/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh
-source $Z4H_DIR/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
-
 
 # Initialize prompt. Type `p10k configure` or edit ~/.p10k.zsh to customize it.
 [[ -f ${ZDOTDIR:-${HOME}}/.p10k.zsh ]] && source ${ZDOTDIR:-${HOME}}/.p10k.zsh
@@ -543,3 +537,13 @@ setopt NO_FLOW_CONTROL         # disable start/stop characters in shell editor
 setopt PATH_DIRS               # perform path search even on command names with slashes
 setopt SHARE_HISTORY           # write and import history on every command
 setopt C_BASES                 # print hex/oct numbers as 0xFF/077 instead of 16#FF/8#77
+
+
+for f in "$SIMPL_ZSH_DIR"/settings/*?.zsh; do
+    . "$f" 2>/dev/null
+done
+
+# Source custom plugins
+source $Z4H_DIR/laggardkernel/git-ignore/git-ignore.plugin.zsh
+source $Z4H_DIR/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh
+source $Z4H_DIR/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh

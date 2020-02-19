@@ -44,17 +44,6 @@ alias m='f -e mpv' # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
 alias j='zz' # directory jumping
 
-alias gp='git push'
-alias gf='git fetch'
-alias gc='git clone'
-alias gs='git stash'
-alias gb='git branch'
-alias gm='git merge'
-alias gch='git checkout'
-alias gcm='git commit -m'
-alias glg='git log --stat'
-alias gpo='git push origin HEAD'
-alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gi='git-ignore'
 
 alias c="clear && printf '\e[3J'"
