@@ -16,7 +16,7 @@ fi
 
 emulate zsh
 
-: ${Z4H_ZSH:=${${0#-}:-zsh}}                          # command to start zsh (usually `zsh`)
+emulate zsh -o posix_argzero -c ': ${Z4H_ZSH:=${${0#-}:-zsh}}' # command to start zsh
 : ${Z4H_DIR:=${XDG_CACHE_HOME:-~/.cache}/zsh4humans}  # cache directory
 : ${Z4H_UPDATE_DAYS=13}                               # update dependencies this often
 
@@ -50,7 +50,7 @@ function z4h() {
 
   # GitHub projects to clone.
   local github_repos=(
-    zsh-users/zsh-syntax-highlighting  # https://github.com/zsh-users/zsh-syntax-highlighting
+    zdharma/fast-syntax-highlighting   # https://github.com/zdharma/fast-syntax-highlighting
     zsh-users/zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
     zsh-users/zsh-completions          # https://github.com/zsh-users/zsh-completions
     romkatv/powerlevel10k              # https://github.com/zsh-users/romkatv/powerlevel10k
@@ -289,9 +289,9 @@ WORDCHARS=''                   # only alphanums make up words in word-based zle 
 ZLE_REMOVE_SUFFIX_CHARS=''     # don't eat space when typing '|' after a tab completion
 zle_highlight=('paste:none')   # disable highlighting of text pasted into the command line
 
-HISTFILE=~/.zsh_history        # save command history in this file
-HISTSIZE=1000000000            # infinite command history
-SAVEHIST=1000000000            # infinite command history
+: ${HISTFILE:=${ZDOTDIR:-~}/.zsh_history}   # save command history in this file
+HISTSIZE=1000000000                         # infinite command history
+SAVEHIST=1000000000                         # infinite command history
 
 bindkey -e                     # enable emacs keymap (sorry, vi users)
 
@@ -473,30 +473,30 @@ typeset -U path=($path_candidate[@] $path[@])
 # strip empty fields from the path
 path=("${path[@]:#}")
 
-# catch non-zsh and non-interactive shells
-[[ $- == *i* && $ZSH_VERSION ]] && SHELL="$(which zsh)" || return 0
-
 # Initialize completions.
 autoload -Uz compinit
 compinit -d ${XDG_CACHE_HOME:-~/.cache}/.zcompdump-$ZSH_VERSION
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path ${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache-$ZSH_VERSION
-zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*' completer _complete
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
-zstyle ':completion:*' squeeze-slashes true
-zstyle '*' single-ignored show
-zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
-zstyle ':completion:*:rm:*' file-patterns '*:all-files'
-zstyle ':completion:*:*:git:*' file-patterns '*:all-files'
-zstyle ':completion:*:*:*:*:processes' command 'ps -A -o pid,user,command -w'
+# Configure completions.
+zstyle ':completion:*'                  matcher-list    'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
+zstyle ':completion:*:descriptions'     format          '[%d]'
+zstyle ':completion:*'                  completer       _complete
+zstyle ':completion:*:*:-subscript-:*'  tag-order       indexes parameters
+zstyle ':completion:*'                  squeeze-slashes true
+zstyle '*'                              single-ignored  show
+zstyle ':completion:*:(rm|kill|diff):*' ignore-line     other
+zstyle ':completion:*:rm:*'             file-patterns   '*:all-files'
+zstyle ':completion:*:*:git:*'          file-patterns   '*:all-files'
+zstyle ':completion::complete:*'        use-cache       on
+zstyle ':completion::complete:*'        cache-path      ${XDG_CACHE_HOME:-$HOME/.cache}/zcompcache-$ZSH_VERSION
+
+# Make it possible to use completion specifications and functions written for bash.
+autoload -Uz bashcompinit
+bashcompinit
 
 # source shell configuration files
 for f in "$SIMPL_ZSH_DIR"/plugins/*?.zsh; do
     . "$f" 2>/dev/null
 done
-
 
 # Enable iTerm2 shell integration if available.
 if [[ $TERM_PROGRAM == iTerm.app && -e ~/.iterm2_shell_integration.zsh ]]; then
@@ -504,19 +504,23 @@ if [[ $TERM_PROGRAM == iTerm.app && -e ~/.iterm2_shell_integration.zsh ]]; then
 fi
 
 # Initialize prompt. Type `p10k configure` or edit ~/.p10k.zsh to customize it.
-[[ -f ${ZDOTDIR:-${HOME}}/.p10k.zsh ]] && source ${ZDOTDIR:-${HOME}}/.p10k.zsh
+[[ -f ${ZDOTDIR:-~}/.p10k.zsh ]] && source ${ZDOTDIR:-~}/.p10k.zsh
 source $Z4H_DIR/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 
 z4h source $Z4H_DIR/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 # zsh-syntax-highlighting must be loaded after all widgets have been defined.
-z4h source $Z4H_DIR/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+z4h source $Z4H_DIR/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 autoload -Uz zmv zcp zln # enable a bunch of awesome zsh commands
 
 # Aliases.
-alias diff='diff --color=auto'
+if (( $+commands[dircolors] )); then  # proxy for GNU coreutils vs BSD
+  alias diff='diff --color=auto'
+  alias ls='ls --color=auto'
+else
+  alias ls='ls -G'
+fi
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-alias ls='ls --color=auto'
 alias tree='tree -aC -I .git'
 
 # Enable decent options. See http://zsh.sourceforge.net/Doc/Release/Options.html.
