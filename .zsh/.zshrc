@@ -365,7 +365,13 @@ bindkey '^[H'     z4h-run-help                            # alt+H      help for 
 
 # Tell zsh-autosuggestions how to handle different widgets.
 typeset -g ZSH_AUTOSUGGEST_EXECUTE_WIDGETS=()
-typeset -g ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(end-of-line vi-end-of-line vi-add-eol)
+typeset -g ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+    end-of-line
+    vi-end-of-line
+    vi-add-eol
+    forward-char            # right arrow accepts a single character; press end to accept to the end
+    vi-forward-char
+)
 typeset -g ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   history-search-forward
   history-search-backward
@@ -393,8 +399,6 @@ typeset -g ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
   vi-forward-blank-word-end
   vi-find-next-char
   vi-find-next-char-skip
-  forward-char            # right arrow accepts a single character; press end to accept to the end
-  vi-forward-char
 )
 typeset -g ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(
   orig-\*
