@@ -135,15 +135,6 @@ let g:lightline.mode_map = {
             \ '?':      '      ' }
 " }}}
 
-" deoplete.vim {{{
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/4.0.0_1/lib/libclang.dylib"
-let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/4.0.0_1/lib/clang"
-set omnifunc=syntaxcomplete#Complete 
-
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-"}}}
-
 " neomake {{{
 let g:neomake_open_list = 2
 let g:neomake_java_enabled_makers=['mvn']
@@ -173,6 +164,22 @@ let g:nord_cursor_line_number_background = 1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}}
+
+" CoC {{{
+let g:coc_global_extensions = ['coc-snippets', 
+            \'coc-tsserver', 
+            \'coc-prettier',
+            \'coc-eslint', 
+            \'coc-tslint',
+            \'coc-java', 
+            \'coc-python', 
+            \'coc-vetur', 
+            \'coc-git', 
+            \'coc-phpls', 
+            \'coc-css', 
+            \'coc-lists', 
+            \'coc-highlight']
 " }}}
 
 " fzf {{{
@@ -228,29 +235,6 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 " }}}
 
-" vim-gitgutter {{{
-let g:gitgutter_grep = 'rg'
-let g:gitgutter_highlight_lines = 0
-
-" }}}
-
-" twiggy {{{
-let g:twiggy_group_locals_by_slash = 0
-let g:twiggy_local_branch_sort = 'mru'
-let g:twiggy_remote_branch_sort = 'date'
-" }}}""
-
-" nnn {{{
-let g:nnn#layout = { 'left': '~20%' } " or right, up, down
-" }}}
-
-" gutentags {{{
-let g:gutentags_cache_dir = expand('~/.cache/tags') 
-" }}}
-
-" kexokinase {{{
-let g:Hexokinase_highlighters = [ 'sign_column' ]
-" }}}
 " vista {{{
 " How each level is indented and what to prepend.
 " This could make the display more compact or more spacious.
