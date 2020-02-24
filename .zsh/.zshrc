@@ -59,6 +59,7 @@ function z4h() {
     lukechilds/zsh-nvm                 # https://github.com/lukechilds/zsh-nvm
     laggardkernel/git-ignore           # https://github.com/laggardkernel/git-ignore
     jarmo/expand-aliases-oh-my-zsh     # https://github.com/jarmo/expand-aliases-oh-my-zsh
+    willghatch/zsh-saneopt             # Sane defaults https://github.com/willghatch/zsh-saneopt
   )
 
   {
@@ -391,9 +392,7 @@ typeset -g ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   fzf-tab-complete
 )
 typeset -g ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
-  forward-word
   emacs-forward-word
-  vi-forward-word
   vi-forward-word-end
   vi-forward-blank-word
   vi-forward-blank-word-end
@@ -558,3 +557,4 @@ done
 source $Z4H_DIR/laggardkernel/git-ignore/git-ignore.plugin.zsh
 source $Z4H_DIR/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh
 source $Z4H_DIR/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+source $Z4H_DIR/willghatch/zsh-saneopt/saneopt.plugin.zsh

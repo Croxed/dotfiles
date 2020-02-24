@@ -58,7 +58,6 @@ Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
 Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
 Plug 'terryma/vim-multiple-cursors'
-Plug 'Chiel92/vim-autoformat'
 " From another .vimrc
 Plug 'junegunn/vim-easy-align'
 
@@ -81,7 +80,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 Plug 'liuchengxu/vista.vim'
 
 " fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
+Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 
 Plug 'neomake/neomake'
