@@ -445,6 +445,7 @@ fpath+=("$SIMPL_ZSH_DIR"/completions)
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
+    "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"
     "/usr/local/share/npm/bin"
