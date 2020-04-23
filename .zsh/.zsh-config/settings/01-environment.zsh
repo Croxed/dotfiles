@@ -10,6 +10,6 @@ typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC
 typeset -gx PURE_GIT_UNTRACKED_DIRTY=0
 typeset -gx ENABLE_CORRECTION=true
 
-typeset -gx LANG=en_US.UTF-8
-typeset -gx LC_*=en_US.UTF-8
+typeset -gx LANG=en_GB.UTF-8
+typeset -gx LC_*=en_GB.UTF-8
 typeset -gx NVM_LAZY_LOAD=true
