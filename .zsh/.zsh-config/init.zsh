@@ -52,4 +52,4 @@ done
 # Source custom plugins
 z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
 z4h source $Z4H/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh
-z4h source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
