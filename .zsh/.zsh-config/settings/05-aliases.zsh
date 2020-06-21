@@ -14,6 +14,10 @@ else
     alias l.='ls -ld .*'
 fi
 
+gbn() {
+    git branch | awk '$1 ~ /\*/ {print $2}' | tr -d '\n'
+}
+
 alias la='ls -Ah'
 alias ll='ls -lAh'
 alias l.='ls -ld .*'
