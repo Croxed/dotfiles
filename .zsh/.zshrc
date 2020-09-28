@@ -127,4 +127,4 @@ setopt glob_dots  # glob matches files starting with dot; `ls *` becomes equival
 # path to the framework root directory
 SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
 
-. "${SIMPL_ZSH_DIR}/init.zsh"
+z4h source "${SIMPL_ZSH_DIR}/init.zsh"
