@@ -8,6 +8,8 @@ fpath+=("$SIMPL_ZSH_DIR"/completions)
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
+    "/c/Users/oscwen/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
+    "$HOME/development/cabo/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"
@@ -19,6 +21,7 @@ path_candidate=(
     "$HOME/.bin"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
+    "$HOME/.poetry/bin"
     "$HOME/.fzf/bin"
     "$HOME/.pyenv/bin"
     "$GOPATH/bin"
@@ -48,6 +51,12 @@ done
 for f in "$SIMPL_ZSH_DIR"/settings/*?.zsh; do
     . "$f" 2>/dev/null
 done
+
+if [ -d "$HOME"/.zsh-settings ]; then
+    for f in "$HOME"/.zsh-settings/*?.zsh; do
+        . "$f" 2>/dev/null
+    done
+fi
 
 # Source custom plugins
 z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh

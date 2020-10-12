@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 # This way you can customize which branches should be skipped when
 # prepending commit message. 
-if [ -z "$BRANCHES_TO_SKIP" ]; then
-  BRANCHES_TO_SKIP=(master release develop test)
+MESSAGE=$(<"$1")
+TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eoi 'dev-[0-9]+' | tr "[:lower:]" "[:upper:]")
+COMMIT_SOURCE=$2
+
+if [ "$COMMIT_SOURCE" == "merge" ]; then
+  exit 0
 fi
 
-BRANCH_NAME="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -E "s/^(([a-z]+\-)?[0-9]+).*/\1/" | tr '[:lower:]' '[:upper:]')"
-BRANCH_NAME="${BRANCH_NAME##*/}"
-
-BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -ic "^$BRANCH_NAME$")
-BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" "$1")
-
-if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then 
-  sed -i.bak -e "1s/^/$BRANCH_NAME: /" "$1"
+if [ -z "$TICKET" ]; then
+ echo "Not on a feature branch. Skipping commit-prepending"
+ exit 0
 fi
+
+if [[ "$MESSAGE" == "$TICKET"* ]]; then
+  echo "Ticket found in commit message. Skipping..." 
+  exit 0
+fi
+
+echo "$TICKET: $MESSAGE" > "$1"

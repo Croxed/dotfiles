@@ -3,6 +3,8 @@
 export HOSTNAME=${HOSTNAME:-$(hostname)}
 
 export ZDOTDIR="$HOME/.zsh"
+export GOROOT="$HOME/.go"
+export GOPATH="$HOME/go"
 
 typeset -gx LANG=en_GB.UTF-8
 typeset -gx LC_*=en_GB.UTF-8
