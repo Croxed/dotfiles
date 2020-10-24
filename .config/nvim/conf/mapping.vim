@@ -37,7 +37,8 @@ nmap ga <Plug>(EasyAlign)
 command W w !sudo tee %
 
 " Open FZF for editing
-map <leader>f :Files<cr>
+map <leader>f :Clap files<cr>
+map <leader>fg :Clap gfiles<cr>
 
 " Open tagbar
 nmap <F8> :Vista!!<CR>

@@ -80,6 +80,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim'
 
 " fzf
+" The bang version will try to download the prebuilt binary if cargo does not exist.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim', { 'on': 'Files' }
 
