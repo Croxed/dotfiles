@@ -1,8 +1,5 @@
 #! /usr/bin/env zsh
 
-# path to the framework root directory
-SIMPL_ZSH_DIR=${ZDOTDIR:-${HOME}}/.zsh-config
-
 fpath+=("$SIMPL_ZSH_DIR"/completions)
 
 # all candidated for sourcing into path
