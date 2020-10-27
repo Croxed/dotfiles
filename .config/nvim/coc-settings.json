@@ -1,22 +1,21 @@
 {
-  // Require .prettierrc
-  "prettier.requireConfig": true,
+    // Require .prettierrc
+    "prettier.requireConfig": true,
 
-  // Tslint on save
-  "tslint.enable": true,
-  "tslint.autoFixOnSave": true,
-  "tsserver.log": "verbose",
+    // Tslint on save
+    "tslint.enable": true,
+    "tslint.autoFixOnSave": true,
+    "tsserver.log": "verbose",
 
-  // Run prettier (and others)
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "markdown",
-    "Markdown",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "java.format.settings.url": "~/Development/loyalty-app/formatter.xml"
+    // Run prettier (and others)
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "Markdown",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "java.format.settings.url": "~/development/loyalty-app/formatter.xml"
 }
-

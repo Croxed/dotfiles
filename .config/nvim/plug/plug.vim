@@ -33,10 +33,6 @@ if !has('nvim')
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-if has('nvim-0.4')
-    Plug 'liuchengxu/vim-clap'
-endif
-
 Plug 'dstein64/vim-startuptime'
 
 " Git"
@@ -70,7 +66,7 @@ Plug 'Yggdroot/indentLine'
 " Autocomplete and syntax
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/denite.nvim'
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-syntax'
@@ -79,11 +75,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim'
 
-" fzf
 " The bang version will try to download the prebuilt binary if cargo does not exist.
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-Plug 'junegunn/fzf', { 'do': './install --bin' }
-Plug 'junegunn/fzf.vim', { 'on': 'Files' }
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
 Plug 'neomake/neomake'
 
