@@ -35,6 +35,17 @@ endif
 
 Plug 'dstein64/vim-startuptime'
 
+" telescope.vim
+if has('nvim-0.5.0')
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/telescope.nvim'
+else
+    " The bang version will try to download the prebuilt binary if cargo does not exist.
+    Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+endif
+
+
 " Git"
 Plug 'itchyny/vim-gitbranch'
 
@@ -75,8 +86,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vista.vim'
 
-" The bang version will try to download the prebuilt binary if cargo does not exist.
-Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 
 Plug 'neomake/neomake'
 

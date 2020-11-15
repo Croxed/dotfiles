@@ -2,6 +2,7 @@
 
 fpath+=("$SIMPL_ZSH_DIR"/completions)
 
+typeset -gx VOLTA_HOME="$HOME/.volta"
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
@@ -13,9 +14,11 @@ path_candidate=(
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/usr/bin/core_perl"
+    "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/.bin"
+    "$HOME/.phpenv/bin"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
     "$HOME/.poetry/bin"

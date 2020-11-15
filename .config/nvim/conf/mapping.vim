@@ -37,8 +37,15 @@ nmap ga <Plug>(EasyAlign)
 command W w !sudo tee %
 
 " Open FZF for editing
-map <leader>f :Clap files<cr>
-map <leader>fg :Clap gfiles<cr>
+
+if has('nvim-0.5.0')
+    nnoremap <Leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>
+    nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files{}<CR>
+else
+    map <leader>f :Clap files<cr>
+    map <leader>fg :Clap gfiles<cr>
+endif
+
 
 " Open tagbar
 nmap <F8> :Vista!!<CR>
