@@ -64,6 +64,7 @@
     # =========================[ Line #1 ]=========================
     # command_execution_time  # previous command duration
     # virtualenv              # python virtual environment
+    nvm
     # context                 # user@host
     # time                    # current time
     # =========================[ Line #2 ]=========================

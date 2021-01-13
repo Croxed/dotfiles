@@ -18,6 +18,7 @@ path_candidate=(
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/.bin"
+    "$HOME/.symfony/bin"
     "$HOME/.phpenv/bin"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
