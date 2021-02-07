@@ -20,8 +20,9 @@ let g:mapleader = "\<Space>"
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" NERDTree
-nmap <leader>ne :NERDTreeToggle<cr>
+" CHADTree
+nnoremap <leader>v <cmd>CHADopen<cr>
+nnoremap <leader>lc <cmd>call setqflist([])<cr>
 
 " BufExplorer
 nmap <leader>bx :BufExplorer<cr>

@@ -53,12 +53,13 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 Plug 'hoob3rt/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'kyazdani42/nvim-web-devicons'
 " Git"
-Plug 'f-person/git-blame.nvim'
+"Plug 'f-person/git-blame.nvim'
 "Plug 'itchyny/vim-gitbranch'
 
 " Editor
