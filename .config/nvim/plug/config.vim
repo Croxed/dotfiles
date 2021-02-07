@@ -13,142 +13,85 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " {{{
 
-" lightline.vim {{{
-let g:lightline = {
-            \ 'colorscheme': 'nord',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch' ], [ 'filename' ], [ 'bufferline' ] ],
-            \   'right': [ [ 'percent', 'lineinfo' ], [ 'filetype' ], [ 'capslock', 'fileformat', 'fileencoding' ] ]
-            \ },
-            \ 'component': {
-            \   'lineinfo': ' %3l:%-2v'
-            \ },
-            \ 'component_type': {
-            \   'capslock': 'warning'
-            \ },
-            \ 'component_function': {
-            \   'readonly': 'LightLineReadonly',
-            \   'gitbranch': 'LightLineGitbranch',
-            \   'mode': 'LightLineMode',
-            \   'bufferline': 'MyBufferline',
-            \   'filename': 'LightLineFilename',
-            \   'fileformat': 'LightLineFileformat',
-            \   'filetype': 'LightLineFiletype',
-            \   'fileencoding': 'LightLineFileencoding',
-            \   'capslock': 'LightLineCapslock',
-            \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' },
-            \ 'tabline': {
-            \   'left': [ [ 'tabs' ] ],
-            \   'right': [ [ '' ] ]
-            \ },
-            \ 'tabline_separator': { 'left': '', 'right': '' },
-            \ 'tabline_subseparator': { 'left': '|', 'right': '|' },
-            \ }
-
-let s:except_ft = 'help\|qf\|undotree\|fzf\|vim-plug\|vaffle'
-function! LightLineReadonly()
-    return &ft !~? s:except_ft && &readonly ? '' : ''
-endfunction
-
-function! LightLineModified()
-    return &ft =~ s:except_ft ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightLineGitbranch()
-    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*gitbranch#name")
-        let _ = gitbranch#name()
-        return strlen(_) ? ' '._ : ''
-    endif
-    return ''
-endfunction
-
-function! LightLineMode()
-    return &ft == 'help' ? 'help' :
-                \ &ft == 'undotree' ? 'undotree' :
-                \ &ft == 'fzf' ? 'fzf' :
-                \ &ft == 'vim-plug' ? 'plugin' :
-                \ &ft == 'qf' ? 'quickfix' :
-                \ &ft == 'vaffle' ? 'vaffle' :
-                \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! LightLineFilename()
-    let fname = expand('%:f')
-    return &ft =~ s:except_ft ? '' :
-                \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                \ ('' != fname ? fname : '[No Name]') .
-                \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-function! LightLineFileformat()
-    return winwidth(0) > 90 && &ft !~? s:except_ft ? &fileformat : ''
-endfunction
-
-function! LightLineFiletype()
-    return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightLineFileencoding()
-    return winwidth(0) > 90  && &ft !~? s:except_ft ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! LightLineCapslock()
-    if winwidth(0) > 90 && &ft !~? s:except_ft && exists("*CapsLockStatusline")
-        return CapsLockStatusline()
-    endif
-    return ''
-endfunction
-
-function! MyBufferline()
-    call bufferline#refresh_status()
-    let b = g:bufferline_status_info.before
-    let c = g:bufferline_status_info.current
-    let a = g:bufferline_status_info.after
-    let alen = strlen(a)
-    let blen = strlen(b)
-    let clen = strlen(c)
-    let w = winwidth(0) * 4 / 11
-    if w < alen+blen+clen
-        let whalf = (w - strlen(c)) / 2
-        let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
-        let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
-        return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
-    else
-        return b . c . a
-    endif
-endfunction
-
-let g:lightline.mode_map = {
-            \ 'n':      'N',
-            \ 'i':      'I',
-            \ 'R':      'R',
-            \ 'v':      'V',
-            \ 'V':      'VL',
-            \ 'c':      'C',
-            \ "\<C-v>": 'VB',
-            \ 's':      'SELECT',
-            \ 'S':      'S-LINE',
-            \ "\<C-s>": 'S-BLOCK',
-            \ 't':      'T',
-            \ '?':      '      ' }
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
 " }}}
 
-" neomake {{{
-let g:neomake_open_list = 2
-let g:neomake_java_enabled_makers=['mvn']
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 1s; no delay when writing).
-call neomake#configure#automake('nrwi', 100)
+" lsp-config {{{
+lua << EOF
+local lspconfig  = require('lspconfig')
+lspconfig.pyright.setup{}
+lspconfig.tsserver.setup{}
+lspconfig.vimls.setup{}
+lspconfig.bashls.setup{}
+lspconfig.intelephense.setup{}
+EOF
 
-autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
-			\   q :cclose<cr>:lclose<cr>
-autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
-			\   bd|
-			\   q | endif
+"}}}
 
+" lualine {{{
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+lua << EOF
+require('gitsigns').setup()
+require('colorizer').setup()
+local lualine = require('lualine')
+lualine.status()
+lualine.theme = 'nord'
+EOF
 " }}}
+
+" nvim-compe {{{
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.vsnip = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.spell = v:true
+let g:compe.source.tags = v:true
+let g:compe.source.snippets_nvim = v:true
+let g:compe.source.treesitter = v:true
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+" }}}
+
+" lspsaga {{{
+lua << EOF
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+EOF
+
+nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+nnoremap <silent><leader>gr :Lspsaga rename<CR>
+nnoremap <silent><leader>gh :Lspsaga lsp_finder<CR>
+nnoremap <silent><leader>K :Lspsaga hover_doc<CR>
+
+nnoremap <silent> <C-f> <cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>
+nnoremap <silent> <C-b> <cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>
+"}}}
 
 " nord-vim {{{
 let g:nord_italic = 1
@@ -164,22 +107,6 @@ let g:nord_cursor_line_number_background = 1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" }}}
-
-" CoC {{{
-let g:coc_global_extensions = ['coc-snippets', 
-            \'coc-tsserver', 
-            \'coc-prettier',
-            \'coc-eslint', 
-            \'coc-tslint',
-            \'coc-java', 
-            \'coc-python', 
-            \'coc-vetur', 
-            \'coc-git', 
-            \'coc-phpls', 
-            \'coc-css', 
-            \'coc-lists', 
-            \'coc-highlight']
 " }}}
 
 " fzf {{{

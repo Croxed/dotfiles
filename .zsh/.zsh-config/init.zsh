@@ -22,6 +22,7 @@ path_candidate=(
     "$HOME/.phpenv/bin"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
+    "$HOME/.symfony/bin"
     "$HOME/.poetry/bin"
     "$HOME/.fzf/bin"
     "$HOME/.pyenv/bin"

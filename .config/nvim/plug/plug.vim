@@ -36,58 +36,64 @@ endif
 Plug 'dstein64/vim-startuptime'
 
 " telescope.vim
-if has('nvim-0.5.0')
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/telescope.nvim'
-else
-    " The bang version will try to download the prebuilt binary if cargo does not exist.
-    Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
-endif
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 
+Plug 'glepnir/lspsaga.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'alexaandru/nvim-lspupdate'
 
+Plug 'Raimondi/delimitMate'
+Plug 'b3nj5m1n/kommentary'
+
+Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+Plug 'norcalli/nvim-colorizer.lua'
+
+Plug 'hoob3rt/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
 " Git"
-Plug 'itchyny/vim-gitbranch'
+Plug 'f-person/git-blame.nvim'
+"Plug 'itchyny/vim-gitbranch'
 
 " Editor
 Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
-
-if exists('g:gui_oni')
-else
-    Plug 'itchyny/lightline.vim'
-endif
+"Plug 'tpope/vim-repeat'
+"Plug 'tpope/vim-endwise'
+"Plug 'tpope/vim-commentary'
 Plug 'bling/vim-bufferline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
-Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 " From another .vimrc
 Plug 'junegunn/vim-easy-align'
 
 " Git
-Plug 'mhinz/vim-signify'
+Plug 'lewis6991/gitsigns.nvim'
 " Indent
 Plug 'Yggdroot/indentLine'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neco-syntax'
+"Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/neco-vim'
+"Plug 'Shougo/neoinclude.vim'
+"Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
 " Use release branch (Recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'liuchengxu/vista.vim'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'liuchengxu/vista.vim'
 
 
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
