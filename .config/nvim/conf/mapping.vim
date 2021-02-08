@@ -20,8 +20,9 @@ let g:mapleader = "\<Space>"
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" NERDTree
-nmap <leader>ne :NERDTreeToggle<cr>
+" CHADTree
+nnoremap <leader>v <cmd>CHADopen<cr>
+nnoremap <leader>lc <cmd>call setqflist([])<cr>
 
 " BufExplorer
 nmap <leader>bx :BufExplorer<cr>
@@ -38,20 +39,9 @@ command W w !sudo tee %
 
 " Open FZF for editing
 
-if has('nvim-0.5.0')
-    nnoremap <Leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>
-    nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files{}<CR>
-else
-    map <leader>f :Clap files<cr>
-    map <leader>fg :Clap gfiles<cr>
-endif
+nnoremap <Leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>
+nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files{}<CR>
 
-
-" Open tagbar
-nmap <F8> :Vista!!<CR>
-
-" Go to definition (tags)
-nmap <C-B> g<C-]>
 
 "}}}
 """"""""""""""""""""""""""""""

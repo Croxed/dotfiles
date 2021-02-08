@@ -77,8 +77,8 @@ catch
 endtry
 
 " deoplete.nvim recommend
-set completeopt+=noselect
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+set completeopt=menu,menuone,noselect
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
