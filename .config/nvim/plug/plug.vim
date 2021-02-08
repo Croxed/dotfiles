@@ -33,8 +33,8 @@ if !has('nvim')
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'dstein64/vim-startuptime'
-
+"Plug 'dstein64/vim-startuptime'
+Plug 'tweekmonster/startuptime.vim'
 " telescope.vim
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -59,7 +59,7 @@ Plug 'hoob3rt/lualine.nvim'
 " If you want to have icons in your statusline choose one of these
 Plug 'kyazdani42/nvim-web-devicons'
 " Git"
-"Plug 'f-person/git-blame.nvim'
+Plug 'f-person/git-blame.nvim'
 "Plug 'itchyny/vim-gitbranch'
 
 " Editor
@@ -94,7 +94,7 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'liuchengxu/vista.vim'
 
 
-"Plug 'neomake/neomake'
+Plug 'neomake/neomake'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'

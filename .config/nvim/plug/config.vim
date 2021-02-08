@@ -17,6 +17,10 @@
 let g:deoplete#enable_at_startup = 1
 " }}}
 
+" neomake {{{
+call neomake#configure#automake('nrwi', 500)
+" }}}
+
 " lsp-config {{{
 lua << EOF
 local lspconfig  = require('lspconfig')
