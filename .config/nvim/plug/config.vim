@@ -21,7 +21,10 @@ let g:deoplete#enable_at_startup = 1
 call neomake#configure#automake('nrwi', 500)
 " }}}
 
-" lsp-config {{{
+" lua config {{{
+if (has("termguicolors"))
+  set termguicolors
+endif
 lua << EOF
 local lspconfig  = require('lspconfig')
 lspconfig.pyright.setup{}
@@ -29,21 +32,30 @@ lspconfig.tsserver.setup{}
 lspconfig.vimls.setup{}
 lspconfig.bashls.setup{}
 lspconfig.intelephense.setup{}
-EOF
 
-"}}}
-
-" lualine {{{
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-lua << EOF
 require('gitsigns').setup()
 require('colorizer').setup()
 local lualine = require('lualine')
 lualine.status()
 lualine.theme = 'nord'
+
+local saga = require('lspsaga')
+saga.init_lsp_saga()
+
+require('nvim-treesitter.configs').setup {
+	ensure_installed = { "rust", "c", "cpp", "java", "json", "css", "python", "toml", "query", "lua" },
+	highlight = {
+		enable = true,
+		custom_captures = {
+			["include"] = "Keyword",
+			["attribute_item.meta_item.identifier"] = "PreProc"
+		}
+	},
+	playground = {
+		enable = true
+	}
+}
+
 EOF
 " }}}
 
@@ -82,10 +94,6 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 " }}}
 
 " lspsaga {{{
-lua << EOF
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
-EOF
 
 nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
@@ -104,13 +112,6 @@ let g:nord_uniform_status_lines = 1
 let g:nord_uniform_diff_background = 1
 let g:nord_cursor_line_number_background = 1
 
-" }}}
-
-" UltiSnips {{{
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
 
 " fzf {{{
@@ -164,33 +165,5 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-" }}}
-
-" vista {{{
-" How each level is indented and what to prepend.
-" This could make the display more compact or more spacious.
-" e.g., more compact: ["▸ ", ""]
-" Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-
-" Executive used when opening vista sidebar without specifying it.
-" See all the avaliable executives via `:echo g:vista#executives`.
-let g:vista_default_executive = 'ctags'
-
-" Set the executive for some filetypes explicitly. Use the explicit executive
-" instead of the default one for these filetypes when using `:Vista` without
-" specifying the executive.
-let g:vista_executive_for = {
-  \ 'cpp': 'vim_lsp',
-  \ 'php': 'vim_lsp',
-  \ }
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 1
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
 " }}}
 "}}}

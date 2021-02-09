@@ -63,15 +63,11 @@ Plug 'f-person/git-blame.nvim'
 "Plug 'itchyny/vim-gitbranch'
 
 " Editor
-Plug 'machakann/vim-sandwich'
-"Plug 'tpope/vim-repeat'
-"Plug 'tpope/vim-endwise'
-"Plug 'tpope/vim-commentary'
 Plug 'bling/vim-bufferline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mbbill/undotree'
 Plug 'gcmt/taboo.vim'
-"Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " From another .vimrc
 Plug 'junegunn/vim-easy-align'
 
@@ -82,25 +78,16 @@ Plug 'Yggdroot/indentLine'
 
 "------------------------------------------------------------
 " Autocomplete and syntax
-"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-"Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'Shougo/neco-vim'
-"Plug 'Shougo/neoinclude.vim'
-"Plug 'Shougo/neco-syntax'
 Plug 'sheerun/vim-polyglot'
-" Use release branch (Recommend)
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'liuchengxu/vista.vim'
 
 
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
 
 Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
-" Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-tmux-navigator'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
