@@ -110,9 +110,6 @@ let g:indent_guides_auto_colors=1
 syntax on
 
 set background=dark
-if (has("termguicolors"))
-    set termguicolors
-endif
 
 " Colorscheme management
 try
