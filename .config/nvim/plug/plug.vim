@@ -82,7 +82,7 @@ Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
 
 
-"Plug 'neomake/neomake'
+Plug 'neomake/neomake'
 
 " Fold faster, work harder
 Plug 'Konfekt/FastFold'
