@@ -38,9 +38,9 @@ nmap ga <Plug>(EasyAlign)
 command W w !sudo tee %
 
 " Open FZF for editing
-
 nnoremap <Leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>
-nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <Leader>f <cmd>Telescope find_files<CR>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
 
 "}}}

@@ -14,8 +14,6 @@ require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
 	-- Lua mappings helper
 	use 'svermeulen/vimpeccable'
-	-- Lua plugins writing helper
-	use 'bfredl/nvim-luadev'
 	-- Nord colorscheme
 	use { 'arcticicestudio/nord-vim', branch = 'develop' }
 	-- Custom syntaxes

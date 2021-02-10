@@ -15,7 +15,6 @@ runtime! conf/**.vim
 " runtime plug/plug.vim
 lua require('plugins')
 lua require('plugin_config')
-runtime plug/config.vim
 
 " Source the UI config
 runtime! ui/**.vim
