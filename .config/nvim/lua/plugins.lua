@@ -47,10 +47,8 @@ require('packer').startup(function()
 	-- Terminal helper
 	use 'kassio/neoterm'
 	-- Sign column
-	use 'f-person/git-blame.nvim'
+	--use 'f-person/git-blame.nvim'
 	use 'lewis6991/gitsigns.nvim'
-	-- Git helper
-	use 'tpope/vim-fugitive'
 	-- Delimit stuff
 	use 'Raimondi/delimitMate'
     use {
