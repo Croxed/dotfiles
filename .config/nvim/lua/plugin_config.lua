@@ -25,7 +25,7 @@ require('gitsigns').setup()
 require('colorizer').setup()
 local lualine = require('lualine')
 lualine.status()
-lualine.theme = 'nord'
+lualine.options.theme = 'nord'
 
 local saga = require('lspsaga')
 saga.init_lsp_saga()
