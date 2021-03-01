@@ -45,7 +45,7 @@ require('packer').startup(function()
 		}
 	}
 	-- Terminal helper
-	use 'kassio/neoterm'
+	use 'nikvdp/neomux'
 	-- Sign column
 	--use 'f-person/git-blame.nvim'
 	use 'lewis6991/gitsigns.nvim'
