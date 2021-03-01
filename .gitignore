@@ -23,6 +23,7 @@
 !.config/termite
 !.config/wallpapers
 !.config/nvim/
+.config/nvim/plugin
 .config/nvim/spell
 .config/nvim/.netrwhist
 !.config/fish/aliases.fish
