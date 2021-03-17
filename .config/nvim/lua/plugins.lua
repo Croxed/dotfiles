@@ -27,6 +27,8 @@ require('packer').startup(function()
             {'kyazdani42/nvim-web-devicons'}
         }
     }
+	-- Tree view
+	use {"kyazdani42/nvim-tree.lua"}
     -- Navigation
     use 'christoomey/vim-tmux-navigator'
 	-- Typing helpers
@@ -58,13 +60,12 @@ require('packer').startup(function()
 	if not vim.g.notepad_mode then
 		use 'mhinz/vim-startify'
     end
-    -- File browser
-    use {'ms-jpq/chadtree', branch = 'chad', run='python3 -m chadtree deps'}
 	-- Calculate startup time
 	use 'tweekmonster/startuptime.vim'
 	-- Internal NeoVim LSP configuration helper
     use 'neovim/nvim-lspconfig'
-    use 'glepnir/lspsaga.nvim'
+    --use 'glepnir/lspsaga.nvim'
+	use {"onsails/lspkind-nvim"}
     use 'alexaandru/nvim-lspupdate'
 	-- Completion engine
     use 'hrsh7th/nvim-compe'
