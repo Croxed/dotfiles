@@ -64,7 +64,7 @@ require('packer').startup(function()
 	use 'tweekmonster/startuptime.vim'
 	-- Internal NeoVim LSP configuration helper
     use 'neovim/nvim-lspconfig'
-    --use 'glepnir/lspsaga.nvim'
+    use 'glepnir/lspsaga.nvim'
 	use {"onsails/lspkind-nvim"}
     use 'alexaandru/nvim-lspupdate'
 	-- Completion engine
