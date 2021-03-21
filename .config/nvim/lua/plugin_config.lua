@@ -12,6 +12,16 @@ require('utils.lua')
 vim.fn['neomake#configure#automake']('nrwi', 500)
 vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
 
+map('n', '<silent> gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<silent> gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+map('n', '<silent> gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n', '<silent> gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+map('n', '<silent> K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<silent> <C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+map('n', '<silent> <C-n>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+map('n', '<silent> <C-p>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+
+--[[ 
 map('i', '<silent><expr> <C-Space>', 'compe#complete()')
 map('i', '<silent><expr> <CR>', "compe#confirm('<CR>')")
 map('i', '<silent><expr> <C-e>', "compe#close('<C-e>')")
@@ -27,6 +37,7 @@ map('n', '<silent><leader>K', ':Lspsaga hover_doc<CR>')
 
 map('n', '<silent> <C-f>', "<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>")
 map('n', '<silent> <C-b>', "<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>")
+ ]]
 
 g['deoplete#enable_at_startup'] = 1
 g['nord_italic'] = 1

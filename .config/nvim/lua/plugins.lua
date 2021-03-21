@@ -46,8 +46,6 @@ require('packer').startup(function()
 			{'kyazdani42/nvim-web-devicons'}
 		}
 	}
-	-- Terminal helper
-	use 'nikvdp/neomux'
 	-- Sign column
 	--use 'f-person/git-blame.nvim'
 	use 'lewis6991/gitsigns.nvim'
@@ -65,7 +63,8 @@ require('packer').startup(function()
 	-- Internal NeoVim LSP configuration helper
     use 'neovim/nvim-lspconfig'
     use 'glepnir/lspsaga.nvim'
-	use {"onsails/lspkind-nvim"}
+    use 'onsails/lspkind-nvim'
+    use 'kosayoda/nvim-lightbulb'
     use 'alexaandru/nvim-lspupdate'
 	-- Completion engine
     use 'hrsh7th/nvim-compe'
