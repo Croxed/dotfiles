@@ -8,8 +8,14 @@ execute(
 )
 end
 
+function file_exists(name)
+	local f=io.open(name,"r")
+	if f~=nil then io.close(f) return true else return false end
+ end
+
 vim.cmd [[ packadd packer.nvim ]]
-require('packer').startup(function()
+packer = require('packer');
+packer.startup(function()
 	-- Package manager itself
 	use {'wbthomason/packer.nvim', opt = true}
 	-- Lua mappings helper
@@ -81,3 +87,7 @@ require('packer').startup(function()
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/playground'
 end)
+
+if not file_exists(fn.expand('~/.config/nvim/plugin/packer_compiled.vim')) then
+	packer.sync()
+end
