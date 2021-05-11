@@ -10,7 +10,7 @@ require('compe.lua')
 require('utils.lua')
 
 vim.fn['neomake#configure#automake']('nrwi', 500)
-vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
+--vim.lsp.callbacks['textDocument/publishDiagnostics'] = nil
 
 map('n', '<silent> gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<silent> gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
