@@ -23,7 +23,10 @@ packer.startup(function()
 	-- Nord colorscheme
 	use { 'arcticicestudio/nord-vim', branch = 'develop' }
 	-- Custom syntaxes
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot'
+    -- folke stuff
+    use 'folke/lsp-colors.nvim'
+    use "folke/lua-dev.nvim"
 	-- Linters integration
 	use 'neomake/neomake'
 	-- Status line
@@ -54,7 +57,8 @@ packer.startup(function()
 	}
 	-- Sign column
 	--use 'f-person/git-blame.nvim'
-	use 'lewis6991/gitsigns.nvim'
+	-- use 'lewis6991/gitsigns.nvim'
+    use 'mhinz/vim-signify'
 	-- Delimit stuff
 	use 'Raimondi/delimitMate'
     use {

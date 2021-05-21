@@ -7,6 +7,7 @@ typeset -gx VOLTA_HOME="$HOME/.volta"
 declare -a path_candidate
 path_candidate=(
     "/c/Users/oscwen/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
+    "$HOME/nvim/bin"
     "$HOME/development/cabo/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
@@ -19,13 +20,12 @@ path_candidate=(
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/.bin"
     "$HOME/.symfony/bin"
-    "$HOME/.phpenv/bin"
+    "$HOME/.phpenv/shims"
     "$HOME/.cabal/bin"
     "$HOME/.rbenv/bin"
     "$HOME/.symfony/bin"
     "$HOME/.poetry/bin"
     "$HOME/.fzf/bin"
-    "$HOME/.pyenv/bin"
     "$GOPATH/bin"
     "$GOROOT/bin"
     "$HOME/.cargo/bin"
@@ -34,9 +34,7 @@ path_candidate=(
     "$HOME/.nexustools"
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
-    "$HOME/Development/cabo/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
-    "$HOME/Library/Python/3.7/bin"
     )
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'

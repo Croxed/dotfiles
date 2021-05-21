@@ -2,7 +2,7 @@
 require('nvimTree.lua')
 require('lspConfig.lua')
 require('luaLine.lua')
-require('gitsigns').setup()
+-- require('gitsigns').setup()
 require('colorizer').setup()
 require('lspsaga').init_lsp_saga()
 require('treesitter.lua')
