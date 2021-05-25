@@ -6,15 +6,10 @@ typeset -gx VOLTA_HOME="$HOME/.volta"
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
-    "/c/Users/oscwen/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
+    "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/nvim/bin"
     "$HOME/development/cabo/bin"
-    "/usr/local/bin"
-    "/opt/local/sbin"
-    "/opt/local/bin"
-    "/usr/local/share/npm/bin"
-    "/usr/local/opt/coreutils/libexec/gnubin"
-    "/usr/bin/core_perl"
+    "$HOME/bin.local"
     "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
@@ -29,12 +24,17 @@ path_candidate=(
     "$GOPATH/bin"
     "$GOROOT/bin"
     "$HOME/.cargo/bin"
-    "$HOME/bin.local"
     "$HOME/scripts"
     "$HOME/.nexustools"
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
+    "/usr/local/bin"
+    "/opt/local/sbin"
+    "/opt/local/bin"
+    "/usr/local/share/npm/bin"
+    "/usr/local/opt/coreutils/libexec/gnubin"
+    "/usr/bin/core_perl"
     )
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'

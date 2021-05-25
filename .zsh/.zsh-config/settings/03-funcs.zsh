@@ -517,3 +517,7 @@ docker-ssh ()
     # SSH into given container
     docker exec -i -t "$containerid" /bin/bash
 }
+
+git_current_branch() {
+    git rev-parse --abbrev-ref HEAD
+}

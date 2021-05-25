@@ -1,4 +1,3 @@
-
 require('nvimTree.lua')
 require('lspConfig.lua')
 require('luaLine.lua')
@@ -39,9 +38,12 @@ map('n', '<silent> <C-f>', "<cmd>lua require('lspsaga.hover').smart_scroll_hover
 map('n', '<silent> <C-b>', "<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>")
  ]]
 
-g['deoplete#enable_at_startup'] = 1
-g['nord_italic'] = 1
-g['nord_italic_comments'] = 1
-g['nord_uniform_status_lines'] = 1
-g['nord_uniform_diff_background'] = 1
-g['nord_cursor_line_number_background'] = 1
+vim.g['deoplete#enable_at_startup'] = 1
+vim.g.nord_italic = 1
+vim.g.nord_italic_comments = 1
+vim.g.nord_uniform_status_lines = 1
+vim.g.nord_uniform_diff_background = 1
+vim.g.nord_cursor_line_number_background = 1
+
+-- Load the colorscheme
+vim.cmd[[colorscheme nord]]
