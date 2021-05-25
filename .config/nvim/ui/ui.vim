@@ -113,7 +113,7 @@ set background=dark
 
 " Colorscheme management
 try
-    " silent! colorscheme nord 
+    silent! colorscheme nord 
 catch
 endtry
 

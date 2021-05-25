@@ -21,7 +21,6 @@ packer.startup(function()
     -- Lua mappings helper
     use 'svermeulen/vimpeccable'
     -- Nord colorscheme
-    use {'maaslalani/nordbuddy', 'tjdevries/colorbuddy.nvim'}
     use 'shaunsingh/nord.nvim'
     -- Custom syntaxes
     -- use 'sheerun/vim-polyglot'
