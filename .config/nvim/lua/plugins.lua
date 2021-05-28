@@ -1,3 +1,7 @@
+CONFIG_PATH = vim.fn.stdpath('config')
+DATA_PATH = vim.fn.stdpath('data')
+CACHE_PATH = vim.fn.stdpath('cache')
+
 -- Installing packer.nvim
 local execute = vim.api.nvim_command
 local fn = vim.fn
@@ -18,18 +22,23 @@ packer = require('packer');
 packer.startup(function()
     -- Package manager itself
     use {'wbthomason/packer.nvim', opt = true}
-    -- Lua mappings helper
-    use 'svermeulen/vimpeccable'
     -- Nord colorscheme
-    use 'shaunsingh/nord.nvim'
+    use {"christianchiarulli/nvcode-color-schemes.vim"}
     -- Custom syntaxes
     -- use 'sheerun/vim-polyglot'
-    -- dashboard
     -- folke stuff
     use 'folke/lsp-colors.nvim'
     use "folke/lua-dev.nvim"
-    -- Linters integration
-    use 'neomake/neomake'
+    use {
+        "folke/which-key.nvim",
+        config = function()
+          require("which-key").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+          }
+        end
+      }
     -- Status line
     use {
         'hoob3rt/lualine.nvim',
@@ -42,8 +51,7 @@ packer.startup(function()
     -- Navigation
     use 'christoomey/vim-tmux-navigator'
     -- Typing helpers
-    use 'tpope/vim-surround'
-    use 'tpope/vim-repeat'
+    use {"windwp/nvim-autopairs", opt = true}
     use 'b3nj5m1n/kommentary'
     -- Filetype icons
     use 'ryanoasis/vim-devicons'
@@ -57,14 +65,13 @@ packer.startup(function()
         }
     }
     -- Sign column
-    --use 'f-person/git-blame.nvim'
-    -- use 'lewis6991/gitsigns.nvim'
-    use 'mhinz/vim-signify'
+    use 'lewis6991/gitsigns.nvim'
     -- Delimit stuff
     use 'Raimondi/delimitMate'
     use {
         'mg979/vim-visual-multi', branch = 'master'
     }
+
     -- Start page (do not use in notepad mode)
     if not vim.g.notepad_mode then
         use 'mhinz/vim-startify'
@@ -79,17 +86,17 @@ packer.startup(function()
     use 'alexaandru/nvim-lspupdate'
     -- Completion engine
     use 'hrsh7th/nvim-compe'
-    use {
-        'hrsh7th/vim-vsnip-integ',
-        requires = {
-            {'hrsh7th/vim-vsnip'}
-        }
-    }
+    -- Snippets 
+    use {'hrsh7th/vim-vsnip'}
+    use {"rafamadriz/friendly-snippets", opt = true}
     use 'honza/vim-snippets'
+
     use 'norcalli/nvim-colorizer.lua'
+    -- treesitter
     vim.g.treesitter_enabled = true
     -- TreeSitter-based syntax highlighting & text objects
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {"windwp/nvim-ts-autotag", opt = true}
     use 'nvim-treesitter/playground'
 end)
 

@@ -7,7 +7,6 @@ typeset -gx VOLTA_HOME="$HOME/.volta"
 declare -a path_candidate
 path_candidate=(
     "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
-    "$HOME/nvim/bin"
     "$HOME/development/cabo/bin"
     "$HOME/bin.local"
     "$VOLTA_HOME/bin"

@@ -9,10 +9,3 @@ local luadev = require("lua-dev").setup({
   -- },
 })
 
-local lspconfig  = require('lspconfig')
-lspconfig.pyright.setup{}
-lspconfig.tsserver.setup{}
-lspconfig.vimls.setup{}
-lspconfig.bashls.setup{}
-lspconfig.intelephense.setup{}
-lspconfig.sumneko_lua.setup(luadev)

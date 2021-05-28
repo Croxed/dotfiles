@@ -41,3 +41,5 @@
 .ncmpcpp/*
 !.ncmpcpp/config
 !.ncmpcpp/bindings
+neovim.version
+.neovim

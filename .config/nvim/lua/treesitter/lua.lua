@@ -1,5 +1,6 @@
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { "rust", "c", "cpp", "javascript", "typescript", "java", "json", "css", "python", "toml", "query", "lua" },
+    ensure_installed = O.treesitter.ensure_installed, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ignore_install = O.treesitter.ignore_install,
 	highlight = {
 		enable = true,
 		custom_captures = {

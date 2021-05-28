@@ -13,7 +13,7 @@ ls()
 unalias cd >/dev/null 2>&1
 cd()
 {
-    builtin cd "$@" && command ls --color=auto -F
+    builtin cd "$@" && command ls
 }
 
 por()
