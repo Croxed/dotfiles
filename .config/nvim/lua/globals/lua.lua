@@ -1,3 +1,7 @@
+CONFIG_PATH = vim.fn.stdpath('config')
+DATA_PATH = vim.fn.stdpath('data')
+CACHE_PATH = vim.fn.stdpath('cache')
+
 O = {
     auto_close_tree = 0,
     auto_complete = true,
@@ -12,7 +16,7 @@ O = {
 
     -- @usage pass a table with your desired languages
     treesitter = {
-        ensure_installed = "all",
+        ensure_installed = {"bash", "css", "dockerfile", "html", "java", "javascript", "json", "php", "python", "typescript", "vue", "yaml"},
         ignore_install = {"haskell"},
         highlight = {enabled = true},
         playground = {enabled = true},

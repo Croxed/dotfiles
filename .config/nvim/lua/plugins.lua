@@ -83,7 +83,7 @@ packer.startup(function()
     use 'glepnir/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
-    use 'alexaandru/nvim-lspupdate'
+    use 'kabouzeid/nvim-lspinstall'
     -- Completion engine
     use 'hrsh7th/nvim-compe'
     -- Snippets 
