@@ -79,7 +79,8 @@ packer.startup(function()
         use 'mhinz/vim-startify'
     end
     -- Calculate startup time
-    use 'tweekmonster/startuptime.vim'
+    -- use 'tweekmonster/startuptime.vim'
+    use 'dstein64/vim-startuptime'
     -- Internal NeoVim LSP configuration helper
     use 'neovim/nvim-lspconfig'
     use 'glepnir/lspsaga.nvim'
