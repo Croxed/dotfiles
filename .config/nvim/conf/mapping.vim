@@ -35,7 +35,7 @@ nmap ga <Plug>(EasyAlign)
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee %
+command W SudaWrite
 
 " Open FZF for editing
 nnoremap <Leader>fg <cmd>lua require'telescope.builtin'.git_files{}<CR>

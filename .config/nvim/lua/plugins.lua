@@ -46,6 +46,8 @@ packer.startup(function()
             {'kyazdani42/nvim-web-devicons'}
         }
     }
+    -- Sudo stuff
+    use 'lambdalisue/suda.vim'
     -- Tree view
     use {"kyazdani42/nvim-tree.lua"}
     -- Navigation
