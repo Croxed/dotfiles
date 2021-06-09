@@ -2,6 +2,8 @@
 
 fpath+=("$SIMPL_ZSH_DIR"/completions)
 
+typeset -gx GOROOT="$HOME"/.go
+typeset -gx GOPATH="$HOME"/go
 typeset -gx VOLTA_HOME="$HOME/.volta"
 # all candidated for sourcing into path
 declare -a path_candidate

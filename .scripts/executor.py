@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
+import json
 import subprocess
 
 SCRIPT_DIR = '$HOME/scripts/'
