@@ -27,12 +27,6 @@ nnoremap <leader>lc <cmd>call setqflist([])<cr>
 " BufExplorer
 nmap <leader>bx :BufExplorer<cr>
 
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W SudaWrite
@@ -76,8 +70,6 @@ map <leader>ba :bufdo bd<cr>
 
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
-
-nnoremap <leader>ls :ls<CR>:b<space>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>

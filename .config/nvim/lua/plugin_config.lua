@@ -9,6 +9,7 @@ require('lspsaga').init_lsp_saga()
 require('treesitter.lua')
 require('compe.lua')
 require('utils.lua')
+require("bufferline").setup{}
 
 -- LSP
 require('lsp')

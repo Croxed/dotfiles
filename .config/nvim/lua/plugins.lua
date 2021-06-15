@@ -40,6 +40,7 @@ packer.startup(function()
         end
       }
     -- Status line
+    use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
     use {
         'hoob3rt/lualine.nvim',
         requires = {
@@ -79,8 +80,7 @@ packer.startup(function()
         use 'mhinz/vim-startify'
     end
     -- Calculate startup time
-    -- use 'tweekmonster/startuptime.vim'
-    use 'dstein64/vim-startuptime'
+    use 'tweekmonster/startuptime.vim'
     -- Internal NeoVim LSP configuration helper
     use 'neovim/nvim-lspconfig'
     use 'glepnir/lspsaga.nvim'
