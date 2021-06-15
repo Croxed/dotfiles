@@ -63,7 +63,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bd :bdelete! %<CR>
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
