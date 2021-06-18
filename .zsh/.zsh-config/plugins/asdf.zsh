@@ -17,7 +17,7 @@ _install_asdf_plugin_if_not_installed() {
             continue
         fi
         
-        asdf plugin add $plugin
+        asdf plugin add $plugin &>/dev/null
     done
 
 }
