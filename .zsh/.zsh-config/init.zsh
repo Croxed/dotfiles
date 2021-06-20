@@ -1,6 +1,17 @@
 #! /usr/bin/env zsh
 
-fpath+=("$SIMPL_ZSH_DIR"/completions)
+required_completions=( 
+    docker 'https://github.com/docker/cli/raw/master/contrib/completion/zsh/_docker'
+    docker-compose 'https://github.com/docker/compose/raw/master/contrib/completion/zsh/_docker-compose'
+)
+
+for key value in ${(kv)required_completions}; do
+    if [ ! -f "$SIMPL_ZSH_DIR"/completion/_"$key" ]; then
+        curl -fSsL "$value" -o "$SIMPL_ZSH_DIR"/completion/_"$key"
+    fi
+done
+
+fpath+=("$SIMPL_ZSH_DIR"/completion)
 
 typeset -gx GOROOT="$HOME"/.go
 typeset -gx GOPATH="$HOME"/go

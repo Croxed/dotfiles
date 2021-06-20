@@ -47,6 +47,8 @@ packer.startup(function()
             {'kyazdani42/nvim-web-devicons'}
         }
     }
+    -- debugging
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
     -- Sudo stuff
     use 'lambdalisue/suda.vim'
     -- Tree view

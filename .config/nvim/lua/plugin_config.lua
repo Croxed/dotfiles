@@ -94,3 +94,13 @@ vim.g.nord_italic_comments = 1
 vim.g.nord_uniform_status_lines = 1
 vim.g.nord_uniform_diff_background = 1
 vim.g.nord_cursor_line_number_background = 1
+
+
+vim.g.loaded_gzip = false
+vim.g.loaded_matchit = false
+vim.g.loaded_netrwPlugin = false
+vim.g.loaded_tarPlugin = false
+vim.g.loaded_zipPlugin = false
+vim.g.loaded_man = false
+vim.g.loaded_2html_plugin = false
+vim.g.loaded_remote_plugins = false
