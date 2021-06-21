@@ -11,6 +11,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! Is_WSL() abort
+  let proc_version = '/proc/version'
+  return filereadable(proc_version)
+        \  ? !empty(filter(
+        \    readfile(proc_version, '', 1), { _, val -> val =~? 'microsoft' }))
+        \  : v:false
+endfunction
+
 " {{{
 " Fix shell when fish
 set encoding=utf-8
@@ -49,6 +58,19 @@ if has('mac')
 		\   },
 		\   'cache_enabled': 0,
 		\ }
+elseif Is_WSL()
+      let g:clipboard = {
+      \ 'name': 'win32yank',
+      \ 'copy': {
+      \    '+': 'win32yank.exe -i --crlf',
+      \    '*': 'win32yank.exe -i --crlf',
+      \  },
+      \ 'paste': {
+      \    '+': 'win32yank.exe -o --lf',
+      \    '*': 'win32yank.exe -o --lf',
+      \ },
+      \ 'cache_enabled': 0,
+      \ }
 endif
 
 if has('clipboard')
@@ -98,8 +120,6 @@ set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
-
-" set clipboard+=unnamedplus " fix not copying between clipboard and vim
 
 " 1 tab == 4 spaces
 set shiftwidth=4

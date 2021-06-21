@@ -7,7 +7,7 @@ required_completions=(
 
 for key value in ${(kv)required_completions}; do
     if [ ! -f "$SIMPL_ZSH_DIR"/completion/_"$key" ]; then
-        curl -fSsL "$value" -o "$SIMPL_ZSH_DIR"/completion/_"$key"
+        curl --create-dirs -fSsL "$value" -o "$SIMPL_ZSH_DIR"/completion/_"$key"
     fi
 done
 
