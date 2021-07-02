@@ -43,7 +43,13 @@ require "format".setup {
             target = "current"
         }
     },
-    shell = {
-        {cmd = {"shfmt -w -s"}}
+    sh = {
+        {
+            cmd = { 
+                function(file)
+                    return string.format("shfmt -w -s", file)
+                end
+            }
+        }
     }
 }

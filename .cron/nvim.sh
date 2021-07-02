@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -e
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # shellcheck disable=1091
@@ -24,7 +26,7 @@ main() {
 
     response="$(get_latest_release neovim neovim "$type")"
     version="$(head -n1 <<< "$response")"
-    url="$(tail -n1 <<< "$response")"
+    url="$(grep -E 'tar.gz$' <<< "$response")"
 
     current_version="$(<"$DIR"/neovim.version)"
 
