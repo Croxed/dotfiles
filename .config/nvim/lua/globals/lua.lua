@@ -42,9 +42,9 @@ O = {
     },
     sh = {
         -- @usage can be 'shellcheck'
-        linter = '',
+        linter = 'shellcheck',
         -- @usage can be 'shfmt'
-        formatter = '',
+        formatter = 'shfmt',
         autoformat = false,
         diagnostics = {virtual_text = {spacing = 0, prefix = ""}, signs = true, underline = true}
     },

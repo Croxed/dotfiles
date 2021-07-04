@@ -86,8 +86,6 @@ packer.startup(
         use "onsails/lspkind-nvim"
         use "kosayoda/nvim-lightbulb"
         use "kabouzeid/nvim-lspinstall"
-        -- formatting
-        use "lukas-reineke/format.nvim"
         -- Completion engine
         use "hrsh7th/nvim-compe"
         -- Snippets
@@ -104,6 +102,6 @@ packer.startup(
     end
 )
 
-if not file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.vim")) then
+if not file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.lua")) then
     packer.sync()
 end
