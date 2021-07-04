@@ -9,6 +9,7 @@ require("lspsaga").init_lsp_saga()
 require("treesitter.lua")
 require("compe.lua")
 require("utils.lua")
+require('config')
 require("format-config.lua")
 require("bufferline").setup {
     options = {

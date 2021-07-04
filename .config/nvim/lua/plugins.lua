@@ -29,10 +29,8 @@ packer.startup(
         -- Nord colorscheme
         use {"christianchiarulli/nvcode-color-schemes.vim"}
         -- Custom syntaxes
-        -- use 'sheerun/vim-polyglot'
         -- folke stuff
         use "folke/lsp-colors.nvim"
-        use "folke/lua-dev.nvim"
         use {
             "folke/which-key.nvim",
             config = function()
@@ -47,8 +45,6 @@ packer.startup(
                 {"kyazdani42/nvim-web-devicons"}
             }
         }
-        -- debugging
-        use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
         -- Sudo stuff
         use "lambdalisue/suda.vim"
         -- Tree view
@@ -105,7 +101,6 @@ packer.startup(
         -- TreeSitter-based syntax highlighting & text objects
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
         use {"windwp/nvim-ts-autotag", opt = true}
-        use "nvim-treesitter/playground"
     end
 )
 

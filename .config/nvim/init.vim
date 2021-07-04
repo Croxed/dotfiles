@@ -15,6 +15,4 @@ runtime! conf/**.vim
 " runtime plug/plug.vim
 lua require('plugins')
 lua require('plugin_config')
-
-" Source the UI config
-runtime! ui/**.vim
+autocmd BufWritePost plugins.lua PackerCompile
