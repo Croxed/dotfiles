@@ -102,6 +102,6 @@ packer.startup(
     end
 )
 
-if not file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.lua")) then
+if not file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.*")) then
     packer.sync()
 end
