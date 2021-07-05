@@ -1,4 +1,4 @@
-require('utils.lua')
+local utils = require('utils.lua')
 
 cmd [[
 set encoding=utf-8
@@ -30,42 +30,40 @@ set tw=500
 set wrap
 ]]
 
-
---Incremental live completion
+-- Incremental live completion
 vim.o.inccommand = "nosplit"
 
---Set highlight on search
+-- Set highlight on search
 vim.o.hlsearch = false
 vim.o.incsearch = true
 
---Make line numbers default
+-- Make line numbers default
 vim.wo.number = true
 
---Do not save when switching buffers
+-- Do not save when switching buffers
 vim.o.hidden = true
 
---Enable mouse mode
+-- Enable mouse mode
 vim.o.mouse = "a"
 
---Enable break indent
+-- Enable break indent
 vim.o.breakindent = true
 
---Case insensitive searching UNLESS /C or capital in search
+-- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
---Decrease update time
+-- Decrease update time
 vim.o.updatetime = 250
-vim.wo.signcolumn="yes"
+vim.wo.signcolumn = "yes"
 
---Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent=true})
+-- Remap space as leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', {noremap = true, silent = true})
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Change preview window location
 vim.g.splitbelow = true
-
 
 vim.g["deoplete#enable_at_startup"] = 1
 vim.g.nord_italic = 1
@@ -96,3 +94,27 @@ local disable_distribution_plugins = function()
 end
 
 disable_distribution_plugins()
+
+-- MacOS clipboard
+if utils.is_darwin() then
+    g.clipboard = {
+        name = "macOS-clipboard",
+        copy = {["+"] = "pbcopy", ["*"] = "pbcopy"},
+        paste = {["+"] = "pbpaste", ["*"] = "pbpaste"}
+    }
+elseif utils.shell_type('win32yank.exe') then
+    g.clipboard = {
+        name = 'win32yank',
+        copy = { ['+'] = 'win32yank.exe -i --crlf', ['*'] = 'win32yank.exe -i --crlf'},
+        paste = {['+'] = 'win32yank.exe -o --lf', ['*'] = 'win32yank.exe -o --lf'},
+        cache_enabled = 0
+    }
+end
+
+if utils.shell_type('rg') then
+    vim.o.grepprg = 'rg --vimgrep --no-heading --smart-case'
+    vim.o.grepformat = '%f:%l:%c:%m'
+elseif  utils.shell_type('ag') then
+    vim.o.grepprg = 'ag --vimgrep --no-heading --smart-case'
+    vim.o.grepformat = '%f:%l:%c:%m'
+end
