@@ -1,3 +1,3 @@
 require('config.general')
-require('config.ui')
 require('config.mapping')
+require('config.ui')

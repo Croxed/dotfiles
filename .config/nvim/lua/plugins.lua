@@ -102,6 +102,17 @@ packer.startup(
     end
 )
 
-if not file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.*")) then
-    packer.sync()
+local function is_compiled()
+    return file_exists(fn.expand("~/.config/nvim/plugin/packer_compiled.*"))
 end
+
+-- called from 'lua/autocmd.lua' at `VimEnter`
+local function sync_if_not_compiled()
+    if packer == nil then return end
+    if not is_compiled() then
+        packer.sync()
+        --execute("luafile $MYVIMRC")
+    end
+end
+
+sync_if_not_compiled()
