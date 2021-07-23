@@ -1,8 +1,3 @@
-require('utils.lua')
-require("nvimTree.lua")
-opt('o', 'termguicolors', true)
--- 1. get the config for this server from nvim-lspconfig and adjust the cmd path.
---    relative paths are allowed, lspinstall automatically adjusts the cmd and cmd_cwd for us!
 local config = require'lspconfig'.jdtls.document_config
 require'lspconfig/configs'.jdtls = nil -- important, unset the loaded config again
 -- config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
@@ -27,16 +22,32 @@ require'lspinstall/servers'.kotlin = vim.tbl_extend('error', config, {
     uninstall_script = nil -- can be omitted
 })
 
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in ipairs(servers) do
-    require'lspconfig'[server].setup{}
-  end
-end
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+-- LSP
+require("lsp")
+require("lsp.angular-ls")
+require("lsp.bash-ls")
+require("lsp.clangd")
+require("lsp.css-ls")
+require("lsp.dart-ls")
+require("lsp.docker-ls")
+require("lsp.efm-general-ls")
+require("lsp.elm-ls")
+require("lsp.emmet-ls")
+require("lsp.graphql-ls")
+require("lsp.go-ls")
+require("lsp.html-ls")
+require("lsp.json-ls")
+require("lsp.js-ts-ls")
+require("lsp.kotlin-ls")
+require("lsp.latex-ls")
+require("lsp.lua-ls")
+require("lsp.php-ls")
+require("lsp.python-ls")
+require("lsp.ruby-ls")
+require("lsp.rust-ls")
+require("lsp.svelte-ls")
+require("lsp.terraform-ls")
+require("lsp.vim-ls")
+require("lsp.vue-ls")
+require("lsp.yaml-ls")
+require("lsp.elixir-ls")
