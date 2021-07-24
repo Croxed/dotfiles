@@ -21,6 +21,31 @@ return packer.startup(
             after = "nord.nvim",
         }
 
+        -- vim-rooter
+        use {
+          "airblade/vim-rooter",
+          config = function()
+            vim.g.rooter_silent_chdir = 1
+          end,
+        }
+      
+        use {
+            "jose-elias-alvarez/nvim-lsp-ts-utils"
+        }
+
+        use {
+            "mhartington/formatter.nvim",
+            config = function()
+                require "plugins.formatter"
+            end,
+        }
+
+        use {
+            "mfussenegger/nvim-lint",
+            config = function()
+              require("plugins.linter").setup()
+            end,
+          }
 
         use {
             "glepnir/galaxyline.nvim",
@@ -57,8 +82,7 @@ return packer.startup(
         }
 
         use {
-            "kabouzeid/nvim-lspinstall",
-            event = "BufRead"
+            "kabouzeid/nvim-lspinstall"
         }
 
         use {

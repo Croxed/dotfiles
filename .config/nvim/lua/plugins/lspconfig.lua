@@ -24,7 +24,7 @@ require'lspinstall/servers'.kotlin = vim.tbl_extend('error', config, {
 
 -- LSP
 require("lsp")
-require("lsp.angular-ls")
+--[[require("lsp.angular-ls")
 require("lsp.bash-ls")
 require("lsp.clangd")
 require("lsp.css-ls")
@@ -51,3 +51,4 @@ require("lsp.vim-ls")
 require("lsp.vue-ls")
 require("lsp.yaml-ls")
 require("lsp.elixir-ls")
+--]]

@@ -44,3 +44,4 @@
 !.ncmpcpp/bindings
 neovim.version
 .neovim
+.vscode
