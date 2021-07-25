@@ -19,9 +19,9 @@ COMMAND="$@"
 FOCUSED=$(xprop -root _NET_ACTIVE_WINDOW | awk -F' ' '{print $NF}')
 
 if xprop -id ${FOCUSED} _NET_WM_STATE | grep -q _NET_WM_STATE_FULLSCREEN; then
-    i3-msg "[id=${FOCUSED}] fullscreen disable"
-    ${COMMAND}
-    i3-msg "[id=${FOCUSED}] fullscreen enable"
+	i3-msg "[id=${FOCUSED}] fullscreen disable"
+	${COMMAND}
+	i3-msg "[id=${FOCUSED}] fullscreen enable"
 else
-    ${COMMAND}
+	${COMMAND}
 fi

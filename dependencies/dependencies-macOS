@@ -2,42 +2,46 @@
 
 # Install command-line tools using Homebrew.
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-function brew-alloptions () {
-    brew install "$1 $(brew options "$1" | grep -E '^--with-' - | tr '\n' ' ')"
+function brew-alloptions() {
+	brew install "$1 $(brew options "$1" | grep -E '^--with-' - | tr '\n' ' ')"
 }
 
 # Ask for the administrator password upfront.
 sudo -v
 
-info () {
-    printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"
+info() {
+	printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"
 }
 
-user () {
-    printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
+user() {
+	printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
 }
 
-success () {
-    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
+success() {
+	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
 }
 
-fail () {
-    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n" "$1"
-    echo ''
-    exit
+fail() {
+	printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n" "$1"
+	echo ''
+	exit
 }
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+	sudo -n true
+	sleep 60
+	kill -0 "$$" || exit
+done 2>/dev/null &
 
 # Checking if Homebrew is installed
-if ! type -p brew > /dev/null ; then
-    # Install Homebrew
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if ! type -p brew >/dev/null; then
+	# Install Homebrew
+	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-    # Update homebrew.
-    brew update
+	# Update homebrew.
+	brew update
 fi
 
 cd "$CURRENT_DIR" || exit 1
@@ -49,12 +53,11 @@ info "Installing packages"
 brew bundle
 
 info "Installing python packages"
-pip3 install neovim\
-pynvim \
-jedi \
-mistune \
-psutil \
-setproctitle
+pip3 install neovimpynvim \
+	jedi \
+	mistune \
+	psutil \
+	setproctitle
 
 # Remove outdated versions from the cellar.
 brew cleanup

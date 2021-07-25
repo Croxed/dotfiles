@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 if [ "$(uname)" == "Darwin" ]; then
-    spotstatus="$(spotctl status)"
-    if [[ "$spotstatus" != *"paused"* ]]; then
-        track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
-        artist="$(echo "${spotstatus}"| grep "Artist" | sed 's/Artist: //')"
-        printf '▶︎ %s - %s' "$artist" "$track"
-    else
-        printf '■ %s' "$spotstatus"
-    fi
+	spotstatus="$(spotctl status)"
+	if [[ "$spotstatus" != *"paused"* ]]; then
+		track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
+		artist="$(echo "${spotstatus}" | grep "Artist" | sed 's/Artist: //')"
+		printf '▶︎ %s - %s' "$artist" "$track"
+	else
+		printf '■ %s' "$spotstatus"
+	fi
 else
-    spotstatus="$(spotctl status)"
-    if [[ "$spotstatus" != *"paused"* ]]; then
-        track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
-        artist="$(echo "${spotstatus}"| grep "Artist" | sed 's/Artist: //')"
-        printf '▶︎ %s - %s' "$artist" "$track"
-    else
-        printf '▶︎ %s' "$spotstatus"
-    fi
+	spotstatus="$(spotctl status)"
+	if [[ "$spotstatus" != *"paused"* ]]; then
+		track="$(echo "${spotstatus}" | grep "Track" | sed 's/Track: //')"
+		artist="$(echo "${spotstatus}" | grep "Artist" | sed 's/Artist: //')"
+		printf '▶︎ %s - %s' "$artist" "$track"
+	else
+		printf '▶︎ %s' "$spotstatus"
+	fi
 fi

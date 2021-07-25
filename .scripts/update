@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
-info () {
-    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+info() {
+	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
 }
 info 'start updating ...'
 
 if type brew >/dev/null; then
-    info 'updating homebrew'
-    brew update
-    brew upgrade
-    brew cleanup
+	info 'updating homebrew'
+	brew update
+	brew upgrade
+	brew cleanup
 elif type yay >/dev/null; then
-    info 'updating pacman'
-    yay -Syu
+	info 'updating pacman'
+	yay -Syu
 fi
 
 case "$SHELL" in
 */fish)
-    info 'updating fish shell'
-    fish -c fisher up
-    fish -c fish_update_completions
-    ;;
+	info 'updating fish shell'
+	fish -c fisher up
+	fish -c fish_update_completions
+	;;
 */zsh)
-    info 'updating zsh shell'
-    zsh -c zplug update
-    ;;
+	info 'updating zsh shell'
+	zsh -c zplug update
+	;;
 esac
 
 if type softwareupdate >/dev/null; then
-    info 'checking Apple Updates'
-    /usr/sbin/softwareupdate -ia
+	info 'checking Apple Updates'
+	/usr/sbin/softwareupdate -ia
 fi
 
 exit 0

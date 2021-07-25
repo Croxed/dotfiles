@@ -3,7 +3,11 @@
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until the script has finished.
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+	sudo -n true
+	sleep 60
+	kill -0 "$$" || exit
+done 2>/dev/null &
 
 if [ ! -d "$HOME/Library/QuickLook" ]; then
 	mkdir -p "$HOME/Library/QuickLook"
@@ -11,9 +15,9 @@ fi
 echo Installing Quick Look-plugins from Homebrew
 
 # Checking if Homebrew is installed
-if ! type -p brew > /dev/null ; then
-    # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if ! type -p brew >/dev/null; then
+	# Install Homebrew
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # All Quick Look-plugins from homebrew

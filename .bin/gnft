@@ -1,13 +1,13 @@
 #! /usr/bin/env bash
 : ${DIALOG:=dialog}
 case "$DIALOG" in
-    *dialog*)
-        OPTS="$OPTS --cr-wrap"
-        high=10
-        ;;
-    *whiptail*)
-        high=12
-        ;;
+*dialog*)
+	OPTS="$OPTS --cr-wrap"
+	high=10
+	;;
+*whiptail*)
+	high=12
+	;;
 esac
 
 rows=$(stty size | cut -d' ' -f1)
@@ -15,27 +15,27 @@ rows=$(stty size | cut -d' ' -f1)
 [ $rows -gt $high ] && rows=$high
 cols=$(stty size | cut -d' ' -f2)
 
-introMessage(){
-    if [ ! -f $HOME/.local/share/gnft/terms ]; then
-        "$DIALOG" --backtitle "Testing" \
-            --title "Testing whiptail" \
-            $OPTS \
-            --yesno '\nThis program might or might not work.\nI will not be responsible for any problems that might occur when using this application.' $rows $((cols - 5))
-        exitstatus=$?
-        if [ $exitstatus = 0 ]; then
-            mkdir -p $HOME/.local/share/gnft/ &> /dev/null
-            touch $HOME/.local/share/gnft/terms &> /dev/null
-            return 0
-        else
-            exit -1
-        fi
-    else
-        return 0
-    fi
+introMessage() {
+	if [ ! -f $HOME/.local/share/gnft/terms ]; then
+		"$DIALOG" --backtitle "Testing" \
+			--title "Testing whiptail" \
+			$OPTS \
+			--yesno '\nThis program might or might not work.\nI will not be responsible for any problems that might occur when using this application.' $rows $((cols - 5))
+		exitstatus=$?
+		if [ $exitstatus = 0 ]; then
+			mkdir -p $HOME/.local/share/gnft/ &>/dev/null
+			touch $HOME/.local/share/gnft/terms &>/dev/null
+			return 0
+		else
+			exit -1
+		fi
+	else
+		return 0
+	fi
 }
 
-main(){
-    introMessage
+main() {
+	introMessage
 }
 
 main "$@"

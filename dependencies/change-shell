@@ -1,99 +1,99 @@
 #! /usr/bin/env bash
 
-containsElement () {
-  local e match="$1"
-  shift
-  for e; do [[ "$e" == "$match" ]] && return 0; done
-  return 1
+containsElement() {
+	local e match="$1"
+	shift
+	for e; do [[ "$e" == "$match" ]] && return 0; done
+	return 1
 }
 
 select_shell() {
-    PS3='Please enter your new shell: '
-    local shells=("bash" "fish" "zsh")
-    select opt in "${shells[@]}"; do
-        if containsElement "${opt}" "${shells[@]}"; then
-            printf "%s" "$opt"
-            break
-        else
-            continue
-        fi
-    done
+	PS3='Please enter your new shell: '
+	local shells=("bash" "fish" "zsh")
+	select opt in "${shells[@]}"; do
+		if containsElement "${opt}" "${shells[@]}"; then
+			printf "%s" "$opt"
+			break
+		else
+			continue
+		fi
+	done
 }
 
 find_mgr() {
-    local package_managers=("brew" "pacman" "apt" "dnf")
-    for pkg_mgr in "${package_managers[@]}"; do
-        if type -p "${pkg_mgr}" >/dev/null 2>&1; then
-            printf "%s" "${pkg_mgr}"
-            return 0
-        fi
-    done
+	local package_managers=("brew" "pacman" "apt" "dnf")
+	for pkg_mgr in "${package_managers[@]}"; do
+		if type -p "${pkg_mgr}" >/dev/null 2>&1; then
+			printf "%s" "${pkg_mgr}"
+			return 0
+		fi
+	done
 
-    printf "%s\n" "ERROR: no supported package manager was not installed" >&2
-    exit 1
+	printf "%s\n" "ERROR: no supported package manager was not installed" >&2
+	exit 1
 }
 
 find_path() {
-    local mgr
-    mgr="$(find_mgr)"
+	local mgr
+	mgr="$(find_mgr)"
 
-    case "${mgr}" in
-    "brew")
-        : "$(brew --prefix)/bin"
-        ;;
-    *)
-        : "/usr/bin"
-        ;;
-    esac
+	case "${mgr}" in
+	"brew")
+		: "$(brew --prefix)/bin"
+		;;
+	*)
+		: "/usr/bin"
+		;;
+	esac
 
-    printf "%s" "$_"
+	printf "%s" "$_"
 }
 
 install_with_mgr() {
-    local mgr
-    mgr="$(find_mgr)"
+	local mgr
+	mgr="$(find_mgr)"
 
-    case "${mgr}" in
-    "brew")
-        : "brew install"
-        ;;
-    "pacman")
-        : "sudo pacman -S"
-        ;;
-    "apt")
-        : "sudo apt install"
-        ;;
-    "yum")
-        : "sudo yum install"
-        ;;
-    *)
-        printf "%s\n" "ERROR: ${mgr} is not supported" >&2
-        exit 1
-        ;;
-    esac
+	case "${mgr}" in
+	"brew")
+		: "brew install"
+		;;
+	"pacman")
+		: "sudo pacman -S"
+		;;
+	"apt")
+		: "sudo apt install"
+		;;
+	"yum")
+		: "sudo yum install"
+		;;
+	*)
+		printf "%s\n" "ERROR: ${mgr} is not supported" >&2
+		exit 1
+		;;
+	esac
 
-    # Install shell with correct install command
-    "$_" "$1" >/dev/null 2>&1
+	# Install shell with correct install command
+	"$_" "$1" >/dev/null 2>&1
 }
 
 install_shell() {
-    local shell_path
-    shell_path="$(find_path)/$1"
+	local shell_path
+	shell_path="$(find_path)/$1"
 
-    if [ ! -f "${shell_path}" ]; then
-        install_with_mgr "$1"
-    fi
-    printf "%s" "$shell_path"
+	if [ ! -f "${shell_path}" ]; then
+		install_with_mgr "$1"
+	fi
+	printf "%s" "$shell_path"
 }
 
 change_shell() {
-    local your_shell
-    your_shell="$(install_shell "$1")"
+	local your_shell
+	your_shell="$(install_shell "$1")"
 
-    printf "%s\n" "Your shell will be set to ${your_shell}"
-    grep "$your_shell" /etc/shells >/dev/null || printf "%s" "$your_shell" | sudo tee -a /etc/shells
-    printf "\n"
-    chsh -s "$your_shell" "$USER"
+	printf "%s\n" "Your shell will be set to ${your_shell}"
+	grep "$your_shell" /etc/shells >/dev/null || printf "%s" "$your_shell" | sudo tee -a /etc/shells
+	printf "\n"
+	chsh -s "$your_shell" "$USER"
 }
 
 change_shell "$(select_shell)"

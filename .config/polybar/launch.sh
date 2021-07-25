@@ -10,7 +10,7 @@ while pgrep -x polybar >/dev/null; do sleep 1; done
 myarr=($(xrandr | awk '/ connected/ && /[[:digit:]]x[[:digit:]].*+/{print $1}'))
 
 for monitor in "${myarr[@]}"; do
-    polybar -c ~/.config/polybar/config.ini "$monitor" &
+	polybar -c ~/.config/polybar/config.ini "$monitor" &
 done
 
 echo "Bars launched..."
