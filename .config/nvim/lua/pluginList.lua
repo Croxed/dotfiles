@@ -2,274 +2,272 @@ local present, _ = pcall(require, "packerInit")
 local packer
 
 if present then
-    packer = require "packer"
+	packer = require("packer")
 else
-    return false
+	return false
 end
 
 local use = packer.use
 
-return packer.startup(
-    function()
-        use {
-            "wbthomason/packer.nvim",
-            event = "VimEnter"
-        }
+return packer.startup(function()
+	use({
+		"wbthomason/packer.nvim",
+		event = "VimEnter",
+	})
 
-        use {
-            "akinsho/nvim-bufferline.lua",
-            after = "nord.nvim",
-        }
+	use({
+		"akinsho/nvim-bufferline.lua",
+		after = "nord.nvim",
+	})
 
-        -- vim-rooter
-        use {
-          "airblade/vim-rooter",
-          config = function()
-            vim.g.rooter_silent_chdir = 1
-          end,
-        }
-      
-        use {
-            "jose-elias-alvarez/nvim-lsp-ts-utils"
-        }
+	-- vim-rooter
+	use({
+		"airblade/vim-rooter",
+		config = function()
+			vim.g.rooter_silent_chdir = 1
+		end,
+	})
 
-        use {
-            "mhartington/formatter.nvim",
-            config = function()
-                require "plugins.formatter"
-            end,
-        }
+	use({
+		"jose-elias-alvarez/nvim-lsp-ts-utils",
+	})
 
-        use {
-            "mfussenegger/nvim-lint",
-            config = function()
-              require("plugins.linter").setup()
-            end,
-          }
+	use({
+		"mhartington/formatter.nvim",
+		config = function()
+			require("plugins.formatter")
+		end,
+	})
 
-        use {
-            "glepnir/galaxyline.nvim",
-            after = "nord.nvim",
-            config = function()
-                require "plugins.statusline"
-            end
-        }
+	use({
+		"mfussenegger/nvim-lint",
+		config = function()
+			require("plugins.linter").setup()
+		end,
+	})
 
-        -- color related stuff
-        use {
-            'shaunsingh/nord.nvim',
-            after = "packer.nvim",
-            config = function()
-                require "theme"
-            end
-        }
+	use({
+		"glepnir/galaxyline.nvim",
+		after = "nord.nvim",
+		config = function()
+			require("plugins.statusline")
+		end,
+	})
 
-        use {
-            "norcalli/nvim-colorizer.lua",
-            event = "BufRead",
-            config = function()
-                require("plugins.others").colorizer()
-            end
-        }
+	-- color related stuff
+	use({
+		"shaunsingh/nord.nvim",
+		after = "packer.nvim",
+		config = function()
+			require("theme")
+		end,
+	})
 
-        -- language related plugins
-        use {
-            "nvim-treesitter/nvim-treesitter",
-            event = "BufRead",
-            config = function()
-                require "plugins.treesitter"
-            end
-        }
+	use({
+		"norcalli/nvim-colorizer.lua",
+		event = "BufRead",
+		config = function()
+			require("plugins.others").colorizer()
+		end,
+	})
 
-        use {
-            "kabouzeid/nvim-lspinstall"
-        }
+	-- language related plugins
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		event = "BufRead",
+		config = function()
+			require("plugins.treesitter")
+		end,
+	})
 
-        use {
-            "neovim/nvim-lspconfig",
-            after = "nvim-lspinstall",
-            config = function()
-                require "plugins.lspconfig"
-            end
-        }
+	use({
+		"kabouzeid/nvim-lspinstall",
+	})
 
-        use {
-            "onsails/lspkind-nvim",
-            event = "BufRead",
-            config = function()
-                require("plugins.others").lspkind()
-            end
-        }
+	use({
+		"neovim/nvim-lspconfig",
+		after = "nvim-lspinstall",
+		config = function()
+			require("plugins.lspconfig")
+		end,
+	})
 
-        use {
-            "kosayoda/nvim-lightbulb",
-            after = "nvim-lspconfig"
-        }
+	use({
+		"onsails/lspkind-nvim",
+		event = "BufRead",
+		config = function()
+			require("plugins.others").lspkind()
+		end,
+	})
 
-        use {
-            "glepnir/lspsaga.nvim",
-            after = "nvim-lspconfig"
-        }
+	use({
+		"kosayoda/nvim-lightbulb",
+		after = "nvim-lspconfig",
+	})
 
-        -- load compe in insert mode only
-        use {
-            "hrsh7th/nvim-compe",
-            event = "InsertEnter",
-            config = function()
-                require "plugins.compe"
-            end,
-            wants = "LuaSnip",
-            requires = {
-                {
-                    "L3MON4D3/LuaSnip",
-                    wants = "friendly-snippets",
-                    event = "InsertCharPre",
-                    config = function()
-                        require "plugins.luasnip"
-                    end
-                },
-                {
-                    "rafamadriz/friendly-snippets",
-                    event = "InsertCharPre"
-                }
-            }
-        }
+	use({
+		"glepnir/lspsaga.nvim",
+		after = "nvim-lspconfig",
+	})
 
-        -- file managing , picker etc
-        use {
-            "kyazdani42/nvim-tree.lua",
-            cmd = "NvimTreeToggle",
-            config = function()
-                require "plugins.nvimtree"
-            end
-        }
+	-- load compe in insert mode only
+	use({
+		"hrsh7th/nvim-compe",
+		event = "InsertEnter",
+		config = function()
+			require("plugins.compe")
+		end,
+		wants = "LuaSnip",
+		requires = {
+			{
+				"L3MON4D3/LuaSnip",
+				wants = "friendly-snippets",
+				event = "InsertCharPre",
+				config = function()
+					require("plugins.luasnip")
+				end,
+			},
+			{
+				"rafamadriz/friendly-snippets",
+				event = "InsertCharPre",
+			},
+		},
+	})
 
-        use {
-            "kyazdani42/nvim-web-devicons",
-            after = "nord.nvim",
-        }
+	-- file managing , picker etc
+	use({
+		"kyazdani42/nvim-tree.lua",
+		cmd = "NvimTreeToggle",
+		config = function()
+			require("plugins.nvimtree")
+		end,
+	})
 
-        use {
-            "nvim-lua/plenary.nvim",
-            event = "BufRead"
-        }
-        use {
-            "nvim-lua/popup.nvim",
-            after = "plenary.nvim"
-        }
+	use({
+		"kyazdani42/nvim-web-devicons",
+		after = "nord.nvim",
+	})
 
-        use {
-            "nvim-telescope/telescope.nvim",
-            cmd = "Telescope",
-            config = function()
-                require "plugins.telescope"
-            end
-        }
+	use({
+		"nvim-lua/plenary.nvim",
+		event = "BufRead",
+	})
+	use({
+		"nvim-lua/popup.nvim",
+		after = "plenary.nvim",
+	})
 
-        use {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make",
-            cmd = "Telescope"
-        }
-        use {
-            "nvim-telescope/telescope-media-files.nvim",
-            cmd = "Telescope"
-        }
+	use({
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		config = function()
+			require("plugins.telescope")
+		end,
+	})
 
-        -- git stuff
-        use {
-            "lewis6991/gitsigns.nvim",
-            after = "plenary.nvim",
-            config = function()
-                require "plugins.gitsigns"
-            end
-        }
+	use({
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "make",
+		cmd = "Telescope",
+	})
+	use({
+		"nvim-telescope/telescope-media-files.nvim",
+		cmd = "Telescope",
+	})
 
-        -- misc plugins
-        use {
-            "windwp/nvim-autopairs",
-            after = "nvim-compe",
-            config = function()
-                require "plugins.autopairs"
-            end
-        }
+	-- git stuff
+	use({
+		"lewis6991/gitsigns.nvim",
+		after = "plenary.nvim",
+		config = function()
+			require("plugins.gitsigns")
+		end,
+	})
 
-        use {
-            "andymass/vim-matchup",
-            event = "CursorMoved"
-        }
+	-- misc plugins
+	use({
+		"windwp/nvim-autopairs",
+		after = "nvim-compe",
+		config = function()
+			require("plugins.autopairs")
+		end,
+	})
 
-        use {
-            "terrortylor/nvim-comment",
-            cmd = "CommentToggle",
-            config = function()
-                require("plugins.others").comment()
-            end
-        }
+	use({
+		"andymass/vim-matchup",
+		event = "CursorMoved",
+	})
 
-        use {
-            "glepnir/dashboard-nvim",
-            --[[cmd = {
+	use({
+		"terrortylor/nvim-comment",
+		cmd = "CommentToggle",
+		config = function()
+			require("plugins.others").comment()
+		end,
+	})
+
+	use({
+		"glepnir/dashboard-nvim",
+		--[[cmd = {
                 "Dashboard",
                 "DashboardNewFile",
                 "DashboardJumpMarks",
                 "SessionLoad",
                 "SessionSave"
-            },]]--
-            setup = function()
-                require "plugins.dashboard"
-            end
-        }
+            },]]
+		--
+		setup = function()
+			require("plugins.dashboard")
+		end,
+	})
 
-        use {
-            "tweekmonster/startuptime.vim",
-            cmd = "StartupTime"
-        }
+	use({
+		"tweekmonster/startuptime.vim",
+		cmd = "StartupTime",
+	})
 
-        -- smooth scroll
-        use {
-            "karb94/neoscroll.nvim",
-            event = "WinScrolled",
-            config = function()
-                require("plugins.others").neoscroll()
-            end
-        }
+	-- smooth scroll
+	use({
+		"karb94/neoscroll.nvim",
+		event = "WinScrolled",
+		config = function()
+			require("plugins.others").neoscroll()
+		end,
+	})
 
-        use {
-            "Pocco81/TrueZen.nvim",
-            cmd = {
-                "TZAtaraxis",
-                "TZMinimalist",
-                "TZFocus"
-            },
-            config = function()
-                require "plugins.zenmode"
-            end
-        }
+	use({
+		"Pocco81/TrueZen.nvim",
+		cmd = {
+			"TZAtaraxis",
+			"TZMinimalist",
+			"TZFocus",
+		},
+		config = function()
+			require("plugins.zenmode")
+		end,
+	})
 
-        use {
-            "lukas-reineke/indent-blankline.nvim",
-            event = "BufRead",
-            setup = function()
-                require("plugins.others").blankline()
-            end
-        }
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		event = "BufRead",
+		setup = function()
+			require("plugins.others").blankline()
+		end,
+	})
 
-        use {
-            "phaazon/hop.nvim",
-            cmd = {
-                "HopWord",
-                "HopLine",
-                "HopChar1",
-                "HopChar2",
-                "HopPattern"
-            },
-            as = 'hop',
-            config = function()
-                -- you can configure Hop the way you like here; see :h hop-config
-                require'hop'.setup()
-            end
-        }
-
-    end
-)
+	use({
+		"phaazon/hop.nvim",
+		cmd = {
+			"HopWord",
+			"HopLine",
+			"HopChar1",
+			"HopChar2",
+			"HopPattern",
+		},
+		as = "hop",
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup()
+		end,
+	})
+end)

@@ -1,1 +1,1 @@
-require('config.general')
+require("config.general")
