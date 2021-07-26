@@ -20,6 +20,7 @@ O = {
 			"dockerfile",
 			"html",
 			"go",
+			"lua",
 			"java",
 			"javascript",
 			"json",
