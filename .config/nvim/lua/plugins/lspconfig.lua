@@ -24,25 +24,19 @@ require("lspinstall/servers").kotlin = vim.tbl_extend("error", config, {
 
 -- LSP
 require("lsp")
-
-local function server_available_and_not_installed(installed_servers, available_servers, server)
-	if available_servers[server] and not installed_servers[server] then
-		return 1
-	else
-		return 0
+local function install_server(lspinstall, server)
+	if lspinstall.available_servers()[server] and not lspinstall.installed_servers()[server] then
+		print("Installing LSP server for " .. server)
+		lspinstall.install_server(server)
 	end
 end
 
 local function install_missing_servers()
 	local lspinstall = require("lspinstall")
-	local installed_servers = lspinstall.installed_servers()
-	local available_servers = lspinstall.available_servers()
-	local required_servers = O.treesitter.ensure_installed
+	local required_servers = O.lsp.ensure_installed
 
 	for _, server in pairs(required_servers) do
-		if not server_available_and_not_installed(installed_servers, available_servers, server) then
-			lspinstall.install_server(server)
-		end
+		install_server(lspinstall, server)
 	end
 end
 

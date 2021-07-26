@@ -92,6 +92,23 @@ O = {
 		popup_border = "single",
 		default_keybinds = true,
 		on_attach_callback = nil,
+		ensure_installed = {
+			"bash",
+			"css",
+			"dockerfile",
+			"html",
+			"go",
+			"lua",
+			"jdtls",
+			"javascript",
+			"json",
+			"kotlin",
+			"php",
+			"python",
+			"typescript",
+			"vue",
+			"yaml",
+		},
 	},
 
 	disabled_built_ins = {
