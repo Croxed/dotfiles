@@ -1,4 +1,4 @@
-CONFIG_PATH = os.getenv("HOME") .. "/.local/share/lunarvim/lvim"
+CONFIG_PATH = os.getenv("HOME") .. "/.config/nvim"
 DATA_PATH = vim.fn.stdpath("data")
 CACHE_PATH = vim.fn.stdpath("cache")
 TERMINAL = vim.fn.expand("$TERMINAL")
@@ -6,7 +6,7 @@ USER = vim.fn.expand("$USER")
 
 O = {
 	keys = { leader_key = "space" },
-	colorscheme = "spacegray",
+	colorscheme = "nord",
 	line_wrap_cursor_movement = true,
 	transparent_window = false,
 	format_on_save = true,
@@ -120,7 +120,7 @@ O = {
 		"zip",
 		"zipPlugin",
 		"tar",
-		"tarPlugin", -- 'man',
+		"tarPlugin",
 		"getscript",
 		"getscriptPlugin",
 		"vimball",
@@ -129,7 +129,7 @@ O = {
 		"logipat",
 		"rrhelper",
 		"spellfile_plugin",
-		-- 'matchit', 'matchparen', 'shada_plugin',
+		"matchit",
 	},
 
 	plugin = {

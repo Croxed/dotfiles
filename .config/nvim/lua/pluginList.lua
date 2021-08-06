@@ -30,6 +30,7 @@ return packer.startup(function()
 
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
+		after = "nvim-lspconfig"
 	})
 
 	use({
@@ -79,6 +80,20 @@ return packer.startup(function()
 			require("plugins.treesitter")
 		end,
 	})
+
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		after = "nvim-lspconfig",
+		config = function()
+			require('plugins.trouble')
+		end
+	}
+
+	use {
+		"ray-x/lsp_signature.nvim",
+		after = "nvim-lspconfig"
+	  }
 
 	use({
 		"kabouzeid/nvim-lspinstall",
@@ -254,6 +269,18 @@ return packer.startup(function()
 			require("plugins.others").blankline()
 		end,
 	})
+
+	use {
+		"folke/which-key.nvim",
+		event = "VimEnter",
+		config = function()
+		  require("which-key").setup {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		  }
+		end
+	  }
 
 	use({
 		"phaazon/hop.nvim",

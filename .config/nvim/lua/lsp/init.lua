@@ -208,6 +208,11 @@ function lsp_config.common_on_attach(client, bufnr)
 		O.lsp.on_attach_callback(client, bufnr)
 	end
 	lsp_highlight_document(client)
+	local present, lsp_signature = pcall(require, "lsp_signature")
+	if not present then
+		return
+	end
+	lsp_signature.on_attach()
 end
 
 function lsp_config.tsserver_on_attach(client, _)
