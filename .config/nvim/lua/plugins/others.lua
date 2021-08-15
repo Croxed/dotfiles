@@ -15,6 +15,10 @@ M.comment = function()
 	end
 end
 
+M.notify = function ()
+	vim.notify = require('notify')
+end
+
 M.lspkind = function()
 	local present, lspkind = pcall(require, "lspkind")
 	if present then

@@ -286,6 +286,13 @@ return packer.startup(function()
 	})
 
 	use({
+		"rcarriga/nvim-notify",
+		config = function ()
+			require("plugins.others").notify()
+		end
+	})
+
+	use({
 		"phaazon/hop.nvim",
 		cmd = {
 			"HopWord",
