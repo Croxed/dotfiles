@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if command -v wsl &> /dev/null; then
+if [ -n "$z4h_win_home" ]; then
     export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
     export DISPLAY=$WSL_HOST:0.0
 
