@@ -9,9 +9,9 @@ M.colorizer = function()
 end
 
 M.comment = function()
-	local present, nvim_comment = pcall(require, "nvim_comment")
+	local present, kommentary = pcall(require, "kommentary.config")
 	if present then
-		nvim_comment.setup()
+		kommentary.use_extended_mappings()
 	end
 end
 

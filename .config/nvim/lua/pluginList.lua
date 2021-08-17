@@ -217,8 +217,7 @@ return packer.startup(function()
 	})
 
 	use({
-		"terrortylor/nvim-comment",
-		cmd = "CommentToggle",
+		"b3nj5m1n/kommentary",
 		config = function()
 			require("plugins.others").comment()
 		end,
