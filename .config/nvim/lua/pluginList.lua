@@ -20,14 +20,6 @@ return packer.startup(function()
 		after = "nord.nvim",
 	})
 
-	-- vim-rooter
-	use({
-		"airblade/vim-rooter",
-		config = function()
-			vim.g.rooter_silent_chdir = 1
-		end,
-	})
-
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 		after = "nvim-lspconfig",
@@ -105,6 +97,18 @@ return packer.startup(function()
 			require("plugins.lspconfig")
 		end,
 	})
+
+	-- Lua
+	use {
+		"ahmedkhalf/project.nvim",
+		config = function()
+		require("project_nvim").setup {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
+		end
+	}
 
 	use({
 		"onsails/lspkind-nvim",

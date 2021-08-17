@@ -2,8 +2,7 @@
 local M = {}
 
 M.setup = function()
-	vim.cmd("let proj = FindRootDirectory()")
-	local root_dir = vim.api.nvim_get_var("proj")
+	local root_dir = require("project_nvim.project").find_lsp_root() or ""
 
 	local get_linter_instance = function()
 		-- prioritize local instance over global

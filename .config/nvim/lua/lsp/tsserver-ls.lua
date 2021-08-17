@@ -1,5 +1,4 @@
-vim.cmd("let proj = FindRootDirectory()")
-local root_dir = vim.api.nvim_get_var("proj")
+local root_dir = require("project_nvim.project").find_lsp_root() or ""
 
 -- use the global prettier if you didn't find the local one
 local prettier_instance = root_dir .. "/node_modules/.bin/prettier"
