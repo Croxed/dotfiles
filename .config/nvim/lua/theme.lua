@@ -5,7 +5,12 @@ g.nord_style = "nord"
 g.nord_borders = false
 g.nord_contrast = false
 g.nord_cursorline_transparent = true
-require("nord").set()
+
+-- Load the colorscheme
+local present, nord = pcall(require, "nord")
+if present then
+    nord.set()
+end
 
 vim.cmd([[
     syntax on

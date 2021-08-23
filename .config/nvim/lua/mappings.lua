@@ -109,3 +109,23 @@ map("n", "<Leader>fr", [[<Cmd>Telescope oldfiles<CR>]], opt)
 -- move between tabs
 map("n", "<TAB>", [[<Cmd>BufferLineCycleNext<CR>]], opt)
 map("n", "<S-TAB>", [[<Cmd>BufferLineCyclePrev<CR>]], opt)
+
+--nvimTree
+map("n", "<Leader>o", ":NvimTreeToggle<CR>", opt)
+
+--lsp
+
+map("n", "<Leader>gd", [[":lua vim.lsp.buf.definition()<CR>"]], opt)
+map("n", "<Leader>gD", [[":lua vim.lsp.buf.declaration()<CR>"]], opt)
+map("n", "<Leader>gr", [[":lua vim.lsp.buf.references()<CR>"]], opt)
+map("n", "<Leader>gi", [[":lua vim.lsp.buf.implementation()<CR>"]], opt)
+
+map("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
+map(
+	"n", "<C-p>", ":lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<CR>",
+	opt
+)
+map(
+	"n", "<C-n>", ":lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<CR>",
+	opt
+)
