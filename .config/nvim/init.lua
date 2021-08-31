@@ -7,6 +7,8 @@ local doom_modules = {
 	"utils",
 }
 
+pcall(require, "impatient")
+
 local async
 async = vim.loop.new_async(vim.schedule_wrap(function()
 	for i = 1, #doom_modules, 1 do

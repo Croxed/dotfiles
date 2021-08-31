@@ -16,6 +16,11 @@ return packer.startup(function()
 	})
 
 	use({
+		"lewis6991/impatient.nvim",
+		rocks = "mpack",
+	})
+
+	use({
 		"akinsho/nvim-bufferline.lua",
 		after = "nord.nvim",
 	})
@@ -99,16 +104,16 @@ return packer.startup(function()
 	})
 
 	-- Lua
-	use {
+	use({
 		"ahmedkhalf/project.nvim",
 		config = function()
-		require("project_nvim").setup {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		}
-		end
-	}
+			require("project_nvim").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	})
 
 	use({
 		"onsails/lspkind-nvim",
@@ -290,9 +295,9 @@ return packer.startup(function()
 
 	use({
 		"rcarriga/nvim-notify",
-		config = function ()
+		config = function()
 			require("plugins.others").notify()
-		end
+		end,
 	})
 
 	use({

@@ -15,8 +15,8 @@ M.comment = function()
 	end
 end
 
-M.notify = function ()
-	vim.notify = require('notify')
+M.notify = function()
+	vim.notify = require("notify")
 end
 
 M.lspkind = function()
