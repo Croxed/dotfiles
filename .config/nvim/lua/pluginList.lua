@@ -17,7 +17,6 @@ return packer.startup(function()
 
 	use({
 		"lewis6991/impatient.nvim",
-		rocks = "mpack",
 	})
 
 	use({

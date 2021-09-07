@@ -7,7 +7,10 @@ local doom_modules = {
 	"utils",
 }
 
-pcall(require, "impatient")
+local present, impatient = pcall(require, "impatient")
+if present then
+  impatient.enable_profile()
+end
 
 local async
 async = vim.loop.new_async(vim.schedule_wrap(function()
