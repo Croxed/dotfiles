@@ -1,26 +1,18 @@
 require("options")
 
-local doom_modules = {
+local modules = {
 	"pluginList",
 	"plugins.bufferline",
 	"mappings",
 	"utils",
 }
 
-local present, impatient = pcall(require, "impatient")
-if present then
-  impatient.enable_profile()
-end
+pcall(require, "impatient")
 
-local async
-async = vim.loop.new_async(vim.schedule_wrap(function()
-	for i = 1, #doom_modules, 1 do
-		local ok, res = xpcall(require, debug.traceback, doom_modules[i])
-		if not ok then
-			print("Error loading module : " .. doom_modules[i])
-			print(res) -- print stack traceback of the error
-		end
+for i = 1, #modules, 1 do
+	local ok, res = xpcall(require, debug.traceback, modules[i])
+	if not ok then
+		print("Error loading module : " .. modules[i])
+		print(res) -- print stack traceback of the error
 	end
-	async:close()
-end))
-async:send()
+end

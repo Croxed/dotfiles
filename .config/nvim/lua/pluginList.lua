@@ -44,8 +44,8 @@ return packer.startup(function()
 	})
 
 	use({
-		"glepnir/galaxyline.nvim",
-		after = "nord.nvim",
+		"famiu/feline.nvim",
+		after = "nvim-web-devicons",
 		config = function()
 			require("plugins.statusline")
 		end,

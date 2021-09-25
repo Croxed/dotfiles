@@ -1,4 +1,4 @@
-require('globals')
+require("globals")
 
 local opt = vim.opt
 local g = vim.g

@@ -121,11 +121,5 @@ map("n", "<Leader>gr", [[":lua vim.lsp.buf.references()<CR>"]], opt)
 map("n", "<Leader>gi", [[":lua vim.lsp.buf.implementation()<CR>"]], opt)
 
 map("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
-map(
-	"n", "<C-p>", ":lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<CR>",
-	opt
-)
-map(
-	"n", "<C-n>", ":lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<CR>",
-	opt
-)
+map("n", "<C-p>", ":lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<CR>", opt)
+map("n", "<C-n>", ":lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<CR>", opt)

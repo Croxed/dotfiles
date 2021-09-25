@@ -9,7 +9,7 @@ g.nord_cursorline_transparent = true
 -- Load the colorscheme
 local present, nord = pcall(require, "nord")
 if present then
-    nord.set()
+	nord.set()
 end
 
 vim.cmd([[
