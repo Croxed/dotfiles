@@ -30,10 +30,5 @@ if not status_ok then
 	return
 end
 
-if not O.lint_on_save then
-	vim.cmd([[if exists('#autolint#BufWritePost')
-	:autocmd! autolint
-	endif]])
-end
 
 return M

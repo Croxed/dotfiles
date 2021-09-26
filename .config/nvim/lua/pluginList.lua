@@ -134,10 +134,9 @@ return packer.startup(function()
 
 	-- load compe in insert mode only
 	use({
-		"hrsh7th/nvim-compe",
-		event = "InsertEnter",
+		"ms-jpq/coq_nvim",
 		config = function()
-			require("plugins.compe")
+			require("plugins.coq")
 		end,
 		wants = "LuaSnip",
 		requires = {
@@ -209,7 +208,7 @@ return packer.startup(function()
 	-- misc plugins
 	use({
 		"windwp/nvim-autopairs",
-		after = "nvim-compe",
+		after = "coq_nvim",
 		config = function()
 			require("plugins.autopairs")
 		end,

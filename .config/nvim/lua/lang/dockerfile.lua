@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -24,11 +28,11 @@ M.lsp = function()
 	end
 
 	-- npm install -g dockerfile-language-server-nodejs
-	require("lspconfig").dockerls.setup({
+	require("lspconfig").dockerls.setup(coq.lsp_ensure_capabilities({
 		cmd = { O.lang.docker.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
 		root_dir = vim.loop.cwd,
-	})
+	}))
 end
 
 M.dap = function()

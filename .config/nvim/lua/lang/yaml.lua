@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -40,10 +44,10 @@ M.lsp = function()
 	end
 
 	-- npm install -g yaml-language-server
-	require("lspconfig").yamlls.setup({
+	require("lspconfig").yamlls.setup(coq.lsp_ensure_capabilities({
 		cmd = { O.lang.yaml.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
-	})
+	}))
 end
 
 M.dap = function()

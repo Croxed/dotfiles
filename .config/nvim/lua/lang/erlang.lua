@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -19,9 +23,9 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").erlangls.setup({
+	require("lspconfig").erlangls.setup(coq.lsp_ensure_capabilities({
 		on_attach = require("lsp").common_on_attach,
-	})
+	}))
 end
 
 M.dap = function()

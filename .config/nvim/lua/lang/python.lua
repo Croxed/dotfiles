@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -59,7 +63,7 @@ M.lsp = function()
 		return
 	end
 	-- npm i -g pyright
-	require("lspconfig").pyright.setup({
+	require("lspconfig").pyright.setup(coq.lsp_ensure_capabilities({
 		cmd = {
 			O.lang.python.lsp.path,
 			"--stdio",
@@ -82,7 +86,7 @@ M.lsp = function()
 				},
 			},
 		},
-	})
+	}))
 end
 
 M.dap = function()

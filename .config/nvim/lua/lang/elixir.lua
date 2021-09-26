@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -40,10 +44,10 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").elixirls.setup({
+	require("lspconfig").elixirls.setup(coq.lsp_ensure_capabilities({
 		cmd = { O.lang.elixir.lsp.path },
 		on_attach = require("lsp").common_on_attach,
-	})
+	}))
 end
 
 M.dap = function()

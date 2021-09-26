@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -21,10 +25,10 @@ M.lsp = function()
 	end
 
 	-- TODO: Remove this at some point
-	require("lspconfig").elixirls.setup({
+	require("lspconfig").elixirls.setup(coq.lsp_ensure_capabilities({
 		cmd = { DATA_PATH .. "/lspinstall/elixir/elixir-ls/language_server.sh" },
 		on_attach = require("lsp").common_on_attach,
-	})
+	}))
 end
 
 -- needed for the LSP to recognize elixir files (alternativly just use elixir-editors/vim-elixir)

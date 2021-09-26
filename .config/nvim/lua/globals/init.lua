@@ -135,7 +135,7 @@ O = {
 	plugin = {
 		lspinstall = {},
 		telescope = {},
-		compe = {},
+		coq = {},
 		autopairs = {},
 		treesitter = {},
 		formatter = {},
@@ -200,36 +200,44 @@ O = {
 	},
 }
 
-require("lang.clang").config()
-require("lang.clojure").config()
-require("lang.cmake").config()
-require("lang.cs").config()
-require("lang.css").config()
-require("lang.dart").config()
-require("lang.dockerfile").config()
-require("lang.elixir").config()
-require("lang.elm").config()
-require("lang.go").config()
-require("lang.graphql").config()
-require("lang.html").config()
-require("lang.java").config()
-require("lang.json").config()
-require("lang.julia").config()
-require("lang.kotlin").config()
-require("lang.lua").config()
-require("lang.php").config()
-require("lang.python").config()
-require("lang.r").config()
-require("lang.ruby").config()
-require("lang.rust").config()
-require("lang.sh").config()
-require("lang.scala").config()
-require("lang.svelte").config()
-require("lang.swift").config()
-require("lang.terraform").config()
-require("lang.tex").config()
-require("lang.vim").config()
-require("lang.vue").config()
-require("lang.yaml").config()
-require("lang.zig").config()
-require("lang.zsh").config()
+local function safe_require_config(module)
+	local present, conf = pcall(require, module)
+	if not present then
+		return
+	end
+	pcall(conf.config)
+end
+
+safe_require_config("lang.clang")
+safe_require_config("lang.clojure")
+safe_require_config("lang.cmake")
+safe_require_config("lang.cs")
+safe_require_config("lang.css")
+safe_require_config("lang.dart")
+safe_require_config("lang.dockerfile")
+safe_require_config("lang.elixir")
+safe_require_config("lang.elm")
+safe_require_config("lang.go")
+safe_require_config("lang.graphql")
+safe_require_config("lang.html")
+safe_require_config("lang.java")
+safe_require_config("lang.json")
+safe_require_config("lang.julia")
+safe_require_config("lang.kotlin")
+safe_require_config("lang.lua")
+safe_require_config("lang.php")
+safe_require_config("lang.python")
+safe_require_config("lang.r")
+safe_require_config("lang.ruby")
+safe_require_config("lang.rust")
+safe_require_config("lang.sh")
+safe_require_config("lang.scala")
+safe_require_config("lang.svelte")
+safe_require_config("lang.swift")
+safe_require_config("lang.terraform")
+safe_require_config("lang.tex")
+safe_require_config("lang.vim")
+safe_require_config("lang.vue")
+safe_require_config("lang.yaml")
+safe_require_config("lang.zig")
+safe_require_config("lang.zsh")

@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -23,12 +27,12 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").svelte.setup({
+	require("lspconfig").svelte.setup(coq.lsp_ensure_capabilities({
 		cmd = { O.lang.svelte.lsp.path, "--stdio" },
 		filetypes = { "svelte" },
 		root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
 		on_attach = require("lsp").common_on_attach,
-	})
+	}))
 end
 
 M.dap = function()

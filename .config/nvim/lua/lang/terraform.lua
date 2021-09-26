@@ -1,3 +1,7 @@
+local coq_present, coq = pcall(require, "coq")
+if not coq_present then
+ return {}
+end
 local M = {}
 
 M.config = function()
@@ -42,11 +46,11 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").terraformls.setup({
+	require("lspconfig").terraformls.setup(coq.lsp_ensure_capabilities({
 		cmd = { O.lang.terraform.lsp.path, "serve" },
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "tf", "terraform", "hcl" },
-	})
+	}))
 end
 
 M.dap = function()
