@@ -208,6 +208,8 @@ local function safe_require_config(module)
 	pcall(conf.config)
 end
 
+vim.g.coq_settings = { auto_start = "shut-up" }
+
 safe_require_config("lang.clang")
 safe_require_config("lang.clojure")
 safe_require_config("lang.cmake")

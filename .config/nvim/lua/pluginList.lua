@@ -149,6 +149,10 @@ return packer.startup(function()
 				end,
 			},
 			{
+				"ms-jpq/coq.artifacts",
+				branch = "artifacts"
+			},
+			{
 				"rafamadriz/friendly-snippets",
 				event = "InsertCharPre",
 			},
