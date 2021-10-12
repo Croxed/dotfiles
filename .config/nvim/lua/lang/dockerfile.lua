@@ -28,6 +28,7 @@ M.lsp = function()
 		cmd = { O.lang.docker.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
 		root_dir = vim.loop.cwd,
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

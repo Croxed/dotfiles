@@ -53,7 +53,7 @@ end
 
 M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("cssls") then
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		local capabilities = require('lsp').get_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 		-- npm install -g vscode-css-languageserver-bin
 		require("lspconfig").cssls.setup({

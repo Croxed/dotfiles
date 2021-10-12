@@ -91,6 +91,7 @@ M.lsp = function()
 			cmd = { DATA_PATH .. "/lspinstall/java/jdtls.sh" },
 			filetypes = { "java" },
 			root_dir = util.root_pattern({ ".git", "build.gradle", "pom.xml" }),
+			capabilities = require('lsp').get_capabilities(),
 			-- init_options = {bundles = bundles}
 			-- on_attach = require'lsp'.common_on_attach
 		})

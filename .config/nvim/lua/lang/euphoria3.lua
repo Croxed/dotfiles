@@ -24,6 +24,7 @@ M.lsp = function()
 	require("lspconfig").elixirls.setup({
 		cmd = { DATA_PATH .. "/lspinstall/elixir/elixir-ls/language_server.sh" },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

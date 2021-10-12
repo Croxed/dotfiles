@@ -46,6 +46,7 @@ M.lsp = function()
 		cmd = { O.lang.terraform.lsp.path, "serve" },
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "tf", "terraform", "hcl" },
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

@@ -45,7 +45,7 @@ M.lsp = function()
 		return
 	end
 	-- R -e 'install.packages("languageserver",repos = "http://cran.us.r-project.org")'
-	require("lspconfig").r_language_server.setup({})
+	require("lspconfig").r_language_server.setup({capabilities = require('lsp').get_capabilities()})
 end
 
 M.dap = function()

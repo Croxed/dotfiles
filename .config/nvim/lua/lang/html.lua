@@ -27,7 +27,7 @@ end
 M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("html") then
 		-- npm install -g vscode-html-languageserver-bin
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		local capabilities = require('lsp').get_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 		require("lspconfig").html.setup({

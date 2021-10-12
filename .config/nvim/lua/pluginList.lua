@@ -155,6 +155,9 @@ return packer.startup(function()
 				"saadparwaiz1/cmp_luasnip"
 			},
 			{
+				"hrsh7th/cmp-buffer"
+			},
+			{
 				"rafamadriz/friendly-snippets",
 				event = "InsertCharPre",
 			},

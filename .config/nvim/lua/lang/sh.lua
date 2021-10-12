@@ -2,6 +2,10 @@ local present, _ = pcall(require, "globals")
 
 local M = {}
 
+if not present then
+	return M
+end
+
 M.config = function()
 	O.lang.sh = {
 		-- @usage can be 'shellcheck'
@@ -55,6 +59,7 @@ M.lsp = function()
 			cmd = { O.lang.sh.lsp.path, "start" },
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "sh", "zsh" },
+			capabilities = require('lsp').get_capabilities(),
 		})
 	end
 end

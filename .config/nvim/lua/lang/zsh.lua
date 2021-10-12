@@ -41,6 +41,7 @@ M.lsp = function()
 			cmd = { O.lang.zsh.lsp.path, "start" },
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "sh", "zsh" },
+			capabilities = require('lsp').get_capabilities(),
 		})
 	end
 end

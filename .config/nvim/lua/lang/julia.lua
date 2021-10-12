@@ -42,6 +42,7 @@ M.lsp = function()
 			new_config.cmd = cmd
 		end,
 		filetypes = { "julia" },
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

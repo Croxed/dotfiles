@@ -41,6 +41,7 @@ M.lsp = function()
 	require("lspconfig").dartls.setup({
 		cmd = { "dart", O.lang.dart.sdk_path, "--lsp" },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities(),
 		init_options = {
 			closingLabels = false,
 			flutterOutline = false,

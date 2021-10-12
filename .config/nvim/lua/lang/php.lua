@@ -58,6 +58,7 @@ M.lsp = function()
 	require("lspconfig").intelephense.setup({
 		cmd = { O.lang.php.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities(),
 		handlers = {
 			["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 				virtual_text = O.lang.php.diagnostics.virtual_text,

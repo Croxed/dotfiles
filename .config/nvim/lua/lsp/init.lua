@@ -189,6 +189,15 @@ function lsp_config.common_on_attach(client, bufnr)
 	lsp_signature.on_attach()
 end
 
+function lsp_config.get_capabilities()
+	local present, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+	if present then
+		return cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	else
+		return vim.lsp.project_nvim.make_client_capabilities()
+	end
+end
+
 function lsp_config.tsserver_on_attach(client, _)
 	-- lsp_config.common_on_attach(client, bufnr)
 	client.resolved_capabilities.document_formatting = false

@@ -27,6 +27,7 @@ M.lsp = function()
 	require("lspconfig").graphql.setup({
 		cmd = { O.lang.graphql.lsp.path, "server", "-m", "stream" },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

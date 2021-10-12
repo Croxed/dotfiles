@@ -26,6 +26,7 @@ M.lsp = function()
 	require("lspconfig").clojure_lsp.setup({
 		cmd = { O.lang.erlang.lsp.path },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities()
 	})
 end
 

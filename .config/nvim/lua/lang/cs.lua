@@ -27,6 +27,7 @@ M.lsp = function()
 	require("lspconfig").omnisharp.setup({
 		on_attach = require("lsp").common_on_attach,
 		cmd = { O.lang.csharp.lsp.path, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

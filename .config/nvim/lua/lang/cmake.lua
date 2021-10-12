@@ -31,6 +31,7 @@ M.lsp = function()
 		cmd = { O.lang.cmake.lsp.path },
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "cmake" },
+		capabilities = require('lsp').get_capabilities()
 	})
 end
 

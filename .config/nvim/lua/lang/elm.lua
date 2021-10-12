@@ -31,6 +31,7 @@ M.lsp = function()
 	require("lspconfig").elmls.setup({
 		cmd = { O.lang.elm.lsp.path },
 		on_attach = require("lsp").common_on_attach,
+		capabilities = require('lsp').get_capabilities(),
 		init_options = {
 			elmAnalyseTrigger = "change",
 			elmFormatPath = O.lang.elm.lsp.format,

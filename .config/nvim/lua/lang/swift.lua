@@ -44,6 +44,7 @@ M.lsp = function()
 		cmd = { "xcrun", O.lang.swift.lsp.path },
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "swift" },
+		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

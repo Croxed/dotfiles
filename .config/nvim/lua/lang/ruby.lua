@@ -53,6 +53,7 @@ M.lsp = function()
 		require("lspconfig").solargraph.setup({
 			cmd = { O.lang.ruby.lsp.path, "stdio" },
 			on_attach = require("lsp").common_on_attach,
+			capabilities = require('lsp').get_capabilities(),
 			handlers = {
 				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 					virtual_text = O.lang.ruby.diagnostics.virtual_text,

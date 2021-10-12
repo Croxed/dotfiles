@@ -131,6 +131,7 @@ M.lsp = function()
 			cmd = { O.lang.rust.lsp.path },
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "rust" },
+			capabilities = require('lsp').get_capabilities(),
 			root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json"),
 		})
 	end
