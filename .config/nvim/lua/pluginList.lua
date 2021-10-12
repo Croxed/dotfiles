@@ -158,6 +158,12 @@ return packer.startup(function()
 				"hrsh7th/cmp-buffer"
 			},
 			{
+				"hrsh7th/cmp-path"
+			},
+			{
+				"ray-x/cmp-treesitter"
+			},
+			{
 				"rafamadriz/friendly-snippets",
 				event = "InsertCharPre",
 			},
