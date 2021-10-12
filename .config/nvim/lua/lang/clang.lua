@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -75,7 +71,7 @@ M.lsp = function()
 
 	table.insert(clangd_flags, "--header-insertion=" .. O.lang.clang.header_insertion)
 
-	require("lspconfig").clangd.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").clangd.setup({
 		cmd = { O.lang.clang.lsp.path, unpack(clangd_flags) },
 		on_attach = require("lsp").common_on_attach,
 		handlers = {
@@ -86,7 +82,7 @@ M.lsp = function()
 				update_in_insert = true,
 			}),
 		},
-	}))
+	})
 end
 
 M.dap = function()

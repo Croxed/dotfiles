@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -42,7 +38,7 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").dartls.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").dartls.setup({
 		cmd = { "dart", O.lang.dart.sdk_path, "--lsp" },
 		on_attach = require("lsp").common_on_attach,
 		init_options = {
@@ -52,7 +48,7 @@ M.lsp = function()
 			outline = false,
 			suggestFromUnimportedLibraries = true,
 		},
-	}))
+	})
 end
 
 M.dap = function()

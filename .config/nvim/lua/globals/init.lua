@@ -135,7 +135,7 @@ O = {
 	plugin = {
 		lspinstall = {},
 		telescope = {},
-		coq = {},
+		cmp = {},
 		autopairs = {},
 		treesitter = {},
 		formatter = {},
@@ -207,8 +207,6 @@ local function safe_require_config(module)
 	end
 	pcall(conf.config)
 end
-
-vim.g.coq_settings = { auto_start = "shut-up" }
 
 safe_require_config("lang.clang")
 safe_require_config("lang.clojure")

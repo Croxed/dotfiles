@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -47,11 +43,11 @@ M.lsp = function()
 	-- So we need zls preset in global lib
 	-- Further custom install zls in
 	-- https://github.com/zigtools/zls/wiki/Downloading-and-Building-ZLS
-	require("lspconfig").zls.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").zls.setup({
 		cmd = { O.lang.zig.lsp.path },
 		root_dir = require("lspconfig").util.root_pattern(".git", "build.zig", "zls.json"),
 		on_attach = require("lsp").common_on_attach,
-	}))
+	})
 end
 
 M.dap = function()

@@ -39,7 +39,7 @@ M.setup = function()
 		end
 	end
 
-	require("lspconfig").efm.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").efm.setup({
 		-- init_options = {initializationOptions},
 		cmd = { DATA_PATH .. "/lspinstall/efm/efm-langserver" },
 		init_options = { documentFormatting = formattingSupported, codeAction = false },
@@ -65,7 +65,7 @@ M.setup = function()
 				typescriptreact = tsserver_args,
 			},
 		},
-	}))
+	})
 end
 
 return M

@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -40,13 +36,13 @@ M.lsp = function()
 		-- vim.fn.expand "~/.config/nvim/lua/lsp/julia/run.jl",
 		O.lang.julia.lsp.path,
 	}
-	require("lspconfig").julials.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").julials.setup({
 		cmd = cmd,
 		on_new_config = function(new_config, _)
 			new_config.cmd = cmd
 		end,
 		filetypes = { "julia" },
-	}))
+	})
 end
 
 M.dap = function()

@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -32,7 +28,7 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").elmls.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").elmls.setup({
 		cmd = { O.lang.elm.lsp.path },
 		on_attach = require("lsp").common_on_attach,
 		init_options = {
@@ -41,7 +37,7 @@ M.lsp = function()
 			elmPath = O.lang.elm.lsp.root,
 			elmTestPath = O.lang.elm.lsp.test,
 		},
-	}))
+	})
 end
 
 M.dap = function()

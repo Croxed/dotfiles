@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -28,10 +24,10 @@ M.lsp = function()
 	end
 
 	-- C# language server (csharp/OmniSharp) setup
-	require("lspconfig").omnisharp.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").omnisharp.setup({
 		on_attach = require("lsp").common_on_attach,
 		cmd = { O.lang.csharp.lsp.path, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-	}))
+	})
 end
 
 M.dap = function()

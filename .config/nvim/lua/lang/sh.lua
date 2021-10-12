@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local present, _ = pcall(require, "globals")
 
 local M = {}

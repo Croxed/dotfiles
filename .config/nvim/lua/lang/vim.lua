@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -30,10 +26,10 @@ M.lsp = function()
 	end
 
 	-- npm install -g vim-language-server
-	require("lspconfig").vimls.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").vimls.setup({
 		cmd = { O.lang.vim.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
-	}))
+	})
 end
 
 M.dap = function()

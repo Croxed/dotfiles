@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -59,7 +55,7 @@ M.lsp = function()
 		return
 	end
 
-	require("lspconfig").intelephense.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").intelephense.setup({
 		cmd = { O.lang.php.lsp.path, "--stdio" },
 		on_attach = require("lsp").common_on_attach,
 		handlers = {
@@ -81,7 +77,7 @@ M.lsp = function()
 				},
 			},
 		},
-	}))
+	})
 end
 
 M.dap = function()

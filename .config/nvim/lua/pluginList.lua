@@ -134,9 +134,9 @@ return packer.startup(function()
 
 	-- load compe in insert mode only
 	use({
-		"ms-jpq/coq_nvim",
+		"hrsh7th/nvim-cmp",
 		config = function()
-			require("plugins.coq")
+			require("plugins.cmp")
 		end,
 		wants = "LuaSnip",
 		requires = {
@@ -149,8 +149,10 @@ return packer.startup(function()
 				end,
 			},
 			{
-				"ms-jpq/coq.artifacts",
-				branch = "artifacts"
+				"hrsh7th/cmp-nvim-lsp"
+			},
+			{
+				"saadparwaiz1/cmp_luasnip"
 			},
 			{
 				"rafamadriz/friendly-snippets",
@@ -212,7 +214,7 @@ return packer.startup(function()
 	-- misc plugins
 	use({
 		"windwp/nvim-autopairs",
-		after = "coq_nvim",
+		after = "nvim-cmp",
 		config = function()
 			require("plugins.autopairs")
 		end,

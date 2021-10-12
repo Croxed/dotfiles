@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -50,7 +46,7 @@ M.lsp = function()
 	end
 
 	-- npm install -g vscode-json-languageserver
-	require("lspconfig").jsonls.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").jsonls.setup({
 		cmd = {
 			"node",
 			O.lang.json.lsp.path,
@@ -65,7 +61,7 @@ M.lsp = function()
 				end,
 			},
 		},
-	}))
+	})
 end
 
 M.dap = function()

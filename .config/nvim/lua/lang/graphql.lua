@@ -1,7 +1,3 @@
-local coq_present, coq = pcall(require, "coq")
-if not coq_present then
- return {}
-end
 local M = {}
 
 M.config = function()
@@ -28,10 +24,10 @@ M.lsp = function()
 	end
 
 	-- npm install -g graphql-language-service-cli
-	require("lspconfig").graphql.setup(coq.lsp_ensure_capabilities({
+	require("lspconfig").graphql.setup({
 		cmd = { O.lang.graphql.lsp.path, "server", "-m", "stream" },
 		on_attach = require("lsp").common_on_attach,
-	}))
+	})
 end
 
 M.dap = function()
