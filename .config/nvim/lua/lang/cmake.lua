@@ -6,9 +6,6 @@ M.config = function()
 			exe = "clang-format",
 			args = {},
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/cmake/venv/bin/cmake-language-server",
-		},
 	}
 end
 
@@ -28,7 +25,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").cmake.setup({
-		cmd = { O.lang.cmake.lsp.path },
+		cmd = { require('utils.lua').get_lsp_client_cmd('cmake') },
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "cmake" },
 		capabilities = require('lsp').get_capabilities()

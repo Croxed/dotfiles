@@ -3,9 +3,6 @@ local M = {}
 M.config = function()
 	O.lang.vim = {
 		linters = { "vint" },
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/vim/node_modules/.bin/vim-language-server",
-		},
 	}
 end
 
@@ -27,7 +24,7 @@ M.lsp = function()
 
 	-- npm install -g vim-language-server
 	require("lspconfig").vimls.setup({
-		cmd = { O.lang.vim.lsp.path, "--stdio" },
+		cmd = { require('utils.lua').get_lsp_client_cmd('vimls') },
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 	})

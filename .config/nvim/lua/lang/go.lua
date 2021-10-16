@@ -11,9 +11,6 @@ M.config = function()
 			"golangcilint",
 			"revive",
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/go/gopls",
-		},
 	}
 end
 
@@ -43,7 +40,7 @@ end
 M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("gopls") then
 		require("lspconfig").gopls.setup({
-			cmd = { O.lang.go.lsp.path },
+			cmd = { require('utils.lua').get_lsp_client_cmd('gopls') },
 			settings = { gopls = { analyses = { unusedparams = true }, staticcheck = true } },
 			root_dir = require("lspconfig").util.root_pattern(".git", "go.mod"),
 			init_options = { usePlaceholders = true, completeUnimported = true },

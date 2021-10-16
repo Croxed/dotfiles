@@ -1,16 +1,7 @@
 local M = {}
 
 M.config = function()
-	local elm_bin = DATA_PATH .. "/lspinstall/elm/node_modules/.bin"
 
-	O.lang.elm = {
-		lsp = {
-			path = elm_bin .. "/elm-language-server",
-			format = elm_bin .. "/elm-format",
-			root = elm_bin,
-			test = elm_bin .. "/elm-test",
-		},
-	}
 end
 
 M.format = function()
@@ -29,7 +20,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").elmls.setup({
-		cmd = { O.lang.elm.lsp.path },
+		cmd = { require('utils.lua').get_lsp_client_cmd('elmls') },
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 		init_options = {

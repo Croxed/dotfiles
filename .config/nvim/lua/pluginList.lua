@@ -95,8 +95,12 @@ return packer.startup(function()
 	})
 
 	use({
+		"williamboman/nvim-lsp-installer"
+	})
+
+	use({
 		"neovim/nvim-lspconfig",
-		after = "nvim-lspinstall",
+		after = "nvim-lsp-installer",
 		config = function()
 			require("plugins.lspconfig")
 		end,

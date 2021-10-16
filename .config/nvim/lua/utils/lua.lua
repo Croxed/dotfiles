@@ -87,4 +87,14 @@ function M.check_lsp_client_active(name)
 	return false
 end
 
+
+function M.get_lsp_client_cmd(server)
+	local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
+	if present then
+		local ok, server_conf = lsp_install.get_server(server)
+		if ok then
+			return server_conf:get_default_options().cmd
+		end
+	end
+end
 return M

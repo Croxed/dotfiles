@@ -12,9 +12,6 @@ M.config = function()
 			args = { "-m", "json.tool" },
 			stdin = true,
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/json/vscode-json/json-language-features/server/dist/node/jsonServerMain.js",
-		},
 	}
 end
 
@@ -47,11 +44,7 @@ M.lsp = function()
 
 	-- npm install -g vscode-json-languageserver
 	require("lspconfig").jsonls.setup({
-		cmd = {
-			"node",
-			O.lang.json.lsp.path,
-			"--stdio",
-		},
+		cmd = {require('utils.lua').get_lsp_client_cmd('jsonls')},
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 

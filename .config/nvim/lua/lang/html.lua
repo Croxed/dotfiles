@@ -7,9 +7,6 @@ M.config = function()
 			-- https://docs.errata.ai/vale/scoping#html
 			"vale",
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js",
-		},
 	}
 end
 
@@ -31,11 +28,7 @@ M.lsp = function()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 		require("lspconfig").html.setup({
-			cmd = {
-				"node",
-				O.lang.html.lsp.path,
-				"--stdio",
-			},
+			cmd = {require('utils.lua').get_lsp_client_cmd('html')},
 			on_attach = require("lsp").common_on_attach,
 			capabilities = capabilities,
 		})

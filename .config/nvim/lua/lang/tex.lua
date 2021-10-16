@@ -8,9 +8,6 @@ M.config = function()
 		diagnostics_delay = 300,
 		formatter_line_length = 80,
 		latex_formatter = "latexindent",
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/latex/texlab",
-		},
 		build = {
 			executable = "latexmk",
 			args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
@@ -80,7 +77,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").texlab.setup({
-		cmd = { O.lang.latex.lsp.path },
+		cmd = { require('utils.lua').get_lsp_client_cmd('texlab') },
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 		handlers = {

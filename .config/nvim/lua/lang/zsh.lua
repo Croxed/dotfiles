@@ -1,11 +1,6 @@
 local M = {}
 
 M.config = function()
-	O.lang.zsh = {
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/bash/node_modules/.bin/bash-language-server",
-		},
-	}
 end
 
 M.format = function()
@@ -20,7 +15,7 @@ M.lint = function()
 	if not require("utils.lua").check_lsp_client_active("efm") then
 		require("lspconfig").efm.setup({
 			-- init_options = {initializationOptions},
-			cmd = { DATA_PATH .. "/lspinstall/efm/efm-langserver" },
+			cmd = { require('utils.lua').get_lsp_client_cmd('efm') },
 			init_options = { documentFormatting = true, codeAction = false },
 			root_dir = require("lspconfig").util.root_pattern(".git/"),
 			filetypes = { "zsh" },
@@ -38,7 +33,7 @@ M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("bashls") then
 		-- npm i -g bash-language-server
 		require("lspconfig").bashls.setup({
-			cmd = { O.lang.zsh.lsp.path, "start" },
+			cmd = { require('utils.lua').get_lsp_client_cmd('bashls') },
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "sh", "zsh" },
 			capabilities = require('lsp').get_capabilities(),

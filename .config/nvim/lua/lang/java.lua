@@ -88,7 +88,7 @@ M.lsp = function()
 
 		require("lspconfig").jdtls.setup({
 			on_attach = require("lsp").common_on_attach,
-			cmd = { DATA_PATH .. "/lspinstall/java/jdtls.sh" },
+			cmd = { require('utils.lua').get_lsp_client_cmd('jdtls')},
 			filetypes = { "java" },
 			root_dir = util.root_pattern({ ".git", "build.gradle", "pom.xml" }),
 			capabilities = require('lsp').get_capabilities(),
@@ -102,26 +102,5 @@ M.dap = function()
 	-- TODO: implement dap
 	return "No DAP configured!"
 end
-
--- local bundles = {
---     vim.fn.glob(
---         CONFIG_PATH.."/.debuggers/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
--- };
-
--- require('jdtls').start_or_attach({
---     on_attach = on_attach,
---     cmd = {DATA_PATH .. "/lspinstall/java/jdtls.sh"},
---     root_dir = require('jdtls.setup').find_root({'build.gradle', 'pom.xml', '.git'}),
---     init_options = {bundles = bundles}
--- })
-
--- TODO: setup autoformat stuff later
--- _java = {
---     -- {'FileType', 'java', 'luafile '..CONFIG_PATH..'/lua/lsp/java-ls.lua'},
---     {
---         'FileType', 'java',
---         'nnoremap ca <Cmd>lua require(\'jdtls\').code_action()<CR>'
---     }
--- }
 
 return M

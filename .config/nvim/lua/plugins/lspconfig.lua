@@ -2,42 +2,52 @@ local config = require("lspconfig").jdtls.document_config
 require("lspconfig/configs").jdtls = nil -- important, unset the loaded config again
 -- config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
 
--- 2. extend the config with an install_script and (optionally) uninstall_script
-require("lspinstall/servers").jdtls = vim.tbl_extend("error", config, {
-	-- lspinstall will automatically create/delete the install directory for every server
-	install_script = [[
-      git clone https://github.com/eclipse/eclipse.jdt.ls.git
-      cd eclipse.jdt.ls
-      ./mvnw clean verify -DskipTests
-  ]],
-	uninstall_script = nil, -- can be omitted
-})
+local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
+local present_2, lsp_installer = pcall(require, 'nvim-lsp-installer')
 
-require("lspinstall/servers").kotlin = vim.tbl_extend("error", config, {
-	install_script = [[
-      git clone https://github.com/fwcd/kotlin-language-server.git language-server
-      cd language-server
-	  ./gradlew :server:installDist
-  ]],
-	uninstall_script = nil, -- can be omitted
-})
+if not present or not present_2 then
+	return
+end
 
 -- LSP
 require("lsp")
-local function install_server(lspinstall, server)
-	if lspinstall.available_servers()[server] and not lspinstall.installed_servers()[server] then
-		print("Installing LSP server for " .. server)
-		lspinstall.install_server(server)
+local function install_server(server)
+	local ok, server_cmd = lsp_install.get_server(server)
+	if ok then
+		if not server_cmd:is_installed() then
+			server_cmd:install()
+		end
 	end
 end
 
 local function install_missing_servers()
-	local lspinstall = require("lspinstall")
 	local required_servers = O.lsp.ensure_installed
 
 	for _, server in pairs(required_servers) do
-		install_server(lspinstall, server)
+		install_server(server)
 	end
 end
+
+lsp_installer.on_server_ready(function(server)
+  local opts = {
+    on_attach = require("lsp").common_on_attach,
+    capabilities = require("lsp").get_capabilities(),
+  }
+
+  -- (optional) Customize the options passed to the server
+  -- if server.name == "tsserver" then
+  --     opts.root_dir = function() ... end
+  -- end
+
+  -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+  server:setup(opts)
+  vim.cmd [[ do User LspAttachBuffers ]]
+end)
+
+local process = require "nvim-lsp-installer.process"
+lsp_installer.lsp_attach_proxy = process.debounced(function()
+  -- As of writing, if the lspconfig server provides a filetypes setting, it uses FileType as trigger, otherwise it uses BufReadPost
+  vim.cmd("doautoall")
+end)
 
 install_missing_servers()

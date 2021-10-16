@@ -1,11 +1,6 @@
 local M = {}
 
 M.config = function()
-	O.lang.csharp = {
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/csharp/omnisharp/run",
-		},
-	}
 end
 
 M.format = function()
@@ -26,7 +21,7 @@ M.lsp = function()
 	-- C# language server (csharp/OmniSharp) setup
 	require("lspconfig").omnisharp.setup({
 		on_attach = require("lsp").common_on_attach,
-		cmd = { O.lang.csharp.lsp.path, "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+		cmd = { require('utils.lua').get_lsp_client_cmd('omnisharp'), "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 		capabilities = require('lsp').get_capabilities(),
 	})
 end

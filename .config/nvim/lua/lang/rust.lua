@@ -19,9 +19,6 @@ M.config = function()
 			signs = true,
 			underline = true,
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/rust/rust-analyzer",
-		},
 	}
 end
 
@@ -128,7 +125,7 @@ M.lsp = function()
 		require("rust-tools").setup(opts)
 	else
 		require("lspconfig").rust_analyzer.setup({
-			cmd = { O.lang.rust.lsp.path },
+			cmd = { require('utils.lua').get_lsp_client_cmd('rust_analyzer') },
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "rust" },
 			capabilities = require('lsp').get_capabilities(),

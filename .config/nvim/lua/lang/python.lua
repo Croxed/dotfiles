@@ -25,9 +25,6 @@ M.config = function()
 			"pylint",
 			"mypy",
 		},
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/python/node_modules/.bin/pyright-langserver",
-		},
 	}
 end
 
@@ -60,10 +57,7 @@ M.lsp = function()
 	end
 	-- npm i -g pyright
 	require("lspconfig").pyright.setup({
-		cmd = {
-			O.lang.python.lsp.path,
-			"--stdio",
-		},
+		cmd = {require('utils.lua').get_lsp_client_cmd('pyright')},
 		capabilities = require('lsp').get_capabilities(),
 		on_attach = require("lsp").common_on_attach,
 		handlers = {

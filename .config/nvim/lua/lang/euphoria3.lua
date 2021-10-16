@@ -22,7 +22,7 @@ M.lsp = function()
 
 	-- TODO: Remove this at some point
 	require("lspconfig").elixirls.setup({
-		cmd = { DATA_PATH .. "/lspinstall/elixir/elixir-ls/language_server.sh" },
+		cmd = { require('utils.lua').get_lsp_client_cmd('elixirls') },
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 	})

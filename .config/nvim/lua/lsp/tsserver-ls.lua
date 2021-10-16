@@ -47,36 +47,5 @@ end
 -- require'illuminate'.on_attach(client)
 -- end
 
-local on_attach = function(client, bufnr)
-	local lsp = require("lsp")
-	lsp.common_on_attach(client, bufnr)
-	lsp.tsserver_on_attach(client, bufnr)
-end
-
-require("lspconfig").tsserver.setup({
-	cmd = {
-		DATA_PATH .. "/lspinstall/typescript/node_modules/.bin/typescript-language-server",
-		"--stdio",
-	},
-	filetypes = {
-		"javascript",
-		"javascriptreact",
-		"javascript.jsx",
-		"typescript",
-		"typescriptreact",
-		"typescript.tsx",
-	},
-	on_attach = on_attach,
-	-- This makes sure tsserver is not used for formatting (I prefer prettier)
-	settings = { documentFormatting = false },
-	handlers = {
-		-- ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		--   virtual_text = O.lang.tsserver.diagnostics.virtual_text,
-		--   signs = O.lang.tsserver.diagnostics.signs,
-		--   underline = O.lang.tsserver.diagnostics.underline,
-		--   update_in_insert = true,
-		-- }),
-	},
-})
 
 require("lsp.ts-fmt-lint").setup()

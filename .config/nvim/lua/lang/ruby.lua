@@ -14,9 +14,6 @@ M.config = function()
 			stdin = true,
 		},
 		linters = { "ruby" },
-		lsp = {
-			path = DATA_PATH .. "/lspinstall/ruby/solargraph/solargraph",
-		},
 	}
 end
 
@@ -51,7 +48,7 @@ M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("solargraph") then
 		-- If you are using rvm, make sure to change below configuration
 		require("lspconfig").solargraph.setup({
-			cmd = { O.lang.ruby.lsp.path, "stdio" },
+			cmd = { require('utils.lua').get_lsp_client_cmd('solargraph') },
 			on_attach = require("lsp").common_on_attach,
 			capabilities = require('lsp').get_capabilities(),
 			handlers = {

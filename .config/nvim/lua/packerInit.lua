@@ -1,4 +1,4 @@
-vim.cmd("packadd packer.nvim")
+local ok, _ = pcall(vim.cmd, "packadd packer.nvim")
 
 local present, packer = pcall(require, "packer")
 
