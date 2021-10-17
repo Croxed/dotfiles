@@ -12,7 +12,6 @@ local use = packer.use
 return packer.startup(function()
 	use({
 		"wbthomason/packer.nvim",
-		event = "VimEnter",
 	})
 
 	use({
@@ -190,7 +189,6 @@ return packer.startup(function()
 
 	use({
 		"nvim-lua/plenary.nvim",
-		event = "BufRead",
 	})
 	use({
 		"nvim-lua/popup.nvim",

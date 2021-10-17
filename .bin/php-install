@@ -1,0 +1,65 @@
+#! /usr/bin/env bash
+
+php7_url="https://www.php.net/distributions/php-7.4.22.tar.gz"
+php8_url="https://www.php.net/distributions/php-8.0.9.tar.gz"
+install_dir="$HOME/.php_install"
+install_url="$php7_url"
+php_version="7"
+
+_precondition() {
+	if command -v apt && command -v curl; then
+		return 0
+	else
+		printf 'cURL or apt not installed. Possibly not running in Ubuntu?\n' >&2
+		exit 1
+	fi
+}
+
+main() {
+	_precondition
+
+	mkdir -p "$install_dir/bin"
+	rm -rf "$install_dir/$php_version" && mkdir -p "$install_dir/$php_version" && cd "$install_dir/$php_version"
+	sudo apt update
+	sudo apt install -y build-essential coreutils autoconf libtool bison re2c libcurl4-openssl-dev libzip-dev libpng-dev libjpeg-dev libwebp-dev libldap2-dev libonig-dev libssl-dev
+
+	curl -fSsL "$install_url" | tar xz --strip-components=1
+	./buildconf
+	./configure \
+		--prefix="$install_dir/$php_version" \
+		--bindir="$install_dir/$php_version"/bin \
+		--libdir="$install_dir/$php_version"/lib \
+		--sysconfdir="$install_dir/$php_version"/etc \
+		--includedir="$install_dir/$php_version"/include/php \
+		--mandir="$install_dir/$php_version"/php/man \
+		--with-curl \
+		--enable-gd \
+		--with-webp \
+		--with-jpeg \
+		--with-webp --with-ldap \
+		--with-zip \
+		--with-pdo-mysql \
+		--with-openssl \
+		--enable-mbstring
+
+	make -j "$(nproc)"
+	make install
+	ln -sfn "$install_dir/$php_version"/bin/php "$install_dir"/bin/php
+	ln -sfn "$install_dir/$php_version"/bin/php "$HOME"/bin.local/php
+}
+
+while [ $# -gt 0 ]; do
+	key="$1"
+	case $key in
+	-8)
+		shift
+		php_version="8"
+		install_url="$php8_url"
+		;;
+	*)
+		shift
+		;;
+	esac
+done
+
+main
