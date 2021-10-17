@@ -15,7 +15,7 @@ M.lint = function()
 	if not require("utils.lua").check_lsp_client_active("efm") then
 		require("lspconfig").efm.setup({
 			-- init_options = {initializationOptions},
-			cmd = { require('utils.lua').get_lsp_client_cmd('efm') },
+			cmd = require('utils.lua').get_lsp_client_cmd('efm'),
 			init_options = { documentFormatting = true, codeAction = false },
 			root_dir = require("lspconfig").util.root_pattern(".git/"),
 			filetypes = { "zsh" },
@@ -33,7 +33,7 @@ M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("bashls") then
 		-- npm i -g bash-language-server
 		require("lspconfig").bashls.setup({
-			cmd = { require('utils.lua').get_lsp_client_cmd('bashls') },
+			cmd = require('utils.lua').get_lsp_client_cmd('bashls'),
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "sh", "zsh" },
 			capabilities = require('lsp').get_capabilities(),

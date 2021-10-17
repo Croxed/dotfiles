@@ -47,5 +47,11 @@ end
 -- require'illuminate'.on_attach(client)
 -- end
 
+require("lspconfig").tsserver.setup({
+	cmd = require('utils.lua').get_lsp_client_cmd('yamlls'),
+	on_attach = require("lsp").common_on_attach,
+	capabilities = require('lsp').get_capabilities(),
+})
+
 
 require("lsp.ts-fmt-lint").setup()

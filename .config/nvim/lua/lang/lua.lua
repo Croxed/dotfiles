@@ -46,7 +46,7 @@ M.lsp = function()
 
 		local luadev = require('lua-dev').setup({
 			lspconfig = {
-				cmd = { require('utils.lua').get_lsp_client_cmd('sumneko_lua') },
+				cmd = require('utils.lua').get_lsp_client_cmd('sumneko_lua'),
 				on_attach = require("lsp").common_on_attach,
 				capabilities = require('lsp').get_capabilities(),
 			}

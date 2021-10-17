@@ -52,7 +52,7 @@ M.lsp = function()
 
 	-- Vue language server configuration (vetur)
 	require("lspconfig").vuels.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('vuels') },
+		cmd = require('utils.lua').get_lsp_client_cmd('vuels'),
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 	})

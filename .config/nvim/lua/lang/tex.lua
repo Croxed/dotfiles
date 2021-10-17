@@ -77,7 +77,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").texlab.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('texlab') },
+		cmd = require('utils.lua').get_lsp_client_cmd('texlab'),
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 		handlers = {

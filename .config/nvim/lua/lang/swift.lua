@@ -41,7 +41,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").sourcekit.setup({
-		cmd = { "xcrun", O.lang.swift.lsp.path },
+		cmd = require('utils.lua').get_lsp_client_cmd('sourcekit'),
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "swift" },
 		capabilities = require('lsp').get_capabilities(),

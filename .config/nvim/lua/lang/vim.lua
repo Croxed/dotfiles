@@ -24,7 +24,7 @@ M.lsp = function()
 
 	-- npm install -g vim-language-server
 	require("lspconfig").vimls.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('vimls') },
+		cmd = require('utils.lua').get_lsp_client_cmd('vimls'),
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 	})

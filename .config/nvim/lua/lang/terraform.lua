@@ -40,7 +40,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").terraformls.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('terraformls') },
+		cmd = require('utils.lua').get_lsp_client_cmd('terraformls'),
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "tf", "terraform", "hcl" },
 		capabilities = require('lsp').get_capabilities(),

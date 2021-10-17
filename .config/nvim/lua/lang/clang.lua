@@ -69,7 +69,7 @@ M.lsp = function()
 	table.insert(clangd_flags, "--header-insertion=" .. O.lang.clang.header_insertion)
 
 	require("lspconfig").clangd.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('clangd'), unpack(clangd_flags) },
+		cmd = require('utils.lua').get_lsp_client_cmd('clangd') .. unpack(clangd_flags),
 		capabilities = require('lsp').get_capabilities(),
 		on_attach = require("lsp").common_on_attach,
 		handlers = {

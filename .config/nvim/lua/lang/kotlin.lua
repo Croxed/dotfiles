@@ -1,7 +1,6 @@
 local M = {}
 
-M.config = function()
-end
+M.config = function() end
 
 M.format = function()
 	-- TODO: implement formatter for language
@@ -28,11 +27,6 @@ M.lsp = function()
 
 	local util = require("lspconfig/util")
 
-	local bin_name = O.lang.kotlin.lsp.path
-	if vim.fn.has("win32") == 1 then
-		bin_name = bin_name .. ".bat"
-	end
-
 	local root_files = {
 		"settings.gradle", -- Gradle (multi-project)
 		"settings.gradle.kts", -- Gradle (multi-project)
@@ -46,9 +40,9 @@ M.lsp = function()
 	}
 
 	require("lspconfig").kotlin_language_server.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('kotlin_language_server') },
+		cmd = require("utils.lua").get_lsp_client_cmd("kotlin_language_server"),
 		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
+		capabilities = require("lsp").get_capabilities(),
 		root_dir = function(fname)
 			return util.root_pattern(unpack(root_files))(fname) or util.root_pattern(unpack(fallback_root_files))(fname)
 		end,

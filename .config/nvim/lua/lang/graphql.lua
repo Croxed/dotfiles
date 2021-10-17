@@ -25,7 +25,7 @@ M.lsp = function()
 
 	-- npm install -g graphql-language-service-cli
 	require("lspconfig").graphql.setup({
-		cmd = { O.lang.graphql.lsp.path, "server", "-m", "stream" },
+		cmd = require('utils.lua').get_lsp_client_cmd('graphql'),
 		on_attach = require("lsp").common_on_attach,
 		capabilities = require('lsp').get_capabilities(),
 	})

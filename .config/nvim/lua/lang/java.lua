@@ -48,54 +48,17 @@ M.lsp = function()
 		return
 	end
 
-	if O.lang.java.java_tools.active then
-		-- find_root looks for parent directories relative to the current buffer containing one of the given arguments.
-		if vim.fn.has("mac") == 1 then
-			WORKSPACE_PATH = "/Users/" .. USER .. "/workspace/"
-		elseif vim.fn.has("unix") == 1 then
-			WORKSPACE_PATH = "/home/" .. USER .. "/workspace/"
-		else
-			print("Unsupported system")
-		end
+	local util = require("lspconfig/util")
 
-		JAVA_LS_EXECUTABLE = os.getenv("HOME") .. "/.local/share/lunarvim/lvim/utils/bin/jdtls"
-
-		require("jdtls").start_or_attach({
-			on_attach = require("lsp").common_on_attach,
-			cmd = { JAVA_LS_EXECUTABLE, WORKSPACE_PATH .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t") },
-		})
-
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>la",
-			":lua require('jdtls').code_action()<CR>",
-			{ noremap = true, silent = true }
-		)
-		vim.api.nvim_set_keymap(
-			"n",
-			"<leader>lR",
-			":lua require('jdtls').code_action(false, 'refactor')<CR>",
-			{ noremap = true, silent = true }
-		)
-
-		vim.cmd("command! -buffer JdtCompile lua require('jdtls').compile()")
-		vim.cmd("command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()")
-		-- vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
-		vim.cmd("command! -buffer JdtBytecode lua require('jdtls').javap()")
-		-- vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
-	else
-		local util = require("lspconfig/util")
-
-		require("lspconfig").jdtls.setup({
-			on_attach = require("lsp").common_on_attach,
-			cmd = { require('utils.lua').get_lsp_client_cmd('jdtls')},
-			filetypes = { "java" },
-			root_dir = util.root_pattern({ ".git", "build.gradle", "pom.xml" }),
-			capabilities = require('lsp').get_capabilities(),
-			-- init_options = {bundles = bundles}
-			-- on_attach = require'lsp'.common_on_attach
-		})
-	end
+	require("lspconfig").jdtls.setup({
+		on_attach = require("lsp").common_on_attach,
+		cmd = require('utils.lua').get_lsp_client_cmd('jdtls'),
+		filetypes = { "java" },
+		root_dir = util.root_pattern({ ".git", "build.gradle", "pom.xml" }),
+		capabilities = require('lsp').get_capabilities(),
+		-- init_options = {bundles = bundles}
+		-- on_attach = require'lsp'.common_on_attach
+	})
 end
 
 M.dap = function()

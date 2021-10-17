@@ -93,6 +93,9 @@ function M.get_lsp_client_cmd(server)
 	if present then
 		local ok, server_conf = lsp_install.get_server(server)
 		if ok then
+			if not server_conf:is_installed() then
+				server_conf:install()
+			end
 			return server_conf:get_default_options().cmd
 		end
 	end

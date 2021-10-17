@@ -19,7 +19,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").svelte.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('svelte') },
+		cmd = require('utils.lua').get_lsp_client_cmd('svelte'),
 		filetypes = { "svelte" },
 		root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
 		on_attach = require("lsp").common_on_attach,

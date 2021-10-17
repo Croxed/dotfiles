@@ -90,10 +90,6 @@ return packer.startup(function()
 	})
 
 	use({
-		"kabouzeid/nvim-lspinstall",
-	})
-
-	use({
 		"williamboman/nvim-lsp-installer"
 	})
 

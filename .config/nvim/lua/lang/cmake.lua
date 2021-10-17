@@ -25,7 +25,7 @@ M.lsp = function()
 	end
 
 	require("lspconfig").cmake.setup({
-		cmd = { require('utils.lua').get_lsp_client_cmd('cmake') },
+		cmd = require('utils.lua').get_lsp_client_cmd('cmake'),
 		on_attach = require("lsp").common_on_attach,
 		filetypes = { "cmake" },
 		capabilities = require('lsp').get_capabilities()
