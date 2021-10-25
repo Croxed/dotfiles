@@ -28,7 +28,7 @@ M.lsp = function()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 		require("lspconfig").html.setup({
-			cmd = {require('utils.lua').get_lsp_client_cmd('html')},
+			cmd = require('utils.lua').get_lsp_client_cmd('html'),
 			on_attach = require("lsp").common_on_attach,
 			capabilities = capabilities,
 		})

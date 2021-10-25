@@ -1,10 +1,6 @@
-local present, _ = pcall(require, "globals")
+pcall(require, "globals")
 
 local M = {}
-
-if not present then
-	return M
-end
 
 M.config = function()
 	O.lang.sh = {
@@ -53,7 +49,7 @@ M.lsp = function()
 	if not require("utils.lua").check_lsp_client_active("bashls") then
 		-- npm i -g bash-language-server
 		require("lspconfig").bashls.setup({
-			cmd = { require('utils.lua').get_lsp_client_cmd('bashls')},
+			cmd = require('utils.lua').get_lsp_client_cmd('bashls'),
 			on_attach = require("lsp").common_on_attach,
 			filetypes = { "sh", "zsh" },
 			capabilities = require('lsp').get_capabilities(),

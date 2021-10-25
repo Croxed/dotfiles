@@ -48,7 +48,7 @@ end
 -- end
 
 require("lspconfig").tsserver.setup({
-	cmd = require('utils.lua').get_lsp_client_cmd('yamlls'),
+	cmd = require('utils.lua').get_lsp_client_cmd('tsserver'),
 	on_attach = require("lsp").common_on_attach,
 	capabilities = require('lsp').get_capabilities(),
 })

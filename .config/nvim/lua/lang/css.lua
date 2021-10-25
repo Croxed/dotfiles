@@ -54,7 +54,7 @@ M.lsp = function()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 		-- npm install -g vscode-css-languageserver-bin
 		require("lspconfig").cssls.setup({
-			cmd = {require('utils.lua').get_lsp_client_cmd('cssls')},
+			cmd = require('utils.lua').get_lsp_client_cmd('cssls'),
 			on_attach = require("lsp").common_on_attach,
 			capabilities = capabilities,
 		})

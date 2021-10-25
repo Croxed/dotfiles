@@ -57,7 +57,7 @@ M.lsp = function()
 	end
 	-- npm i -g pyright
 	require("lspconfig").pyright.setup({
-		cmd = {require('utils.lua').get_lsp_client_cmd('pyright')},
+		cmd = require('utils.lua').get_lsp_client_cmd('pyright'),
 		capabilities = require('lsp').get_capabilities(),
 		on_attach = require("lsp").common_on_attach,
 		handlers = {

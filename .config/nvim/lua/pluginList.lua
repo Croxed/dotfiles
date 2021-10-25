@@ -127,8 +127,12 @@ return packer.startup(function()
 	})
 
 	use({
-		"glepnir/lspsaga.nvim",
+		'ray-x/navigator.lua',
+		requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
 		after = "nvim-lspconfig",
+		config = function ()
+			require'navigator'.setup()
+		end
 	})
 
 	-- load compe in insert mode only
