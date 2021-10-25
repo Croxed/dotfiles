@@ -18,6 +18,10 @@ return packer.startup(function()
 		"lewis6991/impatient.nvim",
 	})
 
+  use({
+    "lambdalisue/suda.vim",
+  })
+
 	use({
 		"akinsho/nvim-bufferline.lua",
 		after = "nord.nvim",

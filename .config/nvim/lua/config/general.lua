@@ -32,6 +32,7 @@ vim.o.inccommand = "nosplit"
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.suda_smart_edit = 1
 
 -- MacOS clipboard
 if utils.is_darwin() then

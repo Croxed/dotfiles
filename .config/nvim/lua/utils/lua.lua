@@ -47,11 +47,10 @@ function M.is_darwin()
 end
 
 function M.shell_type(file)
-	vim.fn.system(string.format("type '%s'", file))
-	if vim.v.shell_error ~= 0 then
-		return false
-	else
+	if vim.fn.executable(file) == 1 then
 		return true
+	else
+		return false
 	end
 end
 
