@@ -41,11 +41,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("r_language_server") then
-		return
-	end
-	-- R -e 'install.packages("languageserver",repos = "http://cran.us.r-project.org")'
-	require("lspconfig").r_language_server.setup({capabilities = require('lsp').get_capabilities()})
+	require("utils.lua").setup_lsp('r_language_server')
 end
 
 M.dap = function()

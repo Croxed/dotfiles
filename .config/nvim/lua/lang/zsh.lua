@@ -9,24 +9,7 @@ M.format = function()
 end
 
 M.lint = function()
-	-- zsh
-	local zsh_arguments = {}
-
-	if not require("utils.lua").check_lsp_client_active("efm") then
-		require("lspconfig").efm.setup({
-			-- init_options = {initializationOptions},
-			cmd = require('utils.lua').get_lsp_client_cmd('efm'),
-			init_options = { documentFormatting = true, codeAction = false },
-			root_dir = require("lspconfig").util.root_pattern(".git/"),
-			filetypes = { "zsh" },
-			settings = {
-				rootMarkers = { ".git/" },
-				languages = {
-					zsh = zsh_arguments,
-				},
-			},
-		})
-	end
+	require("utils.lua").setup_efm()
 end
 
 M.lsp = function()

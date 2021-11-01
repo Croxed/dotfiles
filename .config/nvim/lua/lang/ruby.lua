@@ -41,27 +41,17 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if not require("utils.lua").check_lsp_client_active("sorbet") then
-		require("lspconfig").sorbet.setup({})
-	end
-
-	if not require("utils.lua").check_lsp_client_active("solargraph") then
-		-- If you are using rvm, make sure to change below configuration
-		require("lspconfig").solargraph.setup({
-			cmd = require('utils.lua').get_lsp_client_cmd('solargraph'),
-			on_attach = require("lsp").common_on_attach,
-			capabilities = require('lsp').get_capabilities(),
-			handlers = {
-				["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-					virtual_text = O.lang.ruby.diagnostics.virtual_text,
-					signs = O.lang.ruby.diagnostics.signs,
-					underline = O.lang.ruby.diagnostics.underline,
-					update_in_insert = true,
-				}),
-			},
-			filetypes = O.lang.ruby.filetypes,
-		})
-	end
+	require("utils.lua").setup_lsp('solargrapg', {
+		handlers = {
+			["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+				virtual_text = O.lang.ruby.diagnostics.virtual_text,
+				signs = O.lang.ruby.diagnostics.signs,
+				underline = O.lang.ruby.diagnostics.underline,
+				update_in_insert = true,
+			}),
+		},
+		filetypes = O.lang.ruby.filetypes,
+	})
 end
 
 M.dap = function()

@@ -48,14 +48,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("intelephense") then
-		return
-	end
-
-	require("lspconfig").intelephense.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('intelephense'),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
+	require("utils.lua").setup_lsp('intelephense', {
 		handlers = {
 			["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 				virtual_text = O.lang.php.diagnostics.virtual_text,

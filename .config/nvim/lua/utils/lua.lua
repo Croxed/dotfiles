@@ -99,4 +99,72 @@ function M.get_lsp_client_cmd(server)
 		end
 	end
 end
+
+function M.setup_efm()
+	local vint = require "efm/vint"
+	local stylua = require "efm/stylua"
+	local golint = require "efm/golint"
+	local goimports = require "efm/goimports"
+	local black = require "efm/black"
+	local isort = require "efm/isort"
+	local flake8 = require "efm/flake8"
+	local mypy = require "efm/mypy"
+	local prettier = require "efm/prettier"
+	local eslint = require "efm/eslint"
+	local shellcheck = require "efm/shellcheck"
+	local shfmt = require "efm/shfmt"
+	local terraform = require "efm/terraform"
+
+	local languages = {
+		vim = { vint },
+		lua = { stylua },
+		go = { golint, goimports },
+		python = { black, isort, flake8, mypy },
+		typescript = { prettier, eslint },
+		javascript = { prettier, eslint },
+		typescriptreact = { prettier, eslint },
+		javascriptreact = { prettier, eslint },
+		yaml = { prettier },
+		json = { prettier },
+		html = { prettier },
+		scss = { prettier },
+		css = { prettier },
+		markdown = { prettier },
+		sh = { shellcheck, shfmt },
+		zsh = { shfmt },
+		terraform = { terraform },
+	}
+
+	M.setup_lsp('efm', {
+		root_dir = vim.loop.cwd,
+		filetypes = vim.tbl_keys(languages),
+		settings = {
+			rootMarkers = { ".git/" },
+			languages = languages
+		},
+	})
+end
+
+local lsp_config
+function M.setup_lsp(server, server_conf)
+	if not lsp_config then
+		lsp_config = require('lspconfig')
+	end
+
+	if M.check_lsp_client_active(server) then
+		return
+	end
+
+	local conf = vim.deepcopy(server_conf or {})
+	conf['cmd'] = M.get_lsp_client_cmd(server)
+	conf['on_attach'] = require('lsp').common_on_attach
+	conf['capabilities'] = require('lsp').get_capabilities()
+
+	lsp_config[server].setup(conf)
+
+	if server ~= 'efm' then
+		M.setup_efm()
+	end
+end
+
 return M

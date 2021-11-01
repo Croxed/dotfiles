@@ -45,18 +45,10 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("rust_analyzer") then
-		return
-	end
-
-	require("lspconfig").rust_analyzer.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('rust_analyzer'),
-		on_attach = require("lsp").common_on_attach,
-		filetypes = { "rust" },
-		capabilities = require('lsp').get_capabilities(),
+	require("utils.lua").setup_lsp('rust_analyzer', {
 		root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json"),
+		filetypes = { "rust" },
 	})
-
 	-- TODO: fix these mappings
 	vim.api.nvim_exec(
 		[[

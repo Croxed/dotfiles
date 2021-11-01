@@ -14,16 +14,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("omnisharp") then
-		return
-	end
-
-	-- C# language server (csharp/OmniSharp) setup
-	require("lspconfig").omnisharp.setup({
-		on_attach = require("lsp").common_on_attach,
-		cmd = require('utils.lua').get_lsp_client_cmd('omnisharp') .. "--languageserver" .. "--hostPID" .. tostring(vim.fn.getpid()),
-		capabilities = require('lsp').get_capabilities(),
-	})
+	require('utils.lua').setup_lsp('omnisharp')
 end
 
 M.dap = function()

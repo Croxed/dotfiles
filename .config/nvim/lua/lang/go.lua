@@ -38,16 +38,11 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if not require("utils.lua").check_lsp_client_active("gopls") then
-		require("lspconfig").gopls.setup({
-			cmd = require('utils.lua').get_lsp_client_cmd('gopls'),
-			settings = { gopls = { analyses = { unusedparams = true }, staticcheck = true } },
-			root_dir = require("lspconfig").util.root_pattern(".git", "go.mod"),
-			init_options = { usePlaceholders = true, completeUnimported = true },
-			on_attach = require("lsp").common_on_attach,
-			capabilities = require('lsp').get_capabilities(),
-		})
-	end
+	require("utils.lua").setup_lsp('gopls', {
+		settings = { gopls = { analyses = { unusedparams = true }, staticcheck = true } },
+		init_options = { usePlaceholders = true, completeUnimported = true },
+		root_dir = require("lspconfig").util.root_pattern(".git", "go.mod"),
+	})
 end
 
 M.dap = function()

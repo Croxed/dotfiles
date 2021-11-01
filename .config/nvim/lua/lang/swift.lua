@@ -36,15 +36,8 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("sourcekit") then
-		return
-	end
-
-	require("lspconfig").sourcekit.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('sourcekit'),
-		on_attach = require("lsp").common_on_attach,
+	require("utils.lua").setup_lsp('sourcekit', {
 		filetypes = { "swift" },
-		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

@@ -57,21 +57,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("clangd") then
-		return
-	end
-	local clangd_flags = { "--background-index" }
-
-	if O.lang.clang.cross_file_rename then
-		table.insert(clangd_flags, "--cross-file-rename")
-	end
-
-	table.insert(clangd_flags, "--header-insertion=" .. O.lang.clang.header_insertion)
-
-	require("lspconfig").clangd.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('clangd') .. unpack(clangd_flags),
-		capabilities = require('lsp').get_capabilities(),
-		on_attach = require("lsp").common_on_attach,
+	require('utils.lua').setup_lsp('clangd', {
 		handlers = {
 			["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 				virtual_text = O.lang.clang.diagnostics.virtual_text,
@@ -79,7 +65,7 @@ M.lsp = function()
 				underline = O.lang.clang.diagnostics.underline,
 				update_in_insert = true,
 			}),
-		},
+		}
 	})
 end
 

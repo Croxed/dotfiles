@@ -44,20 +44,10 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("jdtls") then
-		return
-	end
-
 	local util = require("lspconfig/util")
-
-	require("lspconfig").jdtls.setup({
-		on_attach = require("lsp").common_on_attach,
-		cmd = require('utils.lua').get_lsp_client_cmd('jdtls'),
+	require("utils.lua").setup_lsp('jdtls', {
 		filetypes = { "java" },
 		root_dir = util.root_pattern({ ".git", "build.gradle", "pom.xml" }),
-		capabilities = require('lsp').get_capabilities(),
-		-- init_options = {bundles = bundles}
-		-- on_attach = require'lsp'.common_on_attach
 	})
 end
 

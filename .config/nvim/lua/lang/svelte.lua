@@ -14,16 +14,9 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("svelte") then
-		return
-	end
-
-	require("lspconfig").svelte.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('svelte'),
+	require("utils.lua").setup_lsp('svelte', {
 		filetypes = { "svelte" },
 		root_dir = require("lspconfig.util").root_pattern("package.json", ".git"),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

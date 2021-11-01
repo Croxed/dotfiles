@@ -32,16 +32,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("yamlls") then
-		return
-	end
-
-	-- npm install -g yaml-language-server
-	require("lspconfig").yamlls.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('yamlls'),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
-	})
+	require("utils.lua").setup_lsp('yamlls')
 end
 
 M.dap = function()

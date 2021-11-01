@@ -49,10 +49,6 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("texlab") then
-		return
-	end
-
 	local preview_settings = {}
 
 	local sumatrapdf_args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" }
@@ -76,10 +72,7 @@ M.lsp = function()
 		preview_settings = skim_args
 	end
 
-	require("lspconfig").texlab.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('texlab'),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
+	require("utils.lua").setup_lsp('texlab', {
 		handlers = {
 			["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 				virtual_text = O.lang.latex.diagnostics.virtual_text,
@@ -116,6 +109,7 @@ M.lsp = function()
 			},
 		},
 	})
+
 	vim.g.vimtex_compiler_method = "latexmk"
 	vim.g.vimtex_view_method = "zathura"
 	vim.g.vimtex_fold_enabled = 0

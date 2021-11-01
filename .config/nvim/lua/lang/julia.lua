@@ -19,30 +19,8 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("julials") then
-		return
-	end
-	-- Add the following lines to a new julia file, e.g. install.jl
-	-- using Pkg
-	-- Pkg.instantiate()
-	-- Run the file you created.
-	-- julia install.jl
-	-- Julia language server will now be installed on your system.
-
-	local cmd = {
-		"julia",
-		"--startup-file=no",
-		"--history-file=no",
-		-- vim.fn.expand "~/.config/nvim/lua/lsp/julia/run.jl",
-		O.lang.julia.lsp.path,
-	}
-	require("lspconfig").julials.setup({
-		cmd = cmd,
-		on_new_config = function(new_config, _)
-			new_config.cmd = cmd
-		end,
+	require("utils.lua").setup_lsp('julials', {
 		filetypes = { "julia" },
-		capabilities = require('lsp').get_capabilities(),
 	})
 end
 

@@ -15,14 +15,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("erlangls") then
-		return
-	end
-
-	require("lspconfig").erlangls.setup({
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
-	})
+	require("utils.lua").setup_lsp("erlangls")
 end
 
 M.dap = function()

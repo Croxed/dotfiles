@@ -14,15 +14,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("clojure_lsp") then
-		return
-	end
-
-	require("lspconfig").clojure_lsp.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('clojure_lsp'),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities()
-	})
+	require('utils.lua').setup_lsp('clojure_lsp')
 end
 
 M.dap = function()

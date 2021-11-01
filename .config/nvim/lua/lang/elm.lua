@@ -15,14 +15,7 @@ M.lint = function()
 end
 
 M.lsp = function()
-	if require("utils.lua").check_lsp_client_active("elmls") then
-		return
-	end
-
-	require("lspconfig").elmls.setup({
-		cmd = require('utils.lua').get_lsp_client_cmd('elmls'),
-		on_attach = require("lsp").common_on_attach,
-		capabilities = require('lsp').get_capabilities(),
+	require("utils.lua").setup_lsp('elmls', {
 		init_options = {
 			elmAnalyseTrigger = "change",
 			elmFormatPath = O.lang.elm.lsp.format,
