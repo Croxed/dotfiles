@@ -1,7 +1,3 @@
-local config = require("lspconfig").jdtls.document_config
-require("lspconfig/configs").jdtls = nil -- important, unset the loaded config again
--- config.default_config.cmd[1] = "./node_modules/.bin/bash-language-server"
-
 local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
 local present_2, lsp_installer = pcall(require, 'nvim-lsp-installer')
 

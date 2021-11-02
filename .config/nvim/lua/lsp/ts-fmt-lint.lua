@@ -38,34 +38,6 @@ M.setup = function()
 			table.insert(tsserver_args, eslint_fix)
 		end
 	end
-
-	require("lspconfig").efm.setup({
-		-- init_options = {initializationOptions},
-		cmd = require('utils.lua').get_lsp_client_cmd('efm'),
-		init_options = { documentFormatting = formattingSupported, codeAction = false },
-		root_dir = require("lspconfig").util.root_pattern(".git/", "package.json"),
-		filetypes = {
-			"vue",
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"javascript.jsx",
-			"typescript.tsx",
-		},
-		settings = {
-			rootMarkers = { ".git/", "package.json" },
-			languages = {
-				vue = tsserver_args,
-				javascript = tsserver_args,
-				javascriptreact = tsserver_args,
-				["javascript.jsx"] = tsserver_args,
-				typescript = tsserver_args,
-				["typescript.tsx"] = tsserver_args,
-				typescriptreact = tsserver_args,
-			},
-		},
-	})
 end
 
 return M

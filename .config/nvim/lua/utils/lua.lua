@@ -159,8 +159,18 @@ function M.setup_lsp(server, server_conf)
 	conf['cmd'] = M.get_lsp_client_cmd(server)
 	conf['on_attach'] = require('lsp').common_on_attach
 	conf['capabilities'] = require('lsp').get_capabilities()
+	if not conf['root_dir'] then
+		conf['root_dir'] = function() return require("project_nvim.project").find_lsp_root() or '' end
+	end
+	if conf['filetypes'] == nil then
+		conf['filetypes'] = { vim.bo.filetype }
+	end
+	conf['filetype'] = conf['filestypes']
 
-	lsp_config[server].setup(conf)
+	local ok, _ = pcall(function() return lsp_config[server].setup(conf) end)
+	if not ok then
+		print('Error in setup for ' .. server)
+	end
 
 	if server ~= 'efm' then
 		M.setup_efm()
