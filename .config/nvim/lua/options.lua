@@ -36,6 +36,7 @@ for _, plugin in pairs(O.disabled_built_ins) do
 	vim.g["loaded_" .. plugin] = 1
 end
 
+vim.g.did_load_filetypes = 1
 vim.o.guifont = "FiraCode Nerd Font:h15"
 
 require("config")

@@ -18,9 +18,13 @@ return packer.startup(function()
 		"lewis6991/impatient.nvim",
 	})
 
-  use({
-    "lambdalisue/suda.vim",
-  })
+	use({
+		"nathom/filetype.nvim",
+	})
+
+	use({
+		"lambdalisue/suda.vim",
+	})
 
 	use({
 		"akinsho/nvim-bufferline.lua",
@@ -94,7 +98,7 @@ return packer.startup(function()
 	})
 
 	use({
-		"williamboman/nvim-lsp-installer"
+		"williamboman/nvim-lsp-installer",
 	})
 
 	use({
@@ -131,12 +135,12 @@ return packer.startup(function()
 	})
 
 	use({
-		'ray-x/navigator.lua',
-		requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
+		"ray-x/navigator.lua",
+		requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
 		after = "nvim-lspconfig",
-		config = function ()
-			require'navigator'.setup()
-		end
+		config = function()
+			require("navigator").setup()
+		end,
 	})
 
 	-- load compe in insert mode only
@@ -156,19 +160,19 @@ return packer.startup(function()
 				end,
 			},
 			{
-				"hrsh7th/cmp-nvim-lsp"
+				"hrsh7th/cmp-nvim-lsp",
 			},
 			{
-				"saadparwaiz1/cmp_luasnip"
+				"saadparwaiz1/cmp_luasnip",
 			},
 			{
-				"hrsh7th/cmp-buffer"
+				"hrsh7th/cmp-buffer",
 			},
 			{
-				"hrsh7th/cmp-path"
+				"hrsh7th/cmp-path",
 			},
 			{
-				"ray-x/cmp-treesitter"
+				"ray-x/cmp-treesitter",
 			},
 			{
 				"rafamadriz/friendly-snippets",
