@@ -183,7 +183,7 @@ components.active[1][7] = {
 components.active[1][8] = {
 	provider = "diagnostic_errors",
 	enabled = function()
-		return lsp.diagnostics_exist("Error")
+		return lsp.diagnostics_exist("ERROR")
 	end,
 	hl = { fg = colors.red },
 	icon = "  ",
@@ -192,7 +192,7 @@ components.active[1][8] = {
 components.active[1][9] = {
 	provider = "diagnostic_warnings",
 	enabled = function()
-		return lsp.diagnostics_exist("Warning")
+		return lsp.diagnostics_exist("WARN")
 	end,
 	hl = { fg = colors.yellow },
 	icon = "  ",
@@ -201,7 +201,7 @@ components.active[1][9] = {
 components.active[1][10] = {
 	provider = "diagnostic_hints",
 	enabled = function()
-		return lsp.diagnostics_exist("Hint")
+		return lsp.diagnostics_exist("HINT")
 	end,
 	hl = { fg = colors.grey_fg2 },
 	icon = "  ",
@@ -210,7 +210,7 @@ components.active[1][10] = {
 components.active[1][11] = {
 	provider = "diagnostic_info",
 	enabled = function()
-		return lsp.diagnostics_exist("Information")
+		return lsp.diagnostics_exist("INFO")
 	end,
 	hl = { fg = colors.green },
 	icon = "  ",

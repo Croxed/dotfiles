@@ -29,15 +29,6 @@ main() {
 	version="$(head -n1 <<<"$response")"
 	url="$(grep -E 'tar.gz$' <<<"$response")"
 
-	current_version="$(<"$DIR"/neovim.version)"
-
-	if [ "$current_version" == "$version" ]; then
-		printf 'Version %s is already installed\n' "$version"
-		exit 0
-	fi
-
-	printf '%s' "$version" >"$DIR"/neovim.version
-
 	rm -rf "$neovim_dir" && mkdir -p "$neovim_dir"
 	cd "$neovim_dir" || exit 1
 	curl -fsSL "$url" | tar xz --strip-components=1
