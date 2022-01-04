@@ -1,2 +1,6 @@
-vim.g.dashboard_disable_at_vimenter = 0 -- dashboard is disabled by default
-vim.g.dashboard_default_executive = "telescope"
+local present, alpha = pcall(require, 'alpha')
+if not present then
+    return
+end
+
+alpha.setup(require'alpha.themes.startify'.opts)

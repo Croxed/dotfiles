@@ -252,16 +252,8 @@ return packer.startup(function()
 	})
 
 	use({
-		"glepnir/dashboard-nvim",
-		--[[cmd = {
-                "Dashboard",
-                "DashboardNewFile",
-                "DashboardJumpMarks",
-                "SessionLoad",
-                "SessionSave"
-            },]]
-		--
-		setup = function()
+		"goolord/alpha-nvim",
+		config = function()
 			require("plugins.dashboard")
 		end,
 	})
