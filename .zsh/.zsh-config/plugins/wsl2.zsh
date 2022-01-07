@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
-if [ -n "$z4h_win_home" ] && [ ! command -v "wlsg.exe" &>/dev/null ]; then
-    printf 'Settings variables for WSL X server'
+if command -v "wsl.exe" &>/dev/null && ! command -v "wlsg.exe" &>/dev/null ; then
     export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
     export DISPLAY=$WSL_HOST:0.0
 

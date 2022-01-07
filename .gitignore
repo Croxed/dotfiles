@@ -45,3 +45,5 @@
 neovim.version
 .neovim
 .vscode
+.cron/.tmux
+.cron/tmux.version

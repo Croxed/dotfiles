@@ -19,4 +19,4 @@ if [[ "$MESSAGE" == "$TICKET"* ]]; then
 	exit 0
 fi
 
-echo "$TICKET: $MESSAGE" >"$1"
+echo "$TICKET/1/1: $MESSAGE" >"$1"

@@ -137,7 +137,7 @@ function M.setup_efm()
 
 	M.setup_lsp('efm', {
 		root_dir = vim.loop.cwd,
-		filetypes = vim.tbl_keys(languages),
+		filetypes =  { "vim", "lua", "go", "python", "typescript", "javascript", "javascriptreact", "typescriptreact", "yaml", "json", "html", "scss", "css", "markdown", "sh", "zsh", "terraform" },
 		settings = {
 			rootMarkers = { ".git/" },
 			languages = languages
