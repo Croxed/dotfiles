@@ -21,18 +21,18 @@ if ! type -p brew >/dev/null; then
 fi
 
 # All Quick Look-plugins from homebrew
-brew cask install betterzipql
-brew cask install provisionql
-brew cask install invisorql
-brew cask install qlcolorcode
-brew cask install qlimagesize
-brew cask install qlmarkdown
-brew cask install qlprettypatch
-brew cask install quicklook-csv
-brew cask install quicklook-json
-brew cask install quicknfo scriptql
-brew cask install suspicious-package
-brew cask install webpquicklook
+brew install --cask betterzipql
+brew install --cask provisionql
+brew install --cask invisorql
+brew install --cask qlcolorcode
+brew install --cask qlimagesize
+brew install --cask qlmarkdown
+brew install --cask qlprettypatch
+brew install --cask quicklook-csv
+brew install --cask quicklook-json
+brew install --cask quicknfo scriptql
+brew install --cask suspicious-package
+brew install --cask webpquicklook
 
 # All Quick Look-plugins that aren't in homebrew
 echo Installing/Downloading Quick Look-plugins that are not from Homebrew

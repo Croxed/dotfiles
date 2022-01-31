@@ -252,7 +252,7 @@ return packer.startup(function()
 	})
 
 	use({
-		'alexghergh/nvim-tmux-navigation', 
+		'alexghergh/nvim-tmux-navigation',
 		config = function()
 			require'nvim-tmux-navigation'.setup {
 				disable_when_zoomed = true, -- defaults to false
@@ -331,6 +331,16 @@ return packer.startup(function()
 			require("plugins.others").notify()
 		end,
 	})
+
+  use {
+    "danymat/neogen",
+    config = function()
+        require('neogen').setup {
+            enabled = true
+        }
+    end,
+    requires = "nvim-treesitter/nvim-treesitter"
+  }
 
 	use({
 		"phaazon/hop.nvim",
