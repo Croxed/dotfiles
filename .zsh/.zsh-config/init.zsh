@@ -70,7 +70,3 @@ if [ -d "$HOME"/.zsh-settings ]; then
         . "$f" 2>/dev/null
     done
 fi
-
-# Source custom plugins
-z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
-source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
