@@ -31,9 +31,10 @@ O = {
 			"yaml",
 		},
 		ignore_install = { "haskell" },
-		highlight = { enabled = true },
-		playground = { enabled = true },
-		rainbow = { enabled = false },
+		indent = {enable = false},
+		highlight = {enable = true},
+		autotag = {enable = true},
+		rainbow = {enable = true, extended_mode = false, disable = {"html"}}
 	},
 
 	default_options = {

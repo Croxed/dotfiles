@@ -28,11 +28,6 @@ O.formatters.filetype["javascript"] = O.formatters.filetype["javascriptreact"]
 O.formatters.filetype["typescript"] = O.formatters.filetype["javascriptreact"]
 O.formatters.filetype["typescriptreact"] = O.formatters.filetype["javascriptreact"]
 
-require("formatter.config").set_defaults({
-	logging = false,
-	filetype = O.formatters.filetype,
-})
-
 if require("utils.lua").check_lsp_client_active("tsserver") then
 	return
 end
@@ -48,7 +43,6 @@ end
 -- end
 
 require("lspconfig").tsserver.setup({
-	cmd = require('utils.lua').get_lsp_client_cmd('tsserver'),
 	on_attach = require("lsp").common_on_attach,
 	capabilities = require('lsp').get_capabilities(),
 })

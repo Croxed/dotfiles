@@ -31,6 +31,8 @@ prepare_tmux() {
 
     touch "$DIR/tmux.version"
     current_version="$(< "$DIR/tmux.version")"
+    echo "Current version is $current_version"
+    echo "New version is $version"
 
     if [ -z "$current_version" ]; then
         install_tmux "$url" "$tmux_install_dir"

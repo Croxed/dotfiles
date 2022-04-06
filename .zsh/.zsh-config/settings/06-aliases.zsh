@@ -39,7 +39,7 @@ else
     alias sv='sudo vim'
 fi
 
-alias tmux='tmux -u'
+#alias tmux='tmux -u'
 
 alias cdtemp='cd $(mktemp -d)'
 

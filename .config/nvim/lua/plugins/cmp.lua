@@ -3,8 +3,8 @@ local present_1, luasnip =  pcall(require, "luasnip")
 
 -- nvim-cmp setup
 local present,cmp = pcall(require, "cmp")
-
-if not present_1 or not present then
+local present2, lspkind = pcall(require, "lspkind")
+if not present_1 or not present or not present2 then
 	return
 end
 
@@ -13,6 +13,13 @@ cmp.setup {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
     end,
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      with_text = true,
+      maxwidth = 50,
+      menu = {buffer = "[Buf]", nvim_lsp = "[LSP]", dictionary = "[Dict]", vsnip = "[Vsnip]"}
+    })
   },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),

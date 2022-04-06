@@ -28,26 +28,17 @@ return packer.startup(function()
 
 	use({
 		"akinsho/nvim-bufferline.lua",
-		after = "nord.nvim",
+		as = 'bufferline',
+		requires = 'kyazdani42/nvim-web-devicons',
+		event = 'BufWinEnter',
+		config = function()
+			require('plugins.bufferline')
+		end,
 	})
 
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 		after = "nvim-lspconfig",
-	})
-
-	use({
-		"mhartington/formatter.nvim",
-		config = function()
-			require("plugins.formatter")
-		end,
-	})
-
-	use({
-		"mfussenegger/nvim-lint",
-		config = function()
-			require("plugins.linter").setup()
-		end,
 	})
 
 	use({
@@ -78,10 +69,18 @@ return packer.startup(function()
 	-- language related plugins
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
+		event = "BufWinEnter",
+		run = ':TSUpdate',
 		config = function()
 			require("plugins.treesitter")
 		end,
+	})
+
+	use({
+		'p00f/nvim-ts-rainbow', after = 'nvim-treesitter'
+	})
+	use({
+		'windwp/nvim-ts-autotag', after = 'nvim-treesitter'
 	})
 
 	use({
@@ -123,7 +122,6 @@ return packer.startup(function()
 
 	use({
 		"onsails/lspkind-nvim",
-		event = "BufRead",
 		config = function()
 			require("plugins.others").lspkind()
 		end,
@@ -132,15 +130,6 @@ return packer.startup(function()
 	use({
 		"kosayoda/nvim-lightbulb",
 		after = "nvim-lspconfig",
-	})
-
-	use({
-		"ray-x/navigator.lua",
-		requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-		after = "nvim-lspconfig",
-		config = function()
-			require("navigator").setup()
-		end,
 	})
 
 	-- load compe in insert mode only
@@ -205,6 +194,7 @@ return packer.startup(function()
 
 	use({
 		"nvim-telescope/telescope.nvim",
+		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
 		cmd = "Telescope",
 		config = function()
 			require("plugins.telescope")
@@ -225,6 +215,7 @@ return packer.startup(function()
 	use({
 		"lewis6991/gitsigns.nvim",
 		after = "plenary.nvim",
+		event = 'BufRead',
 		config = function()
 			require("plugins.gitsigns")
 		end,
@@ -250,6 +241,13 @@ return packer.startup(function()
 			require("plugins.others").comment()
 		end,
 	})
+
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		config = "require'plugins.null-ls'"
+	})
+
+	use({"b0o/schemastore.nvim", after = 'nvim-lsp-installer'})
 
 	use({
 		'alexghergh/nvim-tmux-navigation',

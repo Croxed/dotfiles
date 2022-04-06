@@ -1,7 +1,6 @@
 
 local modules = {
 	"pluginList",
-	"plugins.bufferline",
 	"mappings",
 	"utils",
 }

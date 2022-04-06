@@ -27,6 +27,19 @@ end
 
 local M = {}
 
+-- Show icons in autocomplete
+require('vim.lsp.protocol').CompletionItemKind = {
+	'', '', 'ƒ', ' ', '', '', '', 'ﰮ', '', '', '', '', '了', ' ',
+	'﬌ ', ' ', ' ', '', ' ', ' ', ' ', ' ', '', '', '<>'
+  }
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] =
+vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	underline = true,
+	virtual_text = {spacing = 5, severity_limit = 'Warning'},
+	update_in_insert = true
+})
+
 function M.has_neovim_v05()
 	if fn.has("nvim-0.5") == 1 then
 		return true
@@ -86,6 +99,35 @@ function M.check_lsp_client_active(name)
 	return false
 end
 
+local language_servers = {
+	sumneko_lua = {
+		config = function(opts)
+		opts = vim.tbl_deep_extend("force", {
+			settings = {
+			Lua = {
+				runtime = {version = 'LuaJIT', path = vim.split(package.path, ';')},
+				diagnostics = {globals = {'vim'}},
+				workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false
+				},
+				telemetry = {enable = false}
+			}
+			}
+
+		}, opts)
+		return opts
+		end
+	},
+	jsonls = {
+		config = function(opts)
+		opts = vim.tbl_deep_extend("force", {
+			settings = {json = {schemas = require('schemastore').json.schemas()}}
+		}, opts)
+		return opts
+		end
+	}
+}
 
 function M.get_lsp_client_cmd(server)
 	local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
@@ -100,49 +142,27 @@ function M.get_lsp_client_cmd(server)
 	end
 end
 
-function M.setup_efm()
-	local vint = require "efm/vint"
-	local stylua = require "efm/stylua"
-	local golint = require "efm/golint"
-	local goimports = require "efm/goimports"
-	local black = require "efm/black"
-	local isort = require "efm/isort"
-	local flake8 = require "efm/flake8"
-	local mypy = require "efm/mypy"
-	local prettier = require "efm/prettier"
-	local eslint = require "efm/eslint"
-	local shellcheck = require "efm/shellcheck"
-	local shfmt = require "efm/shfmt"
-	local terraform = require "efm/terraform"
-
-	local languages = {
-		vim = { vint },
-		lua = { stylua },
-		go = { golint, goimports },
-		python = { black, isort, flake8, mypy },
-		typescript = { prettier, eslint },
-		javascript = { prettier, eslint },
-		typescriptreact = { prettier, eslint },
-		javascriptreact = { prettier, eslint },
-		yaml = { prettier },
-		json = { prettier },
-		html = { prettier },
-		scss = { prettier },
-		css = { prettier },
-		markdown = { prettier },
-		sh = { shellcheck, shfmt },
-		zsh = { shfmt },
-		terraform = { terraform },
-	}
-
-	M.setup_lsp('efm', {
-		root_dir = vim.loop.cwd,
-		filetypes =  { "vim", "lua", "go", "python", "typescript", "javascript", "javascriptreact", "typescriptreact", "yaml", "json", "html", "scss", "css", "markdown", "sh", "zsh", "terraform" },
-		settings = {
-			rootMarkers = { ".git/" },
-			languages = languages
-		},
-	})
+local present, lsp_install = pcall(require, 'nvim-lsp-installer')
+if present then
+	lsp_install.on_server_ready(function(server) 
+		local capabilities = require('lsp').get_capabilities()	
+		local opts = {capabilities = capabilities}
+		if language_servers[server.name] then
+			opts = language_servers[server.name].config(opts)
+		end
+		server:setup(opts)
+	end)
+end
+function M.install_if_missing(server)
+	local present, lsp_install_servers = pcall(require, 'nvim-lsp-installer.servers')
+	if present then
+		local ok, server_conf = lsp_install_servers.get_server(server)
+		if ok then
+			if not server_conf:is_installed() then
+				server_conf:install()
+			end
+		end
+	end
 end
 
 local lsp_config
@@ -154,27 +174,7 @@ function M.setup_lsp(server, server_conf)
 	if M.check_lsp_client_active(server) then
 		return
 	end
-
-	local conf = vim.deepcopy(server_conf or {})
-	conf['cmd'] = M.get_lsp_client_cmd(server)
-	conf['on_attach'] = require('lsp').common_on_attach
-	conf['capabilities'] = require('lsp').get_capabilities()
-	if not conf['root_dir'] then
-		conf['root_dir'] = function() return require("project_nvim.project").find_lsp_root() or '' end
-	end
-	if conf['filetypes'] == nil then
-		conf['filetypes'] = { vim.bo.filetype }
-	end
-	conf['filetype'] = conf['filestypes']
-
-	local ok, _ = pcall(function() return lsp_config[server].setup(conf) end)
-	if not ok then
-		print('Error in setup for ' .. server)
-	end
-
-	if server ~= 'efm' then
-		M.setup_efm()
-	end
+	M.install_if_missing(server)
 end
 
 return M
