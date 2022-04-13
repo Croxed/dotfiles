@@ -42,9 +42,12 @@ path_candidate=(
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
+    "$HOME/Library/Python"/*/bin
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/usr/bin/core_perl"
@@ -70,7 +73,3 @@ if [ -d "$HOME"/.zsh-settings ]; then
         . "$f" 2>/dev/null
     done
 fi
-
-# Source custom plugins
-z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
-source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh

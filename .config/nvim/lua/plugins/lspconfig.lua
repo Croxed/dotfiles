@@ -1,6 +1,5 @@
-local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
 local present_2, lsp_installer = pcall(require, 'nvim-lsp-installer')
-local present_2, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
+local present, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
 
 if not present or not present_2 then
 	return
@@ -61,14 +60,6 @@ lsp_installer.on_server_ready(function(server)
   if language_servers[server.name] then
     opts = language_servers[server.name].config(opts)
   end
-  server:setup(opts)
-
-  -- (optional) Customize the options passed to the server
-  -- if server.name == "tsserver" then
-  --     opts.root_dir = function() ... end
-  -- end
-
-  -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
   server:setup(opts)
   vim.cmd [[ do User LspAttachBuffers ]]
 end)

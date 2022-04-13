@@ -521,3 +521,10 @@ docker-ssh ()
 git_current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
+
+rexpand-alias() {
+	zle _expand_alias
+	zle self-insert
+}
+zle -N expand-alias
+bindkey -M main ' ' expand-alias

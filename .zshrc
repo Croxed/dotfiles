@@ -11,53 +11,69 @@
 # Personal Zsh configuration file. It is strongly recommended to keep all
 # shell customization and configuration (including exported environment
 # variables such as PATH) in this file or in files source by it.
-#
-# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Periodic auto-update on Zsh startup: 'ask' or 'no'.
-# You can manually run `z4h update` to update everything.
-zstyle ':z4h:' auto-update      'ask'
-# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-zstyle ':z4h:' auto-update-days '28'
+function plugin-load() {
+  local repo plugin_name plugin_dir initfile initfiles
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  for repo in $@; do
+    plugin_name=${repo:t}
+    plugin_dir=$ZPLUGINDIR/$plugin_name
+    initfile=$plugin_dir/$plugin_name.plugin.zsh
+    if [[ ! -d $plugin_dir ]]; then
+      echo "Cloning $repo"
+      git clone -q --depth 1 --recursive --shallow-submodules https://github.com/$repo $plugin_dir
+    fi
+    if [[ ! -e $initfile ]]; then
+      initfiles=($plugin_dir/*.plugin.{z,}sh(N) $plugin_dir/*.{z,}sh{-theme,}(N))
+      [[ ${#initfiles[@]} -gt 0 ]] || { echo >&2 "Plugin has no init file '$repo'." && continue }
+      ln -sf "${initfiles[1]}" "$initfile"
+    fi
+    fpath+=$plugin_dir
+    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+  done
+}
 
-# Automaticaly wrap TTY with a transparent tmux ('integrated'), or start a
-# full-fledged tmux ('system'), or disable features that require tmux ('no').
-zstyle ':z4h:' start-tmux       'no'
-# Move prompt to the bottom when zsh starts up so that it's always in the
-# same position. Has no effect if start-tmux is 'no'.
-zstyle ':z4h:' prompt-at-bottom 'yes'
+# if you want to compile your plugins you may see performance gains
+function plugin-compile() {
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  autoload -U zrecompile
+  local f
+  for f in $ZPLUGINDIR/**/*.zsh{,-theme}(N); do
+    zrecompile -pq "$f"
+  done
+}
 
-# Keyboard type: 'mac' or 'pc'.
-zstyle ':z4h:bindkey' keyboard  'mac'
+plugins=(
+    romkatv/powerlevel10k
+    # use zsh-defer magic to load the remaining plugins at hypersonic speed!
+    romkatv/zsh-defer
 
-# Right-arrow key accepts one character ('partial-accept') from
-# command autosuggestions or the whole thing ('accept')?
-zstyle ':z4h:autosuggestions' forward-char 'accept'
+    # core plugins
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-history-substring-search
+    zsh-users/zsh-completions
 
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# ssh when connecting to these hosts.
-zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
-zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
-# The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'no'
+    # user plugins
+    laggardkernel/git-ignore
+    hlissner/zsh-autopair
+    djui/alias-tips
+    peterhurford/up.zsh
 
-# Send these files over to the remote host when connecting over ssh to the
-# enabled hosts.
-zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+    # load this one last
+    zsh-users/zsh-syntax-highlighting
+)
 
-# Clone additional Git repositories from GitHub.
-#
-# This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`. This is just an
-# example. If you don't plan to use Oh My Zsh, delete this line.
-z4h install laggardkernel/git-ignore || return
-z4h install jarmo/expand-aliases-oh-my-zsh || return
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Install or update core components (fzf, zsh-autosuggestions, etc.) and
-# initialize Zsh. After this point console I/O is unavailable until Zsh
-# is fully initialized. Everything that requires user interaction or can
-# perform network I/O must be done above. Everything else is best done below.
-z4h init || return
+plugin-load $plugins
+
+autoload -U compinit compdef
+compinit
 
 # Extend PATH.
 path=(~/bin $path)
@@ -65,21 +81,6 @@ path=(~/bin $path)
 # Export environment variables.
 export GPG_TTY=$TTY
 
-# Source additional local files if they exist.
-z4h source ~/.env.zsh
-
-# Use additional Git repositories pulled in with `z4h install`.
-#
-# This is just an example that you should delete. It does nothing useful.
-
-# Define key bindings.
-z4h bindkey undo Ctrl+/  # undo the last command line change
-z4h bindkey redo Alt+/   # redo the last undone command line change
-
-z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
 # Autoload functions.
 autoload -Uz zmv
@@ -87,9 +88,6 @@ autoload -Uz zmv
 # Define functions and completions.
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
-
-# Define named directories: ~w <=> Windows home directory on WSL.
-[[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
 
 # Define aliases.
 alias tree='tree -a -I .git'
@@ -101,6 +99,9 @@ alias ls="${aliases[ls]:-ls} -A"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # path to the framework root directory
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
