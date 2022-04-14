@@ -27,7 +27,6 @@ plugins=(
     # user plugins
     laggardkernel/git-ignore
     hlissner/zsh-autopair
-    djui/alias-tips
     peterhurford/up.zsh
 
     # load this one last
