@@ -1,5 +1,7 @@
 #! /usr/bin/env zsh
 
+setopt NULL_GLOB
+
 required_completions=(
     docker 'https://github.com/docker/cli/raw/master/contrib/completion/zsh/_docker'
     docker-compose 'https://github.com/docker/compose/raw/master/contrib/completion/zsh/_docker-compose'

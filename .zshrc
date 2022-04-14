@@ -48,6 +48,7 @@ function maybe-update() {
   local repo plugin_name plugin_dir initfile initfiles last_update_ts days
   days=10
   if [ ! -f $ZPLUGINDIR/last-update-ts ]; then
+    touch $ZPLUGINDIR/last-update-ts || return
     print -n >$ZPLUGINDIR/last-update-ts || return
     return
   fi

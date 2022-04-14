@@ -3,13 +3,7 @@
 # shell helper functions
 # mostly written by Nathaniel Maia, some pilfered from around the web
 
-# better ls and cd
-unalias ls >/dev/null 2>&1
-ls()
-{
-    command ls --color=auto -F "$@"
-}
-
+# better cd
 unalias cd >/dev/null 2>&1
 cd()
 {
