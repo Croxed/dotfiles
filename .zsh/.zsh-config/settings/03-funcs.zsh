@@ -522,7 +522,7 @@ git_current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
-rexpand-alias() {
+expand-alias() {
 	zle _expand_alias
 	zle self-insert
 }
