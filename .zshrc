@@ -38,8 +38,8 @@ function update-plugins() {
     plugin_name=${repo:t}
     plugin_dir=$ZPLUGINDIR/$plugin_name
     if [[ -d $plugin_dir ]]; then
-      print -Pru2 -- "%F{3}unplugged%f: Updating $repo"
-      git -C $plugin_dir pull >/dev/null 2>&1 || continue
+      print -Pru2 -- "%F{3}unplugged%f: Updating %F{2}$repo%f"
+      git -C $plugin_dir pull >/dev/null 2>&1 || { print -Pru2 -- "%F{3}unplugged%f: Failed to update %F{4}$repo%f" }
     fi
   done
 }
