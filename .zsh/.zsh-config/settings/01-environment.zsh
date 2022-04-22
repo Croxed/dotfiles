@@ -14,3 +14,10 @@ typeset -gx BAT_THEME='Nord'
 #typeset -gx LANG=en_GB.UTF-8
 #typeset -gx LC_*=en_GB.UTF-8
 typeset -gx NVM_LAZY_LOAD=true
+typeset -gx HISTSIZE='1000000000'
+typeset -gx SAVEHIST='1000000000'
+LS_COLORS+=':no=38;5;248'
+typeset -gx ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'        # the default is hard to see
+if [ -n $HISTFILE ]; then
+    HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+fi
