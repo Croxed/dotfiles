@@ -19,15 +19,15 @@ plugins=(
     # use zsh-defer magic to load the remaining plugins at hypersonic speed!
     romkatv/zsh-defer
 
-    # core plugins
-    zsh-users/zsh-autosuggestions
-    zsh-users/zsh-history-substring-search
-    zsh-users/zsh-completions
-
     # user plugins
     laggardkernel/git-ignore
     hlissner/zsh-autopair
     peterhurford/up.zsh
+
+    # core plugins
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-history-substring-search
+    zsh-users/zsh-completions
 
     # load this one last
     zsh-users/zsh-syntax-highlighting
