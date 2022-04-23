@@ -33,7 +33,27 @@ plugins=(
     zsh-users/zsh-syntax-highlighting
 )
 
-function update-plugins() {
+zmodload -F zsh/stat b:zstat
+
+function plugged() {
+  local arg
+  arg="$1"
+  (( $#@ == 0 )) && print -Pru2 -- "%F{3}unplugged%f: No args passed to plugged" && return 1
+  shift
+
+  case "$arg" in
+    init) __plugged-init $@
+    ;;
+    update) __update-plugins $@
+    ;;
+    compile) __plugin-compile $@
+    ;;
+    *) print -Pru2 -- "%F{3}unplugged%f: $arg is unknown" && return
+    ;;
+  esac
+}
+
+function __update-plugins() {
   for repo in $plugins; do
     plugin_name=${repo:t}
     plugin_dir=$ZPLUGINDIR/$plugin_name
@@ -44,14 +64,16 @@ function update-plugins() {
   done
 }
 
-function maybe-update() {
+function __plugged-init() {
+  __maybe-update
+  __plugin-compile
+  __plugin-load
+}
+
+function __maybe-update() {
   local repo plugin_name plugin_dir initfile initfiles last_update_ts days
   days=10
-  if [ ! -f $ZPLUGINDIR/last-update-ts ]; then
-    touch $ZPLUGINDIR/last-update-ts || return
-    print -n >$ZPLUGINDIR/last-update-ts || return
-    return
-  fi
+  [[ ! -f $ZPLUGINDIR/last-update-ts ]] && print -n > $ZPLUGINDIR/last-update-ts
   if zstat -A last_update_ts +mtime -- $ZPLUGINDIR/last-update-ts 2>/dev/null &&
     (( EPOCHSECONDS - last_update_ts[1] >= 86400 * days )); then
     local REPLY
@@ -67,7 +89,7 @@ function maybe-update() {
   fi
 }
 
-function plugin-load() {
+function __plugin-load() {
   local repo plugin_name plugin_dir initfile initfiles
   for repo in $plugins; do
     plugin_name=${repo:t}
@@ -88,21 +110,20 @@ function plugin-load() {
 }
 
 # if you want to compile your plugins you may see performance gains
-function plugin-compile() {
+function __plugin-compile() {
   autoload -U zrecompile
-  local f
-  for f in $ZPLUGINDIR/*/*.zsh{,-theme}(N); do
-    if [ -f "$f".zwc ]; then
-        continue
+  local f compiled_ts source_ts
+  for f in $ZPLUGINDIR/*/*.plugin.zsh{,-theme}(N); do
+    if [[ -f "$f".zwc ]]; then
+      zstat -A compiled_ts +mtime -- "$f".zwc
+      zstat -A source_ts +mtime -- "$f"
+      (( compiled_ts[1] - source_ts[1] >= 0 )) && continue
     fi
     zrecompile -pq "$f"
   done
 }
 
-maybe-update
-plugin-load
-plugin-compile
-
+plugged init || return
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
