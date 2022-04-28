@@ -38,7 +38,7 @@ zmodload -F zsh/stat b:zstat
 function plugged() {
   local arg
   arg="$1"
-  (( $#@ == 0 )) && print -Pru2 -- "%F{3}unplugged%f: No args passed to plugged" && return 1
+  (( $#@ == 0 )) && print -Pru2 -- "%F{3}plugged%f: No args passed to plugged" && return 1
   shift
 
   case "$arg" in
@@ -48,7 +48,7 @@ function plugged() {
     ;;
     compile) __plugin-compile $@
     ;;
-    *) print -Pru2 -- "%F{3}unplugged%f: $arg is unknown" && return
+    *) print -Pru2 -- "%F{3}plugged%f: $arg is unknown" && return
     ;;
   esac
 }
@@ -58,8 +58,8 @@ function __update-plugins() {
     plugin_name=${repo:t}
     plugin_dir=$ZPLUGINDIR/$plugin_name
     if [[ -d $plugin_dir ]]; then
-      print -Pru2 -- "%F{3}unplugged%f: Updating %F{2}$repo%f"
-      git -C $plugin_dir pull >/dev/null 2>&1 || { print -Pru2 -- "%F{3}unplugged%f: Failed to update %F{4}$repo%f" }
+      print -Pru2 -- "%F{3}plugged%f: Updating %F{2}$repo%f"
+      git -C $plugin_dir pull >/dev/null 2>&1 || { print -Pru2 -- "%F{3}plugged%f: Failed to update %F{4}$repo%f" }
     fi
   done
 }
@@ -78,14 +78,14 @@ function __maybe-update() {
     (( EPOCHSECONDS - last_update_ts[1] >= 86400 * days )); then
     local REPLY
     {
-    read -q ${(%):-"?%F{3}unplugged%f: update dependencies? [y/N]: "} && REPLY=y
+    read -q ${(%):-"?%F{3}plugged%f: update dependencies? [y/N]: "} && REPLY=y
     }
     print -n >$ZPLUGINDIR/last-update-ts || return
     print ''
     if [[ $REPLY == y ]]; then
     update-plugins && return
     fi
-    print -Pru2 -- "%F{3}unplugged%f: won't ask to update again for %B$days%b day(s)"
+    print -Pru2 -- "%F{3}plugged%f: won't ask to update again for %B$days%b day(s)"
   fi
 }
 
@@ -96,7 +96,7 @@ function __plugin-load() {
     plugin_dir=$ZPLUGINDIR/$plugin_name
     initfile=$plugin_dir/$plugin_name.plugin.zsh
     if [[ ! -d $plugin_dir ]]; then
-      print -Pru2 -- "%F{3}unplugged%f: Cloning $repo"
+      print -Pru2 -- "%F{3}plugged%f: Cloning $repo"
       git clone -q --depth 1 --recursive --shallow-submodules https://github.com/$repo $plugin_dir
     fi
     if [[ ! -e $initfile ]]; then

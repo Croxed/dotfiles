@@ -29,6 +29,8 @@ main() {
 	version="$(head -n1 <<<"$response")"
 	url="$(grep -E 'tar.gz$' <<<"$response")"
 
+	echo "Downloading $url"
+
 	rm -rf "$neovim_dir" && mkdir -p "$neovim_dir"
 	cd "$neovim_dir" || exit 1
 	curl -fsSL "$url" | tar xz --strip-components=1

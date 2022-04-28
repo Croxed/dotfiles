@@ -9,5 +9,5 @@ get_latest_release() {
 	type="$1"
 	shift
 	curl -s "https://api.github.com/repos/$user/$repo/releases" |
-    jq -rc ".[] | select(.tag_name | contains(\"stable\")) | .name, (.assets[] | select(.browser_download_url | contains(\"$type\")) | .browser_download_url)"
+    jq -rc "[.[] | select(.prerelease == false)][0] | .name, (.assets[] | select(.browser_download_url | contains(\"$type\")) | .browser_download_url)"
 }
