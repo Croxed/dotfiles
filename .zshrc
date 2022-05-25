@@ -52,6 +52,8 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 # example. If you don't plan to use Oh My Zsh, delete this line.
 z4h install laggardkernel/git-ignore || return
 z4h install jarmo/expand-aliases-oh-my-zsh || return
+z4h install hlissner/zsh-autopair || return
+z4h install peterhurford/up.zsh || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh

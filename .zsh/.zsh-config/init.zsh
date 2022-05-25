@@ -74,3 +74,5 @@ fi
 # Source custom plugins
 z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
 source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+z4h source $Z4H/hlissner/zsh-autopair/autopair.zsh
+z4h source $Z4H/peterhurford/up.zsh/up.plugin.zsh
