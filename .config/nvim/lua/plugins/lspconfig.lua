@@ -73,7 +73,11 @@ lsp_installer.on_server_ready(function(server)
   vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-local process = require "nvim-lsp-installer.process"
+local present, process = pcall(require, 'nvim-lsp-installer.core.process')
+if not present then
+	process = require("nvim-lsp-installer.process")
+end
+
 lsp_installer.lsp_attach_proxy = process.debounced(function()
   -- As of writing, if the lspconfig server provides a filetypes setting, it uses FileType as trigger, otherwise it uses BufReadPost
   vim.cmd("doautoall")
