@@ -97,12 +97,15 @@ return packer.startup(function()
 	})
 
 	use({
-		"williamboman/nvim-lsp-installer",
+		"williamboman/mason.nvim",
+	})
+	use({
+		"williamboman/mason-lspconfig.nvim"
 	})
 
 	use({
 		"neovim/nvim-lspconfig",
-		after = "nvim-lsp-installer",
+		after = "mason.nvim",
 		config = function()
 			require("plugins.lspconfig")
 		end,
@@ -247,7 +250,7 @@ return packer.startup(function()
 		config = "require'plugins.null-ls'"
 	})
 
-	use({"b0o/schemastore.nvim", after = 'nvim-lsp-installer'})
+	use({"b0o/schemastore.nvim", after = 'mason.nvim'})
 
 	use({
 		'alexghergh/nvim-tmux-navigation',

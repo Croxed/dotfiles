@@ -1,29 +1,16 @@
-local present, lsp_install = pcall(require, 'nvim-lsp-installer.servers')
-local present_2, lsp_installer = pcall(require, 'nvim-lsp-installer')
-local present_2, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
-
-if not present or not present_2 then
+local present, mason = pcall(require, 'mason')
+local present2, mason_lspconfig = pcall(require, 'mason-lspconfig')
+local util = require "lspconfig.util"
+if not present or not present2 then
+	vim.notify("Mason not installed")
 	return
 end
 
+mason.setup()
+mason_lspconfig.setup({ensure_installed = O.lsp.ensure_installed})
 -- LSP
 require("lsp")
-local function install_server(server)
-  local ok, server_conf = lsp_installer_servers.get_server(server)
-  if ok then
-    if not server_conf:is_installed() then
-      server_conf:install()
-    end
-  end
-end
 
-local function install_missing_servers()
-	local required_servers = O.lsp.ensure_installed
-
-	for _, server in pairs(required_servers) do
-		install_server(server)
-	end
-end
 
 local language_servers = {
 	sumneko_lua = {
@@ -56,31 +43,13 @@ local language_servers = {
 }
 
 
-lsp_installer.on_server_ready(function(server)
-  local opts = {capabilities = require('lsp').get_capabilities(), on_attach = require("lsp").common_on_attach}
-  if language_servers[server.name] then
-    opts = language_servers[server.name].config(opts)
-  end
-  server:setup(opts)
-
-  -- (optional) Customize the options passed to the server
-  -- if server.name == "tsserver" then
-  --     opts.root_dir = function() ... end
-  -- end
-
-  -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-  server:setup(opts)
-  vim.cmd [[ do User LspAttachBuffers ]]
-end)
-
-local present, process = pcall(require, 'nvim-lsp-installer.core.process')
-if not present then
-	process = require("nvim-lsp-installer.process")
-end
-
-lsp_installer.lsp_attach_proxy = process.debounced(function()
-  -- As of writing, if the lspconfig server provides a filetypes setting, it uses FileType as trigger, otherwise it uses BufReadPost
-  vim.cmd("doautoall")
-end)
-
-install_missing_servers()
+mason_lspconfig.setup_handlers({
+	function (server_name)
+		local opts = {capabilities = require('lsp').get_capabilities(), on_attach = require("lsp").common_on_attach}
+		if language_servers[server_name] then
+		  opts = language_servers[server_name].config(opts)
+		end
+		require("lspconfig")[server_name].setup { opts = opts }
+		vim.cmd [[ do User LspAttachBuffers ]]
+	end
+})
