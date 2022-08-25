@@ -46,59 +46,58 @@ bufferline.setup({
 	},
 	highlights = {
 		fill = {
-			guibg = bg,
+			bg = bg,
 		},
 		background = {
-			guibg = bg,
+			bg = bg,
 		},
 
 		-- buffer
 		buffer_selected = {
-			guifg = fg,
-			guibg = bg2,
-			gui = "bold",
+			fg = fg,
+			bg = bg2,
 		},
 		separator = {
-			guifg = bg3,
-			guibg = bg,
+			fg = bg3,
+			bg = bg,
 		},
 		separator_selected = {
-			guifg = bg3,
-			guibg = bg2,
+			fg = bg3,
+			bg = bg2,
 		},
 		separator_visible = {
-			guifg = bg2,
-			guibg = bg2,
+			fg = bg2,
+			bg = bg2,
 		},
 		indicator_selected = {
-			guifg = accent,
-			guibg = bg2,
+			fg = accent,
+			bg = bg2,
 		},
 
 		-- tabs over right
 		tab = {
-			guifg = fg,
-			guibg = bg,
+			fg = fg,
+			bg = bg,
 		},
 		tab_selected = {
-			guifg = accent,
-			guibg = bg2,
+			fg = accent,
+			bg = bg2,
 		},
 		tab_close = {
-			guifg = accent,
-			guibg = bg2,
+			fg = accent,
+			bg = bg2,
 		},
 		modified_selected = {
-			guifg = accent2,
-			guibg = bg2,
+			fg = accent2,
+			bg = bg2,
 		},
 		modified = {
-			guifg = accent3,
-			guibg = bg,
+			fg = accent3,
+			bg = bg,
 		},
 		modified_visible = {
-			guifg = accent,
-			guibg = bg,
+			fg = accent,
+			bg = bg,
 		},
 	},
 })

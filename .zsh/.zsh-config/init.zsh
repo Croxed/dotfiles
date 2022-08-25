@@ -22,6 +22,7 @@ path_candidate=(
     "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/development/cabo/bin"
     "$HOME/bin.local"
+    "$HOME/.local/bin"
     "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"

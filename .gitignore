@@ -47,3 +47,4 @@ neovim.version
 .vscode
 .cron/.tmux
 .cron/tmux.version
+.cron/.zellij
