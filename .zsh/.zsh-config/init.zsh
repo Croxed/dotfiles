@@ -16,6 +16,7 @@ fpath+=("$SIMPL_ZSH_DIR"/completion)
 typeset -gx GOROOT="$HOME"/.go
 typeset -gx GOPATH="$HOME"/go
 typeset -gx VOLTA_HOME="$HOME/.volta"
+setopt NULL_GLOB
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
@@ -49,6 +50,7 @@ path_candidate=(
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/usr/bin/core_perl"
+    "$HOME"/Library/Python/*/bin
     )
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'

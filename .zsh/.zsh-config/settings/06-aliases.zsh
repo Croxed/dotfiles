@@ -2,7 +2,12 @@
 
 alias q='exit 0'
 
-if type -p gls >/dev/null 2>&1; then
+if type -p exa >/dev/null 2>&1; then
+    # Use exa
+    alias ls='exa -a --icons --no-user --no-time'
+    alias ll='exa -al --icons --no-user --no-time'
+    alias lt='exa -al --icons --no-user --no-time --tree -L2'
+elif type -p gls >/dev/null 2>&1; then
     ## Use a long listing format ##
     alias ll='gls -lah --color=auto'
     alias ls='gls -Ah --color=auto'
@@ -18,9 +23,7 @@ gbn() {
     git branch | awk '$1 ~ /\*/ {print $2}' | tr -d '\n'
 }
 
-alias la='ls -Ah'
-alias ll='ls -lAh'
-alias l.='ls -ld .*'
+alias la='ls -ah'
 
 alias mkdir='mkdir -pv'
 alias grep='grep --color=auto'
@@ -30,7 +33,10 @@ alias x='chmod +x'
 alias du='du -kh'
 alias df='df -kTh'
 
-if type -p nvim >/dev/null 2>&1; then
+if type -p lvim >/dev/null 2>&1; then
+    alias vim='lvim'
+    alias v='lvim'
+elif type -p nvim >/dev/null 2>&1; then
     alias vim='nvim'
     alias v='nvim'
     alias sv='sudo nvim'

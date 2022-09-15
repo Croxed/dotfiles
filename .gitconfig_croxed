@@ -24,8 +24,6 @@
 	ui = true
 [push]
   default = simple
-[merge]
-  tool = vimdiff
 [mergetool]
   keepBackup = false
 [gui]
@@ -35,5 +33,27 @@
 	helper = cache
 [core]
 	hooksPath = ~/.config/git/hooks/
+  pager = delta
 [pull]
 	rebase = false
+
+[interactive]
+    diffFilter = delta --color-only
+[add.interactive]
+    useBuiltin = false
+[delta]
+    navigate = true # Use n and N to move between diff sections.
+    light = false # Set to `true` if you prefer light themes.
+		side-by-side = true # Enables the side-by-side view.
+    line-numbers = true
+    navigate = true
+    syntax-theme = Nord 
+    line-numbers = true
+    line-numbers-left-style = "#adadad"
+    line-numbers-right-style = "#adadad"
+    line-numbers-zero-style = "#adadad"
+    tabs = 2
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
