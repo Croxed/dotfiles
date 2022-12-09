@@ -48,3 +48,4 @@ neovim.version
 .cron/.tmux
 .cron/tmux.version
 .cron/.zellij
+.cron/.bob
