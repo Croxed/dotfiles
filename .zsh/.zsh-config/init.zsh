@@ -1,5 +1,7 @@
 #! /usr/bin/env zsh
 
+source $Z4H/romkatv/zsh-defer/zsh-defer.plugin.zsh
+
 required_completions=(
     docker 'https://github.com/docker/cli/raw/master/contrib/completion/zsh/_docker'
     docker-compose 'https://github.com/docker/compose/raw/master/contrib/completion/zsh/_docker-compose'
@@ -62,22 +64,22 @@ typeset -U path=($path_candidate[@] $path[@])
 path=("${path[@]:#}")
 
 # source shell configuration files
-for f in "$SIMPL_ZSH_DIR"/plugins/*?.zsh; do
-    . "$f" 2>/dev/null
+for f in "$SIMPL_ZSH_DIR"/plugins/*.zsh; do
+    zsh-defer source "$f" 
 done
 
-for f in "$SIMPL_ZSH_DIR"/settings/*?.zsh; do
-    . "$f" 2>/dev/null
+for f in "$SIMPL_ZSH_DIR"/settings/*.zsh; do
+    source "$f" 2>/dev/null
 done
 
 if [ -d "$HOME"/.zsh-settings ]; then
-    for f in "$HOME"/.zsh-settings/*?.zsh; do
-        . "$f" 2>/dev/null
+    for f in "$HOME"/.zsh-settings/*.zsh; do
+        source "$f" 2>/dev/null
     done
 fi
 
 # Source custom plugins
-z4h source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
-source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
-z4h source $Z4H/hlissner/zsh-autopair/autopair.zsh
-z4h source $Z4H/peterhurford/up.zsh/up.plugin.zsh
+zsh-defer source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
+zsh-defer source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+zsh-defer source $Z4H/hlissner/zsh-autopair/autopair.zsh
+zsh-defer source $Z4H/peterhurford/up.zsh/up.plugin.zsh

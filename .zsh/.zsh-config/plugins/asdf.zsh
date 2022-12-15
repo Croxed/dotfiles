@@ -22,5 +22,4 @@ _install_asdf_plugin_if_not_installed() {
 
 }
 
-_install_and_source_asdf
-_install_asdf_plugin_if_not_installed
+zsh-defer -c _install_and_source_asdf _install_asdf_plugin_if_not_installed
