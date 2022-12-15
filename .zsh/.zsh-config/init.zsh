@@ -65,7 +65,7 @@ path=("${path[@]:#}")
 
 # source shell configuration files
 for f in "$SIMPL_ZSH_DIR"/plugins/*.zsh; do
-    zsh-defer source "$f" 
+    source "$f" 2>/dev/null
 done
 
 for f in "$SIMPL_ZSH_DIR"/settings/*.zsh; do
@@ -80,6 +80,6 @@ fi
 
 # Source custom plugins
 zsh-defer source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
-zsh-defer source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
+source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
 zsh-defer source $Z4H/hlissner/zsh-autopair/autopair.zsh
 zsh-defer source $Z4H/peterhurford/up.zsh/up.plugin.zsh
