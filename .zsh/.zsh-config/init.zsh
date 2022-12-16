@@ -47,6 +47,7 @@ path_candidate=(
     "$HOME/.nexustools"
     "$HOME/src/gocode/bin"
     "$HOME/.yarn/bin"
+    "$HOME/.bun/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
     "/usr/local/bin"
     "/opt/local/sbin"
@@ -63,23 +64,22 @@ typeset -U path=($path_candidate[@] $path[@])
 # strip empty fields from the path
 path=("${path[@]:#}")
 
-# source shell configuration files
-for f in "$SIMPL_ZSH_DIR"/plugins/*.zsh; do
-    source "$f" 2>/dev/null
-done
+_source_zsh_config() {
+  # source shell configuration files
+  for f in "$SIMPL_ZSH_DIR"/plugins/*.zsh; do
+      source "$f"
+  done
 
-for f in "$SIMPL_ZSH_DIR"/settings/*.zsh; do
-    source "$f" 2>/dev/null
-done
+  for f in "$SIMPL_ZSH_DIR"/settings/*.zsh; do
+      source "$f" 2>/dev/null
+  done
 
-if [ -d "$HOME"/.zsh-settings ]; then
-    for f in "$HOME"/.zsh-settings/*.zsh; do
-        source "$f" 2>/dev/null
-    done
-fi
+  if [ -d "$HOME"/.zsh-settings ]; then
+      for f in "$HOME"/.zsh-settings/*.zsh; do
+          source "$f" 2>/dev/null
+      done
+  fi
+}
 
 # Source custom plugins
-zsh-defer source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh
-source $Z4H/jarmo/expand-aliases-oh-my-zsh/expand-aliases.plugin.zsh
-zsh-defer source $Z4H/hlissner/zsh-autopair/autopair.zsh
-zsh-defer source $Z4H/peterhurford/up.zsh/up.plugin.zsh
+zsh-defer -c "_source_zsh_config; source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh; source $Z4H/hlissner/zsh-autopair/autopair.zsh; source $Z4H/peterhurford/up.zsh/up.plugin.zsh"

@@ -51,9 +51,9 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 # up-to-date. Cloned files can be used after `z4h init`. This is just an
 # example. If you don't plan to use Oh My Zsh, delete this line.
 z4h install laggardkernel/git-ignore || return
-z4h install jarmo/expand-aliases-oh-my-zsh || return
 z4h install hlissner/zsh-autopair || return
 z4h install peterhurford/up.zsh || return
+z4h install romkatv/zsh-defer || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -108,3 +108,9 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
 
 . "${SIMPL_ZSH_DIR}/init.zsh"
+
+# bun completions
+[ -s "/Users/oscar/.bun/_bun" ] && source "/Users/oscar/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
