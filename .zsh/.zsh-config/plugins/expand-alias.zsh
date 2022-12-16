@@ -2,7 +2,7 @@
 
 function __expand-alias() {
 	zle _expand_alias
-	#zle self-insert
+	zle self-insert
 }
 
 zle -N __expand-alias
