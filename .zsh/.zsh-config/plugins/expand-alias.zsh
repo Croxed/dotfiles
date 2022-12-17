@@ -1,9 +1,18 @@
 #! /usr/bin/env zsh
 
-function __expand-alias() {
-	zle _expand_alias
-	zle self-insert
+_expand-ealias() {
+  local ealiases
+  typeset -a ealiases
+  ealiases=("${(@k)aliases}")
+  if [[ $LBUFFER =~ "(^|[;|&])\s*(${(j:|:)ealiases})\$" ]]; then
+    zle _expand_alias
+    zle expand-word
+  fi
+  zle magic-space
 }
 
-zle -N __expand-alias
-bindkey -M main ' ' __expand-alias
+zle -N _expand-ealias
+
+bindkey ' '    _expand-ealias
+bindkey '^ '   magic-space          # control-space to bypass completion
+bindkey -M isearch " "  magic-space # normal space during searches
