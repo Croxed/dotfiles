@@ -4,6 +4,7 @@ cmd([[
 set encoding=utf-8
 set shell=zsh
 set history=500
+filetype on
 filetype plugin indent on
 set autoread
 set shortmess+=aAcIws

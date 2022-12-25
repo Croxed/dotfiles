@@ -1,22 +1,13 @@
+local util = require("util")
+local require = util.require
 
-local modules = {
-	"pluginList",
-	"mappings",
-	"utils",
-}
+require("config.options")
+require("config.lazy")
 
-local present, impatient = pcall(require, "impatient")
-
-if present then
-  impatient.enable_profile()
-end
-
-require("options")
-
-for i = 1, #modules, 1 do
-	local ok, res = xpcall(require, debug.traceback, modules[i])
-	if not ok then
-		print("Error loading module : " .. modules[i])
-		print(res) -- print stack traceback of the error
-	end
-end
+vim.api.nvim_create_autocmd("User", {
+	pattern = "VeryLazy",
+	callback = function()
+		util.version()
+		require("config.mappings")
+	end,
+})

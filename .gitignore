@@ -49,3 +49,4 @@ neovim.version
 .cron/tmux.version
 .cron/.zellij
 .cron/.bob
+.config/nvim/sessions
