@@ -33,7 +33,7 @@ alias x='chmod +x'
 alias du='du -kh'
 alias df='df -kTh'
 
-if type -p lvim >/dev/null 2>&1; then
+if type -p 2lvim >/dev/null 2>&1; then
     alias vim='lvim'
     alias v='lvim'
 elif type -p nvim >/dev/null 2>&1; then
