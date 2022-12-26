@@ -10,25 +10,23 @@ vim.keymap.set("n", "<leader>n", [[ <Cmd> set nu!<CR>]], opt)
 vim.keymap.set("n", "<leader>tz", [[<Cmd>TZAtaraxis<CR>]], opt) --ataraxis
 
 -- Commenter Keybinding
-vim.keymap.set("n", "<leader>/", ":CommentToggle<CR>", opt)
-vim.keymap.set("v", "<leader>/", ":CommentToggle<CR>", opt)
+vim.keymap.set("n", "<leader>/", vim.cmd.CommentToggle)
+vim.keymap.set("v", "<leader>/", vim.cmd.CommentToggle)
 
 -- NvimTree
-vim.keymap.set("n", "<leader>op", ":NvimTree<CR>", opt)
+vim.keymap.set("n", "<leader>op", vim.cmd.NvimTree)
 
 vim.keymap.set("i", "jk", "<esc>") --jk to exit
 vim.keymap.set("c", "jk", "<C-C>")
 vim.keymap.set("n", ";", ":") --semicolon to enter command mode
 vim.keymap.set("n", "j", "gj") --move by visual line not actual line
 vim.keymap.set("n", "k", "gk")
-vim.keymap.set("n", "<leader>ww", [[<Cmd>HopWord<CR>]], opt) --easymotion/hop
-vim.keymap.set("n", "<leader>l", [[<Cmd>HopLine<CR>]], opt)
-vim.keymap.set("n", "<leader>fP", [[<Cmd>e ~/.config/nvim/init.lua<CR>]], opt)
+vim.keymap.set("n", "<leader>fP", function() vim.cmd.e('~/.config/nvim/init.lua') end)
 
-vim.keymap.set("n", "<c-k>", [[<Cmd>wincmd k<CR>]], opt) --ctrlhjkl to navigate splits
-vim.keymap.set("n", "<c-j>", [[<Cmd>wincmd j<CR>]], opt)
-vim.keymap.set("n", "<c-h>", [[<Cmd>wincmd h<CR>]], opt)
-vim.keymap.set("n", "<c-l>", [[<Cmd>wincmd l<CR>]], opt)
+vim.keymap.set("n", "<c-k>", function() vim.cmd.wincmd('k') end) --ctrlhjkl to navigate splits
+vim.keymap.set("n", "<c-j>", function() vim.cmd.wincmd('j') end)
+vim.keymap.set("n", "<c-h>", function() vim.cmd.wincmd('h') end)
+vim.keymap.set("n", "<c-l>", function() vim.cmd.wincmd('l') end)
 
 cmd([[autocmd BufWritePre * %s/\s\+$//e]]) --remove trailing whitespaces
 cmd([[autocmd BufWritePre * %s/\n\+\%$//e]])
@@ -54,29 +52,23 @@ local check_back_space = function()
 	end
 end
 
--- Telescope
-vim.keymap.set("n", "<Leader>gt", [[<Cmd> Telescope git_status <CR>]], opt)
-vim.keymap.set("n", "<Leader>cm", [[<Cmd> Telescope git_commits <CR>]], opt)
-vim.keymap.set("n", "<Leader>.", [[<Cmd> Telescope find_files <CR>]], opt)
-vim.keymap.set("n", "<Leader>bb", [[<Cmd>Telescope buffers<CR>]], opt)
-vim.keymap.set("n", "<Leader>fh", [[<Cmd>Telescope help_tags<CR>]], opt)
-vim.keymap.set("n", "<Leader>fr", [[<Cmd>Telescope oldfiles<CR>]], opt)
+
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- move between tabs
-vim.keymap.set("n", "<TAB>", [[<Cmd>BufferLineCycleNext<CR>]], opt)
-vim.keymap.set("n", "<S-TAB>", [[<Cmd>BufferLineCyclePrev<CR>]], opt)
+vim.keymap.set("n", "<TAB>", vim.cmd.BufferLineCycleNext)
+vim.keymap.set("n", "<S-TAB>", vim.cmd.BufferLineCyclePrev)
 
 --nvimTree
 vim.keymap.set("n", "<Leader>o", vim.cmd.Neotree, opt)
-
 --lsp
 
-vim.keymap.set("n", "<Leader>gd", [[":lua vim.lsp.buf.definition()<CR>"]], opt)
-vim.keymap.set("n", "<Leader>gD", [[":lua vim.lsp.buf.declaration()<CR>"]], opt)
-vim.keymap.set("n", "<Leader>gr", [[":lua vim.lsp.buf.references()<CR>"]], opt)
-vim.keymap.set("n", "<Leader>gi", [[":lua vim.lsp.buf.implementation()<CR>"]], opt)
+vim.keymap.set("n", "<Leader>gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<Leader>gD", vim.lsp.buf.declaration)
+vim.keymap.set("n", "<Leader>gr", vim.lsp.buf.references)
+vim.keymap.set("n", "<Leader>gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "<leader>tr", vim.cmd.TroubleToggle)
 
-vim.keymap.set("n", "K", ":lua vim.lsp.buf.hover()<CR>", opt)
-vim.keymap.set("n", "<C-p>", ":lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<CR>", opt)
-vim.keymap.set("n", "<C-n>", ":lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<CR>", opt)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<C-p>", function() vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}}) end)
+vim.keymap.set("n", "<C-n>", function() vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}}) end)

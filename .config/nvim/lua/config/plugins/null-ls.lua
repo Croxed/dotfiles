@@ -1,8 +1,29 @@
 local M = {
-  "jose-elias-alvarez/null-ls.nvim",
+    "jayp0521/mason-null-ls.nvim", -- Automatically install null-ls servers
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim", -- General purpose LSP server for running linters, formatters, etc
+    },
 }
 
 function M.setup(options)
+  local mason_null_ls = require("mason-null-ls")
+  mason_null_ls.setup({
+    ensure_installed = {
+      "eslint_d",
+      "fish_indent",
+      "fixjson",
+      "phpcsfixer",
+      "prettier",
+      "rubocop",
+      "shfmt",
+      "stylua",
+      "black",
+      "lua_format",
+    },
+    automatic_installation = true,
+    automatic_setup = false,
+  })
   local nls = require("null-ls")
   local formatting = nls.builtins.formatting
   nls.setup({

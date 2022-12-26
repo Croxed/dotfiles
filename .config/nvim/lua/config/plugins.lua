@@ -1,7 +1,7 @@
 do return {
   {
     "nathom/filetype.nvim",
-    lazy = false,
+    event = "VeryLazy",
     config = function ()
       require('filetype').setup({})
     end
@@ -67,7 +67,13 @@ do return {
     })
     end,
   },
-  { "stevearc/dressing.nvim", event = "VeryLazy" },
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    config = function ()
+      require('dressing').setup()
+    end
+  },
   -- LSP
   {
     "SmiteshP/nvim-navic",
