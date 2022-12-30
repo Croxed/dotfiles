@@ -12,7 +12,7 @@ vim.g.maplocalleader = ","
 vim.opt.shadafile = "NONE"
 
 --fish slows things down
-vim.opt.shell = "/bin/bash"
+--vim.opt.shell = "/bin/bash"
 
 vim.opt.ruler = false
 vim.opt.cul = true

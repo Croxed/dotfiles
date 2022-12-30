@@ -60,7 +60,7 @@ vim.keymap.set("n", "<TAB>", vim.cmd.BufferLineCycleNext)
 vim.keymap.set("n", "<S-TAB>", vim.cmd.BufferLineCyclePrev)
 
 --nvimTree
-vim.keymap.set("n", "<Leader>o", vim.cmd.Neotree, opt)
+vim.keymap.set("n", "<Leader>o", vim.cmd.NeoTreeShowToggle)
 --lsp
 
 vim.keymap.set("n", "<Leader>gd", vim.lsp.buf.definition)

@@ -15,9 +15,10 @@ done
 
 fpath+=("$SIMPL_ZSH_DIR"/completion)
 
-typeset -gx GOROOT="$HOME"/.go
-typeset -gx GOPATH="$HOME"/go
-typeset -gx VOLTA_HOME="$HOME/.volta"
+if [ -d "$HOME/.gobrew/current/go" ]; then
+  typeset -gx GOROOT="$HOME/.gobrew/current/go"
+fi
+
 setopt NULL_GLOB
 # all candidated for sourcing into path
 declare -a path_candidate
@@ -30,6 +31,8 @@ path_candidate=(
     "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
+    "$HOME/.gobrew/current/bin"
+    "$HOME/.gobrew/bin"
     "$HOME/.bin"
     "$HOME/n/bin"
     "$HOME/.symfony/bin"
@@ -40,8 +43,6 @@ path_candidate=(
     "$HOME/.poetry/bin"
     "$HOME/.fzf/bin"
     "$HOME/.deno/bin"
-    "$GOPATH/bin"
-    "$GOROOT/bin"
     "$HOME/.cargo/bin"
     "$HOME/scripts"
     "$HOME/.nexustools"

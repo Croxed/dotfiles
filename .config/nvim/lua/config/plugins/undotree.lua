@@ -1,5 +1,6 @@
 local M = {
-    'mbbill/undotree'
+    'mbbill/undotree',
+    event = "VeryLazy"
 }
 
 function M.config()
