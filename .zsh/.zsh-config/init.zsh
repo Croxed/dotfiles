@@ -15,10 +15,6 @@ done
 
 fpath+=("$SIMPL_ZSH_DIR"/completion)
 
-if [ -d "$HOME/.gobrew/current/go" ]; then
-  typeset -gx GOROOT="$HOME/.gobrew/current/go"
-fi
-
 setopt NULL_GLOB
 # all candidated for sourcing into path
 declare -a path_candidate
@@ -35,6 +31,8 @@ path_candidate=(
     "$HOME/.gobrew/bin"
     "$HOME/.bin"
     "$HOME/n/bin"
+    "$HOME/go/bin"
+    "$HOME/.gobrew/current/go"
     "$HOME/.symfony/bin"
     "$HOME/.phpenv/shims"
     "$HOME/.cabal/bin"
@@ -58,6 +56,10 @@ path_candidate=(
     "/usr/bin/core_perl"
     "$HOME"/Library/Python/*/bin
     )
+
+if [ -d "$HOME/.gobrew/current/go" ]; then
+  typeset -gx GOROOT="$HOME/.gobrew/current/go"
+fi
 
 # add all specified oaths to the path if not already, the -U flag means 'unique'
 typeset -U path=($path_candidate[@] $path[@])
