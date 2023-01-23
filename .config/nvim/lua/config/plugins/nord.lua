@@ -1,6 +1,7 @@
 local M = {
     "shaunsingh/nord.nvim",
-    lazy = false
+    lazy = false,
+    priority = 1000
 }
 
 function M.config()
@@ -12,10 +13,7 @@ function M.config()
     g.nord_cursorline_transparent = true
 
     -- Load the colorscheme
-    local present, nord = pcall(require, "nord")
-    if present then
-        nord.set()
-    end
+    vim.cmd([[colorscheme nord]])
 
     vim.cmd([[
         syntax on
