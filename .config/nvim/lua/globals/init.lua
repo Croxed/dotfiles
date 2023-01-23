@@ -30,11 +30,7 @@ O = {
 			"vue",
 			"yaml",
 		},
-		ignore_install = { "haskell" },
-		indent = {enable = false},
-		highlight = {enable = true},
-		autotag = {enable = true},
-		rainbow = {enable = true, extended_mode = false, disable = {"html"}}
+		ignore_install = { "haskell" }
 	},
 
 	default_options = {
@@ -89,10 +85,7 @@ O = {
 			signs = true,
 			underline = true,
 		},
-		document_highlight = true,
 		popup_border = "single",
-		default_keybinds = true,
-		on_attach_callback = nil,
 		ensure_installed = {
 			"bashls",
 			"cssls",
@@ -133,72 +126,5 @@ O = {
 		"rrhelper",
 		"spellfile_plugin",
 		"matchit",
-	},
-
-	plugin = {
-		lspinstall = {},
-		telescope = {},
-		cmp = {},
-		autopairs = {},
-		treesitter = {},
-		formatter = {},
-		lint = {},
-		nvimtree = {},
-		gitsigns = {},
-		which_key = {},
-		comment = {},
-		rooter = {},
-		galaxyline = {},
-		bufferline = {},
-		dap = {},
-		dashboard = {},
-		terminal = {},
-		zen = {},
-	},
-
-	-- TODO: refactor for tree
-	auto_close_tree = 0,
-	nvim_tree_disable_netrw = 0,
-
-	database = { save_location = "~/.config/lunarvim_db", auto_execute = 1 },
-
-	-- TODO: just using mappings (leader mappings)
-	user_which_key = {},
-
-	user_plugins = {
-		-- use lv-config.lua for this not put here
-	},
-
-	user_autocommands = { { "FileType", "qf", "set nobuflisted" } },
-
-	formatters = { filetype = {} },
-
-	-- TODO move all of this into lang specific files, only require when using
-	lang = {
-		efm = {},
-		emmet = { active = false },
-		svelte = {},
-		tailwindcss = {
-			active = false,
-			filetypes = {
-				"html",
-				"css",
-				"scss",
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-			},
-		},
-		tsserver = {
-			-- @usage can be 'eslint' or 'eslint_d'
-			linter = "",
-			diagnostics = {
-				virtual_text = { spacing = 0, prefix = "" },
-				signs = true,
-				underline = true,
-			},
-			formatter = { exe = "prettier", args = {} },
-		},
-	},
+	}
 }
