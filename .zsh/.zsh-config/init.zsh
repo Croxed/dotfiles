@@ -29,6 +29,7 @@ path_candidate=(
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/.gobrew/current/bin"
     "$HOME/.gobrew/bin"
+    "$HOME/.nimble/bin"
     "$HOME/.bin"
     "$HOME/n/bin"
     "$HOME/go/bin"
