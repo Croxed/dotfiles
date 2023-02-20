@@ -109,9 +109,3 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
 
 . "${SIMPL_ZSH_DIR}/init.zsh"
-
-# bun completions
-[ -s "/Users/oscar/.bun/_bun" ] && source "/Users/oscar/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
