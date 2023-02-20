@@ -1,18 +1,12 @@
 local M = {
-    "shaunsingh/nord.nvim",
+    "gbprod/nord.nvim",
     lazy = false,
     priority = 1000
 }
 
 function M.config()
-    local g = vim.g
-    --nord
-    g.nord_style = "nord"
-    g.nord_borders = false
-    g.nord_contrast = false
-    g.nord_cursorline_transparent = true
-
-    -- Load the colorscheme
+    local nord = require("nord")
+    nord.setup({border=false})
     vim.cmd([[colorscheme nord]])
 
     vim.cmd([[

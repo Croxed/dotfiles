@@ -93,7 +93,7 @@ O = {
 			"efm",
 			"html",
 			"gopls",
-			"sumneko_lua",
+			"lua_ls",
 			"jdtls",
 			"kotlin_language_server",
 			"tsserver",

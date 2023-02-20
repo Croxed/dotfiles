@@ -8,19 +8,19 @@ function M.config()
     return
   end
 
-  local colors = require("nord.named_colors")
+  local colors = require("nord.colors").palette
 
   require("incline").setup({
     highlight = {
       groups = {
         InclineNormal = {
           guibg = "#FC56B1",
-          guifg = colors.black,
+          guifg = colors.polar_night.ice,
           -- gui = "bold",
         },
         InclineNormalNC = {
           guifg = "#FC56B1",
-          guibg = colors.black,
+          guibg = colors.polar_night.ice,
         },
       },
     },

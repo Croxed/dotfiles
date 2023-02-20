@@ -1,26 +1,8 @@
 local M = {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy"
+    event = "VeryLazy",
+    priority = 500,
   }
-local nord = {
-  default_fg = "#d8dee9",
-  default_bg = "#2e3440",
-  colors = {
-      fore = "#4c566a",
-      back = "#88C0D0",
-      dark = "#434C5E",
-      white = "#ECEFF4",
-      skyblue = "#8FBCBB",
-      cyan = "#a3be8c",
-      green = "#88C0D0",
-      oceanblue = "#5E81AC",
-      magenta = "#B48EAD",
-      orange = "#D08770",
-      red = "#EC5F67",
-      violet = "#B48EAD",
-      yellow = "#EBCB8B"
-  }
-}
 
 local icons = {
   diagnostics = {
@@ -85,7 +67,7 @@ function M.opts(plugin)
 
   return {
     options = {
-      theme = "auto",
+      theme = "nord",
       globalstatus = true,
       disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
     },
