@@ -2,6 +2,7 @@ local M = {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     priority = 500,
+    enabled = false,
   }
 
 local icons = {
