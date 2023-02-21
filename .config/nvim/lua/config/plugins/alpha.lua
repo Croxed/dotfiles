@@ -1,51 +1,57 @@
-local M = {
-    'glepnir/dashboard-nvim',
-    event = "VimEnter"
-}
+return   {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+    opts = function()
+      local dashboard = require("alpha.themes.dashboard")
+      dashboard.section.header.val = {
+        [[███    ██ ███████  ██████  ██    ██ ██ ███    ███]],
+        [[████   ██ ██      ██    ██ ██    ██ ██ ████  ████]],
+        [[██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██]],
+        [[██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██]],
+        [[██   ████ ███████  ██████    ████   ██ ██      ██]]
+      }
+      dashboard.section.buttons.val = {
+        dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+        dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
+        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
+        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+        dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
+        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+      }
+      for _, button in ipairs(dashboard.section.buttons.val) do
+        button.opts.hl = "AlphaButtons"
+        button.opts.hl_shortcut = "AlphaShortcut"
+      end
+      dashboard.section.footer.opts.hl = "Type"
+      dashboard.section.header.opts.hl = "AlphaHeader"
+      dashboard.section.buttons.opts.hl = "AlphaButtons"
+      dashboard.opts.layout[1].val = 8
+      return dashboard
+    end,
+    config = function(_, dashboard)
+      -- close Lazy and re-open when the dashboard is ready
+      if vim.o.filetype == "lazy" then
+        vim.cmd.close()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "AlphaReady",
+          callback = function()
+            require("lazy").show()
+          end,
+        })
+      end
 
-function M.config()
-    local db = require('dashboard')
-    local plugins = require("lazy").stats().count
-    local footer = {'', "🎉 Neovim loaded " .. plugins .. " plugins "}
-    db.custom_footer = footer
-    db.custom_center = {
-        {
-            icon = "  ",
-            desc = "New file                               ",
-            shortcut = ":enew",
-            action = "enew",
-        },
-        {
-            icon = "  ",
-            desc = "Find file                              ",
-            shortcut = "SPC f",
-            action = "Telescope find_files hidden=true no_ignore=true",
-        },
-        {
-            icon = "  ",
-            desc = "Browse dotfiles                        ",
-            shortcut = "SPC v d",
-            action = "Telescope find_files cwd=~/.config/nvim/ search_dirs=Ultisnips,lua,viml,init.vim",
-        },
-        {
-            icon = "  ",
-            desc = "Update plugins                         ",
-            shortcut = ":Lazy update",
-            action = "Lazy update",
-        },
-        {
-            icon = "  ",
-            desc = "Open floating terminal                 ",
-            shortcut = "SPC t t",
-            action = "FloatermToggle",
-        },
-        {
-            icon = "  ",
-            desc = "Close neovim                           ",
-            shortcut = ":qa!",
-            action = "qa!",
-        },
-    }
-end
+      require("alpha").setup(dashboard.opts)
 
-return M
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyVimStarted",
+        callback = function()
+          local stats = require("lazy").stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+          pcall(vim.cmd.AlphaRedraw)
+        end,
+      })
+    end,
+  }
