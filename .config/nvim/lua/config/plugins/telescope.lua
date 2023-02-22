@@ -107,6 +107,7 @@ function M.config()
   telescope.load_extension("fzf")
   telescope.load_extension("z")
   telescope.load_extension("file_browser")
+  telescope.load_extension("notify")
   pcall(telescope.load_extension, "project")
   -- Telescope
   local builtin = require('telescope.builtin')
