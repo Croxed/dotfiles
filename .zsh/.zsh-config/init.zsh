@@ -15,6 +15,10 @@ done
 
 fpath+=("$SIMPL_ZSH_DIR"/completion)
 
+if [ -d /opt/homebrew/share/zsh/site-functions ]; then
+  fpath+=(/opt/homebrew/share/zsh/site-functions)
+fi
+
 setopt NULL_GLOB
 # all candidated for sourcing into path
 declare -a path_candidate
@@ -22,18 +26,17 @@ path_candidate=(
     "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/development/cabo/bin"
     "$HOME/bin.local"
-    "$HOME/.local/share/neovim/bin"
+    "$HOME/.local/share/bob/nvim-bin"
     "$HOME/.local/bin"
     "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
+    "$HOME/go/bin"
     "$HOME/.gobrew/current/bin"
     "$HOME/.gobrew/bin"
     "$HOME/.nimble/bin"
     "$HOME/.bin"
     "$HOME/n/bin"
-    "$HOME/go/bin"
-    "$HOME/.gobrew/current/go"
     "$HOME/.symfony/bin"
     "$HOME/.phpenv/shims"
     "$HOME/.cabal/bin"

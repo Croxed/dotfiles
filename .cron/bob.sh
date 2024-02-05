@@ -38,10 +38,11 @@ main() {
 
 	response="$(get_latest_release MordechaiHadad bob "$type")"
 	version="$(head -n1 <<<"$response")"
-	url="$(grep -E '.zip$' <<<"$response")"
+	url="$(grep -E '.zip$' <<<"$response" | head -n1)"
 	rm -rf "$bob_dir" || true
     mkdir -p "$bob_dir"
 	cd "$bob_dir" || exit 1
+  echo "$url"
 	curl -fsSL "$url" -o bob.zip && unzip bob.zip && rm -rf bob.zip && chmod +x bob
 	ln -sfn "$bob_dir"/bob "$HOME"/bin.local/bob
 
