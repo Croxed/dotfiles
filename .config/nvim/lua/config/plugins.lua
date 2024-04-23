@@ -74,6 +74,8 @@ do return {
       require('dressing').setup()
     end
   },
+  -- Pretty thinkgs
+  { "mistricky/codesnap.nvim", build = "make" },
   -- LSP
   {
     "SmiteshP/nvim-navic",

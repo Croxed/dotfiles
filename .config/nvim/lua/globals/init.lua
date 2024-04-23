@@ -87,6 +87,7 @@ O = {
 		},
 		popup_border = "single",
 		ensure_installed = {
+      "ansiblels",
 			"bashls",
 			"cssls",
 			"dockerls",
