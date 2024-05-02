@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+_run_command() {
+  printf 'Printing file sizes of %s\n' "$1"
+  find "$1" -type f -ls | awk '{print $7, "\t", $11}' | sort -s -n -k 1,1 -r |  numfmt --field 1 --to=iec-i --suffix=B --format="%9.2f"
+}
+
+print_size_folder() {
+  printf '####################################################\n'
+  printf '### This command sorts sizes in descending order ###\n'
+  printf '####################################################\n'
+
+  if [ "$#" -lt 1 ]; then
+    _run_command .
+  fi
+
+  for arg in "${@}"; do
+    _run_command "$arg"
+  done
+}
+
+print_size_folder "$@"
