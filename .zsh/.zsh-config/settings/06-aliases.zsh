@@ -23,6 +23,8 @@ gbn() {
     git branch | awk '$1 ~ /\*/ {print $2}' | tr -d '\n'
 }
 
+alias ga="git add"
+
 alias la='ls -ah'
 
 alias mkdir='mkdir -pv'

@@ -49,5 +49,6 @@ neovim.version
 .cron/tmux.version
 .cron/.zellij
 .cron/.bob
+.cron/.yq
 .config/nvim/sessions
 .config/nvim/.luarc.json

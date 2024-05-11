@@ -158,10 +158,6 @@ dec2hex()
     awk 'BEGIN { printf "%x\n",$1}'
 }
 
-ga()
-{
-    git add "${1:-.}"
-}
 
 gr()
 {
@@ -475,7 +471,7 @@ e()
 }
 
 # just type '...' to get '../..'
-rationalise-dot() 
+rationalise-dot()
 {
     local MATCH
     if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
@@ -492,18 +488,18 @@ bindkey . rationalise-dot
 bindkey -M isearch . self-insert
 
 # Function for fetching information regarding a specific process
-function ppgrep() 
-{ 
+function ppgrep()
+{
     pgrep "$@" | xargs ps -f -p
 }
 
 # Change wallpaper on macOS
 function wallpaper() {
-    sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$1'" && killall Dock 
+    sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '$1'" && killall Dock
 }
 
 
-docker-ssh () 
+docker-ssh ()
 {
     if [ -z "$1" ]; then
         echo "No container specified"
