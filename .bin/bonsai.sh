@@ -51,7 +51,13 @@ lineWidth=4 # words per line
 OPTS="hlt:ig:c:Tm:b:M:L:" # the colon means it requires a value
 LONGOPTS="help,live,time:,infinite,geo:,leaf:,termcolors,message:,base:,multiplier:,life:"
 
-parsed=$(ggetopt --options=$OPTS --longoptions=$LONGOPTS -- "$@")
+if command -v ggetopt &>/dev/null; then
+  opt_cmd="ggetopt"
+else
+  opt_cmd="getopt"
+fi
+
+parsed=$($opt_cmd --options=$OPTS --longoptions=$LONGOPTS -- "$@")
 eval set -- "${parsed[@]}"
 
 while true; do
@@ -120,6 +126,8 @@ while true; do
 	*)
 		echo "error while parsing CLI options"
 		flag_h=true
+    shift
+    break
 		;;
 	esac
 done
@@ -506,7 +514,7 @@ print() {
 		# add our message
 		if [ $flag_m = true ]; then
 			# remove trailing whitespace before we add our message
-			line=$(gsed -r 's/[ \t]*$//' <(printf "$line"))
+			line=$(sed -r 's/[ \t]*$//' <(printf "$line"))
 			line+="   \t${gridMessage[$row]}"
 		fi
 
@@ -520,7 +528,7 @@ print() {
 	output+="$base"
 
 	# output, removing trailing whitespace
-	gsed -r 's/[ \t]*$//' <(printf "$output")
+	sed -r 's/[ \t]*$//' <(printf "$output")
 }
 
 clean() {

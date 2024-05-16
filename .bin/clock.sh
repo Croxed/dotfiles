@@ -1,4 +1,4 @@
-#! /usr/local/bin/bash
+#! /usr/bin/env bash
 # Don't have author credit, but this was made by them and not me
 unhide_cursor() {
 	printf '\e[?25h'

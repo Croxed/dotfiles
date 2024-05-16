@@ -158,7 +158,6 @@ dec2hex()
     awk 'BEGIN { printf "%x\n",$1}'
 }
 
-
 gr()
 {
     git rebase -i HEAD~${1:-10}
