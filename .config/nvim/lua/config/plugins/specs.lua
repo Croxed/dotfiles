@@ -1,5 +1,5 @@
-return {
-  "edluffy/specs.nvim",
+local M = {
+  "cxwx/specs.nvim",
   event = "VeryLazy",
   config = function()
     require("specs").setup({
@@ -19,3 +19,6 @@ return {
     })
   end,
 }
+
+
+return {}
