@@ -1,7 +1,7 @@
 local M = {
     "utilyre/barbecue.nvim",
     version = "*",
-    event = "VeryLazy",
+    event = "VimEnter"
 }
 
 function M.config()

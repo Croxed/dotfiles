@@ -1,7 +1,7 @@
 local M = {
   "echasnovski/mini.statusline",
   version = "*",
-  event = "VeryLazy"
+  event = "VimEnter"
 }
 
 function M.old_config_backup()
