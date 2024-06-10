@@ -1,9 +1,11 @@
 if not functions -q fisher
     echo "Installing fisher bootstrap"
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-    fish -c fisher
+    #curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+    curl https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
 end
+
+set fish_greeting
 
 # Base PATH
 set -g -x PATH
@@ -14,34 +16,24 @@ set -g PATH $PATH /usr/sbin
 set -g PATH $PATH /bin
 set -g PATH $PATH /usr/bin
 
+set -l path_candidates "$HOME/development/cabo/bin" "$HOME/bin.local" "$HOME/.local/bin" "$HOME/.local/share/bob/nvim-bin" "$VOLTA_HOME/bin" "$HOME/anaconda3/bin" "$HOME/github.com/graalvm/Contents/Home/bin" "$HOME/go/bin" "$HOME/.gobrew/current/bin" "$HOME/.gobrew/bin" "$HOME/.nimble/bin" "$HOME/.bin" "$HOME/n/bin" "$HOME/.symfony/bin" "$HOME/.phpenv/shims" "$HOME/.cabal/bin" "$HOME/.rbenv/bin" "$HOME/.symfony/bin" "$HOME/.poetry/bin" "$HOME/.fzf/bin" "$HOME/.deno/bin" "$HOME/.cargo/bin" "$HOME/scripts" "$HOME/.nexustools" "$HOME/src/gocode/bin" "$HOME/.yarn/bin" "$HOME/.bun/bin" "$HOME/.config/yarn/global/node_modules/.bin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin" "/usr/local/share/npm/bin" "/usr/local/opt/coreutils/libexec/gnubin" "/usr/bin/core_perl" "/opt/homebrew/bin" "$HOME"/Library/Python/*/bin "$HOME/.local/share/bob/nvim-bin"
 # Conditional PATH additions
-for path_candidate in /opt/local/sbin \
-    /Applications/Xcode.app/Contents/Developer/usr/bin \
-    /usr/bin/core_perl \
-    /opt/local/bin \
-    /usr/local/share/npm/bin \
-    /usr/local/opt/coreutils/libexec/gnubin \
-    ~/.cabal/bin \
-    ~/.rbenv/bin \
-    ~/.bin \
-    $HOME/github.com/graalvm/Contents/Home/bin \
-    $HOME/.fzf/bin \
-    $HOME/.pyenv/bin \
-    $GOPATH/bin \
-    $GOROOT/bin \
-    ~/.cargo/bin \
-    ~/bin.local \
-    ~/scripts \
-    ~/.nexustools \
-    ~/src/gocode/bin \
-    /usr/local/CrossPack-AVR/bin \
-    /usr/local/texlive/2016/bin/x86_64-darwin
+for path_candidate in $path_candidates
     if test -d $path_candidate
+        if contains $path_candidate $PATH
+            continue
+        end
         set -gx PATH $path_candidate $PATH
     end
 end
 
 # fish $HOME/.config/fish/aliases.fish
+
+# Load settings
+for file in ~/.config/fish/settings/*.fish
+    source $file
+end
+
 
 # Load extra configs
 for file in ~/.config/fish/conf.d/*.fish
@@ -55,15 +47,6 @@ for i in $PATH
         set path_sorted $path_sorted $i
     end
 end
-
-function fish_greeting
-    command clear
-    fish_logo white cyan magenta
-    echo -e '\n' (set_color red)(whoami)'@'(hostname)
-    echo -e (set_color yellow)' Uptime: '(set_color white) (uptime | sed 's/.*up \([^,]*\), .*/\1/')
-    echo -e (set_color yellow)' Version: '(set_color white)(echo $FISH_VERSION) '\n'
-end
-
 
 
 # finally, set the PATH variable
@@ -88,10 +71,6 @@ function test_identities
             start_agent
         end
     end
-end
-
-function reload
-    source "$HOME/.config/fish/config.fish"
 end
 
 if [ -n "$SSH_AGENT_PID" ]
@@ -119,9 +98,6 @@ begin
     end
 end
 
-set -x EDITOR 'nvim'
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_FIND_FILE_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_OPEN_COMMAND 'fd --type f --hidden --follow --exclude .git'
-set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH

@@ -28,7 +28,7 @@ end
 
 function M.config()
   -- local actions = require("telescope.actions")
-  local trouble = require("trouble.providers.telescope")
+  local trouble = require("trouble.sources.telescope")
 
   local telescope = require("telescope")
   local borderless = true
@@ -50,7 +50,7 @@ function M.config()
       sorting_strategy = "ascending",
       mappings = {
         i = {
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open,
           ["<C-Down>"] = require("telescope.actions").cycle_history_next,
           ["<C-Up>"] = require("telescope.actions").cycle_history_prev,
         },
