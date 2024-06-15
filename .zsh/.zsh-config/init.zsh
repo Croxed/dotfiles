@@ -28,7 +28,6 @@ path_candidate=(
     "$HOME/bin.local"
     "$HOME/.local/bin"
     "$HOME/.local/share/bob/nvim-bin"
-    "$VOLTA_HOME/bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
     "$HOME/go/bin"
@@ -65,7 +64,7 @@ if [ -d "$HOME/.gobrew/current/go" ]; then
   typeset -gx GOROOT="$HOME/.gobrew/current/go"
 fi
 
-# add all specified oaths to the path if not already, the -U flag means 'unique'
+# add all specified oaths to the path if not already present, the -U flag means 'unique'
 typeset -U path=($path_candidate[@] $path[@])
 
 # strip empty fields from the path
