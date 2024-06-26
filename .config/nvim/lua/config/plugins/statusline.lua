@@ -33,18 +33,18 @@ function M.old_config_backup()
     buftypes = {},
     bufnames = {}
   }
-  
+
   local winbar_components = {
     active = {{}, {}, {}},
     inactive = {{}, {}, {}},
   }
-  
+
   local components = {
     active = {{}, {}, {}},
     inactive = {{}, {}, {}},
   }
-  
-  
+
+
   local vi_mode_colors = {
     NORMAL = 'green',
     OP = 'green',
@@ -63,7 +63,7 @@ function M.old_config_backup()
     TERM = 'green',
     NONE = 'yellow'
   }
-  
+
   local vi_mode_text = {
     NORMAL = '<|',
     OP = '<|',
@@ -82,14 +82,14 @@ function M.old_config_backup()
     NONE = '<>',
     CONFIRM = '|>'
   }
-  
+
   local buffer_not_empty = function()
     if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
       return true
     end
     return false
   end
-  
+
   local checkwidth = function()
     local squeeze_width  = vim.fn.winwidth(0) / 2
     if squeeze_width > 40 then
@@ -97,7 +97,7 @@ function M.old_config_backup()
     end
     return false
   end
-  
+
   force_inactive.filetypes = {
     'NvimTree',
     'dbui',
@@ -110,8 +110,8 @@ function M.old_config_backup()
   force_inactive.buftypes = {
     'terminal'
   }
-  
-  
+
+
   local statusline_style = {
     left = " ",
     right = " ",
@@ -121,17 +121,17 @@ function M.old_config_backup()
   }
   -- STATUSLINE
   -- LEFT
-  
+
   -- vi-mode
   components.active[1][1] = {
     provider = statusline_style.main_icon,
     hl = function()
       local val = {}
-  
+
       val.bg = vi_mode_utils.get_mode_color()
       val.fg = 'black'
       val.style = 'bold'
-  
+
       return val
     end,
     right_sep = ' '
@@ -161,8 +161,8 @@ function M.old_config_backup()
       style = 'bold'
     }
   }
-  
-  
+
+
   components.active[1][4] = {
     provider = "diagnostic_errors",
     enabled = function()
@@ -171,7 +171,7 @@ function M.old_config_backup()
     hl = { fg = "red" },
     icon = "  ",
   }
-  
+
   components.active[1][5] = {
     provider = "diagnostic_warnings",
     enabled = function()
@@ -180,7 +180,7 @@ function M.old_config_backup()
     hl = { fg = "yellow" },
     icon = "  ",
   }
-  
+
   components.active[1][6] = {
     provider = "diagnostic_hints",
     enabled = function()
@@ -189,7 +189,7 @@ function M.old_config_backup()
     hl = { fg = "grey_fg2" },
     icon = "  ",
   }
-  
+
   components.active[1][7] = {
     provider = "diagnostic_info",
     enabled = function()
@@ -198,9 +198,9 @@ function M.old_config_backup()
     hl = { fg = "green" },
     icon = "  ",
   }
-  
+
   -- MID
-  
+
   components.active[2][1] = {
     provider = function()
       local Lsp = vim.lsp.util.get_progress_messages()[1]
@@ -213,16 +213,16 @@ function M.old_config_backup()
           "",
           "",
         }
-  
+
         local success_icon = {
           "",
           "",
           "",
         }
-  
+
         local ms = vim.loop.hrtime() / 1000000
         local frame = math.floor(ms / 120) % #spinners
-  
+
         if percentage >= 70 then
           return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg, percentage)
         else
@@ -233,7 +233,7 @@ function M.old_config_backup()
     end,
     hl = { fg = "green" },
   }
-  
+
   -- gitBranch
   components.active[2][2] = {
     provider = 'git_branch',
@@ -270,9 +270,9 @@ function M.old_config_backup()
       style = 'bold'
     },
   }
-  
+
   -- RIGHT
-  
+
   -- fileIcon
   components.active[3][1] = {
     provider = function()
@@ -388,9 +388,9 @@ function M.old_config_backup()
       bg = 'bg',
     },
   }
-  
+
   -- INACTIVE
-  
+
   -- fileType
   components.inactive[1][1] = {
     provider = 'file_type',
@@ -417,10 +417,10 @@ function M.old_config_backup()
       ' '
     }
   }
-  
+
   -- WINBAR
   -- LEFT
-  
+
   -- nvimGps
   winbar_components.active[1][1] = {
     provider = function() return gps.get_location() end,
@@ -430,11 +430,11 @@ function M.old_config_backup()
       style = 'bold'
     }
   }
-  
+
   -- MID
-  
+
   -- RIGHT
-  
+
   -- LspName
   winbar_components.active[3][1] = {
     provider = 'lsp_client_names',
@@ -480,9 +480,9 @@ function M.old_config_backup()
       style = 'bold'
     }
   }
-  
+
   -- INACTIVE
-  
+
   -- fileType
   winbar_components.inactive[1][1] = {
     provider = 'file_type',
@@ -509,7 +509,7 @@ function M.old_config_backup()
       ' '
     }
   }
-  
+
   require('feline').setup({
     theme = nord.colors,
     default_bg = nord.default_bg,
@@ -518,7 +518,7 @@ function M.old_config_backup()
     components = components,
     force_inactive = force_inactive,
   })
-  
+
   require('feline').winbar.setup({
     components = winbar_components,
     force_inactive = force_inactive,

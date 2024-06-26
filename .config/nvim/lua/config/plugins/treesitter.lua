@@ -14,6 +14,7 @@ local M = {
 
 function M.config()
   require("nvim-treesitter.configs").setup({
+    auto_install = true,
     ensure_installed = O.treesitter.ensure_installed,
     ignore_install = O.treesitter.ignore_install,
     sync_install = false,

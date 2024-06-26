@@ -5,7 +5,7 @@ return {
     event = "VeryLazy",
     enabled = true,
     config = function()
-        codensap_path = os.getenv("HOME") .. "/.local/share/codesnap/"
+        local codensap_path = os.getenv("HOME") .. "/.local/share/codesnap/"
         vim.fn.system({
             "mkdir",
             "-p",
