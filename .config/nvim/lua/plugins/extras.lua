@@ -28,22 +28,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nord",
+      colorscheme = "catppuccin-macchiato",
     },
-  },
-  {
-    "gbprod/nord.nvim",
-    lazy = false,
-    priority = 1000,
-    init = function()
-      local nord = require("nord")
-      nord.setup({ border = false })
-      vim.cmd([[colorscheme nord]])
-      vim.cmd([[
-                syntax on
-                filetype on
-                filetype plugin indent on
-            ]])
-    end,
   },
 }

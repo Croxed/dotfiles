@@ -11,10 +11,17 @@ ls()
 }
 
 unalias cd >/dev/null 2>&1
-cd()
-{
-    builtin cd "$@" && command ls
-}
+if command -v zoxide &>/dev/null; then
+    cd()
+    {
+        z "$@" && command ls
+    }
+else
+    cd()
+    {
+        builtin cd "$@" && command ls
+    }
+fi
 
 por()
 {
