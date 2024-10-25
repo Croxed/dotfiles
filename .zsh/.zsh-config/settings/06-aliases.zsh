@@ -2,11 +2,11 @@
 
 alias q='exit 0'
 
-if type -p exa >/dev/null 2>&1; then
-    # Use exa
-    alias ls='exa -a --icons --no-user --no-time'
-    alias ll='exa -al --icons --no-user --no-time'
-    alias lt='exa -al --icons --no-user --no-time --tree -L2'
+if type -p eza >/dev/null 2>&1; then
+    # Use eza
+    alias ls='eza -a --icons --no-user --no-time'
+    alias ll='eza -al --icons --no-user --no-time'
+    alias lt='eza -al --icons --no-user --no-time --tree -L2'
 elif type -p gls >/dev/null 2>&1; then
     ## Use a long listing format ##
     alias ll='gls -lah --color=auto'

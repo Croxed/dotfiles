@@ -25,6 +25,7 @@ declare -a path_candidate
 path_candidate=(
     "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/development/cabo/bin"
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     "$HOME/bin.local"
     "$HOME/.local/bin"
     "$HOME/.local/share/bob/nvim-bin"
