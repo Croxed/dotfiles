@@ -14,7 +14,6 @@ return {
   { import = "lazyvim.plugins.extras.lang.php" },
   { import = "lazyvim.plugins.extras.formatting.black" },
   { import = "lazyvim.plugins.extras.dap.core" },
-  { import = "lazyvim.plugins.extras.lsp.none-ls" },
   { import = "lazyvim.plugins.extras.ui.treesitter-context" },
   { import = "lazyvim.plugins.extras.coding.mini-comment" },
   { import = "lazyvim.plugins.extras.coding.mini-surround" },
