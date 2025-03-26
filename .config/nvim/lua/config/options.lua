@@ -4,3 +4,4 @@
 
 vim.opt.title = true
 vim.opt.relativenumber = false
+vim.g.lazyvim_check_order = false
