@@ -4,7 +4,6 @@ source $Z4H/romkatv/zsh-defer/zsh-defer.plugin.zsh
 
 required_completions=(
     docker 'https://github.com/docker/cli/raw/master/contrib/completion/zsh/_docker'
-    docker-compose 'https://github.com/docker/compose/raw/master/contrib/completion/zsh/_docker-compose'
 )
 
 for key value in ${(kv)required_completions}; do
@@ -26,12 +25,12 @@ path_candidate=(
     "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/development/cabo/bin"
     "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    "/opt/homebrew/opt/mysql-client/bin"
     "$HOME/bin.local"
     "$HOME/.local/bin"
     "$HOME/.local/share/bob/nvim-bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
-    "$HOME/go/bin"
     "$HOME/.gobrew/current/bin"
     "$HOME/.gobrew/bin"
     "$HOME/.nimble/bin"
@@ -52,6 +51,7 @@ path_candidate=(
     "$HOME/.yarn/bin"
     "$HOME/.bun/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
+    "$HOME/go/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"

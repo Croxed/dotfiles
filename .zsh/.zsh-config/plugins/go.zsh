@@ -2,8 +2,8 @@
 
 
 install_go() {
-    if ! command -v go &>/dev/null; then
-        (curl -L https://git.io/vQhTU | bash) &>/dev/null
+    if ! command -v gobrew &>/dev/null; then
+        (curl -sL https://raw.githubusercontent.com/kevincobain2000/gobrew/master/git.io.sh | bash) &>/dev/null
     fi
 }
 

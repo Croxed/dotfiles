@@ -51,6 +51,9 @@ else
     alias sv='sudo vim'
 fi
 
+if type -p tofu >/dev/null 2>&1; then
+    alias terraform='tofu'
+fi
 #alias tmux='tmux -u'
 
 alias cdtemp='cd $(mktemp -d)'

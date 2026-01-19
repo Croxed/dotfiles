@@ -45,6 +45,7 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # Send these files over to the remote host when connecting over ssh to the
 # enabled hosts.
 zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+zstyle ':z4h:homebrew-command-not-found' channel none
 
 # Clone additional Git repositories from GitHub.
 #
@@ -109,3 +110,17 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
 
 . "${SIMPL_ZSH_DIR}/init.zsh"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && zsh-defer -c "source $HOME/.sdkman/bin/sdkman-init.sh"
+
+
+export SCRIPT_TEMPLATE_DIR="$HOME/development/script-template"
+#Source the init.sh
+if [ -d "$SCRIPT_TEMPLATE_DIR" ]; then
+  source "$SCRIPT_TEMPLATE_DIR"/init.sh
+fi
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"

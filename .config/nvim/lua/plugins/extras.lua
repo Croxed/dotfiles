@@ -49,7 +49,7 @@ return {
           yaml = { "prettier" },
           markdown = { "prettier" },
           graphql = { "prettier" },
-          go = { "gofmt" }
+          go = { "gofmt" },
         },
         formatters = {
           prettier = {
@@ -70,7 +70,7 @@ return {
       linters_by_ft = {
         fish = { "fish" },
         python = { "ruff" },
-        go = { "golangcilint" }
+        go = { "golangcilint" },
         -- Use the "*" filetype to run linters on all filetypes.
         -- ['*'] = { 'global linter' },
         -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
@@ -91,5 +91,8 @@ return {
         -- },
       },
     },
-  }
+  },
+  {
+    "axkirillov/unified.nvim",
+  },
 }
