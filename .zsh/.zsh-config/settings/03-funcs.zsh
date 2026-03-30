@@ -523,3 +523,7 @@ docker-ssh ()
 git_current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
+
+function simpl-zsh-expand() { zle _expand_alias || zle .expand-word || true }
+zle -N z4h-expand
+bindkey   '^ '      z4h-expand                     # ctrl+space

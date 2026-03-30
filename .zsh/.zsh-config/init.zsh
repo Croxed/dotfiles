@@ -49,12 +49,14 @@ path_candidate=(
     "$HOME/.bun/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
     "$HOME/go/bin"
+    "/opt/homebrew/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"
     "/usr/local/share/npm/bin"
     "/usr/local/opt/coreutils/libexec/gnubin"
     "/usr/bin/core_perl"
+    "/bin"
     "$HOME"/Library/Python/*/bin
     )
 
@@ -67,6 +69,10 @@ typeset -U path=($path_candidate[@] $path[@])
 
 # strip empty fields from the path
 path=("${path[@]:#}")
+
+for f in "$SIMPL_ZSH_DIR"/preload/*.zsh; do
+	source "$f" 2>/dev/null
+done
 
 _source_zsh_config() {
   # source shell configuration files
@@ -84,6 +90,16 @@ _source_zsh_config() {
       done
   fi
 }
+
+# Lazy-load antidote and generate the static load file only when needed
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  (
+    source "${ANTIDOTE}/antidote.zsh"
+    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
+  )
+fi
+source ${zsh_plugins}.zsh
 
 # Source custom plugins
 zsh-defer -c "_source_zsh_config"

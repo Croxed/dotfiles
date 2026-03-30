@@ -22,7 +22,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $HOME/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit .p10k.zsh.
+[[ ! -f ${ZDOTDIR:-$HOME}/.p10k.zsh ]] || source ${ZDOTDIR:-$HOME}/.p10k.zsh
+
+# History related config
+typeset -gx HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+typeset -gx HISTSIZE=1000000000  # infinite command history
+typeset -gx SAVEHIST=1000000000  # infinite command history
 
 # Extend PATH.
 path=(~/bin $path)
@@ -33,6 +39,8 @@ export GPG_TTY=$TTY
 # Autoload functions.
 autoload -Uz zmv compinit
 compinit
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
 
 # Define functions and completions.
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
@@ -46,16 +54,7 @@ alias ls="${aliases[ls]:-ls} -A"
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
-# Lazy-load antidote and generate the static load file only when needed
-zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
-if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  (
-    source "${ANTIDOTE}/antidote.zsh"
-    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
-  )
-fi
-source ${zsh_plugins}.zsh
+ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
 
 # path to the framework root directory
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
@@ -75,3 +74,4 @@ fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"
+
