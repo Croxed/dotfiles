@@ -95,6 +95,3 @@ fzf-history-widget() {
   zle reset-prompt
   return $ret
 }
-zle     -N   fzf-history-widget
-bindkey '^R' fzf-history-widget
-

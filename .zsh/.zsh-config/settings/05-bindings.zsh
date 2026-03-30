@@ -112,17 +112,6 @@ bindkey   '^[/'     redo                           # alt+/
 # Show help for the command at cursor.
 bindkey   '^[h'     run-help                       # alt+h
 bindkey   '^[H'     run-help                       # alt+H
-# cd into the previous directory.
-bindkey   '^[[1;2D' z4h-cd-back                    # shift+left
-# cd into the next directory.
-bindkey   '^[[1;2C' z4h-cd-forward                 # shift+right
-# cd into the parent directory.
-bindkey   '^[[1;2A' z4h-cd-up                      # shift+up
-if (( _z4h_use[fzf] )); then
-  # cd into a subdirectory (interactive).
-  bindkey '^[[1;2B' z4h-cd-down                    # shift+down
-fi
-
 autoload -Uz terminfo up-line-or-beginning-search down-line-or-beginning-search
 
 typeset -A key=(

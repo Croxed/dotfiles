@@ -10,7 +10,7 @@ for key value in ${(kv)required_completions}; do
     fi
 done
 
-fpath+=("$SIMPL_ZSH_DIR"/completion)
+fpath+=("$SIMPL_ZSH_DIR"/completion "$SIMPL_ZSH_DIR"/fn)
 
 if [ -d /opt/homebrew/share/zsh/site-functions ]; then
   fpath+=(/opt/homebrew/share/zsh/site-functions)
@@ -23,6 +23,7 @@ path_candidate=(
     "$HOME/development/cabo/bin"
     "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     "/opt/homebrew/opt/mysql-client/bin"
+    "$HOME/.atuin/bin"
     "$HOME/bin.local"
     "$HOME/.local/bin"
     "$HOME/.local/share/bob/nvim-bin"
@@ -71,7 +72,7 @@ typeset -U path=($path_candidate[@] $path[@])
 path=("${path[@]:#}")
 
 for f in "$SIMPL_ZSH_DIR"/preload/*.zsh; do
-	source "$f" 2>/dev/null
+	source "$f"
 done
 
 _source_zsh_config() {
@@ -102,4 +103,4 @@ fi
 source ${zsh_plugins}.zsh
 
 # Source custom plugins
-zsh-defer -c "_source_zsh_config"
+zsh-defer +a -c "_source_zsh_config; source <(fzf --zsh)"

@@ -29,6 +29,8 @@ fi
 typeset -gx HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 typeset -gx HISTSIZE=1000000000  # infinite command history
 typeset -gx SAVEHIST=1000000000  # infinite command history
+setopt HIST_IGNORE_ALL_DUPS  # Don't record duplicates
+setopt HIST_FIND_NO_DUPS    # Don't display duplicates during search
 
 # Extend PATH.
 path=(~/bin $path)
@@ -37,14 +39,10 @@ path=(~/bin $path)
 export GPG_TTY=$TTY
 
 # Autoload functions.
-autoload -Uz zmv compinit
-compinit
+zstyle ':completion:*' menu no # don't use zsh's native completion menu
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':completion:*' regular true
 
-# Define functions and completions.
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-compdef _directories md
 # Define aliases.
 alias tree='tree -a -I .git'
 
@@ -75,3 +73,5 @@ fi
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"
 
+
+eval "$(atuin init zsh)"

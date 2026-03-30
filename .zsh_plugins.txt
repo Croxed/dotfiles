@@ -1,16 +1,11 @@
 mattmc3/ez-compinit
 zsh-users/zsh-completions kind:fpath path:src
-aloxaf/fzf-tab  # Remove if you don't use fzf
-joshskidmore/zsh-fzf-history-search
 
 # Completion styles
 belak/zsh-utils path:completion/functions kind:autoload post:compstyle_zshzoo_setup
 
 # Keybindings
 belak/zsh-utils path:editor
-
-# History
-belak/zsh-utils path:history
 
 laggardkernel/git-ignore
 hlissner/zsh-autopair
@@ -24,6 +19,11 @@ trystan2k/zsh-tab-title
 belak/zsh-utils path:utility
 romkatv/zsh-bench kind:path
 ohmyzsh/ohmyzsh path:plugins/extract
+
+# fzf
+aloxaf/fzf-tab  # Remove if you don't use fzf
+#unixorn/fzf-zsh-plugin
+joshskidmore/zsh-fzf-history-search
 
 zsh-users/zsh-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions kind:defer
