@@ -1,7 +1,5 @@
 #! /usr/bin/env zsh
 
-source $Z4H/romkatv/zsh-defer/zsh-defer.plugin.zsh
-
 required_completions=(
     docker 'https://github.com/docker/cli/raw/master/contrib/completion/zsh/_docker'
 )
@@ -22,7 +20,6 @@ setopt NULL_GLOB
 # all candidated for sourcing into path
 declare -a path_candidate
 path_candidate=(
-    "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/"
     "$HOME/development/cabo/bin"
     "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     "/opt/homebrew/opt/mysql-client/bin"
@@ -89,4 +86,4 @@ _source_zsh_config() {
 }
 
 # Source custom plugins
-zsh-defer -c "_source_zsh_config; source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh; source $Z4H/hlissner/zsh-autopair/autopair.zsh; source $Z4H/peterhurford/up.zsh/up.plugin.zsh"
+zsh-defer -c "_source_zsh_config"

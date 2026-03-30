@@ -1,0 +1,12 @@
+laggardkernel/git-ignore
+hlissner/zsh-autopair
+peterhurford/up.zsh
+romkatv/zsh-defer
+romkatv/powerlevel10k
+
+zsh-users/zsh-completions
+belak/zsh-utils path:completion
+
+zdharma-continuum/fast-syntax-highlighting kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search kind:defer
