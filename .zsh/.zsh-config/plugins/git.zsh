@@ -94,8 +94,6 @@ alias gf='git fetch'
 alias gfa='git fetch --all --prune'
 alias gfo='git fetch origin'
 
-gfg() { git ls-files | grep "$@"; }
-
 alias gg='git gui citool'
 alias gga='git gui citool --amend'
 

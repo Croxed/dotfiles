@@ -89,4 +89,4 @@ _source_zsh_config() {
 }
 
 # Source custom plugins
-zsh-defer -c "_source_zsh_config; source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh; source $Z4H/hlissner/zsh-autopair/autopair.zsh; source $Z4H/peterhurford/up.zsh/up.plugin.zsh"
+zsh-defer -a -c "_source_zsh_config; source $Z4H/laggardkernel/git-ignore/git-ignore.plugin.zsh; source $Z4H/hlissner/zsh-autopair/autopair.zsh; source $Z4H/peterhurford/up.zsh/up.plugin.zsh"
