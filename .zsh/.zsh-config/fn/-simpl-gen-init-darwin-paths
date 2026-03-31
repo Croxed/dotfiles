@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+local -a deps=(
+  '/usr/libexec/path_helper'
+  '/etc/paths(N)'
+  '/etc/paths.d/*(N)'
+  '/etc/manpaths(N)'
+  '/etc/manpaths.d/*(N)'
+)
+
+local -a stat files=($~deps)
+zstat -A stat +mtime -- $files 2>/dev/null || return
+
+local script
+script="$(PATH= MANPATH= $deps[1] -s)" || return
+
+(
+  eval "$script" || return
+  mkdir -p $SIMPL_ZSH_DIR/cache
+  >$SIMPL_ZSH_DIR/cache/init-darwin-paths.tmp.$$ print -r -- '() {
+  local deps=('${(@q)deps}')
+  local -a stat files=($~deps)
+  [[ ${(j: :)${(@q)files}} == '${(q)${(j: :)${(@q)files}}}' ]] &&
+  zstat -A stat +mtime -- $files 2>/dev/null                   &&
+  [[ ${(j: :)stat} == '${(q)${(j: :)stat}}'                 ]] && {
+    local path_dirs=('${(j: :)${(@q)path}}')
+    local manpath_dirs=('${(j: :)${(@q)manpath}}')
+    path=(${path_dirs:|path} $path)
+    manpath=(${manpath_dirs:|manpath} $manpath)
+  }
+}' || return
+  zf_mv -f -- $SIMPL_ZSH_DIR/cache/init-darwin-paths.tmp.$$ $SIMPL_ZSH_DIR/cache/init-darwin-paths
+)

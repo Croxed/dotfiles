@@ -92,6 +92,10 @@ _source_zsh_config() {
   fi
 }
 
+if command -v fzf >/dev/null; then
+	source <(fzf --zsh)
+fi
+
 # Lazy-load antidote and generate the static load file only when needed
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
@@ -103,4 +107,4 @@ fi
 source ${zsh_plugins}.zsh
 
 # Source custom plugins
-zsh-defer +a -c "_source_zsh_config; source <(fzf --zsh)"
+zsh-defer +a "_source_zsh_config"

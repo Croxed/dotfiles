@@ -106,6 +106,8 @@ bindkey   '^[K'     backward-kill-line             # alt+K
 # Delete all lines.
 bindkey   '^[j'     kill-buffer                    # alt+j
 bindkey   '^[J'     kill-buffer                    # alt+J
+# Expand alias/glob/parameter.
+bindkey   '^ '      simpl-expand                     # ctrl+space
 # Undo and redo.
 bindkey   '^[[Z'    undo                           # shift+tab
 bindkey   '^[/'     redo                           # alt+/
@@ -195,8 +197,8 @@ bindkey '^Z' fancy-ctrl-z
 bindkey '^[^M' self-insert-unmeta
 
 bindkey -M viins " " globalias
-bindkey -M viins "^ " magic-space
-bindkey -M isearch " " magic-space
+bindkey -M viins "^ " simpl-expand
+bindkey -M isearch " " simpl-expand
 
 # Expands ... to ../..
 bindkey . rationalise-dot
