@@ -52,3 +52,4 @@ neovim.version
 .cron/.yq
 .config/nvim/sessions
 .config/nvim/.luarc.json
+.zsh/.zsh-config/cache

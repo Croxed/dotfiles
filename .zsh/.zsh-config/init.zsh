@@ -27,6 +27,7 @@ path_candidate=(
     "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
     "/opt/homebrew/opt/mysql-client/bin"
     "$HOME/bin.local"
+    "$HOME/.npm-global/bin"
     "$HOME/.local/bin"
     "$HOME/.local/share/bob/nvim-bin"
     "$HOME/anaconda3/bin"
