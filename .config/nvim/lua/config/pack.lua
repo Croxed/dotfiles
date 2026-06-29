@@ -5,6 +5,7 @@ vim.pack.add({
   { name = "which-key.nvim", src = "https://github.com/folke/which-key.nvim.git" },
   { name = "lualine.nvim", src = "https://github.com/nvim-lualine/lualine.nvim.git" },
   { name = "bufferline.nvim", src = "https://github.com/akinsho/bufferline.nvim.git" },
+  { name = "nvim-tree.lua", src = "https://github.com/nvim-tree/nvim-tree.lua.git" },
   { name = "gitsigns.nvim", src = "https://github.com/lewis6991/gitsigns.nvim.git" },
   { name = "fzf-lua", src = "https://github.com/ibhagwan/fzf-lua.git" },
   { name = "mini.starter", src = "https://github.com/echasnovski/mini.starter.git" },
@@ -66,6 +67,46 @@ end)
 
 pcall(function()
   require("bufferline").setup()
+end)
+
+pcall(function()
+  require("nvim-tree").setup({
+    view = {
+      width = 36,
+      preserve_window_proportions = true,
+    },
+    update_focused_file = {
+      enable = true,
+      update_root = true,
+    },
+    renderer = {
+      highlight_git = true,
+      highlight_opened_files = "name",
+    },
+    actions = {
+      open_file = {
+        resize_window = true,
+      },
+    },
+  })
+
+  vim.keymap.set("n", "<leader>fe", "<Cmd>NvimTreeToggle<CR>", { desc = "File Explorer" })
+
+  vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup("user_open_nvim_tree_on_dir", { clear = true }),
+    callback = function(data)
+      local path = data.file
+      if path == "" then
+        return
+      end
+      local stat = vim.uv.fs_stat(path)
+      if not stat or stat.type ~= "directory" then
+        return
+      end
+      vim.cmd.cd(path)
+      require("nvim-tree.api").tree.open()
+    end,
+  })
 end)
 
 pcall(function()
