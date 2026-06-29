@@ -1,59 +1,56 @@
 [user]
-  name = Oscar Wennergren
-  email = oscar.wennergren@gamesysgroup.com
-
+	name = Oscar Wennergren
+	email = oscar.wennergren@gamesysgroup.com
 [alias]
-  a = add --all
-  c = commit
-  st = status
-  co = checkout
-  up = pull --rebase=preserve
-  g = grep --break --heading --line-number
-  fa = fetch --all
-  p = push
-  pf = push -f
-  # the acronym stands for "subtree add"
-  sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
-  #         # the acronym stands for "subtree update"
-  sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
-
+	a = add --all
+	c = commit
+	st = status
+	co = checkout
+	up = pull --rebase=preserve
+	g = grep --break --heading --line-number
+	fa = fetch --all
+	p = push
+	pf = push -f
+	sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
+	sbu = "!f() { git subtree pull --prefix $2 $1 master --squash; }; f"
 [color]
-  diff = auto
-  status = auto
-  branch = auto
+	diff = auto
+	status = auto
+	branch = auto
 	ui = true
 [push]
-  default = simple
+	default = simple
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 [gui]
-  fontui = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
-  fontdiff = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+	fontui = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family Hack -size 14 -weight normal -slant roman -underline 0 -overstrike 0
 [credential]
 	helper = cache
 [core]
 	hooksPath = ~/.config/git/hooks/
-  pager = delta
+	pager = delta
 [pull]
 	rebase = false
-
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [add.interactive]
-    useBuiltin = false
+	useBuiltin = false
 [delta]
-    navigate = true # Use n and N to move between diff sections.
-    light = false # Set to `true` if you prefer light themes.
-		side-by-side = true # Enables the side-by-side view.
-    line-numbers = true
-    navigate = true
-    syntax-theme = Nord 
-    line-numbers = true
-    line-numbers-left-style = "#adadad"
-    line-numbers-right-style = "#adadad"
-    line-numbers-zero-style = "#adadad"
-    tabs = 2
+	navigate = true # Use n and N to move between diff sections.
+	navigate = true
+	light = false # Set to `true` if you prefer light themes.
+	side-by-side = true # Enables the side-by-side view.
+	line-numbers = true
+	line-numbers = true
+	syntax-theme = Nord
+	line-numbers-left-style = "#adadad"
+	line-numbers-right-style = "#adadad"
+	line-numbers-zero-style = "#adadad"
+	tabs = 2
 [merge]
-    conflictstyle = diff3
+	conflictstyle = diff3
 [diff]
-    colorMoved = default
+	colorMoved = default
+[safe]
+	directory = /Users/oscar/development/data-platform/mage-quickstart

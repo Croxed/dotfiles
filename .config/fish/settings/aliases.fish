@@ -15,11 +15,11 @@ end
 
 __croxed.create_abbr q 'exit 0'
 
-if type -q exa
+if type -q eza
     # Use exa
-    __croxed.create_abbr ls 'exa -a --icons --no-user --no-time'
-    __croxed.create_abbr ll 'exa -al --icons --no-user --no-time'
-    __croxed.create_abbr lt 'exa -al --icons --no-user --no-time --tree -L2'
+    __croxed.create_abbr ls 'eza -a --icons --no-user --no-time'
+    __croxed.create_abbr ll 'eza -al --icons --no-user --no-time'
+    __croxed.create_abbr lt 'eza -al --icons --no-user --no-time --tree -L2'
 else if type -q gls
     ## Use a long listing format ##
     __croxed.create_abbr ll 'gls -lah --color=auto'

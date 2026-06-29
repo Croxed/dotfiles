@@ -5,6 +5,12 @@ if not functions -q fisher
     curl https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
 end
 
+if not type -q starship
+    echo "Installing starship"
+    curl -sS https://starship.rs/install.sh | sh
+end
+starship init fish | source
+
 set fish_greeting
 
 # Base PATH
@@ -16,16 +22,19 @@ set -g PATH $PATH /usr/sbin
 set -g PATH $PATH /bin
 set -g PATH $PATH /usr/bin
 
-set -l path_candidates "$HOME/development/cabo/bin" "$HOME/bin.local" "$HOME/.local/bin" "$HOME/.local/share/bob/nvim-bin" "$VOLTA_HOME/bin" "$HOME/anaconda3/bin" "$HOME/github.com/graalvm/Contents/Home/bin" "$HOME/go/bin" "$HOME/.gobrew/current/bin" "$HOME/.gobrew/bin" "$HOME/.nimble/bin" "$HOME/.bin" "$HOME/n/bin" "$HOME/.symfony/bin" "$HOME/.phpenv/shims" "$HOME/.cabal/bin" "$HOME/.rbenv/bin" "$HOME/.symfony/bin" "$HOME/.poetry/bin" "$HOME/.fzf/bin" "$HOME/.deno/bin" "$HOME/.cargo/bin" "$HOME/scripts" "$HOME/.nexustools" "$HOME/src/gocode/bin" "$HOME/.yarn/bin" "$HOME/.bun/bin" "$HOME/.config/yarn/global/node_modules/.bin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin" "/usr/local/share/npm/bin" "/usr/local/opt/coreutils/libexec/gnubin" "/usr/bin/core_perl" "/opt/homebrew/bin" "$HOME"/Library/Python/*/bin "$HOME/.local/share/bob/nvim-bin"
+set -l path_candidates "$z4h_win_home/AppData/Local/Programs/Microsoft\ VS\ Code/bin/" "$HOME/development/cabo/bin" "/Applications/Sublime Text.app/Contents/SharedSupport/bin" "/opt/homebrew/opt/mysql-client/bin" "$HOME/bin.local" "$HOME/.local/bin" "$HOME/.local/share/bob/nvim-bin" "$HOME/anaconda3/bin" "$HOME/github.com/graalvm/Contents/Home/bin" "$HOME/.gobrew/current/bin" "$HOME/.gobrew/bin" "$HOME/.nimble/bin" "$HOME/.bin" "$HOME/n/bin" "$HOME/.symfony/bin" "$HOME/.phpenv/shims" "$HOME/.cabal/bin" "$HOME/.rbenv/bin" "$HOME/.symfony/bin" "$HOME/.poetry/bin" "$HOME/.fzf/bin" "$HOME/.deno/bin" "$HOME/.cargo/bin" "$HOME/scripts" "$HOME/.nexustools" "$HOME/src/gocode/bin" "$HOME/.yarn/bin" "$HOME/.bun/bin" "$HOME/.config/yarn/global/node_modules/.bin" "$HOME/go/bin" "/usr/local/bin" "/opt/local/sbin" "/opt/local/bin" "/usr/local/share/npm/bin" "/usr/local/opt/coreutils/libexec/gnubin" "/usr/bin/core_perl" "$HOME"/Library/Python/*/bin "/opt/homebrew/bin"
 # Conditional PATH additions
+set -l found_paths
 for path_candidate in $path_candidates
     if test -d $path_candidate
-        if contains $path_candidate $PATH
+        if contains $path_candidate $PATH || contains $path_candidate $found_paths
             continue
         end
-        set -gx PATH $path_candidate $PATH
+        set found_paths $found_paths $path_candidate
     end
 end
+
+set -gx PATH $found_paths $PATH
 
 # fish $HOME/.config/fish/aliases.fish
 
@@ -90,14 +99,11 @@ else
     end
 end
 
-begin
-    set -l NORD_DIRCOLORS "$HOME/.config/dircolors/nord"
-
-    if test -e "$NORD_DIRCOLORS"
-        eval (dircolors -c "$NORD_DIRCOLORS")
-    end
-end
 
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_FIND_FILE_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_OPEN_COMMAND 'fd --type f --hidden --follow --exclude .git'
+
+if status is-interactive && type -q atuin
+    atuin init fish | source
+end

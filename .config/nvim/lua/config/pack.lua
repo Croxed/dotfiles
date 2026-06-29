@@ -15,7 +15,6 @@ vim.pack.add({
   { name = "noice.nvim", src = "https://github.com/folke/noice.nvim.git" },
   { name = "markdown-preview.nvim", src = "https://github.com/iamcco/markdown-preview.nvim.git" },
   { name = "vim-startuptime", src = "https://github.com/dstein64/vim-startuptime.git" },
-  { name = "nvim-treesitter", src = "https://github.com/nvim-treesitter/nvim-treesitter.git" },
   { name = "nvim-treesitter-context", src = "https://github.com/nvim-treesitter/nvim-treesitter-context.git" },
   { name = "nvim-lspconfig", src = "https://github.com/neovim/nvim-lspconfig.git" },
   { name = "mason.nvim", src = "https://github.com/mason-org/mason.nvim.git" },
@@ -293,12 +292,6 @@ pcall(function()
     "html",
     "css",
   }
-
-  local ts = require("nvim-treesitter")
-  ts.setup({
-    install_dir = vim.fn.stdpath("data") .. "/site",
-  })
-  ts.install(langs)
 
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("user_treesitter_start", { clear = true }),
