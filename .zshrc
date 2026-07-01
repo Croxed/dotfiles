@@ -36,16 +36,8 @@ zstyle ':z4h:bindkey' keyboard  'mac'
 # command autosuggestions or the whole thing ('accept')?
 zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# ssh when connecting to these hosts.
-zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
-zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
 # The default value if none of the overrides above match the hostname.
 zstyle ':z4h:ssh:*'                   enable 'no'
-
-# Send these files over to the remote host when connecting over ssh to the
-# enabled hosts.
-zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 zstyle ':z4h:homebrew-command-not-found' channel none
 
 # Clone additional Git repositories from GitHub.

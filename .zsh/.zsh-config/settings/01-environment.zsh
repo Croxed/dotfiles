@@ -14,3 +14,7 @@ typeset -gx BAT_THEME='Nord'
 #typeset -gx LANG=en_GB.UTF-8
 #typeset -gx LC_*=en_GB.UTF-8
 typeset -gx NVM_LAZY_LOAD=true
+
+if [[ $TERM == *-ghostty ]]; then
+    typeset -gx TERM=xterm-256color
+fi
