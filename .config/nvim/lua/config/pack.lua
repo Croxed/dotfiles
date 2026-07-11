@@ -33,6 +33,7 @@ vim.pack.add({
   { name = "dial.nvim", src = "https://github.com/monaqa/dial.nvim.git" },
   { name = "yanky.nvim", src = "https://github.com/gbprod/yanky.nvim.git" },
   { name = "unified.nvim", src = "https://github.com/axkirillov/unified.nvim.git" },
+  { name = "arborist.nvim", src = "https://github.com/arborist-ts/arborist.nvim" }
 }, { load = true, confirm = false })
 
 pcall(function()
@@ -52,6 +53,10 @@ pcall(function()
       fzf = true,
     },
   })
+end)
+
+pcall(function()
+  require("arborist").setup()
 end)
 
 pcall(vim.cmd.colorscheme, "catppuccin-macchiato")
