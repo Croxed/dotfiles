@@ -1,4 +1,6 @@
-vim.pack.add({
+-- Native vim.pack plugin registry with LazyVim-style activation.
+-- Keep the registry in startup, but don't put every plugin on the runtimepath.
+local specs = {
   { name = "catppuccin", src = "https://github.com/catppuccin/nvim.git" },
   { name = "plenary.nvim", src = "https://github.com/nvim-lua/plenary.nvim.git" },
   { name = "nui.nvim", src = "https://github.com/MunifTanjim/nui.nvim.git" },
@@ -28,336 +30,391 @@ vim.pack.add({
   { name = "trouble.nvim", src = "https://github.com/folke/trouble.nvim.git" },
   { name = "mini.comment", src = "https://github.com/echasnovski/mini.comment.git" },
   { name = "mini.surround", src = "https://github.com/echasnovski/mini.surround.git" },
-  { name = "mini.animate", src = "https://github.com/echasnovski/mini.animate.git" },
   { name = "mini.hipatterns", src = "https://github.com/echasnovski/mini.hipatterns.git" },
-  { name = "dial.nvim", src = "https://github.com/monaqa/dial.nvim.git" },
-  { name = "yanky.nvim", src = "https://github.com/gbprod/yanky.nvim.git" },
-  { name = "unified.nvim", src = "https://github.com/axkirillov/unified.nvim.git" },
-  { name = "arborist.nvim", src = "https://github.com/arborist-ts/arborist.nvim" }
-}, { load = true, confirm = false })
+  { name = "arborist.nvim", src = "https://github.com/arborist-ts/arborist.nvim" },
+}
 
-pcall(function()
-  require("catppuccin").setup({
-    flavour = "macchiato",
-    integrations = {
-      blink_cmp = true,
-      gitsigns = true,
-      treesitter = true,
-      notify = true,
-      mini = true,
-      mason = true,
-      noice = true,
-      which_key = true,
-      bufferline = true,
-      lsp_trouble = true,
-      fzf = true,
-    },
+vim.pack.add(specs, { load = false, confirm = false })
+
+local loaded = {}
+local configured = {}
+local function load(name)
+  if not loaded[name] then
+    vim.cmd.packadd(name)
+    loaded[name] = true
+  end
+end
+
+local function setup_once(name, fn)
+  if configured[name] then return end
+  load(name)
+  fn()
+  configured[name] = true
+end
+
+local function command(name, rhs, opts)
+  vim.api.nvim_create_user_command(name, function(args)
+    rhs(args)
+  end, opts or {})
+end
+
+-- A small, lazy.nvim-inspired dashboard for the native package manager.
+-- vim.pack remains responsible for all installs, updates, and deletes; this
+-- buffer only provides a discoverable front end for those operations.
+local pack_ui = {
+  buf = nil,
+  win = nil,
+  filter = "",
+  items = {},
+  detail_start = 0,
+}
+
+local function pack_ui_close()
+  if pack_ui.win and vim.api.nvim_win_is_valid(pack_ui.win) then
+    local tab = vim.api.nvim_win_get_tabpage(pack_ui.win)
+    if vim.api.nvim_get_current_tabpage() == tab and #vim.api.nvim_tabpage_list_wins(tab) == 1 then
+      vim.cmd("tabclose")
+    else
+      vim.api.nvim_win_close(pack_ui.win, true)
+    end
+  end
+  pack_ui.win, pack_ui.buf = nil, nil
+end
+
+local function pack_ui_current()
+  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then return end
+  local row = vim.api.nvim_win_get_cursor(pack_ui.win)[1] - 4
+  return pack_ui.items[row]
+end
+
+local function pack_ui_details()
+  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then return end
+  local item = pack_ui_current()
+  local details = { "", "Details" }
+  if item then
+    local spec = item.spec
+    details = {
+      "",
+      "Details",
+      "  name:   " .. spec.name,
+      "  source: " .. (spec.src or "unknown"),
+      "  rev:    " .. (item.rev or "unknown"),
+      "  path:   " .. (item.path or "unknown"),
+      "  state:  " .. (item.active and "loaded in this session" or "not loaded"),
+      "",
+      "  u  update with vim.pack review buffer    d  delete if inactive",
+      "  l  load with :packadd                    r  refresh",
+    }
+  else
+    details = { "", "Details", "  No plugin matches the current filter." }
+  end
+  vim.bo[pack_ui.buf].modifiable = true
+  vim.api.nvim_buf_set_lines(pack_ui.buf, pack_ui.detail_start - 1, -1, false, details)
+  vim.bo[pack_ui.buf].modifiable = false
+end
+
+local function pack_ui_render()
+  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then return end
+  local all = vim.pack.get(nil, { info = false })
+  table.sort(all, function(a, b) return a.spec.name < b.spec.name end)
+  pack_ui.items = vim.tbl_filter(function(item)
+    return pack_ui.filter == "" or item.spec.name:lower():find(pack_ui.filter:lower(), 1, true) ~= nil
+  end, all)
+
+  local lines = {
+    " vim.pack                                      " .. (#pack_ui.items) .. "/" .. (#all) .. " plugins",
+    " [/] filter  [u] update  [U] update all  [d] delete  [l] load  [r] refresh  [q] close",
+    "",
+  }
+  for _, item in ipairs(pack_ui.items) do
+    local state = item.active and "●" or "○"
+    local rev = item.rev and item.rev:sub(1, 8) or "--------"
+    lines[#lines + 1] = string.format(" %s %-28s %s", state, item.spec.name, rev)
+  end
+  pack_ui.detail_start = #lines + 2
+  lines[#lines + 1] = ""
+  vim.bo[pack_ui.buf].modifiable = true
+  vim.api.nvim_buf_set_lines(pack_ui.buf, 0, -1, false, lines)
+  vim.bo[pack_ui.buf].modifiable = false
+  pack_ui_details()
+end
+
+local function pack_ui_refresh()
+  local old = pack_ui_current()
+  pack_ui_render()
+  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then return end
+  local row = 4
+  for i, item in ipairs(pack_ui.items) do
+    if old and item.spec.name == old.spec.name then row = i + 3 break end
+  end
+  vim.api.nvim_win_set_cursor(pack_ui.win, { math.min(row, math.max(4, vim.api.nvim_buf_line_count(pack_ui.buf))), 0 })
+end
+
+local function pack_ui_update(names)
+  pack_ui_close()
+  vim.pack.update(names)
+end
+
+local function pack_ui_open()
+  if pack_ui.win and vim.api.nvim_win_is_valid(pack_ui.win) then
+    pack_ui_close()
+    return
+  end
+  pack_ui.buf = vim.api.nvim_create_buf(false, true)
+  vim.bo[pack_ui.buf].buftype = "nofile"
+  vim.bo[pack_ui.buf].bufhidden = "wipe"
+  vim.bo[pack_ui.buf].swapfile = false
+  vim.bo[pack_ui.buf].filetype = "vim-pack"
+  vim.cmd("tabnew")
+  pack_ui.win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_buf(pack_ui.win, pack_ui.buf)
+  vim.wo[pack_ui.win].number = false
+  vim.wo[pack_ui.win].relativenumber = false
+  vim.wo[pack_ui.win].signcolumn = "no"
+  vim.wo[pack_ui.win].cursorline = true
+  vim.wo[pack_ui.win].wrap = false
+
+  local map = function(lhs, rhs, desc)
+    vim.keymap.set("n", lhs, rhs, { buffer = pack_ui.buf, silent = true, desc = desc })
+  end
+  map("q", pack_ui_close, "Close package UI")
+  map("<Esc>", pack_ui_close, "Close package UI")
+  map("r", pack_ui_refresh, "Refresh package list")
+  map("u", function()
+    local item = pack_ui_current()
+    if item then pack_ui_update({ item.spec.name }) end
+  end, "Update selected plugin")
+  map("U", function() pack_ui_update() end, "Update all plugins")
+  map("d", function()
+    local item = pack_ui_current()
+    if item and not item.active then
+      pack_ui_close()
+      vim.pack.del({ item.spec.name })
+    elseif item then
+      vim.notify("Unload the plugin before deleting it", vim.log.levels.WARN)
+    end
+  end, "Delete inactive plugin")
+  map("l", function()
+    local item = pack_ui_current()
+    if item and not item.active then
+      vim.cmd.packadd(item.spec.name)
+      pack_ui_refresh()
+    end
+  end, "Load selected plugin")
+  map("/", function()
+    vim.ui.input({ prompt = "Filter plugins: ", default = pack_ui.filter }, function(value)
+      if value == nil then return end
+      pack_ui.filter = value
+      pack_ui_refresh()
+    end)
+  end, "Filter plugins")
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    buffer = pack_ui.buf,
+    callback = pack_ui_details,
   })
-end)
+  pack_ui_render()
+  vim.api.nvim_win_set_cursor(pack_ui.win, { 4, 0 })
+end
 
-pcall(function()
-  require("arborist").setup()
-end)
+command("Pack", pack_ui_open, { desc = "Open vim.pack manager" })
+vim.keymap.set("n", "<leader>pp", pack_ui_open, { desc = "Package Manager" })
 
-pcall(vim.cmd.colorscheme, "catppuccin-macchiato")
+-- Small, always-visible UI plugins are cheap enough to initialize synchronously.
+load("catppuccin")
+require("catppuccin").setup({
+  flavour = "macchiato",
+  integrations = {
+    blink_cmp = true, gitsigns = true, treesitter = true, notify = true,
+    mini = true, mason = true, noice = true, which_key = true,
+    bufferline = true, lsp_trouble = true, fzf = true,
+  },
+})
+vim.cmd.colorscheme("catppuccin-macchiato")
 
-pcall(function()
-  require("which-key").setup()
-end)
+load("mini.icons")
+require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons()
 
-pcall(function()
-  require("lualine").setup({ options = { theme = "catppuccin-macchiato" } })
-end)
+load("lualine.nvim")
+require("lualine").setup({ options = { theme = "catppuccin-macchiato" } })
 
-pcall(function()
-  require("bufferline").setup()
-end)
+load("bufferline.nvim")
+require("bufferline").setup()
 
-pcall(function()
-  require("nvim-tree").setup({
-    view = {
-      width = 36,
-      preserve_window_proportions = true,
-    },
-    update_focused_file = {
-      enable = true,
-      update_root = true,
-    },
-    renderer = {
-      highlight_git = true,
-      highlight_opened_files = "name",
-    },
-    actions = {
-      open_file = {
-        resize_window = true,
-      },
-    },
-  })
+-- Defer the rest until the first UI cycle. This keeps startup responsive while
+-- retaining the full feature set once the editor is ready.
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      load("which-key.nvim")
+      require("which-key").setup()
+      load("gitsigns.nvim")
+      require("gitsigns").setup()
+    end)
+  end,
+})
 
-  vim.keymap.set("n", "<leader>fe", "<Cmd>NvimTreeToggle<CR>", { desc = "File Explorer" })
-
-  vim.api.nvim_create_autocmd("VimEnter", {
-    group = vim.api.nvim_create_augroup("user_open_nvim_tree_on_dir", { clear = true }),
-    callback = function(data)
-      local path = data.file
-      if path == "" then
-        return
-      end
-      local stat = vim.uv.fs_stat(path)
-      if not stat or stat.type ~= "directory" then
-        return
-      end
-      vim.cmd.cd(path)
-      require("nvim-tree.api").tree.open()
-    end,
-  })
-end)
-
-pcall(function()
-  require("gitsigns").setup()
-end)
-
-pcall(function()
-  require("fzf-lua").setup({})
-
+local function setup_fzf()
+  setup_once("fzf-lua", function() require("fzf-lua").setup({}) end)
   vim.keymap.set("n", "<leader><space>", "<Cmd>FzfLua files<CR>", { desc = "Smart Find" })
   vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua files<CR>", { desc = "Find Files" })
   vim.keymap.set("n", "<leader>fg", "<Cmd>FzfLua live_grep<CR>", { desc = "Grep" })
   vim.keymap.set("n", "<leader>fb", "<Cmd>FzfLua buffers<CR>", { desc = "Buffers" })
   vim.keymap.set("n", "<leader>e", "<Cmd>FzfLua files cwd=~/.dotfiles/.config/nvim<CR>", { desc = "Config Files" })
-end)
+end
 
+local function setup_tree()
+  setup_once("nvim-tree.lua", function()
+    require("nvim-tree").setup({
+    view = { width = 36, preserve_window_proportions = true },
+    update_focused_file = { enable = true, update_root = true },
+    renderer = { highlight_git = true, highlight_opened_files = "name" },
+    actions = { open_file = { resize_window = true } },
+    })
+  end)
+end
+
+vim.keymap.set("n", "<leader>ff", function()
+  setup_fzf()
+  vim.cmd.FzfLua("files")
+end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fg", function()
+  setup_fzf()
+  vim.cmd.FzfLua("live_grep")
+end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>fe", function()
+  setup_tree()
+  vim.cmd.NvimTreeToggle()
+end, { desc = "File Explorer" })
+
+command("StartupTime", function()
+  load("vim-startuptime")
+  vim.cmd.StartupTime()
+end)
 vim.keymap.set("n", "<leader>ut", "<Cmd>StartupTime<CR>", { desc = "StartupTime" })
 
-pcall(function()
-  require("mini.icons").setup()
-  MiniIcons.mock_nvim_web_devicons()
-end)
+-- Feature setup is grouped by the event that needs it, similar to LazyVim's
+-- event/ft/cmd specs. Each group is initialized at most once by Lua's module cache.
+vim.api.nvim_create_autocmd("BufEnter", {
+  once = true,
+  callback = function()
+    setup_once("mini.comment", function() require("mini.comment").setup() end)
+    setup_once("mini.surround", function() require("mini.surround").setup() end)
+    setup_once("mini.hipatterns", function() require("mini.hipatterns").setup() end)
+  end,
+})
 
-pcall(function()
-  local notify = require("notify")
-  vim.notify = notify
-  notify.setup({
-    background_colour = "#000000",
-    render = "compact",
-    timeout = 3000,
-  })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lua", "vim", "vimdoc", "query", "bash", "go", "gomod", "python", "java", "yaml", "json", "markdown", "markdown_inline", "dockerfile", "sql", "php", "typescript", "javascript", "tsx", "html", "css" },
+  callback = function()
+    setup_once("nvim-treesitter-context", function() require("treesitter-context").setup({}) end)
+    pcall(vim.treesitter.start)
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
 
-  vim.keymap.set("n", "<leader>nn", "<Cmd>Notifications<CR>", { desc = "Notifications" })
-end)
-
-pcall(function()
-  require("mini.sessions").setup({
-    autoread = true,
-    autowrite = true,
-  })
-
-  vim.keymap.set("n", "<leader>qs", function()
-    MiniSessions.write()
-  end, { desc = "Session Save" })
-  vim.keymap.set("n", "<leader>ql", function()
-    MiniSessions.select()
-  end, { desc = "Session Load" })
-end)
-
-pcall(function()
-  local starter = require("mini.starter")
-  starter.setup({
-    header = "vim.pack + mini.starter",
-    items = {
-      starter.sections.builtin_actions(),
-      starter.sections.recent_files(8, false),
-      starter.sections.recent_files(8, true),
-      starter.sections.sessions(5, true),
-    },
-    footer = "f: find, e: new, q: quit",
-  })
-
-  vim.api.nvim_create_autocmd("VimEnter", {
-    group = vim.api.nvim_create_augroup("user_dashboard", { clear = true }),
-    callback = function()
-      if vim.fn.argc() == 0 and vim.bo.filetype == "" then
-        MiniStarter.open()
-      end
-    end,
-  })
-end)
-
-pcall(function()
-  require("noice").setup({
-    lsp = {
-      progress = { enabled = true },
-      hover = { enabled = true },
-      signature = { enabled = true },
-    },
-    presets = {
-      bottom_search = true,
-      command_palette = true,
-      long_message_to_split = true,
-      inc_rename = true,
-      lsp_doc_border = true,
-    },
-  })
-
-  vim.keymap.set("n", "<leader>sn", function()
-    require("noice").cmd("history")
-  end, { desc = "Noice History" })
-  vim.keymap.set("n", "<leader>sd", function()
-    require("noice").cmd("dismiss")
-  end, { desc = "Dismiss Messages" })
-end)
-
-pcall(function()
-  vim.g.mkdp_auto_start = 0
-  vim.g.mkdp_auto_close = 1
-  vim.g.mkdp_refresh_slow = 0
-  vim.g.mkdp_browser = ""
-  vim.g.mkdp_echo_preview_url = 1
-  vim.g.mkdp_markdown_css = ""
-  vim.g.mkdp_theme = "dark"
-
-  vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("user_markdown_preview_cmd", { clear = true }),
-    pattern = { "markdown" },
-    callback = function()
-      vim.cmd([[silent! call mkdp#util#install()]])
-      vim.keymap.set("n", "<leader>mp", "<Cmd>MarkdownPreviewToggle<CR>", {
-        buffer = true,
-        desc = "Markdown Preview",
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function(args)
+    if vim.g.autoformat == false then return end
+    setup_once("conform.nvim", function()
+      require("conform").setup({
+      formatters_by_ft = { lua = { "stylua" }, python = { "black" }, javascript = { "prettier" }, typescript = { "prettier" }, javascriptreact = { "prettier" }, typescriptreact = { "prettier" }, css = { "prettier" }, html = { "prettier" }, json = { "prettier" }, yaml = { "prettier" }, markdown = { "prettier" }, graphql = { "prettier" }, go = { "gofmt" } },
+      formatters = { prettier = { prepend_args = { "--single-quote", "--jsx-single-quote" } } },
       })
-    end,
-  })
-end)
+    end)
+    require("conform").format({ bufnr = args.buf, async = false, lsp_fallback = true })
+  end,
+})
 
-pcall(function()
-  require("mini.comment").setup()
-  require("mini.surround").setup()
-  require("mini.animate").setup()
-  require("mini.hipatterns").setup()
-end)
+vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+  callback = function()
+    setup_once("nvim-lint", function()
+      local lint = require("lint")
+      lint.linters_by_ft = { fish = { "fish" }, python = { "ruff" }, go = { "golangcilint" } }
+    end)
+    require("lint").try_lint()
+  end,
+})
 
-pcall(function()
-  require("trouble").setup({})
-end)
-
-pcall(function()
-  require("blink.cmp").setup({
-    keymap = {
-      preset = "default",
-      ["<CR>"] = { "accept", "fallback" },
-    },
-    snippets = { preset = "luasnip" },
-    sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
-    },
-  })
-end)
-
-pcall(function()
-  require("mason").setup()
-  require("mason-lspconfig").setup({
-    ensure_installed = {
-      "lua_ls",
-      "gopls",
-      "pyright",
-      "jdtls",
-      "yamlls",
-      "jsonls",
-      "dockerls",
-      "bashls",
-      "ansiblels",
-      "sqlls",
-      "phpactor",
-    },
-    automatic_enable = true,
-  })
-end)
-
-pcall(function()
-  local langs = {
-    "lua",
-    "vim",
-    "vimdoc",
-    "query",
-    "bash",
-    "go",
-    "gomod",
-    "python",
-    "java",
-    "yaml",
-    "json",
-    "markdown",
-    "markdown_inline",
-    "dockerfile",
-    "sql",
-    "php",
-    "typescript",
-    "javascript",
-    "tsx",
-    "html",
-    "css",
-  }
-
-  vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("user_treesitter_start", { clear = true }),
-    pattern = langs,
-    callback = function()
-      pcall(vim.treesitter.start)
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end,
-  })
-
-  require("treesitter-context").setup({})
-end)
-
-pcall(function()
-  require("conform").setup({
-    formatters_by_ft = {
-      lua = { "stylua" },
-      python = { "black" },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescriptreact = { "prettier" },
-      css = { "prettier" },
-      html = { "prettier" },
-      json = { "prettier" },
-      yaml = { "prettier" },
-      markdown = { "prettier" },
-      graphql = { "prettier" },
-      go = { "gofmt" },
-    },
-    formatters = {
-      prettier = {
-        prepend_args = { "--single-quote", "--jsx-single-quote" },
-      },
-    },
-  })
-
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("user_format_on_save", { clear = true }),
-    callback = function(args)
-      if vim.g.autoformat == false then
-        return
+-- Expensive integrations become available immediately after the first screen.
+-- They are intentionally scheduled so startup timing is not dominated by setup.
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      setup_once("nvim-notify", function()
+        local notify = require("notify")
+        notify.setup({ background_colour = "#000000", render = "compact", timeout = 3000 })
+        vim.notify = notify
+        vim.keymap.set("n", "<leader>nn", "<Cmd>Notifications<CR>", { desc = "Notifications" })
+      end)
+      setup_once("noice.nvim", function()
+        load("nui.nvim")
+        load("plenary.nvim")
+        require("noice").setup({
+          lsp = { progress = { enabled = true }, hover = { enabled = true }, signature = { enabled = true } },
+          presets = { bottom_search = true, command_palette = true, long_message_to_split = true, inc_rename = true, lsp_doc_border = true },
+        })
+        vim.keymap.set("n", "<leader>sn", function() require("noice").cmd("history") end, { desc = "Noice History" })
+        vim.keymap.set("n", "<leader>sd", function() require("noice").cmd("dismiss") end, { desc = "Dismiss Messages" })
+      end)
+      setup_once("mini.sessions", function()
+        require("mini.sessions").setup({ autoread = true, autowrite = true })
+        vim.keymap.set("n", "<leader>qs", function() MiniSessions.write() end, { desc = "Session Save" })
+        vim.keymap.set("n", "<leader>ql", function() MiniSessions.select() end, { desc = "Session Load" })
+      end)
+      setup_once("blink.cmp", function()
+        load("blink.lib")
+        load("LuaSnip")
+        load("friendly-snippets")
+        require("blink.cmp").setup({
+          keymap = { preset = "default", ["<CR>"] = { "accept", "fallback" } },
+          snippets = { preset = "luasnip" },
+          sources = { default = { "lsp", "path", "snippets", "buffer" } },
+        })
+      end)
+      setup_once("mason.nvim", function() require("mason").setup() end)
+      setup_once("mason-lspconfig.nvim", function()
+        load("nvim-lspconfig")
+        require("mason-lspconfig").setup({
+          ensure_installed = { "lua_ls", "gopls", "pyright", "jdtls", "yamlls", "jsonls", "dockerls", "bashls", "ansiblels", "sqlls", "phpactor" },
+          automatic_enable = true,
+        })
+      end)
+      setup_once("trouble.nvim", function() require("trouble").setup({}) end)
+      setup_once("arborist.nvim", function() require("arborist").setup() end)
+      vim.keymap.set("n", "<leader>tr", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
+      if vim.fn.argc() == 0 then
+        setup_once("mini.starter", function()
+          local starter = require("mini.starter")
+          starter.setup({ header = "vim.pack + mini.starter", items = { starter.sections.builtin_actions(), starter.sections.recent_files(8, false), starter.sections.sessions(5, true) }, footer = "f: find, e: new, q: quit" })
+        end)
+        if vim.bo.filetype == "" then require("mini.starter").open() end
       end
-      require("conform").format({ bufnr = args.buf, async = false, lsp_fallback = true })
-    end,
-  })
-end)
+    end)
+  end,
+})
 
-pcall(function()
-  local lint = require("lint")
-  lint.linters_by_ft = {
-    fish = { "fish" },
-    python = { "ruff" },
-    go = { "golangcilint" },
-  }
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_auto_close = 1
+    vim.g.mkdp_refresh_slow = 0
+    vim.g.mkdp_browser = ""
+    vim.g.mkdp_echo_preview_url = 1
+    vim.g.mkdp_theme = "dark"
+    load("markdown-preview.nvim")
+    vim.keymap.set("n", "<leader>mp", "<Cmd>MarkdownPreviewToggle<CR>", { buffer = true, desc = "Markdown Preview" })
+  end,
+})
 
-  local lint_group = vim.api.nvim_create_augroup("user_lint", { clear = true })
-  vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
-    group = lint_group,
-    callback = function()
-      lint.try_lint()
-    end,
-  })
-end)
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function(data)
+    if data.file == "" or vim.fn.isdirectory(data.file) == 0 then return end
+    setup_tree()
+    vim.cmd.cd(data.file)
+    require("nvim-tree.api").tree.open()
+  end,
+})
