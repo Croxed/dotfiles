@@ -17,6 +17,7 @@ local specs = {
   { name = "noice.nvim", src = "https://github.com/folke/noice.nvim.git" },
   { name = "markdown-preview.nvim", src = "https://github.com/iamcco/markdown-preview.nvim.git" },
   { name = "vim-startuptime", src = "https://github.com/dstein64/vim-startuptime.git" },
+  { name = "nvim-treesitter", src = "https://github.com/nvim-treesitter/nvim-treesitter.git", version = "main" },
   { name = "nvim-treesitter-context", src = "https://github.com/nvim-treesitter/nvim-treesitter-context.git" },
   { name = "nvim-lspconfig", src = "https://github.com/neovim/nvim-lspconfig.git" },
   { name = "mason.nvim", src = "https://github.com/mason-org/mason.nvim.git" },
@@ -46,7 +47,9 @@ local function load(name)
 end
 
 local function setup_once(name, fn)
-  if configured[name] then return end
+  if configured[name] then
+    return
+  end
   load(name)
   fn()
   configured[name] = true
@@ -82,13 +85,17 @@ local function pack_ui_close()
 end
 
 local function pack_ui_current()
-  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then return end
+  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then
+    return
+  end
   local row = vim.api.nvim_win_get_cursor(pack_ui.win)[1] - 4
   return pack_ui.items[row]
 end
 
 local function pack_ui_details()
-  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then return end
+  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then
+    return
+  end
   local item = pack_ui_current()
   local details = { "", "Details" }
   if item then
@@ -114,15 +121,19 @@ local function pack_ui_details()
 end
 
 local function pack_ui_render()
-  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then return end
+  if not pack_ui.buf or not vim.api.nvim_buf_is_valid(pack_ui.buf) then
+    return
+  end
   local all = vim.pack.get(nil, { info = false })
-  table.sort(all, function(a, b) return a.spec.name < b.spec.name end)
+  table.sort(all, function(a, b)
+    return a.spec.name < b.spec.name
+  end)
   pack_ui.items = vim.tbl_filter(function(item)
     return pack_ui.filter == "" or item.spec.name:lower():find(pack_ui.filter:lower(), 1, true) ~= nil
   end, all)
 
   local lines = {
-    " vim.pack                                      " .. (#pack_ui.items) .. "/" .. (#all) .. " plugins",
+    " vim.pack                                      " .. #pack_ui.items .. "/" .. #all .. " plugins",
     " [/] filter  [u] update  [U] update all  [d] delete  [l] load  [r] refresh  [q] close",
     "",
   }
@@ -142,10 +153,15 @@ end
 local function pack_ui_refresh()
   local old = pack_ui_current()
   pack_ui_render()
-  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then return end
+  if not pack_ui.win or not vim.api.nvim_win_is_valid(pack_ui.win) then
+    return
+  end
   local row = 4
   for i, item in ipairs(pack_ui.items) do
-    if old and item.spec.name == old.spec.name then row = i + 3 break end
+    if old and item.spec.name == old.spec.name then
+      row = i + 3
+      break
+    end
   end
   vim.api.nvim_win_set_cursor(pack_ui.win, { math.min(row, math.max(4, vim.api.nvim_buf_line_count(pack_ui.buf))), 0 })
 end
@@ -182,9 +198,13 @@ local function pack_ui_open()
   map("r", pack_ui_refresh, "Refresh package list")
   map("u", function()
     local item = pack_ui_current()
-    if item then pack_ui_update({ item.spec.name }) end
+    if item then
+      pack_ui_update({ item.spec.name })
+    end
   end, "Update selected plugin")
-  map("U", function() pack_ui_update() end, "Update all plugins")
+  map("U", function()
+    pack_ui_update()
+  end, "Update all plugins")
   map("d", function()
     local item = pack_ui_current()
     if item and not item.active then
@@ -203,7 +223,9 @@ local function pack_ui_open()
   end, "Load selected plugin")
   map("/", function()
     vim.ui.input({ prompt = "Filter plugins: ", default = pack_ui.filter }, function(value)
-      if value == nil then return end
+      if value == nil then
+        return
+      end
       pack_ui.filter = value
       pack_ui_refresh()
     end)
@@ -220,13 +242,30 @@ command("Pack", pack_ui_open, { desc = "Open vim.pack manager" })
 vim.keymap.set("n", "<leader>pp", pack_ui_open, { desc = "Package Manager" })
 
 -- Small, always-visible UI plugins are cheap enough to initialize synchronously.
+-- nvim-treesitter's current main branch must be loaded during startup; it
+-- supplies parser/query files used by Neovim's built-in Tree-sitter features.
+setup_once("nvim-treesitter", function()
+  require("nvim-treesitter").setup({
+    install_dir = vim.fn.stdpath("data") .. "/site",
+  })
+  -- require("nvim-treesitter").install()
+end)
+
 load("catppuccin")
 require("catppuccin").setup({
   flavour = "macchiato",
   integrations = {
-    blink_cmp = true, gitsigns = true, treesitter = true, notify = true,
-    mini = true, mason = true, noice = true, which_key = true,
-    bufferline = true, lsp_trouble = true, fzf = true,
+    blink_cmp = true,
+    gitsigns = true,
+    treesitter = true,
+    notify = true,
+    mini = true,
+    mason = true,
+    noice = true,
+    which_key = true,
+    bufferline = true,
+    lsp_trouble = true,
+    fzf = true,
   },
 })
 vim.cmd.colorscheme("catppuccin-macchiato")
@@ -256,7 +295,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 local function setup_fzf()
-  setup_once("fzf-lua", function() require("fzf-lua").setup({}) end)
+  setup_once("fzf-lua", function()
+    require("fzf-lua").setup({})
+  end)
   vim.keymap.set("n", "<leader><space>", "<Cmd>FzfLua files<CR>", { desc = "Smart Find" })
   vim.keymap.set("n", "<leader>ff", "<Cmd>FzfLua files<CR>", { desc = "Find Files" })
   vim.keymap.set("n", "<leader>fg", "<Cmd>FzfLua live_grep<CR>", { desc = "Grep" })
@@ -267,10 +308,10 @@ end
 local function setup_tree()
   setup_once("nvim-tree.lua", function()
     require("nvim-tree").setup({
-    view = { width = 36, preserve_window_proportions = true },
-    update_focused_file = { enable = true, update_root = true },
-    renderer = { highlight_git = true, highlight_opened_files = "name" },
-    actions = { open_file = { resize_window = true } },
+      view = { width = 36, preserve_window_proportions = true },
+      update_focused_file = { enable = true, update_root = true },
+      renderer = { highlight_git = true, highlight_opened_files = "name" },
+      actions = { open_file = { resize_window = true } },
     })
   end)
 end
@@ -299,16 +340,46 @@ vim.keymap.set("n", "<leader>ut", "<Cmd>StartupTime<CR>", { desc = "StartupTime"
 vim.api.nvim_create_autocmd("BufEnter", {
   once = true,
   callback = function()
-    setup_once("mini.comment", function() require("mini.comment").setup() end)
-    setup_once("mini.surround", function() require("mini.surround").setup() end)
-    setup_once("mini.hipatterns", function() require("mini.hipatterns").setup() end)
+    setup_once("mini.comment", function()
+      require("mini.comment").setup()
+    end)
+    setup_once("mini.surround", function()
+      require("mini.surround").setup()
+    end)
+    setup_once("mini.hipatterns", function()
+      require("mini.hipatterns").setup()
+    end)
   end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lua", "vim", "vimdoc", "query", "bash", "go", "gomod", "python", "java", "yaml", "json", "markdown", "markdown_inline", "dockerfile", "sql", "php", "typescript", "javascript", "tsx", "html", "css" },
+  pattern = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "bash",
+    "go",
+    "gomod",
+    "python",
+    "java",
+    "yaml",
+    "json",
+    "markdown",
+    "markdown_inline",
+    "dockerfile",
+    "sql",
+    "php",
+    "typescript",
+    "javascript",
+    "tsx",
+    "html",
+    "css",
+  },
   callback = function()
-    setup_once("nvim-treesitter-context", function() require("treesitter-context").setup({}) end)
+    setup_once("nvim-treesitter-context", function()
+      require("treesitter-context").setup({})
+    end)
     pcall(vim.treesitter.start)
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
@@ -316,11 +387,27 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function(args)
-    if vim.g.autoformat == false then return end
+    if vim.g.autoformat == false then
+      return
+    end
     setup_once("conform.nvim", function()
       require("conform").setup({
-      formatters_by_ft = { lua = { "stylua" }, python = { "black" }, javascript = { "prettier" }, typescript = { "prettier" }, javascriptreact = { "prettier" }, typescriptreact = { "prettier" }, css = { "prettier" }, html = { "prettier" }, json = { "prettier" }, yaml = { "prettier" }, markdown = { "prettier" }, graphql = { "prettier" }, go = { "gofmt" } },
-      formatters = { prettier = { prepend_args = { "--single-quote", "--jsx-single-quote" } } },
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescriptreact = { "prettier" },
+          css = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          graphql = { "prettier" },
+          go = { "gofmt" },
+        },
+        formatters = { prettier = { prepend_args = { "--single-quote", "--jsx-single-quote" } } },
       })
     end)
     require("conform").format({ bufnr = args.buf, async = false, lsp_fallback = true })
@@ -354,15 +441,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
         load("plenary.nvim")
         require("noice").setup({
           lsp = { progress = { enabled = true }, hover = { enabled = true }, signature = { enabled = true } },
-          presets = { bottom_search = true, command_palette = true, long_message_to_split = true, inc_rename = true, lsp_doc_border = true },
+          presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            inc_rename = true,
+            lsp_doc_border = true,
+          },
         })
-        vim.keymap.set("n", "<leader>sn", function() require("noice").cmd("history") end, { desc = "Noice History" })
-        vim.keymap.set("n", "<leader>sd", function() require("noice").cmd("dismiss") end, { desc = "Dismiss Messages" })
+        vim.keymap.set("n", "<leader>sn", function()
+          require("noice").cmd("history")
+        end, { desc = "Noice History" })
+        vim.keymap.set("n", "<leader>sd", function()
+          require("noice").cmd("dismiss")
+        end, { desc = "Dismiss Messages" })
       end)
       setup_once("mini.sessions", function()
         require("mini.sessions").setup({ autoread = true, autowrite = true })
-        vim.keymap.set("n", "<leader>qs", function() MiniSessions.write() end, { desc = "Session Save" })
-        vim.keymap.set("n", "<leader>ql", function() MiniSessions.select() end, { desc = "Session Load" })
+        vim.keymap.set("n", "<leader>qs", function()
+          MiniSessions.write()
+        end, { desc = "Session Save" })
+        vim.keymap.set("n", "<leader>ql", function()
+          MiniSessions.select()
+        end, { desc = "Session Load" })
       end)
       setup_once("blink.cmp", function()
         load("blink.lib")
@@ -374,23 +475,51 @@ vim.api.nvim_create_autocmd("VimEnter", {
           sources = { default = { "lsp", "path", "snippets", "buffer" } },
         })
       end)
-      setup_once("mason.nvim", function() require("mason").setup() end)
+      setup_once("mason.nvim", function()
+        require("mason").setup()
+      end)
       setup_once("mason-lspconfig.nvim", function()
         load("nvim-lspconfig")
         require("mason-lspconfig").setup({
-          ensure_installed = { "lua_ls", "gopls", "pyright", "jdtls", "yamlls", "jsonls", "dockerls", "bashls", "ansiblels", "sqlls", "phpactor" },
+          ensure_installed = {
+            "lua_ls",
+            "gopls",
+            "pyright",
+            "jdtls",
+            "yamlls",
+            "jsonls",
+            "dockerls",
+            "bashls",
+            "ansiblels",
+            "sqlls",
+            "phpactor",
+          },
           automatic_enable = true,
         })
       end)
-      setup_once("trouble.nvim", function() require("trouble").setup({}) end)
-      setup_once("arborist.nvim", function() require("arborist").setup() end)
+      setup_once("trouble.nvim", function()
+        require("trouble").setup({})
+      end)
+      setup_once("arborist.nvim", function()
+        require("arborist").setup()
+      end)
       vim.keymap.set("n", "<leader>tr", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
       if vim.fn.argc() == 0 then
         setup_once("mini.starter", function()
           local starter = require("mini.starter")
-          starter.setup({ header = "vim.pack + mini.starter", items = { starter.sections.builtin_actions(), starter.sections.recent_files(8, false), starter.sections.sessions(5, true) }, footer = "f: find, e: new, q: quit" })
+          starter.setup({
+            header = "vim.pack + mini.starter",
+            items = {
+              starter.sections.builtin_actions(),
+              starter.sections.recent_files(8, false),
+              starter.sections.sessions(5, true),
+            },
+            footer = "f: find, e: new, q: quit",
+          })
         end)
-        if vim.bo.filetype == "" then require("mini.starter").open() end
+        if vim.bo.filetype == "" then
+          require("mini.starter").open()
+        end
       end
     end)
   end,
@@ -412,7 +541,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function(data)
-    if data.file == "" or vim.fn.isdirectory(data.file) == 0 then return end
+    if data.file == "" or vim.fn.isdirectory(data.file) == 0 then
+      return
+    end
     setup_tree()
     vim.cmd.cd(data.file)
     require("nvim-tree.api").tree.open()
