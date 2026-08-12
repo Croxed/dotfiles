@@ -13,91 +13,695 @@
 # shell customization and configuration (including exported environment
 # variables such as PATH) in this file or in files source by it.
 #
-# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+# ============================================================================
+# Powerlevel10k instant prompt
+# ============================================================================
 
-# Periodic auto-update on Zsh startup: 'ask' or 'no'.
-# You can manually run `z4h update` to update everything.
-zstyle ':z4h:' auto-update      'ask'
-# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-zstyle ':z4h:' auto-update-days '28'
-zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Automaticaly wrap TTY with a transparent tmux ('integrated'), or start a
-# full-fledged tmux ('system'), or disable features that require tmux ('no').
-zstyle ':z4h:' start-tmux       'no'
-# Move prompt to the bottom when zsh starts up so that it's always in the
-# same position. Has no effect if start-tmux is 'no'.
-zstyle ':z4h:' prompt-at-bottom 'yes'
 
-# Keyboard type: 'mac' or 'pc'.
-zstyle ':z4h:bindkey' keyboard  'mac'
+# ============================================================================
+# Environment
+# ============================================================================
 
-# Right-arrow key accepts one character ('partial-accept') from
-# command autosuggestions or the whole thing ('accept')?
-zstyle ':z4h:autosuggestions' forward-char 'accept'
+path=(
+  "$HOME/bin"
+  $path
+)
 
-# The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'no'
-zstyle ':z4h:homebrew-command-not-found' channel none
-
-# Clone additional Git repositories from GitHub.
-#
-# This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`. This is just an
-# example. If you don't plan to use Oh My Zsh, delete this line.
-z4h install laggardkernel/git-ignore || return
-z4h install hlissner/zsh-autopair || return
-z4h install peterhurford/up.zsh || return
-z4h install romkatv/zsh-defer || return
-
-# Install or update core components (fzf, zsh-autosuggestions, etc.) and
-# initialize Zsh. After this point console I/O is unavailable until Zsh
-# is fully initialized. Everything that requires user interaction or can
-# perform network I/O must be done above. Everything else is best done below.
-z4h init || return
-
-# Extend PATH.
-path=(~/bin $path)
-
-# Export environment variables.
 export GPG_TTY=$TTY
 
-# Source additional local files if they exist.
-z4h source ~/.env.zsh
+[[ -r "$HOME/.env.zsh" ]] && source "$HOME/.env.zsh"
 
-# Use additional Git repositories pulled in with `z4h install`.
+
+# ============================================================================
+# General Zsh behaviour
+# ============================================================================
+
+WORDCHARS=''
+KEYTIMEOUT=20
+ZLE_REMOVE_SUFFIX_CHARS=''
+
+PROMPT_EOL_MARK='%K{red} %k'
+
+zle_highlight=('paste:none')
+
+
+# ============================================================================
+# History
+# ============================================================================
+
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+
+HISTSIZE=1000000000
+SAVEHIST=1000000000
+
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+
+
+# ============================================================================
+# Directory history
 #
-# This is just an example that you should delete. It does nothing useful.
+# Used by Shift+Left / Shift+Right.
+# ============================================================================
 
-# Define key bindings.
-z4h bindkey undo Ctrl+/  # undo the last command line change
-z4h bindkey redo Alt+/   # redo the last undone command line change
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
 
-z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
-# Autoload functions.
-autoload -Uz zmv
+# ============================================================================
+# ZimFW
+# ============================================================================
 
-# Define functions and completions.
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-compdef _directories md
+ZIM_HOME="${ZDOTDIR:-${HOME}}/.zim"
 
-# Define named directories: ~w <=> Windows home directory on WSL.
-[[ -n $z4h_win_home ]] && hash -d w=$z4h_win_home
+# Bootstrap ZimFW itself.
+if [[ ! -e "${ZIM_HOME}/zimfw.zsh" ]]; then
+  command mkdir -p "${ZIM_HOME}"
 
-# Define aliases.
-alias tree='tree -a -I .git'
+  command curl -fsSL \
+    --create-dirs \
+    -o "${ZIM_HOME}/zimfw.zsh" \
+    https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+fi
 
-# Add flags to existing aliases.
-alias ls="${aliases[ls]:-ls} -A"
+# Rebuild init.zsh when .zimrc changes.
+if [[ ! "${ZIM_HOME}/init.zsh" -nt "${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc}" ]]; then
+  source "${ZIM_HOME}/zimfw.zsh" init -q
+fi
 
-# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
-setopt glob_dots     # no special treatment for file names with a leading dot
-setopt no_auto_menu  # require an extra TAB press to open the completion menu
+source "${ZIM_HOME}/init.zsh"
 
+
+# ---------------------------------------------------------------------------
+# Completion formatting
+# ---------------------------------------------------------------------------
+
+# IMPORTANT:
+# fzf-tab cannot render Zsh %F/%f prompt escapes in group descriptions.
+zstyle ':completion:*' menu no
+
+if [[ -n "$LS_COLORS" ]]; then
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+
+zstyle ':completion:*:descriptions' format ''
+zstyle ':completion:*:corrections'  format ''
+zstyle ':completion:*:messages'     format ''
+zstyle ':completion:*:warnings'     format ''
+zstyle ':completion:*' format ''
+
+# Directory completion.
+zstyle ':completion:*:cd:*' \
+  tag-order local-directories directory-stack path-directories
+
+zstyle ':completion:*:cd:*' \
+  ignore-parents parent pwd
+
+# Don't offer the item that's already on the command line.
+zstyle ':completion:*:(rm|kill|diff):*' \
+  ignore-line other
+
+# Keep .zwc files out of file completion.
+zstyle ':completion:*:*:*:*:files' \
+  ignored-patterns '*.zwc'
+
+
+# ---------------------------------------------------------------------------
+# fzf-tab
+# ---------------------------------------------------------------------------
+
+zstyle ':fzf-tab:*' use-fzf-default-opts no
+zstyle ':fzf-tab:*' prefix ''
+
+zstyle ':fzf-tab:*' fzf-flags \
+  --color=hl:201,hl+:201 \
+  --no-mouse \
+  --cycle \
+  --border=horizontal \
+  --height=60% \
+  --layout=reverse
+
+zstyle ':fzf-tab:*' fzf-bindings \
+  'ctrl-space:toggle' \
+  'ctrl-a:toggle-all'
+
+# Equivalent intent to:
+#
+#   zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+#
+# zstyle ':fzf-tab:*' continuous-trigger ''
+
+
+# ============================================================================
+# Completion cache for generated CLI completions
+# ============================================================================
+
+ZSH_GENERATED_COMPLETIONS="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/generated-completions"
+
+mkdir -p "$ZSH_GENERATED_COMPLETIONS"
+
+
+# ============================================================================
+# Lazy generated completion helper
+#
+# Similar to what z4h does:
+#
+# - don't run expensive CLI completion generators during shell startup
+# - generate on first TAB
+# - reuse until the executable changes
+# ============================================================================
+
+function _z4h_generate_completion() {
+  emulate -L zsh
+
+  local command_name="$1"
+  shift
+
+  local executable="${commands[$command_name]-}"
+
+  [[ -n "$executable" ]] || return 1
+
+  local cache="$ZSH_GENERATED_COMPLETIONS/${command_name}-${EUID}.zsh"
+
+  if [[ ! -r "$cache" || "$executable" -nt "$cache" ]]; then
+    local tmp="${cache}.tmp.$$"
+
+    "$executable" "$@" >| "$tmp" 2>/dev/null || {
+      rm -f -- "$tmp"
+      return 1
+    }
+
+    mv -f -- "$tmp" "$cache"
+
+    zcompile -R -- "$cache.zwc" "$cache" 2>/dev/null || true
+  fi
+
+  source "$cache"
+}
+
+
+# ============================================================================
+# kubectl
+#
+# z4h deliberately installs its own lazy completion for kubectl.
+# ============================================================================
+
+function _z4h_complete_kubectl() {
+  emulate -L zsh
+
+  # Remove our wrapper temporarily so kubectl's generated completion can
+  # register the real function.
+  unset '_comps[kubectl]'
+
+  if ! _z4h_generate_completion kubectl completion zsh; then
+    _default "$@"
+    return
+  fi
+
+  local fn="${_comps[kubectl]-}"
+
+  if [[ -n "$fn" && "$fn" != "_z4h_complete_kubectl" ]]; then
+    "$fn" "$@"
+  else
+    _default "$@"
+  fi
+
+  # Reinstate lazy wrapper for future shells/completion refreshes.
+  _comps[kubectl]=_z4h_complete_kubectl
+}
+
+if (( $+commands[kubectl] )); then
+  compdef _z4h_complete_kubectl kubectl
+fi
+
+
+# ============================================================================
+# helm
+# ============================================================================
+
+function _z4h_complete_helm() {
+  emulate -L zsh
+
+  unset '_comps[helm]'
+
+  if ! _z4h_generate_completion helm completion zsh; then
+    _default "$@"
+    return
+  fi
+
+  local fn="${_comps[helm]-}"
+
+  if [[ -n "$fn" && "$fn" != "_z4h_complete_helm" ]]; then
+    "$fn" "$@"
+  else
+    _default "$@"
+  fi
+
+  _comps[helm]=_z4h_complete_helm
+}
+
+if (( $+commands[helm] )); then
+  compdef _z4h_complete_helm helm
+fi
+
+
+# ============================================================================
+# OpenShift oc
+# ============================================================================
+
+function _z4h_complete_oc() {
+  emulate -L zsh
+
+  unset '_comps[oc]'
+
+  if ! _z4h_generate_completion oc completion zsh; then
+    _default "$@"
+    return
+  fi
+
+  local fn="${_comps[oc]-}"
+
+  if [[ -n "$fn" && "$fn" != "_z4h_complete_oc" ]]; then
+    "$fn" "$@"
+  else
+    _default "$@"
+  fi
+
+  _comps[oc]=_z4h_complete_oc
+}
+
+if (( $+commands[oc] )); then
+  compdef _z4h_complete_oc oc
+fi
+
+
+# ============================================================================
+# GitHub CLI
+#
+# Only provide the fallback when another _gh completion wasn't already found.
+# ============================================================================
+
+function _z4h_complete_gh() {
+  emulate -L zsh
+
+  local executable="${commands[gh]-}"
+
+  [[ -n "$executable" ]] || {
+    _default "$@"
+    return
+  }
+
+  local cache="$ZSH_GENERATED_COMPLETIONS/gh-${EUID}.zsh"
+
+  if [[ ! -r "$cache" || "$executable" -nt "$cache" ]]; then
+    local tmp="${cache}.tmp.$$"
+
+    "$executable" completion -s zsh >| "$tmp" 2>/dev/null || {
+      rm -f -- "$tmp"
+      _default "$@"
+      return
+    }
+
+    mv -f -- "$tmp" "$cache"
+
+    zcompile -R -- "$cache.zwc" "$cache" 2>/dev/null || true
+  fi
+
+  source "$cache"
+
+  if (( $+functions[_gh] )); then
+    _gh "$@"
+  else
+    _default "$@"
+  fi
+}
+
+if (( $+commands[gh] )) && [[ -z "${_comps[gh]-}" ]]; then
+  compdef _z4h_complete_gh gh
+fi
+
+
+# ============================================================================
+# Bash-style completion support
+#
+# Zim's completion module has already initialized compinit. bashcompinit is
+# only needed for CLIs that expose Bash's -C completion protocol.
+# ============================================================================
+
+autoload -Uz bashcompinit
+bashcompinit
+
+
+# AWS CLI.
+if (( $+commands[aws_completer] )) && [[ -z "${_comps[aws]-}" ]]; then
+  complete -C =aws_completer aws
+fi
+
+
+# ============================================================================
+# Google Cloud SDK
+# ============================================================================
+
+if (( $+commands[gcloud] )) && [[ -z "${_comps[gcloud]-}" ]]; then
+  typeset -a gcloud_dirs=(
+    ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/share/google-cloud-sdk}
+    "$HOME/google-cloud-sdk"
+    /usr/share/google-cloud-sdk
+    /snap/google-cloud-sdk/current
+    /snap/google-cloud-cli/current
+    /usr/lib/google-cloud-sdk
+    /usr/lib64/google-cloud-sdk
+    /opt/google-cloud-sdk
+    /opt/local/libexec/google-cloud-sdk
+  )
+
+  for dir in "${gcloud_dirs[@]}"; do
+    if [[ -r "$dir/completion.zsh.inc" ]]; then
+      source "$dir/completion.zsh.inc"
+      break
+    fi
+  done
+
+  unset gcloud_dirs dir
+fi
+
+
+# ============================================================================
+# z4h-like common fzf wrapper
+# ============================================================================
+
+function _z4h_fzf() {
+  emulate -L zsh
+
+  local layout="$1"
+  shift
+
+  local -a bindings=(
+    'ctrl-h:backward-kill-word'
+    'alt-j:clear-query'
+    'ctrl-u:clear-query'
+    'ctrl-k:kill-line'
+    'alt-k:unix-line-discard'
+    'ctrl-space:toggle'
+    'ctrl-a:toggle-all'
+  )
+
+  if [[ "$layout" == default ]]; then
+    bindings+=(
+      'tab:up'
+      'btab:down'
+      'ctrl-r:up'
+      'ctrl-s:down'
+    )
+  else
+    bindings+=(
+      'tab:down'
+      'btab:up'
+      'ctrl-r:down'
+      'ctrl-s:up'
+    )
+  fi
+
+  command fzf \
+    --bind="${(j:,:)bindings}" \
+    "$@"
+}
+
+
+# ============================================================================
+# Ctrl-R — zsh4humans-like history picker
+# ============================================================================
+
+function z4h-fzf-history() {
+  emulate -L zsh
+
+  local query="${(j: :)${(@Z:cn:)BUFFER}}"
+
+  [[ -n "$query" ]] && query+=' '
+
+  local preview='printf "%s\n" {}'
+
+  if (( $+commands[bat] )); then
+    preview='printf "%s\n" {} | bat -l bash --color=always -pp --wrap=character'
+  fi
+
+  local choice
+
+  choice="$(
+    builtin fc -rl 1 |
+      sed 's/^[[:space:]]*[0-9]*[[:space:]]*//' |
+      awk '!seen[$0]++' |
+      _z4h_fzf reverse \
+        --no-multi \
+        --no-sort \
+        --cycle \
+        --exact \
+        --no-mouse \
+        --tabstop=1 \
+        --query="$query" \
+        --color=hl:201,hl+:201 \
+        --border=horizontal \
+        --height=80% \
+        --layout=reverse \
+        --preview-window='wrap:4:down:noborder' \
+        --preview="$preview"
+  )"
+
+  [[ -n "$choice" ]] || return 0
+
+  BUFFER="$choice"
+  CURSOR=${#BUFFER}
+
+  zle reset-prompt
+}
+
+zle -N z4h-fzf-history
+
+
+# ============================================================================
+# Shift+Up — cd ..
+# ============================================================================
+
+function z4h-cd-up() {
+  builtin cd -q .. || return
+  zle reset-prompt
+}
+
+zle -N z4h-cd-up
+
+
+# ============================================================================
+# Shift+Left / Shift+Right — directory history
+# ============================================================================
+
+function z4h-cd-back() {
+  emulate -L zsh
+
+  while (( $#dirstack )); do
+    if builtin pushd -q +1 2>/dev/null; then
+      zle reset-prompt
+      return
+    fi
+
+    builtin popd -q +1 2>/dev/null || break
+  done
+}
+
+function z4h-cd-forward() {
+  emulate -L zsh
+
+  while (( $#dirstack )); do
+    if builtin pushd -q -0 2>/dev/null; then
+      zle reset-prompt
+      return
+    fi
+
+    builtin popd -q -0 2>/dev/null || break
+  done
+}
+
+zle -N z4h-cd-back
+zle -N z4h-cd-forward
+
+
+# ============================================================================
+# Shift+Down — directory picker
+# ============================================================================
+
+function z4h-cd-down() {
+  emulate -L zsh
+
+  local choice
+
+  if (( $+commands[fd] )); then
+    choice="$(
+      command fd \
+        --type directory \
+        --hidden \
+        --exclude .git \
+        --strip-cwd-prefix \
+        . 2>/dev/null |
+      _z4h_fzf reverse \
+        --color=hl:201,hl+:201 \
+        --exact \
+        --no-mouse \
+        --tiebreak=length,begin,index \
+        --no-multi \
+        --cycle \
+        --border=horizontal \
+        --height=60% \
+        --layout=reverse
+    )"
+  else
+    choice="$(
+      command find . \
+        -mindepth 1 \
+        -type d \
+        -not -path '*/.git/*' \
+        -print 2>/dev/null |
+      sed 's#^\./##' |
+      _z4h_fzf reverse \
+        --color=hl:201,hl+:201 \
+        --exact \
+        --no-mouse \
+        --tiebreak=length,begin,index \
+        --no-multi \
+        --cycle \
+        --border=horizontal \
+        --height=60% \
+        --layout=reverse
+    )"
+  fi
+
+  [[ -n "$choice" ]] || return
+
+  builtin cd -- "$choice" || return
+
+  zle reset-prompt
+}
+
+zle -N z4h-cd-down
+
+
+# ============================================================================
+# Autosuggestion behaviour
+#
+# Your z4h setting:
+#
+#   zstyle ':z4h:autosuggestions' forward-char 'accept'
+#
+# Right Arrow therefore accepts the entire suggestion.
+# ============================================================================
+
+function z4h-forward-char() {
+  if [[ -n "$POSTDISPLAY" ]]; then
+    zle autosuggest-accept
+  else
+    zle forward-char
+  fi
+}
+
+zle -N z4h-forward-char
+
+
+# ============================================================================
+# Terminal title
+#
+# Idle:
+#
+#   ~/foo/bar
+#
+# Executing:
+#
+#   kubectl get pods
+#
+# SSH:
+#
+#   user@host: ~/foo/bar
+# ============================================================================
+
+autoload -Uz add-zsh-hook
+
+function _z4h_terminal_title() {
+  emulate -L zsh
+
+  [[ "$TERM" == (dumb|linux) ]] && return
+
+  local title="$1"
+
+  print -Pn -- $'\e]0;'"${title}"$'\a'
+}
+
+function _z4h_terminal_title_preexec() {
+  emulate -L zsh
+
+  local cmd="${1//\%/%%}"
+
+  if [[ -n "$SSH_CONNECTION" || "${P9K_SSH:-0}" == 1 ]]; then
+    _z4h_terminal_title "%n@%m: $cmd"
+  else
+    _z4h_terminal_title "$cmd"
+  fi
+}
+
+function _z4h_terminal_title_precmd() {
+  emulate -L zsh
+
+  if [[ -n "$SSH_CONNECTION" || "${P9K_SSH:-0}" == 1 ]]; then
+    _z4h_terminal_title '%n@%m: %~'
+  else
+    _z4h_terminal_title '%~'
+  fi
+}
+
+add-zsh-hook preexec _z4h_terminal_title_preexec
+add-zsh-hook precmd  _z4h_terminal_title_precmd
+
+
+# ============================================================================
+# Key bindings
+#
+# z4h configuration:
+#
+# Shift+Left   previous directory
+# Shift+Right  next directory
+# Shift+Up     parent
+# Shift+Down   child picker
+#
+# Ctrl+R       history
+# Right        accept full autosuggestion
+# ============================================================================
+
+bindkey -e
+
+bindkey '^/' undo
+bindkey '^[/' redo
+
+bindkey '^[[1;2D' z4h-cd-back
+bindkey '^[[1;2C' z4h-cd-forward
+bindkey '^[[1;2A' z4h-cd-up
+bindkey '^[[1;2B' z4h-cd-down
+
+bindkey '^R' z4h-fzf-history
+
+bindkey '^[[C' z4h-forward-char
+
+
+# ============================================================================
+# Powerlevel10k configuration
+# ============================================================================
+
+[[ -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
 
 # path to the framework root directory
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config

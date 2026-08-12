@@ -1,0 +1,60 @@
+# ============================================================================
+# ~/.zimrc
+# ============================================================================
+
+# Basic Zsh defaults.
+zmodule environment
+zmodule input
+
+
+# ----------------------------------------------------------------------------
+# Completion definitions
+#
+# Must come BEFORE Zim's completion module so the functions are present on
+# fpath when compinit runs.
+# ----------------------------------------------------------------------------
+
+zmodule zsh-users/zsh-completions --fpath src
+
+
+# ----------------------------------------------------------------------------
+# Zim completion
+#
+# This initializes the Zsh completion system / compinit.
+# ----------------------------------------------------------------------------
+
+zmodule completion
+
+
+# ----------------------------------------------------------------------------
+# Existing plugins
+# ----------------------------------------------------------------------------
+
+zmodule romkatv/zsh-defer
+zmodule hlissner/zsh-autopair
+zmodule laggardkernel/git-ignore
+zmodule peterhurford/up.zsh
+
+
+# ----------------------------------------------------------------------------
+# FZF completion UI
+#
+# Must be after compinit, but before autosuggestions/syntax-highlighting.
+# ----------------------------------------------------------------------------
+
+zmodule Aloxaf/fzf-tab
+
+
+# ----------------------------------------------------------------------------
+# Autosuggestions / highlighting
+# ----------------------------------------------------------------------------
+
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting
+
+
+# ----------------------------------------------------------------------------
+# Prompt
+# ----------------------------------------------------------------------------
+
+zmodule romkatv/powerlevel10k --use degit

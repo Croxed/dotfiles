@@ -42,7 +42,7 @@ if [ ! -e "$Z4H"/z4h.zsh ]; then
   mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
 fi
 
-. "$Z4H"/z4h.zsh || return
+# . "$Z4H"/z4h.zsh || return
 
 setopt rcs
 if [ -f "$HOME/.cargo/env" ]; then

@@ -1,0 +1,11 @@
+romkatv/powerlevel10k
+
+romkatv/zsh-defer
+Aloxaf/fzf-tab
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+
+hlissner/zsh-autopair
+laggardkernel/git-ignore
+peterhurford/up.zsh
