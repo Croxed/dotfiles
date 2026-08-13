@@ -92,3 +92,43 @@ _source_zsh_config() {
 
 # Source custom plugins
 zsh-defer -a -c "_source_zsh_config"
+
+# ---------------------------------------------------------------------------
+# deja
+# ---------------------------------------------------------------------------
+
+# Don't steal TAB from fzf-tab.
+export DEJA_CYCLE_KEY='^N'
+export DEJA_EMPTY=off
+
+# Don't steal our Shift-arrow directory navigation.
+export DEJA_CYCLE_FUZZY_KEY=
+export DEJA_CYCLE_FUZZY_BACK_KEY=
+export DEJA_TOGGLE_EMPTY_KEY=
+
+# Right Arrow already accepts the full suggestion by default.
+# Leave DEJA_ACCEPT_KEY empty.
+export DEJA_ACCEPT_KEY=
+
+# Keep ghost text similar to zsh-autosuggestions.
+export DEJA_HIGHLIGHT_STYLE='fg=8'
+
+if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
+  source "$HOME/.local/share/deja/init.zsh"
+elif (( ! $+commands[deja] )); then
+  zsh $SIMPL_ZSH_DIR/install/deja.zsh
+  rehash
+fi
+if (( $+commands[deja] )); then
+  eval "$(deja init zsh)"
+fi
+
+
+if (( ! $+commands[zsh-patina] )); then
+  zsh $SIMPL_ZSH_DIR/install/zsh-patina.zsh
+  rehash
+fi
+
+if (( $+commands[zsh-patina] )); then
+  eval "$(zsh-patina activate)"
+fi

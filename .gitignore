@@ -30,7 +30,7 @@
 !.config/fish/aliases.fish
 !.config/fish/config.fish
 !.config/fish/fishfile
-
+!.config/zsh-patina
 !.config/i3blocks
 !.config/i3blocks/config
 

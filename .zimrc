@@ -57,5 +57,4 @@ zmodule Aloxaf/fzf-tab
 # Autosuggestions / highlighting
 # ----------------------------------------------------------------------------
 
-zmodule zsh-users/zsh-autosuggestions
-zmodule zdharma-continuum/fast-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search

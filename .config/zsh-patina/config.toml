@@ -1,0 +1,5 @@
+[highlighting]
+theme = "catppuccin-macchiato"
+dynamic = { callables = true, paths = "complete" }
+max_line_length = 20000
+timeout_ms = 500

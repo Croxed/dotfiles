@@ -161,7 +161,20 @@ zstyle ':fzf-tab:*' fzf-bindings \
 #
 #   zstyle ':z4h:fzf-complete' recurse-dirs 'no'
 #
-# zstyle ':fzf-tab:*' continuous-trigger ''
+zstyle ':fzf-tab:*' continuous-trigger ''
+
+function z4h-tab-complete() {
+  zle fzf-tab-complete
+  local ret=$?
+
+  zle reset-prompt
+  zle -R
+
+  return $ret
+}
+
+zle -N z4h-tab-complete
+bindkey '^I' z4h-tab-complete
 
 
 # ============================================================================
@@ -485,6 +498,7 @@ function z4h-fzf-history() {
   CURSOR=${#BUFFER}
 
   zle reset-prompt
+  zle -R
 }
 
 zle -N z4h-fzf-history
@@ -496,7 +510,9 @@ zle -N z4h-fzf-history
 
 function z4h-cd-up() {
   builtin cd -q .. || return
+
   zle reset-prompt
+  zle -R
 }
 
 zle -N z4h-cd-up
@@ -512,11 +528,14 @@ function z4h-cd-back() {
   while (( $#dirstack )); do
     if builtin pushd -q +1 2>/dev/null; then
       zle reset-prompt
+      zle -R
       return
     fi
 
     builtin popd -q +1 2>/dev/null || break
   done
+  zle reset-prompt
+  zle -R
 }
 
 function z4h-cd-forward() {
@@ -525,11 +544,14 @@ function z4h-cd-forward() {
   while (( $#dirstack )); do
     if builtin pushd -q -0 2>/dev/null; then
       zle reset-prompt
+      zle -R
       return
     fi
 
     builtin popd -q -0 2>/dev/null || break
   done
+  zle reset-prompt
+  zle -R
 }
 
 zle -N z4h-cd-back
@@ -585,11 +607,16 @@ function z4h-cd-down() {
     )"
   fi
 
-  [[ -n "$choice" ]] || return
+  [[ -n "$choice" ]] || {
+    zle reset-prompt
+    zle -R
+    return 0
+  }
 
   builtin cd -- "$choice" || return
 
   zle reset-prompt
+  zle -R
 }
 
 zle -N z4h-cd-down
@@ -671,3 +698,9 @@ fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"
+
+if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
+  source "$HOME/.local/share/deja/init.zsh"
+else
+  eval "$(deja init zsh)"
+fi
