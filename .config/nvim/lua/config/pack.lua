@@ -35,10 +35,7 @@ local specs = {
   { name = "arborist.nvim", src = "https://github.com/arborist-ts/arborist.nvim" },
 }
 
--- A no-op loader registers and installs packages without adding every package
--- directory to 'runtimepath'. `load = false` behaves like `:packadd!`, which
--- still exposes packages to Neovim's startup plugin scan and defeats laziness.
-vim.pack.add(specs, { load = function() end, confirm = false })
+vim.pack.add(specs, { load = false, confirm = false })
 
 local loaded = {}
 local configured = {}
@@ -340,7 +337,7 @@ vim.keymap.set("n", "<leader>ut", "<Cmd>StartupTime<CR>", { desc = "StartupTime"
 
 -- Feature setup is grouped by the event that needs it, similar to LazyVim's
 -- event/ft/cmd specs. Each group is initialized at most once by Lua's module cache.
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+vim.api.nvim_create_autocmd("BufEnter", {
   once = true,
   callback = function()
     setup_once("mini.comment", function()
@@ -427,45 +424,57 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
   end,
 })
 
-local function setup_sessions()
-  setup_once("mini.sessions", function()
-    require("mini.sessions").setup({ autoread = true, autowrite = true })
-  end)
-end
-
-vim.keymap.set("n", "<leader>qs", function()
-  setup_sessions()
-  MiniSessions.write()
-end, { desc = "Session Save" })
-vim.keymap.set("n", "<leader>ql", function()
-  setup_sessions()
-  MiniSessions.select()
-end, { desc = "Session Load" })
-
--- Completion and snippets are only useful once insert mode is entered. In
--- particular, avoid parsing the VS Code snippet collection on every launch.
-vim.api.nvim_create_autocmd("InsertEnter", {
-  once = true,
-  callback = function()
-    setup_once("blink.cmp", function()
-      load("blink.lib")
-      load("LuaSnip")
-      load("friendly-snippets")
-      require("blink.cmp").setup({
-        keymap = { preset = "default", ["<CR>"] = { "accept", "fallback" } },
-        snippets = { preset = "luasnip" },
-        sources = { default = { "lsp", "path", "snippets", "buffer" } },
-      })
-    end)
-  end,
-})
-
--- LSP discovery is needed for real files, not dashboards and empty buffers.
--- Schedule it once so the file can paint before Mason scans its registry.
-vim.api.nvim_create_autocmd("BufReadPost", {
+-- Expensive integrations become available immediately after the first screen.
+-- They are intentionally scheduled so startup timing is not dominated by setup.
+vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
     vim.schedule(function()
+      setup_once("nvim-notify", function()
+        local notify = require("notify")
+        notify.setup({ background_colour = "#000000", render = "compact", timeout = 3000 })
+        vim.notify = notify
+        vim.keymap.set("n", "<leader>nn", "<Cmd>Notifications<CR>", { desc = "Notifications" })
+      end)
+      setup_once("noice.nvim", function()
+        load("nui.nvim")
+        load("plenary.nvim")
+        require("noice").setup({
+          lsp = { progress = { enabled = true }, hover = { enabled = true }, signature = { enabled = true } },
+          presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            inc_rename = true,
+            lsp_doc_border = true,
+          },
+        })
+        vim.keymap.set("n", "<leader>sn", function()
+          require("noice").cmd("history")
+        end, { desc = "Noice History" })
+        vim.keymap.set("n", "<leader>sd", function()
+          require("noice").cmd("dismiss")
+        end, { desc = "Dismiss Messages" })
+      end)
+      setup_once("mini.sessions", function()
+        require("mini.sessions").setup({ autoread = true, autowrite = true })
+        vim.keymap.set("n", "<leader>qs", function()
+          MiniSessions.write()
+        end, { desc = "Session Save" })
+        vim.keymap.set("n", "<leader>ql", function()
+          MiniSessions.select()
+        end, { desc = "Session Load" })
+      end)
+      setup_once("blink.cmp", function()
+        load("blink.lib")
+        load("LuaSnip")
+        load("friendly-snippets")
+        require("blink.cmp").setup({
+          keymap = { preset = "default", ["<CR>"] = { "accept", "fallback" } },
+          snippets = { preset = "luasnip" },
+          sources = { default = { "lsp", "path", "snippets", "buffer" } },
+        })
+      end)
       setup_once("mason.nvim", function()
         require("mason").setup()
       end)
@@ -488,77 +497,31 @@ vim.api.nvim_create_autocmd("BufReadPost", {
           automatic_enable = true,
         })
       end)
+      setup_once("trouble.nvim", function()
+        require("trouble").setup({})
+      end)
       setup_once("arborist.nvim", function()
         require("arborist").setup()
       end)
-    end)
-  end,
-})
-
-command("Trouble", function(args)
-  setup_once("trouble.nvim", function()
-    require("trouble").setup({})
-  end)
-  vim.cmd.Trouble(args.args)
-end, { nargs = "*", desc = "Open diagnostics" })
-
-local function setup_messages()
-  setup_once("nvim-notify", function()
-    local notify = require("notify")
-    notify.setup({ background_colour = "#000000", render = "compact", timeout = 3000 })
-    vim.notify = notify
-  end)
-  setup_once("noice.nvim", function()
-    load("nui.nvim")
-    load("plenary.nvim")
-    require("noice").setup({
-      lsp = { progress = { enabled = true }, hover = { enabled = true }, signature = { enabled = true } },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
-        lsp_doc_border = true,
-      },
-    })
-  end)
-end
-
-vim.api.nvim_create_autocmd("CmdlineEnter", { once = true, callback = setup_messages })
-vim.keymap.set("n", "<leader>nn", function()
-  setup_messages()
-  vim.cmd.Notifications()
-end, { desc = "Notifications" })
-vim.keymap.set("n", "<leader>sn", function()
-  setup_messages()
-  require("noice").cmd("history")
-end, { desc = "Noice History" })
-vim.keymap.set("n", "<leader>sd", function()
-  setup_messages()
-  require("noice").cmd("dismiss")
-end, { desc = "Dismiss Messages" })
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  once = true,
-  callback = function()
-    if vim.fn.argc() == 0 then
-      setup_sessions()
-      setup_once("mini.starter", function()
-        local starter = require("mini.starter")
-        starter.setup({
-          header = "vim.pack + mini.starter",
-          items = {
-            starter.sections.builtin_actions(),
-            starter.sections.recent_files(8, false),
-            starter.sections.sessions(5, true),
-          },
-          footer = "f: find, e: new, q: quit",
-        })
-      end)
-      if vim.bo.filetype == "" then
-        require("mini.starter").open()
+      vim.keymap.set("n", "<leader>tr", "<Cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
+      if vim.fn.argc() == 0 then
+        setup_once("mini.starter", function()
+          local starter = require("mini.starter")
+          starter.setup({
+            header = "vim.pack + mini.starter",
+            items = {
+              starter.sections.builtin_actions(),
+              starter.sections.recent_files(8, false),
+              starter.sections.sessions(5, true),
+            },
+            footer = "f: find, e: new, q: quit",
+          })
+        end)
+        if vim.bo.filetype == "" then
+          require("mini.starter").open()
+        end
       end
-    end
+    end)
   end,
 })
 

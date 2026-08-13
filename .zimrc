@@ -5,7 +5,15 @@
 # Basic Zsh defaults.
 zmodule environment
 zmodule input
+zmodule termtitle
+zmodule utility
 
+
+# ----------------------------------------------------------------------------
+# Prompt
+# ----------------------------------------------------------------------------
+
+zmodule romkatv/powerlevel10k --use degit
 
 # ----------------------------------------------------------------------------
 # Completion definitions
@@ -50,11 +58,4 @@ zmodule Aloxaf/fzf-tab
 # ----------------------------------------------------------------------------
 
 zmodule zsh-users/zsh-autosuggestions
-zmodule zsh-users/zsh-syntax-highlighting
-
-
-# ----------------------------------------------------------------------------
-# Prompt
-# ----------------------------------------------------------------------------
-
-zmodule romkatv/powerlevel10k --use degit
+zmodule zdharma-continuum/fast-syntax-highlighting

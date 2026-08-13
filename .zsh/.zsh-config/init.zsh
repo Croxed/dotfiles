@@ -53,6 +53,7 @@ path_candidate=(
     "$HOME/.bun/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
     "$HOME/go/bin"
+    "/opt/homebrew/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"

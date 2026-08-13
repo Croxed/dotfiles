@@ -58,13 +58,15 @@ HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 HISTSIZE=1000000000
 SAVEHIST=1000000000
 
-setopt EXTENDED_HISTORY
-setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_SPACE
+setopt HIST_FCNTL_LOCK
 
 
 # ============================================================================
@@ -613,61 +615,6 @@ function z4h-forward-char() {
 
 zle -N z4h-forward-char
 
-
-# ============================================================================
-# Terminal title
-#
-# Idle:
-#
-#   ~/foo/bar
-#
-# Executing:
-#
-#   kubectl get pods
-#
-# SSH:
-#
-#   user@host: ~/foo/bar
-# ============================================================================
-
-autoload -Uz add-zsh-hook
-
-function _z4h_terminal_title() {
-  emulate -L zsh
-
-  [[ "$TERM" == (dumb|linux) ]] && return
-
-  local title="$1"
-
-  print -Pn -- $'\e]0;'"${title}"$'\a'
-}
-
-function _z4h_terminal_title_preexec() {
-  emulate -L zsh
-
-  local cmd="${1//\%/%%}"
-
-  if [[ -n "$SSH_CONNECTION" || "${P9K_SSH:-0}" == 1 ]]; then
-    _z4h_terminal_title "%n@%m: $cmd"
-  else
-    _z4h_terminal_title "$cmd"
-  fi
-}
-
-function _z4h_terminal_title_precmd() {
-  emulate -L zsh
-
-  if [[ -n "$SSH_CONNECTION" || "${P9K_SSH:-0}" == 1 ]]; then
-    _z4h_terminal_title '%n@%m: %~'
-  else
-    _z4h_terminal_title '%~'
-  fi
-}
-
-add-zsh-hook preexec _z4h_terminal_title_preexec
-add-zsh-hook precmd  _z4h_terminal_title_precmd
-
-
 # ============================================================================
 # Key bindings
 #
@@ -695,6 +642,9 @@ bindkey '^[[1;2B' z4h-cd-down
 bindkey '^R' z4h-fzf-history
 
 bindkey '^[[C' z4h-forward-char
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 
 # ============================================================================
