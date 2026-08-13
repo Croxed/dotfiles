@@ -110,6 +110,7 @@ source "${ZIM_HOME}/init.zsh"
 
 # IMPORTANT:
 # fzf-tab cannot render Zsh %F/%f prompt escapes in group descriptions.
+zstyle ':completion:*' completer _complete
 zstyle ':completion:*' menu no
 
 if [[ -n "$LS_COLORS" ]]; then
@@ -163,19 +164,31 @@ zstyle ':fzf-tab:*' fzf-bindings \
 #
 zstyle ':fzf-tab:*' continuous-trigger ''
 
-function z4h-tab-complete() {
-  zle fzf-tab-complete
-  local ret=$?
+bindkey '^I' fzf-tab-complete
 
-  zle reset-prompt
+function _z4h_redraw_prompt() {
+  emulate -L zsh
+
+  local f
+
+  # Re-run directory-change hooks.
+  for f in chpwd "${chpwd_functions[@]}"; do
+    (( $+functions[$f] )) || continue
+    "$f" &>/dev/null || true
+  done
+
+  # Re-run precmd hooks so P10k and similar prompt integrations update.
+  for f in precmd "${precmd_functions[@]}"; do
+    (( $+functions[$f] )) || continue
+    "$f" &>/dev/null || true
+  done
+
+  # Re-expand PS1/RPS1.
+  zle .reset-prompt
+
+  # Force redisplay.
   zle -R
-
-  return $ret
 }
-
-zle -N z4h-tab-complete
-bindkey '^I' z4h-tab-complete
-
 
 # ============================================================================
 # Completion cache for generated CLI completions
@@ -497,8 +510,7 @@ function z4h-fzf-history() {
   BUFFER="$choice"
   CURSOR=${#BUFFER}
 
-  zle reset-prompt
-  zle -R
+  _z4h_redraw_prompt
 }
 
 zle -N z4h-fzf-history
@@ -511,8 +523,7 @@ zle -N z4h-fzf-history
 function z4h-cd-up() {
   builtin cd -q .. || return
 
-  zle reset-prompt
-  zle -R
+  _z4h_redraw_prompt
 }
 
 zle -N z4h-cd-up
@@ -527,15 +538,13 @@ function z4h-cd-back() {
 
   while (( $#dirstack )); do
     if builtin pushd -q +1 2>/dev/null; then
-      zle reset-prompt
-      zle -R
+      _z4h_redraw_prompt
       return
     fi
 
     builtin popd -q +1 2>/dev/null || break
   done
-  zle reset-prompt
-  zle -R
+  _z4h_redraw_prompt
 }
 
 function z4h-cd-forward() {
@@ -543,15 +552,13 @@ function z4h-cd-forward() {
 
   while (( $#dirstack )); do
     if builtin pushd -q -0 2>/dev/null; then
-      zle reset-prompt
-      zle -R
+      _z4h_redraw_prompt
       return
     fi
 
     builtin popd -q -0 2>/dev/null || break
   done
-  zle reset-prompt
-  zle -R
+  _z4h_redraw_prompt
 }
 
 zle -N z4h-cd-back
@@ -608,15 +615,13 @@ function z4h-cd-down() {
   fi
 
   [[ -n "$choice" ]] || {
-    zle reset-prompt
-    zle -R
+    _z4h_redraw_prompt
     return 0
   }
 
   builtin cd -- "$choice" || return
 
-  zle reset-prompt
-  zle -R
+  _z4h_redraw_prompt
 }
 
 zle -N z4h-cd-down
