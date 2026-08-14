@@ -7,9 +7,6 @@ _git-remove-merged() {
         '*:Branch to ignore:__branch_names'
 }
 
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '%B%d%b'
-
 # Function to verify user wants to do something accepting "y" or "n" as a response
 verify() {
     local PROMPT=${1:-"Are you sure? (y/n)"}
