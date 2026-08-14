@@ -105,66 +105,20 @@ source "${ZIM_HOME}/init.zsh"
 
 
 # ---------------------------------------------------------------------------
-# Completion formatting
+# Redraw and completion
 # ---------------------------------------------------------------------------
 
-# IMPORTANT:
-# fzf-tab cannot render Zsh %F/%f prompt escapes in group descriptions.
-zstyle ':completion:*' completer _complete
-zstyle ':completion:*' menu no
+zstyle ':z4h:*' fzf-command fzf
+zstyle ':z4h:fzf-complete' recurse-dirs no
+zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
-if [[ -n "$LS_COLORS" ]]; then
-  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-fi
+zle -N z4h-fzf-complete
+zle -N z4h-fzf-history
+zle -N z4h-fzf-dir-history
 
-zstyle ':completion:*:descriptions' format ''
-zstyle ':completion:*:corrections'  format ''
-zstyle ':completion:*:messages'     format ''
-zstyle ':completion:*:warnings'     format ''
-zstyle ':completion:*' format ''
-
-# Directory completion.
-zstyle ':completion:*:cd:*' \
-  tag-order local-directories directory-stack path-directories
-
-zstyle ':completion:*:cd:*' \
-  ignore-parents parent pwd
-
-# Don't offer the item that's already on the command line.
-zstyle ':completion:*:(rm|kill|diff):*' \
-  ignore-line other
-
-# Keep .zwc files out of file completion.
-zstyle ':completion:*:*:*:*:files' \
-  ignored-patterns '*.zwc'
-
-
-# ---------------------------------------------------------------------------
-# fzf-tab
-# ---------------------------------------------------------------------------
-
-zstyle ':fzf-tab:*' use-fzf-default-opts no
-zstyle ':fzf-tab:*' prefix ''
-
-zstyle ':fzf-tab:*' fzf-flags \
-  --color=hl:201,hl+:201 \
-  --no-mouse \
-  --cycle \
-  --border=horizontal \
-  --height=60% \
-  --layout=reverse
-
-zstyle ':fzf-tab:*' fzf-bindings \
-  'ctrl-space:toggle' \
-  'ctrl-a:toggle-all'
-
-# Equivalent intent to:
-#
-#   zstyle ':z4h:fzf-complete' recurse-dirs 'no'
-#
-zstyle ':fzf-tab:*' continuous-trigger ''
-
-bindkey '^I' fzf-tab-complete
+bindkey '^I' z4h-fzf-complete
+bindkey '^R' z4h-fzf-history
+bindkey '^[r' z4h-fzf-dir-history
 
 function _z4h_redraw_prompt() {
   emulate -L zsh
@@ -703,9 +657,3 @@ fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"
-
-if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
-  source "$HOME/.local/share/deja/init.zsh"
-else
-  eval "$(deja init zsh)"
-fi

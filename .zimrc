@@ -4,6 +4,8 @@
 
 # Basic Zsh defaults.
 zmodule environment
+zmodule git
+zmodule fzf
 zmodule input
 zmodule termtitle
 zmodule utility
@@ -24,6 +26,12 @@ zmodule romkatv/powerlevel10k --use degit
 
 zmodule zsh-users/zsh-completions --fpath src
 
+zmodule romkatv/zsh4humans \
+  --fpath fn \
+  --autoload z4h-fzf-complete \
+  --autoload z4h-fzf-history \
+  --autoload z4h-fzf-dir-history
+
 
 # ----------------------------------------------------------------------------
 # Zim completion
@@ -42,15 +50,6 @@ zmodule romkatv/zsh-defer
 zmodule hlissner/zsh-autopair
 zmodule laggardkernel/git-ignore
 zmodule peterhurford/up.zsh
-
-
-# ----------------------------------------------------------------------------
-# FZF completion UI
-#
-# Must be after compinit, but before autosuggestions/syntax-highlighting.
-# ----------------------------------------------------------------------------
-
-zmodule Aloxaf/fzf-tab
 
 
 # ----------------------------------------------------------------------------

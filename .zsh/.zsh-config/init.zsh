@@ -98,7 +98,7 @@ zsh-defer -a -c "_source_zsh_config"
 # ---------------------------------------------------------------------------
 
 # Don't steal TAB from fzf-tab.
-export DEJA_CYCLE_KEY='^N'
+export DEJA_CYCLE_KEY=
 export DEJA_EMPTY=off
 
 # Don't steal our Shift-arrow directory navigation.
@@ -113,15 +113,17 @@ export DEJA_ACCEPT_KEY=
 # Keep ghost text similar to zsh-autosuggestions.
 export DEJA_HIGHLIGHT_STYLE='fg=8'
 
-if [[ -r "$HOME/.local/share/deja/init.zsh" ]]; then
+if [[ ! -r "$HOME/.local/share/deja/init.zsh" ]]; then
+  if (( ! $+commands[deja] )); then
+    zsh "$SIMPL_ZSH_DIR/install/deja.zsh"
+    rehash
+  fi
+
+  (( $+commands[deja] )) && deja init zsh >/dev/null
+fi
+
+[[ -r "$HOME/.local/share/deja/init.zsh" ]] &&
   source "$HOME/.local/share/deja/init.zsh"
-elif (( ! $+commands[deja] )); then
-  zsh $SIMPL_ZSH_DIR/install/deja.zsh
-  rehash
-fi
-if (( $+commands[deja] )); then
-  eval "$(deja init zsh)"
-fi
 
 
 if (( ! $+commands[zsh-patina] )); then
