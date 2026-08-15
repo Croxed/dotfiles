@@ -21,6 +21,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -n $ZSH_PROFILE ]]; then
+  zmodload zsh/zprof
+fi
 
 # ============================================================================
 # Environment
@@ -83,6 +86,14 @@ setopt PUSHD_SILENT
 # ============================================================================
 # ZimFW
 # ============================================================================
+
+zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
+
+# Running command, e.g. "nvim", "git", "ssh"
+zstyle ':zim:termtitle:preexec' format '${${(Az)1}[1]}'
+
+# Idle shell, e.g. "~/src/my-project"
+zstyle ':zim:termtitle:precmd' format '%~'
 
 ZIM_HOME="${ZDOTDIR:-${HOME}}/.zim"
 
@@ -655,5 +666,6 @@ if [ -d "$SCRIPT_TEMPLATE_DIR" ]; then
   source "$SCRIPT_TEMPLATE_DIR"/init.sh
 fi
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && zsh-defer -c "source $HOME/.bun/_bun"
+if [[ -n $ZSH_PROFILE ]]; then
+  zprof
+fi

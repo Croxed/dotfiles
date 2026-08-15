@@ -90,9 +90,6 @@ _source_zsh_config() {
   fi
 }
 
-# Source custom plugins
-zsh-defer -a -c "_source_zsh_config"
-
 # ---------------------------------------------------------------------------
 # deja
 # ---------------------------------------------------------------------------
@@ -113,24 +110,28 @@ export DEJA_ACCEPT_KEY=
 # Keep ghost text similar to zsh-autosuggestions.
 export DEJA_HIGHLIGHT_STYLE='fg=8'
 
-if [[ ! -r "$HOME/.local/share/deja/init.zsh" ]]; then
-  if (( ! $+commands[deja] )); then
-    zsh "$SIMPL_ZSH_DIR/install/deja.zsh"
-    rehash
-  fi
+_load_deja_bin() {
+    if [[ ! -r "$HOME/.local/share/deja/init.zsh" ]]; then
+    if (( ! $+commands[deja] )); then
+        zsh "$SIMPL_ZSH_DIR/install/deja.zsh"
+        rehash
+    fi
 
-  (( $+commands[deja] )) && deja init zsh >/dev/null
-fi
+    (( $+commands[deja] )) && deja init zsh >/dev/null
+    fi
 
-[[ -r "$HOME/.local/share/deja/init.zsh" ]] &&
-  source "$HOME/.local/share/deja/init.zsh"
-
+    [[ -r "$HOME/.local/share/deja/init.zsh" ]] &&
+    source "$HOME/.local/share/deja/init.zsh"
+}
 
 if (( ! $+commands[zsh-patina] )); then
-  zsh $SIMPL_ZSH_DIR/install/zsh-patina.zsh
-  rehash
+ zsh $SIMPL_ZSH_DIR/install/zsh-patina.zsh
+ rehash
 fi
 
 if (( $+commands[zsh-patina] )); then
-  eval "$(zsh-patina activate)"
+    eval "$(zsh-patina activate)"
 fi
+
+# Source custom plugins
+zsh-defer -a -c "_source_zsh_config; _load_deja_bin"

@@ -5,7 +5,6 @@
 # Basic Zsh defaults.
 zmodule environment
 zmodule git
-zmodule fzf
 zmodule input
 zmodule termtitle
 zmodule utility
@@ -47,9 +46,7 @@ zmodule completion
 # ----------------------------------------------------------------------------
 
 zmodule romkatv/zsh-defer
-zmodule hlissner/zsh-autopair
 zmodule laggardkernel/git-ignore
-zmodule peterhurford/up.zsh
 
 
 # ----------------------------------------------------------------------------

@@ -33,7 +33,6 @@
 !.config/zsh-patina
 !.config/i3blocks
 !.config/i3blocks/config
-!.config/oh-my-posh
 
 .weechat/*
 !.weechat/weechat.conf
