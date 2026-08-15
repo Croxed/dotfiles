@@ -1,17 +1,7 @@
-# Neovim config (vim.pack)
+# Neovim config
 
-This config uses native `vim.pack` (Neovim 0.12+) instead of lazy.nvim/LazyVim.
+Personal configuration based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim), using native `vim.pack` and the Catppuccin Macchiato colorscheme.
 
-## Notes
+The main configuration is intentionally kept in `init.lua`, following Kickstart's documented, single-file layout. Optional plugin examples live under `lua/kickstart/plugins` and personal additions can go in `lua/custom/plugins`.
 
-- Plugins declared in `lua/config/pack.lua`
-- Runtime options/keymaps/autocmds live in `lua/config/options.lua`, `lua/config/keymaps.lua`, `lua/config/autocmds.lua`
-- Lockfile managed by Neovim: `nvim-pack-lock.json`
-
-## Update plugins
-
-Inside Neovim:
-
-```vim
-:lua vim.pack.update()
-```
+Update plugins inside Neovim with `:lua vim.pack.update()`.

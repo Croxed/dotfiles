@@ -26,8 +26,8 @@ zmodule romkatv/powerlevel10k --use degit
 zmodule zsh-users/zsh-completions --fpath src
 
 zmodule romkatv/zsh4humans \
+  --branch v5 \
   --fpath fn \
-  --autoload z4h-fzf-complete \
   --autoload z4h-fzf-history \
   --autoload z4h-fzf-dir-history
 
@@ -39,6 +39,7 @@ zmodule romkatv/zsh4humans \
 # ----------------------------------------------------------------------------
 
 zmodule completion
+zmodule Aloxaf/fzf-tab
 
 
 # ----------------------------------------------------------------------------

@@ -36,6 +36,7 @@ path_candidate=(
     "$HOME/.gobrew/bin"
     "$HOME/.nimble/bin"
     "$HOME/.bin"
+    "/opt/homebrew/bin"
     "$HOME/n/bin"
     "$HOME/.symfony/bin"
     "$HOME/.phpenv/shims"
@@ -53,7 +54,6 @@ path_candidate=(
     "$HOME/.bun/bin"
     "$HOME/.config/yarn/global/node_modules/.bin"
     "$HOME/go/bin"
-    "/opt/homebrew/bin"
     "/usr/local/bin"
     "/opt/local/sbin"
     "/opt/local/bin"
@@ -133,5 +133,6 @@ if (( $+commands[zsh-patina] )); then
     eval "$(zsh-patina activate)"
 fi
 
-# Source custom plugins
-zsh-defer -a -c "_source_zsh_config; _load_deja_bin"
+# Source custom plugins. Some of them initialize ZLE and reset TAB, so restore
+# fzf-tab after they have finished loading.
+zsh-defer -a -c "_source_zsh_config; _load_deja_bin; bindkey '^I' fzf-tab-complete"

@@ -120,14 +120,10 @@ source "${ZIM_HOME}/init.zsh"
 # ---------------------------------------------------------------------------
 
 zstyle ':z4h:*' fzf-command fzf
-zstyle ':z4h:fzf-complete' recurse-dirs no
-zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
-
-zle -N z4h-fzf-complete
 zle -N z4h-fzf-history
 zle -N z4h-fzf-dir-history
 
-bindkey '^I' z4h-fzf-complete
+bindkey '^I' fzf-tab-complete
 bindkey '^R' z4h-fzf-history
 bindkey '^[r' z4h-fzf-dir-history
 
