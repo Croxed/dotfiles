@@ -43,11 +43,11 @@ export GPG_TTY=$TTY
 # General Zsh behaviour
 # ============================================================================
 
-WORDCHARS=''
-KEYTIMEOUT=20
-ZLE_REMOVE_SUFFIX_CHARS=''
+typeset -gx WORDCHARS=''
+typeset -gx KEYTIMEOUT=20
+typeset -gx ZLE_REMOVE_SUFFIX_CHARS=''
 
-PROMPT_EOL_MARK='%K{red} %k'
+typeset -gx PROMPT_EOL_MARK='%K{red} %k'
 
 zle_highlight=('paste:none')
 
@@ -58,8 +58,8 @@ zle_highlight=('paste:none')
 
 HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 
-HISTSIZE=1000000000
-SAVEHIST=1000000000
+typeset -gx HISTSIZE=1000000000
+typeset -gx SAVEHIST=1000000000
 
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
