@@ -117,7 +117,31 @@ local servers = {
   stylua = {}, -- Used to format Lua code
 
   ansiblels = {},
-  yamlls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemaStore = {
+          enable = true,
+          url = 'https://www.schemastore.org/api/json/catalog.json',
+        },
+        schemas = {
+          kubernetes = {
+            'k8s/**/*.yaml',
+            'k8s/**/*.yml',
+            'kubernetes/**/*.yaml',
+            'kubernetes/**/*.yml',
+            'manifests/**/*.yaml',
+            'manifests/**/*.yml',
+            'kustomize/**/*.yaml',
+            'kustomize/**/*.yml',
+          },
+        },
+        kubernetesCRDStore = {
+          enable = true,
+        },
+      },
+    },
+  },
 
   -- Special Lua Config, as recommended by neovim help docs
   lua_ls = {
