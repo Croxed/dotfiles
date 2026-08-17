@@ -58,7 +58,18 @@ require('blink.cmp').setup {
   },
 
   sources = {
-    default = { 'lsp', 'path', 'snippets' },
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    providers = {
+      -- Show words from the current buffer together with LSP suggestions.
+      -- Blink normally uses buffer results only when the LSP returns nothing.
+      lsp = { fallbacks = {} },
+      buffer = {
+        score_offset = -3,
+        opts = {
+          get_bufnrs = function() return { vim.api.nvim_get_current_buf() } end,
+        },
+      },
+    },
   },
 
   snippets = { preset = 'luasnip' },

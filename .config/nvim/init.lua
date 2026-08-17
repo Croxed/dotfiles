@@ -16,22 +16,16 @@ require 'config.plugins.extras'
 require 'config.plugins.profiling'
 
 -- Heavy feature groups are initialized after the first screen is visible.
--- Telescope and LSP become available immediately after VimEnter, while the
--- completion engine is not needed until entering Insert mode for the first time.
+-- Completion is initialized before LSP so servers receive its enhanced
+-- completion capabilities when they start.
 vim.api.nvim_create_autocmd('VimEnter', {
   once = true,
   callback = function()
     vim.schedule(function()
       require 'config.plugins.search'
+      require 'config.plugins.completion'
       require 'config.plugins.lsp'
     end)
-  end,
-})
-
-vim.api.nvim_create_autocmd('InsertEnter', {
-  once = true,
-  callback = function()
-    require 'config.plugins.completion'
   end,
 })
 
