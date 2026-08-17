@@ -3,6 +3,7 @@ require 'config.options'
 require 'config.keymaps'
 require 'config.autocmds'
 require 'config.lsp_info'
+require 'config.plugin_updates'
 
 -- Native vim.pack hooks shared by the plugin modules below.
 require 'config.pack'
