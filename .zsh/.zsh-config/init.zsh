@@ -110,6 +110,15 @@ export DEJA_ACCEPT_KEY=
 # Keep ghost text similar to zsh-autosuggestions.
 export DEJA_HIGHLIGHT_STYLE='fg=8'
 
+croxed_update_bins() {
+	zsh "$SIMPL_ZSH_DIR/install"/*.zsh
+	pkill -f 'deja daemon'
+	zsh-patina restart
+
+	reload
+}
+
+
 _load_deja_bin() {
     if [[ ! -r "$HOME/.local/share/deja/init.zsh" ]]; then
     if (( ! $+commands[deja] )); then

@@ -123,6 +123,15 @@ version="${latest_url##*/}"
 
 [[ -n "$version" ]] ||
   die "Unable to determine latest release"
+
+if (( $+commands[zsh-patina] )); then
+	existing_version="$(zsh-patina -V | awk '{print $2}')"
+
+	if [[ "$version" == "$existing_version" ]]; then
+		printf 'Latest version of zsh-patina is already installed\n'
+		exit 0
+	fi
+fi
 # ---------------------------------------------------------------------------
 # Build release URL
 # ---------------------------------------------------------------------------
