@@ -111,9 +111,11 @@ export DEJA_ACCEPT_KEY=
 export DEJA_HIGHLIGHT_STYLE='fg=8'
 
 croxed_update_bins() {
-	for f in "$SIMPL_ZSH_DIR"/install/*.zsh; do
-		zsh "$f"
-	done
+    local f
+    for f in "$SIMPL_ZSH_DIR/install"/*.zsh; do
+        zsh "$f"
+    done
+    unset f
 	pkill -f 'deja daemon'
 	zsh-patina restart
 
