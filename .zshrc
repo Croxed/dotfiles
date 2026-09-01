@@ -665,3 +665,6 @@ fi
 if [[ -n $ZSH_PROFILE ]]; then
   zprof
 fi
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+alias ggvm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g

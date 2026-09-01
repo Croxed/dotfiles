@@ -14,6 +14,9 @@ if [ -n "${ZSH_VERSION-}" ]; then
   # Do not change anything else in this file.
 fi
 
+typeset -gx GOROOT=$HOME/.go
+typeset -gx GOPATH=$HOME/go
+
 setopt rcs
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"

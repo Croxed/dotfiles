@@ -32,9 +32,6 @@ path_candidate=(
     "$HOME/.local/share/bob/nvim-bin"
     "$HOME/anaconda3/bin"
     "$HOME/github.com/graalvm/Contents/Home/bin"
-    "$HOME/.gobrew/current/bin"
-    "$HOME/.gobrew/bin"
-    "$HOME/.nimble/bin"
     "$HOME/.bin"
     "/opt/homebrew/bin"
     "$HOME/n/bin"
@@ -63,8 +60,12 @@ path_candidate=(
     "$HOME"/Library/Python/*/bin
     )
 
-if [ -d "$HOME/.gobrew/current/go" ]; then
-  typeset -gx GOROOT="$HOME/.gobrew/current/go"
+if [ -d "$HOME/.go" ]; then
+  typeset -gx GOROOT="$HOME/.go"
+fi
+
+if [ "${GOROOT}x" != "x" ]; then
+  path+=("$GOPATH/bin")
 fi
 
 # add all specified oaths to the path if not already present, the -U flag means 'unique'
