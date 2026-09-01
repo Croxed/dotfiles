@@ -97,6 +97,9 @@ zstyle ':zim:termtitle:precmd' format '%~'
 
 ZIM_HOME="${ZDOTDIR:-${HOME}}/.zim"
 
+# How often to offer ZimFW and plugin updates.
+zstyle ':zim:update' days 30
+
 # Bootstrap ZimFW itself.
 if [[ ! -e "${ZIM_HOME}/zimfw.zsh" ]]; then
   command mkdir -p "${ZIM_HOME}"
@@ -106,6 +109,33 @@ if [[ ! -e "${ZIM_HOME}/zimfw.zsh" ]]; then
     -o "${ZIM_HOME}/zimfw.zsh" \
     https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
+
+function zimfw-update() {
+  emulate -L zsh
+  zmodload zsh/datetime
+
+  local days=30 next_check=0 updated=0
+  local state_file="${XDG_CACHE_HOME:-$HOME/.cache}/zimfw-update"
+
+  zstyle -s ':zim:update' days days
+  [[ $days == <-> ]] || days=30
+  [[ -r $state_file ]] && read -r next_check < "$state_file"
+  [[ $1 != --auto ]] || (( EPOCHSECONDS >= next_check )) || return
+  [[ -t 0 ]] || return
+
+  if read -q '?Update ZimFW and its plugins now? [y/N] '; then
+    print
+    source "${ZIM_HOME}/zimfw.zsh" upgrade &&
+      zimfw update || return
+    updated=1
+  else
+    print
+  fi
+
+  command mkdir -p "${state_file:h}"
+  print -r -- $(( EPOCHSECONDS + days * 86400 )) >| "$state_file"
+  (( updated )) && reload
+}
 
 # Rebuild init.zsh when .zimrc changes.
 if [[ ! "${ZIM_HOME}/init.zsh" -nt "${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc}" ]]; then
@@ -650,6 +680,8 @@ bindkey '^[[B' history-substring-search-down
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
 
 . "${SIMPL_ZSH_DIR}/init.zsh"
+
+zimfw-update --auto
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
