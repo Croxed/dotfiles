@@ -10,4 +10,4 @@ _install_phpbrew() {
     fi
 }
 
-zsh-defer _install_phpbrew
+zsh-defer -a _install_phpbrew

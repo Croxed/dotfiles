@@ -10,4 +10,4 @@ _install_n() {
     [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin" # Added by n-install (see http://git.io/n-install-repo).
 }
 
-zsh-defer _install_n
+zsh-defer -a _install_n

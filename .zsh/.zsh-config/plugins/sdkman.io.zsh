@@ -17,4 +17,4 @@ _install_and_source_sdkman() {
     source "$HOME/.sdkman/bin/sdkman-init.sh" &>/dev/null
 }
 
-zsh-defer _install_and_source_sdkman
+zsh-defer -a _install_and_source_sdkman

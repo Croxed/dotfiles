@@ -685,9 +685,6 @@ zimfw-update --auto
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && zsh-defer -c "source $HOME/.sdkman/bin/sdkman-init.sh"
-
-
 export SCRIPT_TEMPLATE_DIR="$HOME/development/script-template"
 #Source the init.sh
 if [ -d "$SCRIPT_TEMPLATE_DIR" ]; then

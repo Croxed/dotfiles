@@ -138,15 +138,17 @@ _load_deja_bin() {
     source "$HOME/.local/share/deja/init.zsh"
 }
 
-if (( ! $+commands[zsh-patina] )); then
- zsh $SIMPL_ZSH_DIR/install/zsh-patina.zsh
- rehash
-fi
+_load_zsh_patina() {
+    if (( ! $+commands[zsh-patina] )); then
+        zsh "$SIMPL_ZSH_DIR/install/zsh-patina.zsh"
+        rehash
+    fi
 
-if (( $+commands[zsh-patina] )); then
-    eval "$(zsh-patina activate)"
-fi
+    (( $+commands[zsh-patina] )) && eval "$(zsh-patina activate)"
+}
 
-# Source custom plugins. Some of them initialize ZLE and reset TAB, so restore
-# fzf-tab after they have finished loading.
-zsh-defer -a -c "_source_zsh_config; _load_deja_bin; bindkey '^I' fzf-tab-complete"
+# Initialize ZLE plugins before displaying the first prompt.
+_source_zsh_config
+_load_deja_bin
+bindkey '^I' fzf-tab-complete
+_load_zsh_patina
