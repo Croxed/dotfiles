@@ -134,6 +134,7 @@ function zimfw-update() {
 
   command mkdir -p "${state_file:h}"
   print -r -- $(( EPOCHSECONDS + days * 86400 )) >| "$state_file"
+  (( $+functions[croxed_update_bins] )) && croxed_update_bins
   (( updated )) && reload
 }
 
