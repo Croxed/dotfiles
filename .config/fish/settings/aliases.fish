@@ -12,7 +12,6 @@ function __croxed.create_abbr -d "Create abbreviations"
     abbr -a -g $name $body
 end
 
-
 __croxed.create_abbr q 'exit 0'
 
 if type -q eza
@@ -30,6 +29,8 @@ else
     __croxed.create_abbr ls 'ls -Fhlp --color=auto'
 end
 
+type -q tofu; and __croxed.create_abbr terraform tofu
+
 function gbn
     git branch | awk '$1 ~ /\*/ {print $2}' | tr -d '\n'
 end
@@ -46,14 +47,14 @@ __croxed.create_abbr du 'du -kh'
 __croxed.create_abbr df 'df -kTh'
 
 if type -q lvim
-    __croxed.create_abbr vim 'lvim'
-    __croxed.create_abbr v 'lvim'
+    __croxed.create_abbr vim lvim
+    __croxed.create_abbr v lvim
 else if type -q nvim
-    __croxed.create_abbr vim 'nvim'
-    __croxed.create_abbr v 'nvim'
+    __croxed.create_abbr vim nvim
+    __croxed.create_abbr v nvim
     __croxed.create_abbr sv 'sudo nvim'
 else
-    __croxed.create_abbr v 'vim'
+    __croxed.create_abbr v vim
     __croxed.create_abbr sv 'sudo vim'
 end
 
@@ -64,18 +65,15 @@ __croxed.create_abbr cdtemp 'cd $(mktemp -d)'
 __croxed.create_abbr v 'f -e $EDITOR' # quick opening files with vim
 __croxed.create_abbr m 'f -e mpv' # quick opening files with mplayer
 __croxed.create_abbr o 'a -e xdg-open' # quick opening files with xdg-open
-__croxed.create_abbr j 'zz' # directory jumping
+__croxed.create_abbr j zz # directory jumping
 
-__croxed.create_abbr gi 'git-ignore'
+__croxed.create_abbr gi git-ignore
 
 __croxed.create_abbr c "clear && printf '\e[3J'"
 
-if set -q EUID
-    if [ EUID = 0 ]
-        __croxed.create_abbr reboot 'sudo reboot'
-    end
+if set -q EUID; and test "$EUID" = 0
+    __croxed.create_abbr reboot 'sudo reboot'
 end
-
 
 # Useful tree __croxed.create_abbres
 __croxed.create_abbr tree1 'tree --dirsfirst -ChFL 1'
@@ -94,10 +92,10 @@ __croxed.create_abbr ports 'sudo lsof -iTCP -sTCP:LISTEN -P'
 if type -q pacman
     # pacman stuff
     __croxed.create_abbr pup 'sudo pacman -Syyu' # update
-    __croxed.create_abbr pin 'sudo pacman -S'    # install
-    __croxed.create_abbr pun 'sudo pacman -Rs'   # remove
-    __croxed.create_abbr pcc 'sudo pacman -Scc'  # clear cache
-    __croxed.create_abbr pls 'pacman -Ql'        # list files
+    __croxed.create_abbr pin 'sudo pacman -S' # install
+    __croxed.create_abbr pun 'sudo pacman -Rs' # remove
+    __croxed.create_abbr pcc 'sudo pacman -Scc' # clear cache
+    __croxed.create_abbr pls 'pacman -Ql' # list files
     __croxed.create_abbr prm 'sudo pacman -R --nosave --recursive' # really remove, configs and all
     # pkg stuff
     __croxed.create_abbr pkg 'makepkg --printsrcinfo > .SRCINFO && makepkg -fsrc'
@@ -115,7 +113,7 @@ __croxed.create_abbr smk 'sudo make clean install && make clean'
 __croxed.create_abbr ssmk 'sudo make clean install && make clean && rm -iv config.h'
 
 # __croxed.create_abbres inside tmux session
-if set -q $TMUX
+if set -q TMUX
     __croxed.create_abbr :sp 'tmux split-window'
     __croxed.create_abbr :vs 'tmux split-window -h'
 end
@@ -138,7 +136,7 @@ __croxed.create_abbr get 'curl --continue-at - --location --progress-bar --remot
 
 set -q OSTYPE; or set OSTYPE ''
 
-if test (uname) = 'Darwin'
+if test (uname) = Darwin
     # Flush the dns cache #
     __croxed.create_abbr flushdns 'sudo killall -HUP mDNSResponder'
 
