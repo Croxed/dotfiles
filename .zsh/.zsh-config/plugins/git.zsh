@@ -243,3 +243,26 @@ alias glum='git pull upstream master'
 
 alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
+
+# Aliases and completion bindings formerly supplied by git.plugin.zsh.
+alias gc='git commit -v'
+alias gcm='git checkout master'
+alias gfg='git ls-files | grep'
+alias gp='git push'
+alias grev='git revert'
+alias groh='git reset origin/$(git_current_branch) --hard'
+alias grs='git restore'
+alias grss='git restore --source'
+alias gstu='git stash --include-untracked'
+alias gsw='git switch'
+alias gswc='git switch -c'
+alias gtl='gtl(){ git tag --sort=-v:refname -n -l "${1}*" }; noglob gtl'
+
+compdef _git _git_log_prettily=git-log
+compdef _git gdv=git-diff
+compdef _git ggf=git-checkout
+compdef _git ggfl=git-checkout
+compdef _git ggl=git-checkout
+compdef _git ggp=git-checkout
+compdef _git ggpnp=git-checkout
+compdef _git ggu=git-checkout

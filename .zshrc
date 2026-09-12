@@ -188,7 +188,7 @@ function _z4h_redraw_prompt() {
 
 ZSH_GENERATED_COMPLETIONS="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/generated-completions"
 
-mkdir -p "$ZSH_GENERATED_COMPLETIONS"
+[[ -d "$ZSH_GENERATED_COMPLETIONS" ]] || mkdir -p "$ZSH_GENERATED_COMPLETIONS"
 
 
 # ============================================================================
