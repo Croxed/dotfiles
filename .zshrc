@@ -237,7 +237,7 @@ function _z4h_generate_completion() {
 # ============================================================================
 
 function _z4h_complete_kubectl() {
-  emulate -L zsh
+  setopt localoptions
 
   # Remove our wrapper temporarily so kubectl's generated completion can
   # register the real function.
@@ -270,7 +270,7 @@ fi
 # ============================================================================
 
 function _z4h_complete_helm() {
-  emulate -L zsh
+  setopt localoptions
 
   unset '_comps[helm]'
 
@@ -300,7 +300,7 @@ fi
 # ============================================================================
 
 function _z4h_complete_oc() {
-  emulate -L zsh
+  setopt localoptions
 
   unset '_comps[oc]'
 
@@ -332,7 +332,7 @@ fi
 # ============================================================================
 
 function _z4h_complete_gh() {
-  emulate -L zsh
+  setopt localoptions
 
   local executable="${commands[gh]-}"
 
