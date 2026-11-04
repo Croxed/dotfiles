@@ -61,7 +61,7 @@ HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 typeset -gx HISTSIZE=1000000000
 typeset -gx SAVEHIST=1000000000
 
-setopt HIST_IGNORE_DUPS
+setopt INC_APPEND_HISTORY_TIME
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
@@ -151,11 +151,8 @@ source "${ZIM_HOME}/init.zsh"
 # ---------------------------------------------------------------------------
 
 zstyle ':z4h:*' fzf-command fzf
-zle -N z4h-fzf-history
 zle -N z4h-fzf-dir-history
 
-bindkey '^I' fzf-tab-complete
-bindkey '^R' z4h-fzf-history
 bindkey '^[r' z4h-fzf-dir-history
 
 function _z4h_redraw_prompt() {
@@ -680,12 +677,15 @@ bindkey '^[[B' history-substring-search-down
 # path to the framework root directory
 SIMPL_ZSH_DIR=${HOME}/.zsh/.zsh-config
 
+# Must be set before init.zsh: it adds $GOPATH/bin and defers sdkman.
+export GOPATH="$HOME/go"
+export SDKMAN_DIR="$HOME/.sdkman"
+
 . "${SIMPL_ZSH_DIR}/init.zsh"
 
 zimfw-update --auto
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
 export SCRIPT_TEMPLATE_DIR="$HOME/development/script-template"
 #Source the init.sh
 if [ -d "$SCRIPT_TEMPLATE_DIR" ]; then
@@ -698,3 +698,6 @@ fi
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 alias ggvm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+
+# Last: dedupe PATH after everything above (and installers) appended to it.
+typeset -U path

@@ -1,0 +1,1 @@
+- [zsh config layout](zsh-config-layout.md) — file layout, deferred zoxide, PATH dedupe

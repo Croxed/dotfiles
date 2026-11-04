@@ -11,38 +11,10 @@ ls()
 }
 
 unalias cd >/dev/null 2>&1
-if command -v zoxide &>/dev/null; then
-    cd()
-    {
-        z "$@" && command ls
-    }
-else
-    cd()
-    {
-        builtin cd "$@" && command ls
-    }
-fi
-
-por()
+# zoxide loads deferred; fall back to builtin cd until z exists.
+cd()
 {
-    local orphans
-    orphans="$(pacman -Qtdq 2>/dev/null)"
-    [[ -z $orphans ]] && printf "System has no orphaned packages\n" || sudo pacman -Rns $orphans
-}
-
-pss()
-{
-    PS3=$'\n'"Enter a package number to install, Ctrl-C to exit"$'\n\n'">> "
-    select pkg in $(pacman -Ssq "$1"); do sudo pacman -S $pkg; break; done
-}
-
-pacsearch()
-{
-    echo -e "$(pacman -Ss "$@" | sed \
-        -e 's#core/.*#\\033[1;31m&\\033[0;37m#g' \
-        -e 's#extra/.*#\\033[0;32m&\\033[0;37m#g' \
-        -e 's#community/.*#\\033[1;35m&\\033[0;37m#g' \
-        -e 's#^.*/.* [0-9].*#\\033[0;36m&\\033[0;37m#g')"
+    if (( $+functions[z] )); then z "$@"; else builtin cd "$@"; fi && command ls
 }
 
 tmuxx()

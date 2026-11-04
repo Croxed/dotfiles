@@ -5,7 +5,6 @@ COMPDUMPFILE=${ZDOTDIR:-${HOME}}/.zcompdump
 src()
 {
     autoload -U zrecompile
-    compinit -u -d $COMPDUMPFILE
     for f in ${ZDOTDIR:-$HOME}/.zshrc $COMPDUMPFILE; do
         zrecompile -p $f && command rm -f $f.zwc.old
     done
