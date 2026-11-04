@@ -4,3 +4,4 @@
 - PATH's `typeset -U` attribute gets lost in the plugin chain; dedupe is re-applied at the end of .zshrc.
 - GOPATH/SDKMAN_DIR must be exported before init.zsh is sourced.
 - Startup baseline: ~80ms (`/usr/bin/time zsh -ic exit`).
+- Ctrl-R = custom z4h-fzf-history in .zshrc (user tried atuin, disliked it). plugins load alphabetically after .zshrc bindings, so plugins (e.g. fzf.zsh) can steal keys.
